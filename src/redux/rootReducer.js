@@ -20,4 +20,3 @@ export default combineReducers({
   speakit: speakitReducer,
   sprint: sprintReducer,
 });
-// feature/skeleton-init commit
