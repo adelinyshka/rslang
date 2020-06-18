@@ -8,6 +8,7 @@ import puzzleReducer from '../games/puzzle/redux';
 import savannahReducer from '../games/savannah/redux';
 import speakitReducer from '../games/speakit/redux';
 import sprintReducer from '../games/sprint/redux';
+import statisticsReducer from '../statistics/redux';
 
 export default combineReducers({
   auth: authReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   savannah: savannahReducer,
   speakit: speakitReducer,
   sprint: sprintReducer,
+  statistics: statisticsReducer,
 });
