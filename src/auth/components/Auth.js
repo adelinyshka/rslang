@@ -3,18 +3,17 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-} from "react-router-dom";
-import Login from './login/login';
-import Signin from './login/signin';
-import startPage from './login/startPage';
+} from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
+import startPage from './login/startPage';
+import Signin from './login/signin';
+import Login from './login/login';
 import App from './App';
 import reducers from './reducers';
 import './Auth.css';
-
 
 const history = createBrowserHistory();
 const store = createStore(
@@ -25,7 +24,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router history={history}>
       <Provider store={store}>
-        <App />
+        <Auth />
       </Provider>
     </Router>
   </React.StrictMode>,
