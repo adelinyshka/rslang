@@ -1,9 +1,12 @@
 import React from 'react';
-import styles from './App.module.css';
+// import styles from './App.module.css';
+import { Main } from './layout/components/Main/main.js';
 
 function App() {
   return (
-    <div className={styles.App} />
+    <React.Fragment>
+      <Main />
+    </React.Fragment>
   );
 }
 
