@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo&display=swap');
+
+ul {
+  list-style-type: none;
+  padding        : 0;
+  height         : 100%;
+}
+
+.MenuContainer {
+  position: fixed;
+  top     : 0;
+  left    : 0;
+  height  : 100%;
+  width   : 330px;
+}
+
+@media (min-device-width: 768px) {
+  .Menu {
+    position  : absolute;
+    top       : 0;
+    left      : 0;
+    width     : 30%;
+    height    : 100%;
+    background: linear-gradient(187.85deg, #BD7AE3 0%, #8461C9 100%);
+    box-shadow: 7px 0px 64px rgba(0, 0, 0, 0.15);
+    transition: width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
+    overflow  : hidden;
+  }
+}
+
+.Menu:hover {
+  width: 100%;
+}
+
+.Logo {
+  margin     : 27px 16px 5px 29px;
+  display    : flex;
+  font-family: 'Exo', sans-serif;
+  font-size  : 50px;
+  line-height: 22px;
+  color      : #FFF;
+  font-weight: normal;
+}
+
+@media (max-device-height: 680px) {
+
+  ul {
+    overflow-y: scroll;
+  }
+}
+
+.LogoBlue {
+  font-family: 'Exo', sans-serif;
+  font-size  : 50px;
+  line-height: 22px;
+  color      : #6979F8;
+  margin     : 36px 0px 0px 108px;
+}
+
+.HeaderMenu {
+  display: flex;
+}
+
+.LogoWhite {
+  font-family: 'Exo', sans-serif;
+  font-size  : 50px;
+  line-height: 22px;
+  color      : #FFF;
+  margin     : 27px 0px 0 6px;
+}
+
+.Home {
+  display        : flex;
+  align-items    : center;
+  height         : 65px;
+  width          : 330px;
+  text-decoration: none;
+}

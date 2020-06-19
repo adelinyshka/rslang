@@ -1,0 +1,28 @@
+.Icon img {
+  height: 35px;
+  width : 35px;
+}
+
+.Icon {
+  padding: 10px 0px 0px 32px;
+}
+
+.Link {
+  display        : flex;
+  align-items    : center;
+  height         : 65px;
+  width          : 330px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #6979F8;
+}
+
+.label {
+  padding-left: 35px;
+  font-family : 'Exo', sans-serif;
+  font-Size   : 20px;
+  line-Height : 22px;
+  color       : #FFFFFF;
+}

@@ -1,0 +1,28 @@
+.ToolbarContainer {
+  opacity: 0;
+}
+
+@media (max-width: 767px) {
+  .Menu {
+    position  : absolute;
+    top       : 0;
+    left      : 0;
+    width     : 0%;
+    height    : 100%;
+    background: linear-gradient(187.85deg, #BD7AE3 0%, #8461C9 100%);
+    box-shadow: 7px 0px 64px rgba(0, 0, 0, 0.15);
+    transition: width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
+    overflow  : hidden;
+  }
+
+  .ToolbarContainer {
+    position  : fixed;
+    top       : 0;
+    left      : 0;
+    height    : 50px;
+    width     : 100%;
+    opacity   : 1;
+    background: linear-gradient(187.85deg, #BD7AE3 0%, #8461C9 100%);
+    box-shadow: 7px 0px 64px rgba(0, 0, 0, 0.15);
+  }
+}

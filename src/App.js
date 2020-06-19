@@ -2,35 +2,12 @@ import React from 'react';
 import {
   BrowserRouter as Router, Switch, Route, Link,
 } from 'react-router-dom';
+import Menu from './layout/components/Menu/Menu';
 import styles from './App.module.css';
 
 const App = () => (
   <Router>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/profile">Профиль</Link>
-        </li>
-        <li>
-          <Link to="/settings">Настройки приложения</Link>
-        </li>
-        <li>
-          <Link to="/games">Мини игры</Link>
-        </li>
-        <li>
-          <Link to="/cards">Карточки</Link>
-        </li>
-        <li>
-          <Link to="/dictionary">Словарь</Link>
-        </li>
-        <li>
-          <Link to="/statistics">Статистика</Link>
-        </li>
-        <li>
-          <Link to="/login">Выход</Link>
-        </li>
-      </ul>
-    </nav>
+    <Menu />
     <Switch>
       <Route exact path="/">
         <div>
