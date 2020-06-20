@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
-import Card from './Card/Card';
+import WordCard from './WordCard/WordCard';
 
 const CardsCarousel = ({ cardsInfo }) => {
   const [index, setIndex] = useState(0);
@@ -23,16 +24,20 @@ const CardsCarousel = ({ cardsInfo }) => {
       style={{ backgroundColor: 'black' }}
     >
       <Carousel.Item>
-        <Card cardInfo={cardsInfo[0]} />
+        <WordCard cardInfo={cardsInfo[0]} />
       </Carousel.Item>
       <Carousel.Item>
-        <Card cardInfo={cardsInfo[1]} />
+        <WordCard cardInfo={cardsInfo[1]} />
       </Carousel.Item>
       <Carousel.Item>
-        <Card cardInfo={cardsInfo[2]} />
+        <WordCard cardInfo={cardsInfo[2]} />
       </Carousel.Item>
     </Carousel>
   );
+};
+
+CardsCarousel.propTypes = {
+  cardsInfo: PropTypes.array.isRequired,
 };
 
 export default CardsCarousel;
