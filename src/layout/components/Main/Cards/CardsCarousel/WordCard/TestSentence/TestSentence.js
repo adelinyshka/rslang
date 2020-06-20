@@ -5,15 +5,24 @@ const TestSentence = ({
   testArr, word, cardsInfo, setCardsInfo,
 }) => {
   const [value, setValue] = useState();
+  const [isMistake, setIsMistake] = useState();
+  console.log(word);
   const checkWord = (event) => {
     event.preventDefault();
     if (value.toLowerCase() === word) {
       alert('YES');
       const newCards = [...cardsInfo];
-      newCards.shift();
+      const activeCard = newCards.shift();
+      if (isMistake) {
+        newCards.push(activeCard);
+      }
       setCardsInfo(newCards);
       setValue('');
-    } else alert('NO');
+      setIsMistake(false);
+    } else {
+      setIsMistake(true);
+      alert('no');
+    }
   };
   return (
     <form onSubmit={checkWord}>

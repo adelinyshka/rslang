@@ -24,7 +24,7 @@ const Cards = () => {
   const [cardsInfo, setCardsInfo] = useState();
   useEffect(() => {
     getWords(token)
-      .then((data) => setCardsInfo(data))
+      .then((data) => setCardsInfo(data.splice(0, 2)))
       .catch((er) => console.log(er));
   }, [token]);
 
@@ -36,7 +36,9 @@ const Cards = () => {
         <div>Показать перевод</div>
       </div>
       <div className={styles.Cards}>
-        <CardsCarousel cardsInfo={cardsInfo} setCardsInfo={setCardsInfo} />
+        {cardsInfo && cardsInfo.length
+          ? <CardsCarousel cardsInfo={cardsInfo} setCardsInfo={setCardsInfo} />
+          : <h1>Карточек не осталось</h1>}
       </div>
       <div className={styles.Intervals}>
         Интервалы

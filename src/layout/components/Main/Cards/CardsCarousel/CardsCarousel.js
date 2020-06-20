@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
 import WordCard from './WordCard/WordCard';
@@ -10,11 +10,23 @@ const CardsCarousel = ({ cardsInfo, setCardsInfo }) => {
     setIndex(selectedIndex);
   };
 
-  if (!cardsInfo) {
-    return (
-      <h1>Карточек не осталось</h1>
-    );
-  }
+  const CarouselItems = useMemo(() => {
+    const itemsArr = [];
+    for (let i = 0; i < 3 && i < cardsInfo.length; i++) {
+      const item = (
+        <Carousel.Item>
+          <WordCard
+            cardInfo={cardsInfo[i]}
+            setCardsInfo={setCardsInfo}
+            cardsInfo={cardsInfo}
+            key={i}
+          />
+        </Carousel.Item>
+      );
+      itemsArr.push(item);
+    }
+    return itemsArr;
+  }, [cardsInfo, setCardsInfo]);
 
   return (
     <Carousel
@@ -23,19 +35,7 @@ const CardsCarousel = ({ cardsInfo, setCardsInfo }) => {
       interval={null}
       style={{ backgroundColor: 'black' }}
     >
-      <Carousel.Item>
-        <WordCard
-          cardInfo={cardsInfo[0]}
-          setCardsInfo={setCardsInfo}
-          cardsInfo={cardsInfo}
-        />
-      </Carousel.Item>
-      <Carousel.Item>
-        <WordCard cardInfo={cardsInfo[1]} />
-      </Carousel.Item>
-      <Carousel.Item>
-        <WordCard cardInfo={cardsInfo[2]} />
-      </Carousel.Item>
+      {CarouselItems}
     </Carousel>
   );
 };
