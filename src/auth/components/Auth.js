@@ -5,44 +5,42 @@ import {
   Route,
 } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import startPage from './login/startPage';
-import Signin from './login/signin';
-import Login from './login/login';
-import App from './App';
-import reducers from './reducers';
+import startPage from './Signin/startPage';
+import { Signin } from './Signin/Signin';
+import Signup from './Signup/Signup';
 import './Auth.css';
 
 const history = createBrowserHistory();
-const store = createStore(
-  reducers,
-);
-
-ReactDOM.render(
-  <React.StrictMode>
-    <Router history={history}>
-      <Provider store={store}>
-        <Auth />
-      </Provider>
-    </Router>
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
 
 function Auth() {
   return (
     <Router>
-      <div>
+      <div className="Auth">
+        <div className="line" />
+        <header className="Auth-header">
+          <h1>
+              RS
+            <span className="header-blue">Lang</span>
+          </h1>
+        </header>
         <Switch>
-          <Route path="/login" component={Login} />
           <Route path="/signin" component={Signin} />
+          <Route path="/signup" component={Signup} />
           <Route path="/" component={startPage} />
         </Switch>
       </div>
     </Router>
   );
 }
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Router history={history}>
+      <Auth />
+    </Router>
+  </React.StrictMode>,
+  document.getElementById('root'),
+);
 
 export default Auth;

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router, Switch, Route, Link,
 } from 'react-router-dom';
+import Auth from './auth/components/Auth';
 import styles from './App.module.css';
 
 const App = () => (
@@ -27,7 +28,7 @@ const App = () => (
           <Link to="/statistics">Статистика</Link>
         </li>
         <li>
-          <Link to="/login">Выход</Link>
+          <Link to="/logout">Выход</Link>
         </li>
       </ul>
     </nav>
@@ -67,14 +68,15 @@ const App = () => (
           <h1>Статистика</h1>
         </div>
       </Route>
-      <Route exact path="/login">
+      <Route exact path="/signin">
         <div>
           <h1>Страница авторизации</h1>
         </div>
       </Route>
-      <Route exact path="/signin">
+      <Route exact path="/signup">
         <div>
           <h1>Страница регистрации</h1>
+          <Auth />
         </div>
       </Route>
     </Switch>
