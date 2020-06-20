@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
+import Carousel from './layout/components/Main/Cards/CardsCarousel/CardsCarousel';
 
 ReactDOM.render(
   <React.StrictMode>
