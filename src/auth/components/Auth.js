@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
-import startPage from './Signin/startPage';
 import { Signin } from './Signin/Signin';
 import Signup from './Signup/Signup';
 import './Auth.css';
@@ -27,7 +26,6 @@ function Auth() {
         <Switch>
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
-          <Route path="/" component={startPage} />
         </Switch>
       </div>
     </Router>

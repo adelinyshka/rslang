@@ -71,6 +71,7 @@ const App = () => (
       <Route exact path="/signin">
         <div>
           <h1>Страница авторизации</h1>
+          <Auth />
         </div>
       </Route>
       <Route exact path="/signup">
