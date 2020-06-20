@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import TestSentence from './TestSentence/TestSentence';
 
-const WordCard = ({ cardInfo }) => {
+const WordCard = ({ cardsInfo, setCardsInfo, cardInfo }) => {
   const {
     textExampleTranslate, wordTranslate, textExample,
   } = cardInfo;
@@ -18,7 +18,12 @@ const WordCard = ({ cardInfo }) => {
     <Card style={{ width: '50%', margin: '0 auto' }}>
       <Card.Body>
         <Card.Title>
-          <TestSentence testArr={testArr} word={word} />
+          <TestSentence
+            testArr={testArr}
+            word={word}
+            cardsInfo={cardsInfo}
+            setCardsInfo={setCardsInfo}
+          />
         </Card.Title>
         <Card.Text>
           <p>{textExampleTranslate}</p>
@@ -31,6 +36,8 @@ const WordCard = ({ cardInfo }) => {
 
 WordCard.propTypes = {
   cardInfo: PropTypes.object.isRequired,
+  cardsInfo: PropTypes.array.isRequired,
+  setCardsInfo: PropTypes.func.isRequired,
 };
 
 export default WordCard;

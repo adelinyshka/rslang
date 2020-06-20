@@ -36,7 +36,7 @@ const Cards = () => {
         <div>Показать перевод</div>
       </div>
       <div className={styles.Cards}>
-        <CardsCarousel cardsInfo={cardsInfo} />
+        <CardsCarousel cardsInfo={cardsInfo} setCardsInfo={setCardsInfo} />
       </div>
       <div className={styles.Intervals}>
         Интервалы
