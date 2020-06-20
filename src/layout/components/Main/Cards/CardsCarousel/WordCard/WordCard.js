@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import TestSentence from './TestSentence/TestSentence';
@@ -7,10 +7,10 @@ const WordCard = ({ cardInfo }) => {
   const {
     textExampleTranslate, wordTranslate, textExample,
   } = cardInfo;
-  const testArr = useCallback(
+  const testArr = useMemo(
     () => textExample.split(/<b>[\w]{0,}<\/b>/), [textExample],
   );
-  const word = useCallback(
+  const word = useMemo(
     () => textExample.match(/<b>([\w]{0,})<\/b>/)[1], [textExample],
   );
 
@@ -18,7 +18,7 @@ const WordCard = ({ cardInfo }) => {
     <Card style={{ width: '50%', margin: '0 auto' }}>
       <Card.Body>
         <Card.Title>
-          <TestSentence testArr={testArr()} word={word()} />
+          <TestSentence testArr={testArr} word={word} />
         </Card.Title>
         <Card.Text>
           <p>{textExampleTranslate}</p>
