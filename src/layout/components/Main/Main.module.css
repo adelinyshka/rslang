@@ -2,7 +2,7 @@ body {
     background-color: #f6f6f6;
 }
 
-img {
+.Block img {
     display: block;
     margin: 30px auto;
 }
@@ -13,9 +13,7 @@ img {
     color: #6979F8;
     padding-left: 30px;
 }
-span {
-    color: white;
-}
+
 .Main_content {
     display: flex;
     height: 760px;
@@ -32,7 +30,7 @@ span {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+.Block h2 {
     font-style: normal;
     font-weight: normal;
     font-size: 22px;
@@ -40,7 +38,7 @@ h2 {
     text-align: center;
 }
 
-p {
+.Block p {
     font-family: "SF Pro Text";
     font-style: normal;
     font-weight: normal;
@@ -52,7 +50,7 @@ p {
     outline: none;
 }
 
-button {
+.Btn {
     width: 272px;
     height: 48px;
     position: relative;
@@ -66,14 +64,14 @@ button {
     font-weight: 200;
     font-size: 17px;
     line-height: 22px;
-}
-
-button:hover {
-    width: 255px;
     transition: ease-out 0.1s;
 }
 
-button, button:active, button:focus {
+.Btn:hover {
+    width: 255px;
+}
+
+.Btn, .Btn:active, .Btn:focus {
     cursor: pointer;
     outline: none;
 }
@@ -83,12 +81,12 @@ button, button:active, button:focus {
     margin-block-end: 2em;
 }
 
-form {
+.Block form {
     display: flex;
     justify-content: space-evenly;
 }
 
-input {
+.Radio input {
     transform: scale(1.5);
     font-family: Roboto;
     font-style: normal;
@@ -112,7 +110,7 @@ input {
     .Block {
         width: 310px;
     }
-    button {
+    .Btn {
         width: 263.5px;
     }
 }
@@ -128,28 +126,28 @@ input {
     }
     .Block:hover {
         transform: scale(0.97);
-        transition: ease-in 0.2s;
         cursor: pointer;
+        transition: ease-out 0.2s;
     }
-    img {
+    .Block img {
         width: 48px;
         height: 72px;
         margin: 15px auto;
     }
-    button {
+    .Btn {
         display: none;
     }
-    h2 {
+    .Block h2 {
         margin-block-start: 0;
         margin-block-end: 0;
     }
     .P_games {
         margin-block-start: 0.5em;
     }
-    p {
+    .Block p {
         padding: 0 31px;
     }
-    form {
+    .Block form {
         display: none;
     }
 }
