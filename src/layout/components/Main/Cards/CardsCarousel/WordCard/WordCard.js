@@ -5,16 +5,20 @@ import TestSentence from './TestSentence/TestSentence';
 
 const WordCard = ({ cardInfo }) => {
   const {
-    word, textExampleTranslate, wordTranslate, textExample,
+    textExampleTranslate, wordTranslate, textExample,
   } = cardInfo;
   const testArr = useCallback(
-    () => textExample.split(`<b>${word}</b>`), [word, textExample],
+    () => textExample.split(/<b>[\w]{0,}<\/b>/), [textExample],
   );
+  const word = useCallback(
+    () => textExample.match(/<b>([\w]{0,})<\/b>/)[1], [textExample],
+  );
+
   return (
     <Card style={{ width: '50%', margin: '0 auto' }}>
       <Card.Body>
         <Card.Title>
-          <TestSentence testArr={testArr()} word={word} />
+          <TestSentence testArr={testArr()} word={word()} />
         </Card.Title>
         <Card.Text>
           <p>{textExampleTranslate}</p>
