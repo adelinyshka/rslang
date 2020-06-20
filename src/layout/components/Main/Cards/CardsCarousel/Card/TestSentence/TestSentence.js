@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const TestSentence = ({ testArr, word }) => {
   const [value, setValue] = useState();
@@ -18,6 +19,11 @@ const TestSentence = ({ testArr, word }) => {
       {testArr[1]}
     </form>
   );
+};
+
+TestSentence.propTypes = {
+  testArr: PropTypes.array.isRequired,
+  word: PropTypes.string.isRequired,
 };
 
 export default TestSentence;

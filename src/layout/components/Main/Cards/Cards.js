@@ -14,7 +14,6 @@ const getWords = async (token) => {
     },
   );
   const content = await rawResponse.json();
-  console.log(content);
   return content;
 };
 
