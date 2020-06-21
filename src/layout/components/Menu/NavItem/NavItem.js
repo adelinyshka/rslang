@@ -6,13 +6,16 @@ import {
 
 import classes from './NavItem.module.css';
 
-const NavItem = ({ title, icon, link }) => ( // eslint-disable-line
+const NavItem = ({
+  // eslint-disable-next-line react/prop-types
+  title, icon, link, ClickHandler,
+}) => (
   <li className={classes.Item}>
     <Link className={classes.Link} to={link}>
       <div className={classes.Icon}>
-        <img src={`./assets/img/${icon}`} alt="" />
+        <img src={`./assets/images/${icon}`} alt="" />
       </div>
-      <div className={classes.label}>{title}</div>
+      <div className={classes.Label}>{title}</div>
     </Link>
   </li>
 );

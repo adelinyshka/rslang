@@ -10,47 +10,47 @@ const App = () => (
     <Menu />
     <Switch>
       <Route exact path="/">
-        <div>
+        <div className={styles.PageName}>
           <h1>Домашняя страница</h1>
         </div>
       </Route>
       <Route exact path="/profile">
-        <div>
+        <div className={styles.PageName}>
           <h1>Профиль</h1>
         </div>
       </Route>
       <Route exact path="/settings">
-        <div>
+        <div className={styles.PageName}>
           <h1>Настройки</h1>
         </div>
       </Route>
       <Route exact path="/games">
-        <div>
+        <div className={styles.PageName}>
           <h1>Мини игры</h1>
         </div>
       </Route>
       <Route exact path="/cards">
-        <div>
+        <div className={styles.PageName}>
           <h1>Карточки</h1>
         </div>
       </Route>
       <Route exact path="/dictionary">
-        <div>
+        <div className={styles.PageName}>
           <h1>Словарь</h1>
         </div>
       </Route>
       <Route exact path="/statistics">
-        <div>
+        <div className={styles.PageName}>
           <h1>Статистика</h1>
         </div>
       </Route>
       <Route exact path="/login">
-        <div>
+        <div className={styles.PageName}>
           <h1>Страница авторизации</h1>
         </div>
       </Route>
       <Route exact path="/signin">
-        <div>
+        <div className={styles.PageName}>
           <h1>Страница регистрации</h1>
         </div>
       </Route>

@@ -1,28 +1,59 @@
-.Icon img {
-  height: 35px;
-  width : 35px;
-}
-
-.Icon {
-  padding: 10px 0px 0px 32px;
-}
-
 .Link {
   display        : flex;
   align-items    : center;
   height         : 65px;
   width          : 330px;
   text-decoration: none;
+  transition     : background-color 300ms linear 10ms;
+  overflow       : hidden;
 }
 
-li a:hover {
+.Link:hover {
   background-color: #6979F8;
+  opacity         : 0.9;
 }
 
-.label {
+.Icon {
+  padding: 0px 0px 0px 32px;
+}
+
+.Icon img {
+  height: 35px;
+  width : 35px;
+}
+
+.Label {
   padding-left: 35px;
-  font-family : 'Exo', sans-serif;
   font-Size   : 20px;
   line-Height : 22px;
   color       : #FFFFFF;
+}
+
+
+@media (max-width: 768px) {
+  .Link {
+    display        : flex;
+    align-items    : center;
+    height         : 8vh;
+    width          : 330px;
+    text-decoration: none;
+  }
+
+  .Icon img {
+    height: 30px;
+    width : 30px;
+  }
+
+
+  .Link:active {
+    background-color: #6979F8;
+    opacity         : 0.9;
+    overflow        : hidden;
+  }
+
+  .Link:hover {
+    background-color: transparent;
+    opacity         : 1;
+  }
+
 }
