@@ -23,13 +23,9 @@ async function loginUser(user) {
     } = await rawResponse.json();
 
     if (rawResponse.status === 200) {
-      localStorage.setItem('id', userId);
-      localStorage.setItem('token', token);
-
       return { token, id: userId };
     }
-
-    return true;
+    throw new Error();
   } catch (e) {
     return e;
   }
@@ -38,51 +34,46 @@ async function loginUser(user) {
 function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogged, setIsLogged] = useState(!!localStorage.getItem('token'));
 
-  async function submitHandler(event) {
+  const submitHandler = (event) => {
     event.preventDefault();
-
-    await loginUser({ 'email': email, 'password': password });
-
-    if (localStorage.getItem('token')) {
-      return <Redirect to="/" />;
-    }
-
-    if (localStorage.getItem('token')) {
-      setEmail('');
-      setPassword('');
-    }
-
-    return true;
-  }
-
-  if (localStorage.getItem('token')) {
-    return <Redirect to="/" />;
-  }
+    loginUser({ 'email': email, 'password': password })
+      .then(({ userId, token }) => {
+        localStorage.setItem('id', userId);
+        localStorage.setItem('token', token);
+        setEmail('');
+        setPassword('');
+        setIsLogged(true);
+      })
+      .catch((er) => console.log(er));
+  };
 
   return (
-    <form onSubmit={submitHandler} className={styles.form}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        className={styles.input}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        pattern="(?=.*[0-9])(?=.*[+-_@$!%*?&#.,;:[\]{}])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z+-_@$!%*?&#.,;:[\]{}]{8,}"
-        onChange={(event) => setPassword(event.target.value)}
-        className={styles.input}
-      />
-      <button type="submit" className={styles.button} id="button-create">
-        Войти
-      </button>
-      <Link className={styles.form_link} to="/signup">Создать аккаунт</Link>
-    </form>
+    <>
+      {isLogged && <Redirect to="/" />}
+      <form onSubmit={submitHandler} className={styles.form}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          className={styles.input}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          className={styles.input}
+        />
+        <button type="submit" className={styles.button} id="button-create">
+          Войти
+        </button>
+        <Link className={styles.form_link} to="/signup">Создать аккаунт</Link>
+      </form>
+    </>
   );
 }
 
-export { Signin, loginUser };
+export default Signin;

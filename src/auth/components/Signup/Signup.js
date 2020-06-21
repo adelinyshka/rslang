@@ -3,7 +3,6 @@ import {
   Redirect,
   Link,
 } from 'react-router-dom';
-import { loginUser } from '../Signin/Signin';
 import styles from './Signup.module.css';
 
 async function createUser(user) {
@@ -18,14 +17,13 @@ async function createUser(user) {
       body: JSON.stringify(user),
     });
 
-    const content = await rawResponse.json();
+    const { id } = await rawResponse.json();
 
     if (rawResponse.status === 200) {
-      localStorage.setItem('email', content.email);
-      localStorage.setItem('id', content.id);
+      return id;
     }
 
-    return true;
+    throw new Error();
   } catch (e) {
     return e;
   }
@@ -35,62 +33,58 @@ function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSigned, setIsSigned] = useState(!!localStorage.getItem('isSigned'));
 
-  async function submitHandler(event) {
+  const submitHandler = (event) => {
     event.preventDefault();
 
-    await createUser({ 'email': email, 'password': password });
-
-    if (localStorage.getItem('id')) {
-      await loginUser({
-        'email': email,
-        'password': password,
-      });
-    }
-
-    if (localStorage.getItem('token')) {
-      setName('');
-      setEmail('');
-      setPassword('');
-    }
-
-    return true;
-  }
-
-  if (localStorage.getItem('token')) {
-    return <Redirect to="/" />;
-  }
+    createUser({ 'email': email, 'password': password })
+      .then(() => {
+        setIsSigned(true);
+        localStorage.setItem('isSigned', true);
+      })
+      .catch((er) => console.log(er));
+  };
 
   return (
-    <form onSubmit={submitHandler} className={styles.form}>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        pattern="[a-zA-Z]{4,}"
-        onChange={(event) => setName(event.target.value)}
-        className={styles.input}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        className={styles.input}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        pattern="(?=.*[0-9])(?=.*[+-_@$!%*?&#.,;:[\]{}])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z+-_@$!%*?&#.,;:[\]{}]{8,}"
-        onChange={(event) => setPassword(event.target.value)}
-        className={styles.input}
-      />
-      <button type="submit" className={styles.button} id="button-create">
+    <>
+      {!!localStorage.getItem('token') && <Redirect to="/" />}
+      {isSigned && <Redirect to="/signin" />}
+      <form onSubmit={submitHandler} className={styles.form}>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          pattern="[a-zA-Z]{4,}"
+          onChange={(event) => setName(event.target.value)}
+          className={styles.input}
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          className={styles.input}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          pattern="(?=.*[0-9])(?=.*[+-_@$!%*?&#.,;:[\]{}])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z+-_@$!%*?&#.,;:[\]{}]{8,}"
+          onChange={(event) => setPassword(event.target.value)}
+          className={styles.input}
+        />
+        <button type="submit" className={styles.button} id="button-create">
         Создать аккаунт
-      </button>
-      <Link className={styles.form_link} to="/signin">У меня есть аккаунт</Link>
-    </form>
+        </button>
+        <Link
+          className={styles.form_link}
+          to="/signin"
+        >
+          У меня есть аккаунт
+        </Link>
+      </form>
+    </>
   );
 }
 
