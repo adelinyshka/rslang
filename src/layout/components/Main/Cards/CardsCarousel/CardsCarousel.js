@@ -14,12 +14,11 @@ const CardsCarousel = ({ cardsInfo, setCardsInfo }) => {
     const itemsArr = [];
     for (let i = 0; i < 3 && i < cardsInfo.length; i++) {
       const item = (
-        <Carousel.Item>
+        <Carousel.Item key={i}>
           <WordCard
             cardInfo={cardsInfo[i]}
             setCardsInfo={setCardsInfo}
             cardsInfo={cardsInfo}
-            key={i}
           />
         </Carousel.Item>
       );

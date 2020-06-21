@@ -24,7 +24,7 @@ const Cards = () => {
   const [cardsInfo, setCardsInfo] = useState();
   useEffect(() => {
     getWords(token)
-      .then((data) => setCardsInfo(data.splice(0, 2)))
+      .then((data) => setCardsInfo(data))
       .catch((er) => console.log(er));
   }, [token]);
 

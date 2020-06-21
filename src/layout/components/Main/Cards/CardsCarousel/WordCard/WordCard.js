@@ -26,8 +26,8 @@ const WordCard = ({ cardsInfo, setCardsInfo, cardInfo }) => {
           />
         </Card.Title>
         <Card.Text>
-          <p>{textExampleTranslate}</p>
-          <p>{wordTranslate}</p>
+          <span>{textExampleTranslate}</span>
+          <span>{wordTranslate}</span>
         </Card.Text>
       </Card.Body>
     </Card>
