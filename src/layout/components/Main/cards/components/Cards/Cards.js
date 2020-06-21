@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { cardsInfo } from '../../redux/selectors';
+import { changeCards } from '../../redux/actions';
 import CardsCarousel from './CardsCarousel/CardsCarousel';
 import styles from './Cards.module.css';
 
@@ -21,12 +24,13 @@ const Cards = () => {
   // token будем получать из redux
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzk5M2RmNGNhOWQ2MDAxNzg3NDBhZSIsImlhdCI6MTU5MDI2OTE1OCwiZXhwIjoxNTkwMjgzNTU4fQ.XHKmdY_jk1R7PUbgCZfqH8TxH6XQ0USwPBSKNHMdF6I';
   const numOfWords = 20; // тоже из redux
-  const [cardsInfo, setCardsInfo] = useState();
+  const { cardsArr } = useSelector(cardsInfo);
+  const dispatch = useDispatch();
   useEffect(() => {
     getWords(token)
-      .then((data) => setCardsInfo(data))
+      .then((data) => dispatch(changeCards(data)))
       .catch((er) => console.log(er));
-  }, [token]);
+  }, [token, dispatch]);
 
   return (
     <div className={styles.Container}>
@@ -36,15 +40,15 @@ const Cards = () => {
         <div>Показать перевод</div>
       </div>
       <div className={styles.Cards}>
-        {cardsInfo && cardsInfo.length
-          ? <CardsCarousel cardsInfo={cardsInfo} setCardsInfo={setCardsInfo} />
+        {cardsArr
+          ? <CardsCarousel />
           : <h1>Карточек не осталось</h1>}
       </div>
       <div className={styles.Intervals}>
-        Интервалы
+          Интервалы
       </div>
       <div className={styles.Progress}>
-        Прогресс
+          Прогресс
       </div>
     </div>
   );

@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { cardsInfo } from '../../../../../redux/selectors';
+import { changeCards } from '../../../../../redux/actions';
 
 const TestSentence = ({
-  testArr, word, cardsInfo, setCardsInfo,
+  testArr, word,
 }) => {
-  const [value, setValue] = useState();
-  const [isMistake, setIsMistake] = useState();
-  console.log(word);
+  const [value, setValue] = useState('');
+  const [isMistake, setIsMistake] = useState('');
+  const dispatch = useDispatch();
+  const { cardsArr } = useSelector(cardsInfo);
+
   const checkWord = (event) => {
     event.preventDefault();
     if (value.toLowerCase() === word) {
       alert('YES');
-      const newCards = [...cardsInfo];
+      const newCards = [...cardsArr];
       const activeCard = newCards.shift();
       if (isMistake) {
         newCards.push(activeCard);
       }
-      setCardsInfo(newCards);
+      dispatch(changeCards(newCards));
       setValue('');
       setIsMistake(false);
     } else {
@@ -24,6 +29,7 @@ const TestSentence = ({
       alert('no');
     }
   };
+
   return (
     <form onSubmit={checkWord}>
       {testArr[0]}
@@ -40,8 +46,6 @@ const TestSentence = ({
 TestSentence.propTypes = {
   testArr: PropTypes.array.isRequired,
   word: PropTypes.string.isRequired,
-  cardsInfo: PropTypes.array.isRequired,
-  setCardsInfo: PropTypes.func.isRequired,
 };
 
 export default TestSentence;

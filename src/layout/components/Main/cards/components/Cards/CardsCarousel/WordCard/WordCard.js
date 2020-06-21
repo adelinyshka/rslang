@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import TestSentence from './TestSentence/TestSentence';
 
-const WordCard = ({ cardsInfo, setCardsInfo, cardInfo }) => {
+const WordCard = ({ cardInfo }) => {
   const {
     textExampleTranslate, wordTranslate, textExample,
   } = cardInfo;
@@ -13,16 +13,13 @@ const WordCard = ({ cardsInfo, setCardsInfo, cardInfo }) => {
   const word = useMemo(
     () => textExample.match(/<b>([\w]{0,})<\/b>/)[1], [textExample],
   );
-
   return (
-    <Card style={{ width: '50%', margin: '0 auto' }}>
+    <Card style={{ width: '50%' }}>
       <Card.Body>
         <Card.Title>
           <TestSentence
             testArr={testArr}
             word={word}
-            cardsInfo={cardsInfo}
-            setCardsInfo={setCardsInfo}
           />
         </Card.Title>
         <Card.Text>
@@ -36,8 +33,6 @@ const WordCard = ({ cardsInfo, setCardsInfo, cardInfo }) => {
 
 WordCard.propTypes = {
   cardInfo: PropTypes.object.isRequired,
-  cardsInfo: PropTypes.array.isRequired,
-  setCardsInfo: PropTypes.func.isRequired,
 };
 
 export default WordCard;

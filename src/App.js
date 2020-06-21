@@ -2,7 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router, Switch, Route, Link,
 } from 'react-router-dom';
-import Cards from './layout/components/Main/Cards/Cards';
+import Cards from './layout/components/Main/cards/components/Cards/Cards';
 import styles from './App.module.css';
 
 const App = () => (
