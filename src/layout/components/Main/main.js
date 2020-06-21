@@ -1,61 +1,47 @@
 import React from 'react';
 import styles from './Main.module.css';
+import Panel from './Panel';
 
 export default function Main() {
+  const values = [
+    { value: 'new', label: 'Новые', defaultChecked: true },
+    { value: 'repeat', label: 'Повтор' },
+    { value: 'all', label: 'Все' }];
   return (
     <div>
       <div className={styles.Main_content}>
-        <div className={styles.Block}>
-          <img
-            src="./assets/images/Verify.png"
-            alt="games"
-          />
-          <h2>Мини игры</h2>
-          <p className={styles.P_games}>
-            6 увлекательных мини игр для тренировки слов
-          </p>
-          <button
-            className={styles.Btn}
-            type="button"
-            variant="contained"
-            disableelevation="true"
-          >
-            ИГРАТЬ
-          </button>
-        </div>
-        <div className={styles.Block}>
-          <img
-            src="./assets/images/Camera.png"
-            alt="cards"
-          />
-          <h2>Карточки</h2>
-          <p>
-            Благодаря методике интервального повторения вы
-            быстро пополните свой словарный запас
-          </p>
-          <button
-            className={styles.Btn}
-            type="button"
-            variant="contained"
-            disableelevation="true"
-          >
-            УЧИТЬ
-          </button>
+        <Panel
+          myStyle={styles.P_games}
+          img="./assets/images/Verify.png"
+          alt="games"
+          header="Мини игры"
+          description="6 увлекательных мини игр для тренировки слов"
+          actionName="ИГРАТЬ"
+        />
+        <Panel
+          img="./assets/images/Camera.png"
+          alt="cards"
+          header="Карточки"
+          description="Благодаря методике интервального повторения вы
+            быстро пополните свой словарный запас"
+          actionName="УЧИТЬ"
+        >
           <form>
-            <div className={styles.Radio}>
-              <input type="radio" name="gameMode" value="new" defaultChecked />
-                Новые
-            </div>
-            <div className={styles.Radio}>
-              <input type="radio" name="gameMode" value="repeat" />
-                Повтор
-            </div>
-            <div className={styles.Radio}>
-              <input type="radio" name="gameMode" value="all" />
-                Все
-            </div>
+            {
+              values.map(({ value, label, defaultChecked = false }, index) => (
+                <div key={index} className={styles.Radio}>
+                  <input
+                    type="radio"
+                    name="gameMode"
+                    value={value}
+                    defaultChecked={defaultChecked}
+                  />
+                  {label}
+                </div>
+              ))
+            }
           </form>
-        </div>
+        </Panel>
       </div>
     </div>
   );
