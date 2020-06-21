@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardsInfoSelector } from '../../../../../redux/selectors';
@@ -7,10 +7,12 @@ import { changeCards, changeLastCard } from '../../../../../redux/actions';
 const TestSentence = ({
   testArr, word,
 }) => {
+  const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [isMistake, setIsMistake] = useState('');
-  const dispatch = useDispatch();
+  const [wasAnswered, setWasAnswered] = useState(false);
   const { cardsArr } = useSelector(cardsInfoSelector);
+  let wordInput;
 
   const checkWord = (event) => {
     event.preventDefault();
@@ -23,13 +25,17 @@ const TestSentence = ({
       }
       dispatch(changeLastCard(activeCard));
       dispatch(changeCards(newCards));
-      setValue('');
+      setWasAnswered(false);
       setIsMistake(false);
     } else {
       setIsMistake(true);
+      setWasAnswered(true);
       alert('no');
     }
+    setValue('');
   };
+
+  useEffect(() => { wordInput.focus(); }, [testArr, word, wordInput]);
 
   return (
     <form onSubmit={checkWord}>
@@ -38,6 +44,8 @@ const TestSentence = ({
         type="text"
         value={value}
         onChange={(event) => setValue(event.target.value)}
+        ref={(input) => { wordInput = input; }}
+        placeholder={wasAnswered ? word : ''}
       />
       {testArr[1]}
     </form>
