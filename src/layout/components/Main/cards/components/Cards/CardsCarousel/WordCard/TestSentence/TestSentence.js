@@ -5,7 +5,7 @@ import { cardsInfoSelector } from '../../../../../redux/selectors';
 import { changeCards, changeLastCard } from '../../../../../redux/actions';
 
 const TestSentence = ({
-  testArr, word,
+  testArr, word, playAudio,
 }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
@@ -33,6 +33,7 @@ const TestSentence = ({
       alert('no');
     }
     setValue('');
+    if (!wasAnswered) playAudio();
   };
 
   useEffect(() => { wordInput.focus(); }, [testArr, word, wordInput]);
@@ -55,6 +56,7 @@ const TestSentence = ({
 TestSentence.propTypes = {
   testArr: PropTypes.array.isRequired,
   word: PropTypes.string.isRequired,
+  playAudio: PropTypes.func.isRequired,
 };
 
 export default TestSentence;
