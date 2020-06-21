@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { cardsInfo } from '../../../../../redux/selectors';
-import { changeCards } from '../../../../../redux/actions';
+import { cardsInfoSelector } from '../../../../../redux/selectors';
+import { changeCards, changeLastCard } from '../../../../../redux/actions';
 
 const TestSentence = ({
   testArr, word,
@@ -10,7 +10,7 @@ const TestSentence = ({
   const [value, setValue] = useState('');
   const [isMistake, setIsMistake] = useState('');
   const dispatch = useDispatch();
-  const { cardsArr } = useSelector(cardsInfo);
+  const { cardsArr } = useSelector(cardsInfoSelector);
 
   const checkWord = (event) => {
     event.preventDefault();
@@ -21,6 +21,7 @@ const TestSentence = ({
       if (isMistake) {
         newCards.push(activeCard);
       }
+      dispatch(changeLastCard(activeCard));
       dispatch(changeCards(newCards));
       setValue('');
       setIsMistake(false);

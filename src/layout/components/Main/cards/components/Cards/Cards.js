@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cardsInfo } from '../../redux/selectors';
+import { cardsInfoSelector } from '../../redux/selectors';
 import { changeCards } from '../../redux/actions';
 import CardsCarousel from './CardsCarousel/CardsCarousel';
 import styles from './Cards.module.css';
@@ -23,8 +23,7 @@ const getWords = async (token) => {
 const Cards = () => {
   // token будем получать из redux
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzk5M2RmNGNhOWQ2MDAxNzg3NDBhZSIsImlhdCI6MTU5MDI2OTE1OCwiZXhwIjoxNTkwMjgzNTU4fQ.XHKmdY_jk1R7PUbgCZfqH8TxH6XQ0USwPBSKNHMdF6I';
-  const numOfWords = 20; // тоже из redux
-  const { cardsArr } = useSelector(cardsInfo);
+  const { cardsArr } = useSelector(cardsInfoSelector);
   const dispatch = useDispatch();
   useEffect(() => {
     getWords(token)

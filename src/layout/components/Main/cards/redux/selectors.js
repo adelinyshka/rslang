@@ -1,5 +1,5 @@
-const isRight = (state) => state.cards.isRight;
-const cardsInfo = (state) => state.cards.cardsInfo;
-const lastCard = (state) => state.cards.lastCard;
+const isRightSelector = (state) => state.cards.isRight;
+const cardsInfoSelector = (state) => state.cards.cardsInfo;
+const lastCardSelector = (state) => state.cards.lastCard;
 
-export { isRight, cardsInfo, lastCard };
+export { isRightSelector, cardsInfoSelector, lastCardSelector };
