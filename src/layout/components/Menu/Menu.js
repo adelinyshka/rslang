@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
+import classNames from 'classnames';
 import NavItem from './NavItem/NavItem';
 import ToolBar from './ToolBar/ToolBar';
 
@@ -13,7 +13,10 @@ function Menu() {
     <>
       <ToolBar ClickHandler={() => toggle(!position)} />
       <div className={classes.MenuContainer}>
-        <div className={cn(classes.Menu, { [classes.Active]: position })}>
+        <p className={classes.LogoBlue}>Lang</p>
+        <div className={classNames(classes.Menu,
+          { [classes.Active]: position })}
+        >
           <div className={classes.FlexContainer}>
             <div>
               <div className={classes.Header}>
@@ -44,7 +47,9 @@ function Menu() {
                 <NavItem title="Выход" icon="path.svg" link="/login" />
               </ul>
             </div>
-            <div className={classes.BlackTheme}>
+            <div className={classNames(classes.BlackTheme,
+              classes.HideBlackThemeToggle)}
+            >
               <div className={classes.BlackThemeInner}>
                 <div className={classes.BlackThemeIcon}>
                   <img
@@ -55,7 +60,10 @@ function Menu() {
                 </div>
                 <div className={classes.BlackThemeLabel}>Темная тема</div>
                 <div className={classes.Card}>
-                  <label htmlFor={classes.ToggleTheme}>
+                  <label
+                    htmlFor={classes.ToggleTheme}
+                    className={classes.ToggleThemeLabel}
+                  >
                     <input id="ToggleTheme" type="checkbox" />
                     <span className={classes.Switch} />
                     <span className={classes.Toggle}> </span>

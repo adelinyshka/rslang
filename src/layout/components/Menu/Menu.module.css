@@ -37,7 +37,15 @@
 
 .Menu:hover {
   width     : 100%;
-  transition: width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
+  transition: width 3000ms cubic-bezier(.04, .95, .91, .9) 10ms;
+}
+
+.LogoBlue {
+  font-family: 'Exo', sans-serif;
+  font-size  : 50px;
+  line-height: 22px;
+  color      : #6979F8;
+  margin     : 36px 0px 0 99px;
 }
 
 .Logo {
@@ -57,6 +65,7 @@
   color      : #FFF;
   margin     : 30px 0px 0 116px;
 }
+
 
 .Home {
   display        : flex;
@@ -122,17 +131,17 @@
   height         : 100%;
 }
 
-input[type='checkbox'] {
+.ToggleThemeLabel input[type='checkbox'] {
   display: none;
 }
 
-input[type='checkbox']:checked~.Toggle {
+.ToggleThemeLabel input[type='checkbox']:checked~.Toggle {
   background: #6979F8;
   left      : 21px;
   transition: .5s;
 }
 
-input[type='checkbox']:checked~.Switch {
+.ToggleThemeLabel input[type='checkbox']:checked~.Switch {
   background: #9CA5D7;
   transition: .5s;
 }
@@ -193,6 +202,10 @@ input[type='checkbox']:checked~.Switch {
     display: none;
   }
 
+  .LogoBlue {
+    display: none;
+  }
+
   .Home {
     display: none;
   }
@@ -224,4 +237,8 @@ input[type='checkbox']:checked~.Switch {
     margin: 47px 0px -2px -87px;
   }
 
+}
+
+.HideBlackThemeToggle {
+  display: none;
 }
