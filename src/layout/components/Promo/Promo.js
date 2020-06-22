@@ -1,12 +1,14 @@
 import React from 'react';
-import styles from './Promo.module.css';
 import Header from './Header';
+import { ThemeProvider } from 'styled-components';
+import * as theme from './config/theme';
 
 export default function Promo () {
   return (
-    <div>
-      <Header/>
-      <h2 className={styles.Promo_title}>Hello, Im Promo</h2>
-    </div>
+    <ThemeProvider theme = {theme}>
+      <div>
+        <Header/>
+      </div>
+    </ThemeProvider>
   );
 }

@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router, Switch, Route, Link
 } from 'react-router-dom';
 import styles from './App.module.css';
-import Promo from './layout/components/Promo/Promo';
+import Promo from './layout/components/Promo';
 
 const App = () => (
   <Router>
@@ -84,7 +84,6 @@ const App = () => (
 
       <Route exact path="/promo">
         <div>
-          <h1>Промо</h1>
           <Promo/>
         </div>
       </Route>
