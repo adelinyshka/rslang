@@ -8,7 +8,7 @@ export default function Main() {
     { value: 'repeat', label: 'Повтор' },
     { value: 'all', label: 'Все' }];
   return (
-    <div>
+    <div className={styles.Main}>
       <div className={styles.Main_content}>
         <Panel
           myStyle={styles.P_games}
