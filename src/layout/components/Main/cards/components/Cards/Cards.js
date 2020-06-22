@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cardsInfoSelector } from '../../redux/selectors';
 import { changeCards, showAnswer } from '../../redux/actions';
 import CardsCarousel from './CardsCarousel/CardsCarousel';
+import Navigation from './Navigation/Navigation';
 import styles from './Cards.module.css';
 
 const getWords = async (token) => {
@@ -33,16 +34,7 @@ const Cards = () => {
 
   return (
     <div className={styles.Container}>
-      <div className={styles.Navigation}>
-        <button type="button">Удалить</button>
-        <button type="button">Добавить в сложные</button>
-        <button
-          type="button"
-          onClick={() => dispatch(showAnswer())}
-        >
-          Показать перевод
-        </button>
-      </div>
+      <Navigation />
       <div className={styles.Cards}>
         {cardsArr
           ? <CardsCarousel />

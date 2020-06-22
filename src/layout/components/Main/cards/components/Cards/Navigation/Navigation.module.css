@@ -1,0 +1,11 @@
+.Navigation {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Navigation button {
+  margin: 20px;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 5px;
+}
