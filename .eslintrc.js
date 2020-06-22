@@ -3,7 +3,6 @@ module.exports = {
   plugins: ['classes', 'react', 'import', 'jsx-a11y', 'flowtype', 'react-hooks'],
   parser: 'babel-eslint',
   rules: {
-    "linebreak-style": ["error", "windows"],
     'no-unresolved': 0,
     'quote-props': [2, 'consistent'],
     'comma-dangle': ['error', 'always-multiline'],

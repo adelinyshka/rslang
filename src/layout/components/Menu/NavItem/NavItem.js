@@ -1,14 +1,11 @@
 import React from 'react';
-
-import {
-  BrowserRouter as Router, Switch, Route, Link,
-} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import classes from './NavItem.module.css';
 
 const NavItem = ({
-  // eslint-disable-next-line react/prop-types
-  title, icon, link, ClickHandler,
+  title, icon, link,
 }) => (
   <li className={classes.Item}>
     <Link className={classes.Link} to={link}>
@@ -19,5 +16,11 @@ const NavItem = ({
     </Link>
   </li>
 );
+
+NavItem.propTypes = {
+  link: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 export default NavItem;

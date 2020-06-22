@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-import {
-  BrowserRouter as Router, Switch, Route, Link,
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import NavItem from './NavItem/NavItem';
 import ToolBar from './ToolBar/ToolBar';
 
@@ -10,17 +9,11 @@ import classes from './Menu.module.css';
 
 function Menu() {
   const [position, toggle] = useState(false);
-  let open;
-  if (position) {
-    open = classes.Active;
-  } else {
-    open = '';
-  }
   return (
     <>
       <ToolBar ClickHandler={() => toggle(!position)} />
       <div className={classes.MenuContainer}>
-        <div className={`${classes.Menu} ${open}`}>
+        <div className={cn(classes.Menu, { [classes.Active]: position })}>
           <div className={classes.FlexContainer}>
             <div>
               <div className={classes.Header}>
@@ -62,8 +55,8 @@ function Menu() {
                 </div>
                 <div className={classes.BlackThemeLabel}>Темная тема</div>
                 <div className={classes.Card}>
-                  <label htmlFor={classes.Switch1}>
-                    <input id="Switch1" type="checkbox" />
+                  <label htmlFor={classes.ToggleTheme}>
+                    <input id="ToggleTheme" type="checkbox" />
                     <span className={classes.Switch} />
                     <span className={classes.Toggle}> </span>
                   </label>
