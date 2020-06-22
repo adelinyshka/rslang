@@ -1,0 +1,23 @@
+
+
+.Promo_title {
+	color: red;
+}
+
+.Promo_header {}
+
+.Promo_header ul {
+	display: flex;
+	justify-content: space-between;
+	max-width: 100%;
+	padding: 20px 40px;
+}
+
+.Promo_header ul li {
+	list-style-type: none;
+}
+
+.Promo_header ul li a {
+	text-decoration: none;
+
+}

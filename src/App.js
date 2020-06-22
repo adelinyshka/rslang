@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, Switch, Route, Link,
+  BrowserRouter as Router, Switch, Route, Link
 } from 'react-router-dom';
 import styles from './App.module.css';
+import Promo from './layout/components/Promo/Promo';
 
 const App = () => (
   <Router>
@@ -28,6 +29,9 @@ const App = () => (
         </li>
         <li>
           <Link to="/login">Выход</Link>
+        </li>
+        <li>
+          <Link to="/promo">Промо</Link>
         </li>
       </ul>
     </nav>
@@ -75,6 +79,13 @@ const App = () => (
       <Route exact path="/signin">
         <div>
           <h1>Страница регистрации</h1>
+        </div>
+      </Route>
+
+      <Route exact path="/promo">
+        <div>
+          <h1>Промо</h1>
+          <Promo/>
         </div>
       </Route>
     </Switch>
