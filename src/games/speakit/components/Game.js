@@ -1,16 +1,19 @@
 import React from 'react';
-import redux from 'redux';
-import { useDespatch, useSelector } from 'react-redux';
-import SwitcherLevel from './Switcher-level';
-import BlockWords from './Block-words';
+import { useSelector } from 'react-redux';
+import SwitcherLevel from './SwitcherLevel';
+import BlockWords from './BlockWords';
+
+import {
+  modeSelector,
+  wordsSelector,
+  activeWordSelector,
+} from '../redux/selectors';
 
 function Game() {
-  const game = useSelector((state) => state.speakit.words);
-  const activeWord = useSelector((state) => state.speakit.activeWord);
-  const statusGame = useSelector((state) => state.speakit.stateGame);
-  console.log(game);
-  console.log(statusGame);
-  console.log(activeWord);
+  const words = useSelector(wordsSelector);
+  const statusGame = useSelector(modeSelector);
+  const activeWord = useSelector(activeWordSelector);
+
   return (
     <div className="wrapper">
       <div className="education__switcher-words">

@@ -2,8 +2,8 @@ import React from 'react';
 import {
   BrowserRouter as Router, Switch, Route, Link,
 } from 'react-router-dom';
-import styles from './App.module.css';
-import Speakit from './games/speakit/Speakit';
+import './App.module.css';
+import Speakit from './games/speakit/components/Speakit';
 
 const App = () => (
   <Router>

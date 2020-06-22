@@ -1,3 +1,23 @@
+export const startGame = () => ({
+  type: 'START_GAME',
+  stateGame: true,
+});
+
+export const setWords = (gettingWords) => ({
+  type: 'SET_WORDS',
+  words: gettingWords,
+});
+
+export const setLevel = (level) => ({
+  type: 'SET_LEVEL',
+  level,
+});
+
+export const setActiveWord = (activeWord) => ({
+  type: 'SET_ACTIVE_WORD',
+  activeWord,
+});
+
 const INITIAL_STATE = {
   stateGame: false,
   words: {},
@@ -8,28 +28,18 @@ const INITIAL_STATE = {
 const speakitReducer = (state = INITIAL_STATE, action) => {
   const {
     type,
-    words,
-    level,
-    activeWord,
+    ...payload
   } = action;
-  const obj = {};
+
   switch (type) {
     case 'START_GAME':
-      Object.assign(obj, state);
-      obj.stateGame = true;
-      return obj;
     case 'SET_WORDS':
-      Object.assign(obj, state);
-      obj.words = words;
-      return obj;
     case 'SET_LEVEL':
-      Object.assign(obj, state);
-      obj.level = level;
-      return obj;
     case 'SET_ACTIVE_WORD':
-      Object.assign(obj, state);
-      obj.activeWord = activeWord;
-      return obj;
+      return {
+        ...state,
+        ...payload,
+      };
     default:
       return state;
   }
