@@ -6,7 +6,6 @@ import WordCard from './WordCard/WordCard';
 import styles from './CardsCarousel.module.css';
 
 const CardsCarousel = () => {
-// переменная для хранения старой информации, чтобы стрелочка влево работала
   const { cardsArr } = useSelector(cardsInfoSelector);
   const { lastCard } = useSelector(lastCardSelector);
   const [index, setIndex] = useState(0);
@@ -16,9 +15,9 @@ const CardsCarousel = () => {
   };
 
   useEffect(() => {
-    const i = lastCard ? 1 : 0;
+    const i = (lastCard && cardsArr[0]) ? 1 : 0;
     setIndex(i);
-  }, [lastCard]);
+  }, [lastCard, cardsArr]);
 
   return (
     <Carousel
@@ -28,6 +27,7 @@ const CardsCarousel = () => {
       onSelect={handleSelect}
       slide={false}
       wrap={false}
+      indicators={false}
     >
       {lastCard
       && (
@@ -35,9 +35,11 @@ const CardsCarousel = () => {
           <WordCard cardInfo={lastCard} isAnswered />
         </Carousel.Item>
       )}
-      <Carousel.Item className={styles.CarouseItem}>
-        <WordCard cardInfo={cardsArr[0]} isAnswered={false} />
-      </Carousel.Item>
+      {cardsArr.length && (
+        <Carousel.Item className={styles.CarouseItem}>
+          <WordCard cardInfo={cardsArr[0]} isAnswered={false} />
+        </Carousel.Item>
+      )}
     </Carousel>
   );
 };

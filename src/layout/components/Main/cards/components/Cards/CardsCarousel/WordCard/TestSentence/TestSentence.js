@@ -2,7 +2,31 @@ import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardsInfoSelector } from '../../../../../redux/selectors';
-import { changeCards, changeLastCard } from '../../../../../redux/actions';
+import {
+  changeCards, changeLastCard, hideAnswer,
+} from '../../../../../redux/actions';
+import styles from './TestSentence.module.css';
+
+const mistakesInWord = (wrongWord, word) => {
+  const rightLetters = word.split('');
+  return rightLetters.map((el, i) => (el === wrongWord[i]
+    ? (
+      <span
+        key={`letter${i}`}
+        className={styles.RightLetter}
+      >
+        {wrongWord[i]}
+      </span>
+    )
+    : (
+      <span
+        key={`letter${i}`}
+        className={styles.WrongLetter}
+      >
+        {el}
+      </span>
+    )));
+};
 
 const TestSentence = ({
   testArr, word, playAudio,
@@ -12,13 +36,13 @@ const TestSentence = ({
   const [mistakes, setMistake] = useState([]);
   const [wasAnswered, setWasAnswered] = useState(false);
   const { cardsArr } = useSelector(cardsInfoSelector);
-  const wrongAnswers = useMemo(() => mistakes.map((wrongWord) => (
-    <p>
+  const wrongAnswers = useMemo(() => mistakes.map((wrongWord, i) => (
+    <p key={`wrongWord${i}`}>
       {testArr[0]}
-      {wrongWord}
+      {mistakesInWord(wrongWord, word)}
       {testArr[1]}
     </p>
-  )), [mistakes, testArr]);
+  )), [word, mistakes, testArr]);
   let wordInput;
 
   const checkWord = (event) => {
@@ -29,9 +53,10 @@ const TestSentence = ({
       if (mistakes.length) {
         newCards.push(activeCard);
       }
+      setWasAnswered(false);
       dispatch(changeLastCard(activeCard));
       dispatch(changeCards(newCards));
-      setWasAnswered(false);
+      dispatch(hideAnswer());
       setMistake([]);
     } else {
       const newMistakes = [...mistakes];

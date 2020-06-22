@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-const isRightReducer = (state = false, action) => {
+const rightAnswerReducer = (state = false, action) => {
   switch (action.type) {
-    case 'RIGHT_ANSWER':
-      return true;
-    case 'WRONG_ANSWER':
+    case 'SHOW_ANSWER':
+      return !state;
+    case 'HIDE_ANSWER':
       return false;
     default:
       return state;
@@ -32,7 +32,7 @@ const lastCardReducer = (state = {}, action) => {
 };
 
 export default combineReducers({
-  isRight: isRightReducer,
+  rightAnswer: rightAnswerReducer,
   cardsInfo: cardsInfoReducer,
   lastCard: lastCardReducer,
 });

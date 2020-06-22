@@ -1,5 +1,5 @@
-const isRightSelector = (state) => state.cards.isRight;
+const showAnswerSelector = (state) => state.cards.rightAnswer;
 const cardsInfoSelector = (state) => state.cards.cardsInfo;
 const lastCardSelector = (state) => state.cards.lastCard;
 
-export { isRightSelector, cardsInfoSelector, lastCardSelector };
+export { showAnswerSelector, cardsInfoSelector, lastCardSelector };

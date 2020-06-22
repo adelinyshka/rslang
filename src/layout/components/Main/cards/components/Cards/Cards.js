@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardsInfoSelector } from '../../redux/selectors';
-import { changeCards } from '../../redux/actions';
+import { changeCards, showAnswer } from '../../redux/actions';
 import CardsCarousel from './CardsCarousel/CardsCarousel';
 import styles from './Cards.module.css';
 
@@ -34,9 +34,14 @@ const Cards = () => {
   return (
     <div className={styles.Container}>
       <div className={styles.Navigation}>
-        <div>Удалить</div>
-        <div>Добавить в сложные</div>
-        <div>Показать перевод</div>
+        <button type="button">Удалить</button>
+        <button type="button">Добавить в сложные</button>
+        <button
+          type="button"
+          onClick={() => dispatch(showAnswer())}
+        >
+          Показать перевод
+        </button>
       </div>
       <div className={styles.Cards}>
         {cardsArr

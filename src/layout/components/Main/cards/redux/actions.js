@@ -3,8 +3,12 @@ export const changeCards = (cardsInfo) => ({
   cardsArr: cardsInfo,
 });
 
-export const changeIsRight = (type) => ({
-  type,
+export const showAnswer = () => ({
+  type: 'SHOW_ANSWER',
+});
+
+export const hideAnswer = () => ({
+  type: 'HIDE_ANSWER',
 });
 
 export const changeLastCard = (lastCard) => ({
