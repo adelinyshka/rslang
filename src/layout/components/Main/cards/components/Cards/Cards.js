@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardsInfoSelector } from '../../redux/selectors';
-import { changeCards, showAnswer } from '../../redux/actions';
+import { changeCards } from '../../redux/actions';
 import CardsCarousel from './CardsCarousel/CardsCarousel';
 import Navigation from './Navigation/Navigation';
 import Intervals from './Intervals/Intervals';
+import Progress from './Progress/Progress';
 import styles from './Cards.module.css';
 
 const getWords = async (token) => {
@@ -42,9 +43,7 @@ const Cards = () => {
           : <h1>Карточек не осталось</h1>}
       </div>
       <Intervals />
-      <div className={styles.Progress}>
-          Прогресс
-      </div>
+      <Progress cardsArr={cardsArr} newCardsAmount={20} />
     </div>
   );
 };

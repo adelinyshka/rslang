@@ -1,0 +1,9 @@
+.Progress {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.ProgressBar {
+  width: 80%;
+}
