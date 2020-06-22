@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router, Switch, Route, Link,
 } from 'react-router-dom';
 import styles from './App.module.css';
+import Speakit from './games/speakit/Speakit';
 
 const App = () => (
   <Router>
@@ -51,6 +52,28 @@ const App = () => (
         <div>
           <h1>Мини игры</h1>
         </div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/audio-calle">Аудиовызов</Link>
+            </li>
+            <li>
+              <Link to="/self-game">Наша игра</Link>
+            </li>
+            <li>
+              <Link to="/shroud">Саванна</Link>
+            </li>
+            <li>
+              <Link to="/speakit">SpeakIt</Link>
+            </li>
+            <li>
+              <Link to="/sprint">Спринт</Link>
+            </li>
+            <li>
+              <Link to="/english-puzzle">English Puzzle</Link>
+            </li>
+          </ul>
+        </nav>
       </Route>
       <Route exact path="/cards">
         <div>
@@ -75,6 +98,34 @@ const App = () => (
       <Route exact path="/signin">
         <div>
           <h1>Страница регистрации</h1>
+        </div>
+      </Route>
+      <Route exact path="/audio-calle">
+        <div>
+          <h1>Аудио вызов</h1>
+        </div>
+      </Route>
+      <Route exact path="/self-game">
+        <div>
+          <h1>Наша игра</h1>
+        </div>
+      </Route>
+      <Route exact path="/shroud">
+        <div>
+          <h1>Савана</h1>
+        </div>
+      </Route>
+      <Route exact path="/speakit">
+        <Speakit />
+      </Route>
+      <Route exact path="/sprint">
+        <div>
+          <h1>Спринт</h1>
+        </div>
+      </Route>
+      <Route exact path="/english-puzzle">
+        <div>
+          <h1>English Puzzle</h1>
         </div>
       </Route>
     </Switch>
