@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
+import styles from './WordCard.module.css';
 import TestSentence from './TestSentence/TestSentence';
 
 const WordCard = ({ cardInfo, isAnswered }) => {
@@ -22,7 +23,14 @@ const WordCard = ({ cardInfo, isAnswered }) => {
       <Card.Body>
         <Card.Title>
           {
-            isAnswered ? <p>{testArr.join(word)}</p>
+            isAnswered
+              ? (
+                <p>
+                  {testArr[0]}
+                  <span className={styles.AnsweredWord}>{word}</span>
+                  {testArr[1]}
+                </p>
+              )
               : (
                 <TestSentence
                   testArr={testArr}
@@ -32,9 +40,11 @@ const WordCard = ({ cardInfo, isAnswered }) => {
               )
           }
         </Card.Title>
-        <Card.Subtitle>
-          <button type="button" onClick={playAudio}>Play Word</button>
-        </Card.Subtitle>
+        {isAnswered && (
+          <Card.Subtitle>
+            <button type="button" onClick={playAudio}>Play Word</button>
+          </Card.Subtitle>
+        )}
         <Card.Text as="div">
           <p>{textExampleTranslate}</p>
           <p>{wordTranslate}</p>

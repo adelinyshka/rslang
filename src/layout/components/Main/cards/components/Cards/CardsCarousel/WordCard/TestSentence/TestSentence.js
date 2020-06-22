@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardsInfoSelector } from '../../../../../redux/selectors';
@@ -9,28 +9,35 @@ const TestSentence = ({
 }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
-  const [isMistake, setIsMistake] = useState('');
+  const [mistakes, setMistake] = useState([]);
   const [wasAnswered, setWasAnswered] = useState(false);
   const { cardsArr } = useSelector(cardsInfoSelector);
+  const wrongAnswers = useMemo(() => mistakes.map((wrongWord) => (
+    <p>
+      {testArr[0]}
+      {wrongWord}
+      {testArr[1]}
+    </p>
+  )), [mistakes, testArr]);
   let wordInput;
 
   const checkWord = (event) => {
     event.preventDefault();
     if (value.toLowerCase() === word) {
-      alert('YES');
       const newCards = [...cardsArr];
       const activeCard = newCards.shift();
-      if (isMistake) {
+      if (mistakes.length) {
         newCards.push(activeCard);
       }
       dispatch(changeLastCard(activeCard));
       dispatch(changeCards(newCards));
       setWasAnswered(false);
-      setIsMistake(false);
+      setMistake([]);
     } else {
-      setIsMistake(true);
+      const newMistakes = [...mistakes];
+      newMistakes.push(value);
+      setMistake(newMistakes);
       setWasAnswered(true);
-      alert('no');
     }
     setValue('');
     if (!wasAnswered) playAudio();
@@ -39,17 +46,22 @@ const TestSentence = ({
   useEffect(() => { wordInput.focus(); }, [testArr, word, wordInput]);
 
   return (
-    <form onSubmit={checkWord}>
-      {testArr[0]}
-      <input
-        type="text"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        ref={(input) => { wordInput = input; }}
-        placeholder={wasAnswered ? word : ''}
-      />
-      {testArr[1]}
-    </form>
+    <>
+      <form onSubmit={checkWord}>
+        {testArr[0]}
+        <input
+          type="text"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          ref={(input) => { wordInput = input; }}
+          placeholder={wasAnswered ? word : ''}
+        />
+        {testArr[1]}
+      </form>
+      <div>
+        {wrongAnswers}
+      </div>
+    </>
   );
 };
 
