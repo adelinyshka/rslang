@@ -1,0 +1,13 @@
+.logo {
+	color: #6979F8 !important;
+	font: normal 50px Exo, sans-serif !important;
+}
+
+
+@media (max-width: 991px) {
+
+	.logo {
+		display: none;
+	}
+
+}
