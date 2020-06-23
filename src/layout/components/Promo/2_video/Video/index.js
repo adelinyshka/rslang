@@ -1,3 +1,3 @@
-import Video from './Video';
+import Video from './VideoBlock';
 
 export default Video;

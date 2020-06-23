@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ImgMainPageStyled = styled.img`
-  width: 500px;
+  width: 700px;
   margin-top: 100px;
   display: inline-block;
   padding: 16px;
