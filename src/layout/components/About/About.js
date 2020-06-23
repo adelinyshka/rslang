@@ -59,23 +59,6 @@ const teamMembers = [
   },
 ];
 
-function CardGroup() {
-  return (
-    teamMembers.map(({
-      name, description, github, photo, color,
-    }, id) => (
-      <Card
-        key={id}
-        name={name}
-        description={description}
-        github={github}
-        photo={photo}
-        bgColor={color}
-      />
-    ))
-  );
-}
-
 function About() {
   return (
     <div className={style.Wrapper}>
@@ -84,7 +67,18 @@ function About() {
         <p>Мы работали над проектом для вас!</p>
       </div>
       <div className={style.Main}>
-        <CardGroup />
+        {teamMembers.map(({
+          name, description, github, photo, color,
+        }, id) => (
+          <Card
+            key={id}
+            name={name}
+            description={description}
+            github={github}
+            photo={photo}
+            bgColor={color}
+          />
+        ))}
       </div>
     </div>
   );
