@@ -10,7 +10,7 @@ const NavItem = ({
   <li className={classes.Item}>
     <Link className={classes.Link} to={link}>
       <div className={classes.Icon}>
-        <img src={`./assets/images/${icon}`} alt="" />
+        <img src={`./assets/images/menu/${icon}`} alt="" />
       </div>
       <div className={classes.Label}>{title}</div>
     </Link>
