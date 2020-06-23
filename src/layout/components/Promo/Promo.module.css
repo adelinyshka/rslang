@@ -1,7 +1,7 @@
 .promo_bg {
-	background: #fafafa;
-	height: 100%;
-	font-family: Exo, sans-serif;
+  background: #fafafa;
+  height: 100%;
+  font-family: Exo, sans-serif;
 }
 
 .promo_alignment {
@@ -9,8 +9,12 @@
   justify-content: space-between;
 }
 
-@media (max-width: 990px)  {
+@media (max-width: 990px) {
   .promo_alignment {
     display: block;
   }
+}
+
+.top_pad {
+  padding-top: 40px;
 }
