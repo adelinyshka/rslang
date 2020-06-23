@@ -24,3 +24,9 @@
   letter-spacing: -1.5px;
   margin-bottom: 15px;
 }
+
+.Main {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}

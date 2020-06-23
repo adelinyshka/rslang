@@ -1,41 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
-// import girl from './assets/photo/Gir_Purple.jpg';
 
-// function Card(props) {
-function Card() {
+function Card({
+  photo, name, github, text, bgColor,
+}) {
   return (
-    <div className="CardWrapper">
+    <div className="CardWrapper" style={{ backgroundColor: bgColor }}>
       <img
         className="image"
-        // src={process.env.PUBLIC_URL + `/images/${props.name}.jpg`}
-        // alt={props.name}
-        src="./assets/Team/Girl.jpg"
-        alt="hi1"
+        src={photo}
+        alt="photoDev"
       />
       <div className="TextWrapper">
         <div className="Name">
-          <a href="https://github.com/" className="IconGit">
+          <a href={github} className="IconGit">
             <img
               src="./assets/Team/iconGit.svg"
               alt="iconGit"
             />
           </a>
           <div className="NameDev">
-            Мария Петрова,
+            {name}
             <br />
             разработчик
           </div>
         </div>
         <p className="TextDev">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua
+          {text}
         </p>
       </div>
     </div>
   );
 }
+
+Card.propTypes = {
+  photo: PropTypes.string,
+  name: PropTypes.string,
+  github: PropTypes.string,
+  text: PropTypes.string,
+  bgColor: PropTypes.string,
+};
+
+Card.defaultProps = {
+  photo: '',
+  name: '',
+  github: '',
+  text: '',
+  bgColor: '',
+};
 
 export default Card;

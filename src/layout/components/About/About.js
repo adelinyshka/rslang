@@ -9,7 +9,9 @@ function About() {
         <h2 className="AboutTitle">Наша команда</h2>
         <p>Мы работали над проектом для вас!</p>
       </div>
-      <CardGroup />
+      <div className="Main">
+        <CardGroup />
+      </div>
     </div>
   );
 }
