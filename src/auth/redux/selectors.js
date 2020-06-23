@@ -7,7 +7,7 @@ export const userSelector = createSelector(
   ({ user }) => user,
 );
 
-export const loggedSelector = createSelector(
+export const isAuthenticatedSelector = createSelector(
   authStateSelector,
   ({ user }) => !!user,
 );

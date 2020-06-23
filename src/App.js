@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { loggedSelector } from './auth/redux/selectors';
+import { isAuthenticatedSelector } from './auth/redux/selectors';
 import Login from './auth/components/Login';
 import SignUp from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
@@ -45,6 +45,10 @@ const routes = [
     path: '/signup',
     component: <SignUp />,
   },
+  {
+    title: 'Стартовая страница',
+    path: '/',
+  },
 ];
 
 function createRoute({ title, path, component }, isLogged) {
@@ -67,7 +71,7 @@ createRoute.propTypes = {
 };
 
 const App = () => {
-  const isLogged = useSelector(loggedSelector);
+  const isLogged = useSelector(isAuthenticatedSelector);
   return (
     <Router>
       <Menu />

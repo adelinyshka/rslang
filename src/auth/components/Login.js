@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Redirect,
   Link,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loggedSelector } from '../redux/selectors';
+import { isAuthenticatedSelector } from '../redux/selectors';
 import { login } from '../redux';
 import loginUser from '../utils';
 import styles from './Auth.module.css';
@@ -13,16 +13,16 @@ const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const isLogged = useSelector(loggedSelector);
+  const isLogged = useSelector(isAuthenticatedSelector);
 
-  const submitHandler = (event) => {
+  const submitHandler = useCallback((event) => {
     event.preventDefault();
     loginUser({ 'email': email, 'password': password })
       .then(({ userId, token }) => {
         dispatch(login({ email, token, userId }));
       })
       .catch((er) => console.log(er));
-  };
+  }, [email, password, dispatch]);
 
   return (
     <div className={styles.Auth}>

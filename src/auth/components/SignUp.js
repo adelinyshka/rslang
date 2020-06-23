@@ -4,7 +4,7 @@ import {
   Link,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loggedSelector } from '../redux/selectors';
+import { isAuthenticatedSelector } from '../redux/selectors';
 import { login } from '../redux';
 import loginUser from '../utils';
 import styles from './Auth.module.css';
@@ -31,7 +31,7 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const isLogged = useSelector(loggedSelector);
+  const isLogged = useSelector(isAuthenticatedSelector);
   const dispatch = useDispatch();
 
   const submitHandler = (event) => {
