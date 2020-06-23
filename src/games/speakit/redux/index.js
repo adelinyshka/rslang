@@ -31,7 +31,7 @@ export const setImage = (image) => ({
 const INITIAL_STATE = {
   stateGame: false,
   words: {},
-  level: 1,
+  level: 0,
   activeWord: 'base_word',
   translateActiveWord: ' ',
   image: '',

@@ -12,6 +12,12 @@ import {
   setTranslateActiveWord,
 } from '../redux';
 
+import {
+  StyleWordsContainer,
+  StyleWordBlock,
+  StyleWordDiv,
+} from './style.BlockWords.js';
+
 const audioPath = 'https://raw.githubusercontent.com'
   + '/irinainina/rslang-data/master/';
 
@@ -19,6 +25,7 @@ const BlockWords = () => {
   const dispatch = useDispatch();
   const activeWord = useSelector(activeWordSelector);
   const words = useSelector(wordsSelector);
+  console.log(words);
 
   const activateWord = useCallback((word, audio, image) => {
     translater(word).then((result) => {
@@ -35,17 +42,18 @@ const BlockWords = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <StyleWordsContainer>
       {words.map(({
         word,
         transcription,
         audio,
         image,
       }) => (
-        <div
+        <StyleWordBlock
           id={word}
           key={word}
           onClick={() => activateWord(word, audio, image)}
+          active={word === activeWord}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,13 +73,13 @@ const BlockWords = () => {
               fillRule="evenodd"
             />
           </svg>
-          <div>
+          <StyleWordDiv>
             <p>{word}</p>
             <p>{transcription}</p>
-          </div>
-        </div>
+          </StyleWordDiv>
+        </StyleWordBlock>
       ))}
-    </div>
+    </StyleWordsContainer>
   );
 };
 

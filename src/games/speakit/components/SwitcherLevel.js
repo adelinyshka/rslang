@@ -54,6 +54,7 @@ const SwitcherLevel = () => {
               <StyleSwitcher
                 key={level}
                 onClick={() => changeActiveLevel(index)}
+                activeLevel={activeLevel === index}
               >
                 {level}
               </StyleSwitcher>

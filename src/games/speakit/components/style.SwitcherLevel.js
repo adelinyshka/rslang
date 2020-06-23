@@ -24,7 +24,7 @@ export const StyleSwitcher = styled.div`
   align-items: center;
   list-style: none;
   margin-right: 10px;
-  background: #6979f8;
+  background: ${({ activeLevel }) => (activeLevel ? '#4FC8AB' : '#6979f8')};
   width: 30px;
   height: 30px;
   border-radius: 100px;
@@ -32,6 +32,7 @@ export const StyleSwitcher = styled.div`
 
   :hover {
     cursor: pointer;
+    background: #4FC8AB;
   }
 `;
 

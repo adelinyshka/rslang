@@ -1,7 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import SwitcherLevel from './SwitcherLevel';
 import BlockWords from './BlockWords';
+import { getWords } from '../utils/index';
+
+import {
+  setWords,
+  setImage,
+  setTranslateActiveWord,
+} from '../redux/index';
 
 import {
   modeSelector,
@@ -9,15 +16,29 @@ import {
   activeWordSelector,
   imageSelector,
   translateActiveWordSelector,
+  levelSelector,
 } from '../redux/selectors';
 
 function Game() {
+  const dispatch = useDispatch();
   const image = useSelector(imageSelector);
-  const activeWord = useSelector(activeWordSelector);
+  const level = useSelector(levelSelector);
   const translateActiveWord = useSelector(translateActiveWordSelector);
+  const activeWord = useSelector(activeWordSelector);
   const words = useSelector(wordsSelector);
   const statusGame = useSelector(modeSelector);
   console.log(translateActiveWord);
+
+  const getNewWords = useCallback((currentLevel) => {
+    getWords(currentLevel).then((gettingWords) => {
+      if (gettingWords.length > 1) {
+        console.log(gettingWords);
+        dispatch(setWords(gettingWords));
+        dispatch(setImage(' '));
+        dispatch(setTranslateActiveWord(' '));
+      }
+    });
+  }, [dispatch]);
 
   return (
     <div className="wrapper">
@@ -29,11 +50,15 @@ function Game() {
         </figcaption>
       </figure>
       <div className="education__block-spoken-words" />
-      <div className="education__block-words">
-        <BlockWords />
-      </div>
+      <BlockWords />
       <div className="education__block-button">
-        <button type="button" className="btn">New words</button>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => getNewWords(level)}
+        >
+          New words
+        </button>
         <button type="button" className="btn">Speak please</button>
         <button type="button" className="btn">Results</button>
       </div>
