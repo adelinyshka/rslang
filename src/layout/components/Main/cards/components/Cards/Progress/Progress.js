@@ -14,6 +14,7 @@ const Progress = ({ cardsArr, newCardsAmount }) => {
         className={styles.ProgressBar}
         min={0}
         max={newCardsAmount}
+        label={`${passedCards}/${newCardsAmount}`}
       />
       {newCardsAmount}
     </div>

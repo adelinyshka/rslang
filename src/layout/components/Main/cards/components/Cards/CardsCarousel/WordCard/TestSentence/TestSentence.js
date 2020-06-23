@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {
+  useState, useEffect, useMemo, useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardsInfoSelector } from '../../../../../redux/selectors';
@@ -29,7 +31,7 @@ const mistakesInWord = (wrongWord, word) => {
 };
 
 const TestSentence = ({
-  testArr, word, playAudio,
+  testSentenceArr, word, playAudio,
 }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
@@ -38,14 +40,14 @@ const TestSentence = ({
   const { cardsArr } = useSelector(cardsInfoSelector);
   const wrongAnswers = useMemo(() => mistakes.map((wrongWord, i) => (
     <p key={`wrongWord${i}`}>
-      {testArr[0]}
+      {testSentenceArr[0]}
       {mistakesInWord(wrongWord, word)}
-      {testArr[1]}
+      {testSentenceArr[1]}
     </p>
-  )), [word, mistakes, testArr]);
+  )), [word, mistakes, testSentenceArr]);
   let wordInput;
 
-  const checkWord = (event) => {
+  const checkWord = useCallback((event) => {
     event.preventDefault();
     if (value.toLowerCase() === word) {
       const newCards = [...cardsArr];
@@ -66,14 +68,14 @@ const TestSentence = ({
     }
     setValue('');
     if (!wasAnswered) playAudio();
-  };
+  }, [cardsArr, mistakes, value, wasAnswered, word, playAudio, dispatch]);
 
-  useEffect(() => { wordInput.focus(); }, [testArr, word, wordInput]);
+  useEffect(() => { wordInput.focus(); }, [wordInput]);
 
   return (
     <>
       <form onSubmit={checkWord}>
-        {testArr[0]}
+        {testSentenceArr[0]}
         <input
           type="text"
           value={value}
@@ -81,7 +83,7 @@ const TestSentence = ({
           ref={(input) => { wordInput = input; }}
           placeholder={wasAnswered ? word : ''}
         />
-        {testArr[1]}
+        {testSentenceArr[1]}
       </form>
       <div>
         {wrongAnswers}
@@ -91,7 +93,7 @@ const TestSentence = ({
 };
 
 TestSentence.propTypes = {
-  testArr: PropTypes.array.isRequired,
+  testSentenceArr: PropTypes.array.isRequired,
   word: PropTypes.string.isRequired,
   playAudio: PropTypes.func.isRequired,
 };

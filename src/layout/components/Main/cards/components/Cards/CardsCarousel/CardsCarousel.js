@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Carousel } from 'react-bootstrap';
 import { cardsInfoSelector, lastCardSelector } from '../../../redux/selectors';
@@ -10,13 +10,13 @@ const CardsCarousel = () => {
   const { lastCard } = useSelector(lastCardSelector);
   const [index, setIndex] = useState(0);
 
-  const handleSelect = (selectedIndex, e) => {
+  const handleSelect = useCallback((selectedIndex) => {
     setIndex(selectedIndex);
-  };
+  }, [setIndex]);
 
   useEffect(() => {
-    const i = (lastCard && cardsArr[0]) ? 1 : 0;
-    setIndex(i);
+    const newIndex = (lastCard && cardsArr[0]) ? 1 : 0;
+    setIndex(newIndex);
   }, [lastCard, cardsArr]);
 
   return (

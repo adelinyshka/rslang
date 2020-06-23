@@ -11,7 +11,7 @@ const WordCard = ({ cardInfo, isAnswered }) => {
   const {
     textExampleTranslate, wordTranslate, textExample, audio,
   } = cardInfo;
-  const testArr = useMemo(
+  const testSentenceArr = useMemo(
     () => textExample.split(/<b>[\w]{0,}<\/b>/), [textExample],
   );
   const word = useMemo(
@@ -30,14 +30,14 @@ const WordCard = ({ cardInfo, isAnswered }) => {
             isAnswered
               ? (
                 <p>
-                  {testArr[0]}
+                  {testSentenceArr[0]}
                   <span className={styles.AnsweredWord}>{word}</span>
-                  {testArr[1]}
+                  {testSentenceArr[1]}
                 </p>
               )
               : (
                 <TestSentence
-                  testArr={testArr}
+                  testSentenceArr={testSentenceArr}
                   word={word}
                   playAudio={playAudio}
                 />
