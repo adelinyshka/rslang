@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loggedSelector } from '../../redux/selectors';
 import { signIn } from '../../redux';
 import loginUser from '../../utils';
-import styles from './SignUp.module.css';
+import styles from './Signup.module.css';
 
 const createUser = async (user) => {
   const url = 'https://afternoon-falls-25894.herokuapp.com/users';

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loggedSelector } from '../../redux/selectors';
 import { signIn } from '../../redux';
 import loginUser from '../../utils';
-import styles from './SignIn.module.css';
+import styles from './Signin.module.css';
 
 const SignIn = () => {
   const dispatch = useDispatch();
