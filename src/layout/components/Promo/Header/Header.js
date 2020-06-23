@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Navbar, Form, Nav } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import css from './../assets/css/Header.module.css';
+import css from './../assets/css/Promo.module.css';
 import ListItemStyled  from './ListIlemStyled';
 import MenuLinkStyled from './MenuLinkStyled';
 

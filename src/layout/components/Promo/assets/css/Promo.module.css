@@ -1,7 +1,26 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Exo&display=swap');*/
-
 .promo_bg {
 	background: #fafafa;
 	height: 100vh;
 	font-family: Exo,sans-serif;
+}
+
+.logo {
+	color: #6979F8 !important;
+	font: normal 50px 'Exo', sans-serif !important;
+}
+
+.enter_btn {
+	background: green;
+	border: green;
+	color: white;
+	width: 178px;
+	height: 48px;
+	margin: 7px 0 7px 0;
+}
+
+
+@media (max-width: 991px) {
+	.logo {
+		font: normal 30px 'Exo', sans-serif !important;
+	}
 }
