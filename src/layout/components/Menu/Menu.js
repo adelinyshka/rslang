@@ -29,7 +29,7 @@ function Menu() {
                 <li className={classes.UserLogin}>
                   <div className={classes.UserLoginInner}>
                     <div className={classes.UserLoginIcon}>
-                      <img src="./assets/images/profile.svg" alt="" />
+                      <img src="./assets/images/menu/profile.svg" alt="" />
                     </div>
                     <div className={classes.UserLoginLabel}>user_login</div>
                   </div>
