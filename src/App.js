@@ -39,7 +39,7 @@ const routes = [
   {
     title: 'Страница регистрации',
     path: '/signin',
-  },
+  }
 ];
 
 function createRoute({ title, path }) {
@@ -59,10 +59,11 @@ createRoute.propTypes = {
 
 const App = () => (
   <Router>
-    <Menu />
-    <Switch>
-      {routes.map(createRoute)}
-    </Switch>
+    {/*<Menu />*/}
+    {/*<Switch>*/}
+    {/*  {routes.map(createRoute)}*/}
+    {/*</Switch>*/}
+    <Promo />
   </Router>
 );
 export default App;

@@ -1,67 +1,76 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
-import { Button, Navbar, NavDropdown, Form,FormControl, Nav } from 'react-bootstrap';
+import { Button, Navbar, Form, Nav } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import css from './../assets/css/Header.module.css';
 
-const HeaderWrapper = styled.header`
-  display: flex;
-`;
+const links = [
+  {
+    title: 'Особенности',
+    path: '/features',
+  },
+  {
+    title: 'Игры',
+    path: '/games',
+  },
+  {
+    title: 'Метод интервального повторения',
+    path: '/method',
+  },
+  {
+    title: 'О команде',
+    path: '/team',
+  }
+];
 
-const List = styled.ul`
-  display: flex;
-  justify-content: space-between;
-  max-width: 100%;
-  font: normal 400 16px 'Exo, sans-serif';
-  padding: 10px 20px;
-  `;
+function createLink({ title, path }) {
+  return (
+    <ListItem key={title}>
+      <MenuLink href={path}>{title}</MenuLink>
+    </ListItem>
+  );
+}
+
+createLink.propTypes = {
+  title: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+};
+
 
 const ListItem = styled.li`
   list-style-type: none;
   width: fit-content;
+  padding: 7px;
+  @media(max-width: 991px) {
+      padding: 10px 0;
+  }
 `;
 
 const MenuLink = styled.a`
   text-decoration: none;
-  margin: 10px;
-  color: ${props => props.theme.usualFontColor};
+  font: normal 16px Exo, sans-serif;
+  color: #485D68;  
+  
+  &:hover, &:focus, &:active {
+    color: black;
+  }
 `;
 
 const Header = () => {
   return (
-    <HeaderWrapper>
-      <List>
-        <ListItem>
-          <MenuLink href="">О приложении</MenuLink></ListItem>
-        <ListItem>
-          <MenuLink href="">Особенности</MenuLink></ListItem>
-        <ListItem>
-          <MenuLink href="">Игры</MenuLink></ListItem>
-        <ListItem>
-          <MenuLink href="">Метод интервального повторения</MenuLink></ListItem>
-        <ListItem>
-          <MenuLink href="">О команде</MenuLink></ListItem>
-      </List>
-      <Button variant="success">Войти</Button>{' '}
-
-    </HeaderWrapper>
-
-    //react-bootstrap
-  // <Navbar bg="light" expand="lg">
-  //   <Navbar.Brand href="#home">RS Lang</Navbar.Brand>
-  //   <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  //   <Navbar.Collapse id="basic-navbar-nav">
-  //     <Nav className="ml-auto">
-  //       <Nav.Link href="#about_app">О приложении</Nav.Link>
-  //       <Nav.Link href="#features">Особенности</Nav.Link>
-  //       <Nav.Link href="#method">Метод интервального повторения</Nav.Link>
-  //       <Nav.Link href="#team">О команде</Nav.Link>
-  //     </Nav>
-  //     <Form inline>
-  //       <Button variant="success">Войти</Button>
-  //     </Form>
-  //   </Navbar.Collapse>
-  // </Navbar>
-
+    <Navbar expand="lg">
+      <Navbar.Brand href="#home" className={css.logo}>RS Lang</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+            {links.map(createLink)}
+        </Nav>
+        <Form inline>
+          <Button className={css.enter_button} variant="outline-success">Войти</Button>
+        </Form>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 
