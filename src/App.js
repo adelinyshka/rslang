@@ -32,14 +32,6 @@ const routes = [
     title: 'Статистика',
     path: '/statistics',
   },
-  {
-    title: 'Страница авторизации',
-    path: '/login',
-  },
-  {
-    title: 'Страница регистрации',
-    path: '/signin',
-  },
 ];
 
 function createRoute({ title, path }) {
