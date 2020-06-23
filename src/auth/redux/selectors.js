@@ -6,3 +6,8 @@ export const userSelector = createSelector(
   authStateSelector,
   ({ user }) => user,
 );
+
+export const loggedSelector = createSelector(
+  authStateSelector,
+  ({ user }) => !!user,
+);

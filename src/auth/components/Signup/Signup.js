@@ -3,53 +3,53 @@ import {
   Redirect,
   Link,
 } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loggedSelector } from '../../redux/selectors';
+import { signIn } from '../../redux';
+import loginUser from '../../utils';
 import styles from './Signup.module.css';
 
 async function createUser(user) {
-  try {
-    const url = 'https://afternoon-falls-25894.herokuapp.com/users';
-    const rawResponse = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
+  const url = 'https://afternoon-falls-25894.herokuapp.com/users';
+  const rawResponse = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
 
-    const { id } = await rawResponse.json();
+  const { id } = await rawResponse.json();
 
-    if (rawResponse.status === 200) {
-      return id;
-    }
-
-    throw new Error();
-  } catch (e) {
-    return e;
+  if (rawResponse.status === 200) {
+    return id;
   }
+
+  throw new Error('Incorrect e-mail or password');
 }
 
 function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSigned, setIsSigned] = useState(!!localStorage.getItem('isSigned'));
+  const isLogged = useSelector(loggedSelector);
+  const dispatch = useDispatch();
 
   const submitHandler = (event) => {
     event.preventDefault();
 
     createUser({ 'email': email, 'password': password })
-      .then(() => {
-        setIsSigned(true);
-        localStorage.setItem('isSigned', true);
+      .then(() => loginUser({ 'email': email, 'password': password }))
+      .then(({ userId, token }) => {
+        dispatch(signIn({ email, token, userId }));
       })
       .catch((er) => console.log(er));
   };
 
   return (
     <>
-      {!!localStorage.getItem('token') && <Redirect to="/" />}
-      {isSigned && <Redirect to="/signin" />}
+      {isLogged && <Redirect to="/" />}
       <form onSubmit={submitHandler} className={styles.form}>
         <input
           type="text"

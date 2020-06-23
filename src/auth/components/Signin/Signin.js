@@ -3,48 +3,23 @@ import {
   Redirect,
   Link,
 } from 'react-router-dom';
-import styles from './Signin.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { loggedSelector } from '../../redux/selectors';
+import { signIn } from '../../redux';
+import loginUser from '../../utils';
+import styles from './SignIn.module.css';
 
-async function loginUser(user) {
-  try {
-    const url = 'https://afternoon-falls-25894.herokuapp.com/signin';
-    const rawResponse = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-
-    const {
-      token,
-      userId,
-    } = await rawResponse.json();
-
-    if (rawResponse.status === 200) {
-      return { token, id: userId };
-    }
-    throw new Error();
-  } catch (e) {
-    return e;
-  }
-}
-
-function Signin() {
+const SignIn = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLogged, setIsLogged] = useState(!!localStorage.getItem('token'));
+  const isLogged = useSelector(loggedSelector);
 
   const submitHandler = (event) => {
     event.preventDefault();
     loginUser({ 'email': email, 'password': password })
       .then(({ userId, token }) => {
-        localStorage.setItem('id', userId);
-        localStorage.setItem('token', token);
-        setEmail('');
-        setPassword('');
-        setIsLogged(true);
+        dispatch(signIn({ email, token, userId }));
       })
       .catch((er) => console.log(er));
   };
@@ -74,6 +49,6 @@ function Signin() {
       </form>
     </>
   );
-}
+};
 
-export default Signin;
+export default SignIn;
