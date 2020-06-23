@@ -3,3 +3,14 @@
 	height: 100vh;
 	font-family: Exo, sans-serif;
 }
+
+.promo_alignment {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 990px)  {
+  .promo_alignment {
+    display: block;
+  }
+}

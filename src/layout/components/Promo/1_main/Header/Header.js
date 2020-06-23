@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Navbar, Form, Nav } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import css from './Header.module.css';
-import ListItemStyled  from './ListIlemStyled';
+import ListItemStyled from './ListIlemStyled';
 import MenuLinkStyled from './MenuLinkStyled';
 
 const links = [

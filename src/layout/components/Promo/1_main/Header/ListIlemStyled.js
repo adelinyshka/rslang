@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
- const ListItemStyled = styled.li`
+const ListItemStyled = styled.li`
   list-style-type: none;
   width: fit-content;
   padding: 7px;

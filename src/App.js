@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  BrowserRouter as Router,  Route,
+  BrowserRouter as Router, Route
 } from 'react-router-dom';
 // import Menu from './layout/components/Menu/Menu';
 import styles from './App.module.css';
@@ -42,7 +42,7 @@ import Promo from './layout/components/Promo';
 //   }
 // ];
 
-function createRoute({ title, path }) {
+function createRoute ({ title, path }) {
   return (
     <Route key={title} exact path={path}>
       <div className={styles.PageName}>
@@ -54,7 +54,7 @@ function createRoute({ title, path }) {
 
 createRoute.propTypes = {
   title: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired
 };
 
 const App = () => (
@@ -63,7 +63,7 @@ const App = () => (
     {/*<Switch>*/}
     {/*  {routes.map(createRoute)}*/}
     {/*</Switch>*/}
-    <Promo />
+    <Promo/>
   </Router>
 );
 export default App;
