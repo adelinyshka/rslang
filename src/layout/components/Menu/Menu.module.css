@@ -37,7 +37,7 @@
 
 .Menu:hover {
   width     : 100%;
-  transition: width 3000ms cubic-bezier(.04, .95, .91, .9) 10ms;
+  transition: width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
 }
 
 .LogoBlue {
@@ -45,7 +45,7 @@
   font-size  : 50px;
   line-height: 22px;
   color      : #6979F8;
-  margin     : 36px 0px 0 99px;
+  margin     : 35px 0px 0 97px;
 }
 
 .Logo {
