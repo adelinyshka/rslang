@@ -3,13 +3,13 @@ import {
   Route,
 } from 'react-router-dom';
 import SignIn from './SignIn/SignIn';
-import Signup from './Signup/Signup';
+import SignUp from './SignUp/SignUp';
 import './Auth.css';
 
 const Auth = () => (
   <div className="Auth">
     <Route path="/signin" component={SignIn} />
-    <Route path="/signup" component={Signup} />
+    <Route path="/signup" component={SignUp} />
   </div>
 );
 

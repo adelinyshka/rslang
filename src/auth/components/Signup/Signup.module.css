@@ -1,10 +1,10 @@
-.form {
+.Form {
   display: flex;
   flex-direction: column;
   width: 35vh;
 }
 
-.button {
+.Button {
   width: 100%;
   background: #6979F8;
   border-radius: 6px;
@@ -15,12 +15,12 @@
   font-family: 'Exo';
 }
 
-.button:hover {
+.Button:hover {
   background: #5761ce;
   cursor: pointer;
 }
 
-.input {
+.Form input {
   height: 1vh;
   margin-bottom: 3vh;
   padding: 2vh;
@@ -29,9 +29,19 @@
   font-family: 'Exo';
 }
 
-.form_link {
+.Form input:nth-last-of-type(1) {
+  margin-bottom: 0;
+}
+
+.Link {
   color: #6979F8;
   text-decoration: none;
   text-align: center;
   margin-top: 1vh;
+}
+
+.PasswordInfo {
+  color: black;
+  font-size: 0.6rem;
+  margin-bottom: 1vh;
 }

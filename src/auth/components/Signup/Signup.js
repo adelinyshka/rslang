@@ -7,9 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loggedSelector } from '../../redux/selectors';
 import { signIn } from '../../redux';
 import loginUser from '../../utils';
-import styles from './Signup.module.css';
+import styles from './SignUp.module.css';
 
-async function createUser(user) {
+const createUser = async (user) => {
   const url = 'https://afternoon-falls-25894.herokuapp.com/users';
   const rawResponse = await fetch(url, {
     method: 'POST',
@@ -20,16 +20,14 @@ async function createUser(user) {
     body: JSON.stringify(user),
   });
 
-  const { id } = await rawResponse.json();
-
-  if (rawResponse.status === 200) {
-    return id;
+  if (rawResponse.status !== 200) {
+    throw new Error('Incorrect e-mail or password');
   }
 
-  throw new Error('Incorrect e-mail or password');
-}
+  return true;
+};
 
-function Signup() {
+const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -50,35 +48,41 @@ function Signup() {
   return (
     <>
       {isLogged && <Redirect to="/" />}
-      <form onSubmit={submitHandler} className={styles.form}>
+      <form onSubmit={submitHandler} className={styles.Form}>
         <input
           type="text"
           placeholder="Name"
           value={name}
-          pattern="[a-zA-Z]{4,}"
+          pattern="[A-Za-z]{1,}"
           onChange={(event) => setName(event.target.value)}
-          className={styles.input}
+          required
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className={styles.input}
+          required
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
-          pattern="(?=.*[0-9])(?=.*[+-_@$!%*?&#.,;:[\]{}])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z+-_@$!%*?&#.,;:[\]{}]{8,}"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[+\-_@$!%*?&#.,;:[\]{}])(?=.*[A-Z]).{8,}"
           onChange={(event) => setPassword(event.target.value)}
-          className={styles.input}
+          autoComplete="new-password"
+          required
         />
-        <button type="submit" className={styles.button} id="button-create">
-        Создать аккаунт
+        <p className={styles.PasswordInfo}>
+          Пароль должен содержать не менее 8 символов, как минимум одну
+          прописную букву,одну заглавную букву, одну цифру и один спецсимвол из
+          {'+-_@$!%*?&#.,;:[]{}'}
+        </p>
+        <button type="submit" className={styles.Button} id="button-create">
+          Создать аккаунт
         </button>
         <Link
-          className={styles.form_link}
+          className={styles.Link}
           to="/signin"
         >
           У меня есть аккаунт
@@ -86,6 +90,6 @@ function Signup() {
       </form>
     </>
   );
-}
+};
 
-export default Signup;
+export default SignUp;

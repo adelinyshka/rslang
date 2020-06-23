@@ -9,15 +9,15 @@ const loginUser = async (user) => {
     body: JSON.stringify(user),
   });
 
+  if (rawResponse.status !== 200) {
+    throw new Error('Incorrect e-mail or password');
+  }
   const {
     token,
     userId,
   } = await rawResponse.json();
 
-  if (rawResponse.status === 200) {
-    return { token, userId };
-  }
-  throw new Error('Incorrect e-mail or password');
+  return { token, userId };
 };
 
 export default loginUser;
