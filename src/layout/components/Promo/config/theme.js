@@ -1,1 +1,1 @@
-export const usualFontColor = 'black';
+export const defaultFontColor = 'black';
