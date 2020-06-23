@@ -10,24 +10,31 @@
 }
 
 .MenuContainer {
-  z-index  : 400;
-  position : fixed;
-  top      : 0;
-  left     : 0;
-  height   : 100%;
-  width    : 80%;
-  max-width: 330px;
+  z-index   : 400;
+  position  : fixed;
+  top       : 0;
+  left      : 0;
+  height    : 100%;
+  width     : 100%;
+  max-width : 99px;
+  transition: max-width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
 }
+
+.MenuContainer:hover {
+  width     : 100%;
+  max-width : 330px;
+  transition: max-width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
+}
+
 
 .Menu {
   position  : absolute;
   top       : 0;
   left      : 0;
-  width     : 30%;
+  width     : 100%;
   height    : 100%;
   background: linear-gradient(187.85deg, #BD7AE3 0%, #8461C9 100%);
   box-shadow: 7px 0px 64px rgba(0, 0, 0, 0.15);
-  transition: width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
   overflow  : hidden;
 }
 
@@ -35,17 +42,12 @@
   display: flex;
 }
 
-.Menu:hover {
-  width     : 100%;
-  transition: width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
-}
-
 .LogoBlue {
   font-family: 'Exo', sans-serif;
   font-size  : 50px;
   line-height: 22px;
   color      : #6979F8;
-  margin     : 35px 0px 0 97px;
+  margin     : 34px 0px 0 99px;
 }
 
 .Logo {
@@ -178,24 +180,14 @@
 
 
 @media (max-width: 768px) {
-  .Menu {
-    font-family: 'Exo', sans-serif;
-    font-size  : 50px;
-    z-index    : 400;
-    width      : 0%;
-    overflow   : hidden;
+  .MenuContainer {
+    width    : 100%;
+    max-width: 0px;
   }
 
   .Active {
-    position  : absolute;
-    top       : 0;
-    left      : 0;
-    width     : 100%;
-    height    : 100%;
-    background: linear-gradient(187.85deg, #BD7AE3 0%, #8461C9 100%);
-    box-shadow: 7px 0px 64px rgba(0, 0, 0, 0.15);
-    transition: width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
-    overflow  : hidden;
+    max-width : 330px;
+    transition: max-width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
   }
 
   .HeaderMenu {

@@ -12,11 +12,9 @@ function Menu() {
   return (
     <>
       <ToolBar ClickHandler={() => toggle(!position)} />
-      <div className={classes.MenuContainer}>
+      <div className={classNames(classes.MenuContainer, { [classes.Active]: position })}>
         <p className={classes.LogoBlue}>Lang</p>
-        <div className={classNames(classes.Menu,
-          { [classes.Active]: position })}
-        >
+        <div className={classes.Menu}>
           <div className={classes.FlexContainer}>
             <div>
               <div className={classes.Header}>
