@@ -1,14 +1,15 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import classNames from 'classnames';
-import '../style.module.css';
 import {
   wordsSelector,
   activeWordSelector,
 } from '../redux/selectors';
+import { translater } from '../utils/index';
 
 import {
   setActiveWord,
+  setImage,
+  setTranslateActiveWord,
 } from '../redux';
 
 const audioPath = 'https://raw.githubusercontent.com'
@@ -19,20 +20,32 @@ const BlockWords = () => {
   const activeWord = useSelector(activeWordSelector);
   const words = useSelector(wordsSelector);
 
-  const activateWord = useCallback((word, audio) => {
-    dispatch(setActiveWord(word));
-    const pronounce = new Audio(`${audioPath}${audio}`);
-    pronounce.play();
+  const activateWord = useCallback((word, audio, image) => {
+    translater(word).then((result) => {
+      console.log(result);
+      const [translateWord] = result.text;
+      const link = `${'https://raw.githubusercontent.com/'
+      + 'irinainina/rslang-data/master/'}${image}`;
+      dispatch(setActiveWord(word));
+      dispatch(setImage(link));
+      dispatch(setTranslateActiveWord(translateWord));
+      const pronounce = new Audio(`${audioPath}${audio}`);
+      pronounce.play();
+    });
   }, [dispatch]);
 
   return (
     <div>
-      {words.map(({ word, transcription, audio }) => (
+      {words.map(({
+        word,
+        transcription,
+        audio,
+        image,
+      }) => (
         <div
           id={word}
           key={word}
-          onClick={() => activateWord(word, audio)}
-          className={classNames({ 'blockActiveWord': activeWord === word })}
+          onClick={() => activateWord(word, audio, image)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

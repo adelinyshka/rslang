@@ -1,9 +1,19 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import '../style.module.css';
+
+import {
+  StyleSwitcherLevel,
+  StyleP,
+  StyleUl,
+  StyleSwitcher,
+  StyleSwitcherActive,
+} from './style.SwitcherLevel.js';
+
 import {
   setWords,
   setLevel,
+  setImage,
+  setTranslateActiveWord,
 } from '../redux';
 import { getWords } from '../utils';
 
@@ -22,36 +32,35 @@ const SwitcherLevel = () => {
     if (activeLevel !== level) {
       getWords(level).then((words) => {
         if (words.length > 1) {
+          console.log(words);
           dispatch(setWords(words));
           dispatch(setLevel(level));
+          dispatch(setImage(' '));
+          dispatch(setTranslateActiveWord(' '));
         }
       });
     }
   }, [activeLevel, dispatch]);
 
   return (
-    <div
-      className="switcherLevel"
-    >
-      <p className="p">Уровень</p>
-      <ul className="ul">
+    <StyleSwitcherLevel>
+      <StyleP>Уровень</StyleP>
+      <StyleUl>
         {
           levels
             .fill(' ')
-            .map((element, index) => index + 1)
-            .map((level) => (
-              <li
-                className="switcher switcherActive"
+            .map((el, index) => index + 1)
+            .map((level, index) => (
+              <StyleSwitcher
                 key={level}
-                id={level - 1}
-                onClick={() => changeActiveLevel(level)}
+                onClick={() => changeActiveLevel(index)}
               >
                 {level}
-              </li>
+              </StyleSwitcher>
             ))
         }
-      </ul>
-    </div>
+      </StyleUl>
+    </StyleSwitcherLevel>
   );
 };
 

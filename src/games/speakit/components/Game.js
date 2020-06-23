@@ -7,23 +7,25 @@ import {
   modeSelector,
   wordsSelector,
   activeWordSelector,
+  imageSelector,
+  translateActiveWordSelector,
 } from '../redux/selectors';
 
 function Game() {
+  const image = useSelector(imageSelector);
+  const activeWord = useSelector(activeWordSelector);
+  const translateActiveWord = useSelector(translateActiveWordSelector);
   const words = useSelector(wordsSelector);
   const statusGame = useSelector(modeSelector);
-  const activeWord = useSelector(activeWordSelector);
+  console.log(translateActiveWord);
 
   return (
     <div className="wrapper">
-      <div className="education__switcher-words">
-        <p>level</p>
-        <SwitcherLevel />
-      </div>
+      <SwitcherLevel />
       <figure>
-        <img src="./dist/img/education-main.jpg" alt="English Words" />
+        <img src={image} alt={translateActiveWord} />
         <figcaption>
-          Word
+          {translateActiveWord}
         </figcaption>
       </figure>
       <div className="education__block-spoken-words" />

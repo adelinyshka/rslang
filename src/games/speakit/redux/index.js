@@ -18,11 +18,23 @@ export const setActiveWord = (activeWord) => ({
   activeWord,
 });
 
+export const setTranslateActiveWord = (translateActiveWord) => ({
+  type: 'SET_TRANSLATE_ACTIVE_WORD',
+  translateActiveWord,
+});
+
+export const setImage = (image) => ({
+  type: 'SET_IMAGE',
+  image,
+});
+
 const INITIAL_STATE = {
   stateGame: false,
   words: {},
   level: 1,
   activeWord: 'base_word',
+  translateActiveWord: ' ',
+  image: '',
 };
 
 const speakitReducer = (state = INITIAL_STATE, action) => {
@@ -36,6 +48,8 @@ const speakitReducer = (state = INITIAL_STATE, action) => {
     case 'SET_WORDS':
     case 'SET_LEVEL':
     case 'SET_ACTIVE_WORD':
+    case 'SET_IMAGE':
+    case 'SET_TRANSLATE_ACTIVE_WORD':
       return {
         ...state,
         ...payload,

@@ -21,3 +21,13 @@ export const levelSelector = createSelector(
   speakitSelector,
   ({ level }) => level,
 );
+
+export const imageSelector = createSelector(
+  speakitSelector,
+  ({ image }) => image,
+);
+
+export const translateActiveWordSelector = createSelector(
+  speakitSelector,
+  ({ translateActiveWord }) => translateActiveWord,
+)
