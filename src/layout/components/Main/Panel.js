@@ -6,7 +6,7 @@ export default function Panel({
   img, header, description, actionName, alt, myStyle, children,
 }) {
   return (
-    <div className={styles.Block}>
+    <div className={styles.Panel}>
       <img
         src={ img }
         alt={alt}
