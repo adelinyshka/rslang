@@ -5,7 +5,7 @@ function CardGroup() {
   const Team = [
     {
       photo: './assets/Team/Guy.jpg',
-      name: 'Александр Пащенко',
+      name: 'Александр Пащенко,',
       github: 'https://github.com/alekchaik',
       text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
       sed do eiusmod tempor incididunt ut labore et dolore
@@ -14,7 +14,7 @@ function CardGroup() {
     },
     {
       photo: './assets/Team/Girl.jpg',
-      name: 'Адель Дубинникова',
+      name: 'Адель Дубинникова,',
       github: 'https://github.com/adelinyshka',
       text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             sed do eiusmod tempor incididunt ut labore et dolore
@@ -23,7 +23,7 @@ function CardGroup() {
     },
     {
       photo: './assets/Team/Guy.jpg',
-      name: 'Максим Сливин',
+      name: 'Максим Сливин,',
       github: 'https://github.com/raizer58',
       text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
       sed do eiusmod tempor incididunt ut labore et dolore
@@ -32,7 +32,7 @@ function CardGroup() {
     },
     {
       photo: './assets/Team/Guy.jpg',
-      name: 'Юрий Разумный',
+      name: 'Юрий Разумный,',
       github: 'https://github.com/yuryrazumny',
       text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
       sed do eiusmod tempor incididunt ut labore et dolore
@@ -41,7 +41,7 @@ function CardGroup() {
     },
     {
       photo: './assets/Team/Girl.jpg',
-      name: 'Светлана Забродина',
+      name: 'Светлана Забродина,',
       github: 'https://github.com/svetlaz',
       text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
       sed do eiusmod tempor incididunt ut labore et dolore
@@ -50,7 +50,7 @@ function CardGroup() {
     },
     {
       photo: './assets/Team/Guy.jpg',
-      name: 'Евгений Иванов',
+      name: 'Евгений Иванов,',
       github: 'https://github.com/eugenevebyza',
       text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
       sed do eiusmod tempor incididunt ut labore et dolore

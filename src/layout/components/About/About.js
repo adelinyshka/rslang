@@ -1,15 +1,15 @@
 import React from 'react';
 import CardGroup from './CardGroup';
-import './About.css';
+import style from './About.module.css';
 
 function About() {
   return (
-    <div className="Wrapper">
-      <div className="AboutHeader">
-        <h2 className="AboutTitle">Наша команда</h2>
+    <div className={style.Wrapper}>
+      <div className={style.AboutHeader}>
+        <h2 className={style.AboutTitle}>Наша команда</h2>
         <p>Мы работали над проектом для вас!</p>
       </div>
-      <div className="Main">
+      <div className={style.Main}>
         <CardGroup />
       </div>
     </div>
