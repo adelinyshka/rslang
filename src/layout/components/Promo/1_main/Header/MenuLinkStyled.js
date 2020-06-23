@@ -7,6 +7,7 @@ const MenuLinkStyled = styled.a`
   
   &:hover, &:focus, &:active {
     color: black;
+    text-decoration: none;
   }
 `;
 

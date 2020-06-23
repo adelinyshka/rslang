@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 
 const HugeTitleStyled = styled.div`
-  color: #212353;
+  color: #4B5D68;
   max-width: 560px;
   padding: 16px;
   font: bold 80px/110% 'Exo',sans-serif;

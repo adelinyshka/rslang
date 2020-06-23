@@ -4,14 +4,20 @@
 }
 
 .enter_btn {
-  background: green;
-  border: green;
+  background: #0AD1BD;
+  border: #0AD1BD;
   color: white;
   width: 178px;
   height: 48px;
   margin: 7px 0 7px 0;
 }
 
+.enter_btn:hover,
+.enter_btn:focus,
+.enter_btn:active {
+  background: #08A999;
+  border: #08A999;
+}
 
 @media (max-width: 991px) {
   .logo {

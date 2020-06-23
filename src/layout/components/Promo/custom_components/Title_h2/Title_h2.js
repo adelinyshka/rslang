@@ -10,7 +10,7 @@ const TitleH2Styled = styled.div`
   font-size: 40px;
   line-height: 130%;
   text-align: center;
-  color: #212353;
+  color: #4B5D68;
   padding: 50px 0;
   
   @media (max-width: 990px) and (min-width: 571px) {
