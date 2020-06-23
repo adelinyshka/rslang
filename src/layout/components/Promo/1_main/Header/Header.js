@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Navbar, Form, Nav } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import css from './Header.module.css';
-import ListItemStyled from './ListIlemStyled';
-import MenuLinkStyled from './MenuLinkStyled';
+import HeaderListItem from './HeaderListItem';
+import HeaderMenuLink from './HeaderMenuLink';
 
 const links = [
   {
@@ -27,9 +27,9 @@ const links = [
 
 function createLink ({ title, path }) {
   return (
-    <ListItemStyled key={title}>
-      <MenuLinkStyled href={path}>{title}</MenuLinkStyled>
-    </ListItemStyled>
+    <HeaderListItem key={title}>
+      <HeaderMenuLink href={path}>{title}</HeaderMenuLink>
+    </HeaderListItem>
   );
 }
 

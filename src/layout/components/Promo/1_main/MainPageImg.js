@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ImgMainPageStyled = styled.img`
+const MainPageImg = styled.img`
   width: 580px;
   margin-top: 100px;
   display: inline-block;
@@ -16,4 +16,4 @@ const ImgMainPageStyled = styled.img`
   }
 `;
 
-export default ImgMainPageStyled;
+export default MainPageImg;

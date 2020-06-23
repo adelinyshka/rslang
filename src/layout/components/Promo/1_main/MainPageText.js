@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 
 
-const TextMainPageStyled = styled.div`
+const MainPageTextStyled = styled.div`
   color: #4B5D68;
   max-width: 420px;
   padding: 20px 16px;
@@ -25,10 +25,10 @@ const TextMainPageStyled = styled.div`
 `;
 
 
-const TextMainPage = (props) => {
+const MainPageText = (props) => {
   return (
-    <TextMainPageStyled>{props.text}</TextMainPageStyled>
+    <MainPageTextStyled>{props.text}</MainPageTextStyled>
   );
 };
 
-export default TextMainPage;
+export default MainPageText;

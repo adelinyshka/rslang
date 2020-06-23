@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 
 
-const HugeTitleStyled = styled.div`
+const TitleHugeStyled = styled.div`
   color: #4B5D68;
   max-width: 560px;
   padding: 16px;
@@ -23,10 +23,10 @@ const HugeTitleStyled = styled.div`
 `;
 
 
-const HugeTitle = (props) => {
+const TitleHuge = (props) => {
   return (
-    <HugeTitleStyled>{props.text}</HugeTitleStyled>
+    <TitleHugeStyled>{props.text}</TitleHugeStyled>
   );
 };
 
-export default HugeTitle;
+export default TitleHuge;

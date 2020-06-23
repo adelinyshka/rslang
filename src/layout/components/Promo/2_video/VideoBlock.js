@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
-import screen from './../../assets/images/screen.png';
+import screen from '../assets/images/screen.png';
 import css from './VideoBlock.module.css';
 
 const DivStyled = styled.div`

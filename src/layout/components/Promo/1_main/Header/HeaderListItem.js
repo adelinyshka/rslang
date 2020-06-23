@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ListItemStyled = styled.li`
+const HeaderListItem = styled.li`
   list-style-type: none;
   width: fit-content;
   padding: 7px;
@@ -9,4 +9,4 @@ const ListItemStyled = styled.li`
   }
 `;
 
-export default ListItemStyled;
+export default HeaderListItem;

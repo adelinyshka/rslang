@@ -4,15 +4,15 @@ import { ThemeProvider } from 'styled-components';
 import * as theme from './config/theme';
 import css from './Promo.module.css';
 
-import GameFeature from './custom_components/Game_feature';
+import FeatureCard from './3_features/Feature';
 import Header from './1_main/Header';
-import HugeTitle from './1_main/HugeTitle';
+import TitleHuge from './1_main/TitleHuge';
 import ImgFullWidth from './custom_components/ImgFullWidth';
-import ImgMainPageStyled from './1_main/ImgMainPageStyled';
+import MainPageImg from './1_main/MainPageImg';
 import TitleH2 from './custom_components/Title_h2';
 import TextAfterTitle from './custom_components/Text_after_title';
-import TextMainPage from './1_main/TextMainPage';
-import Video from './2_video/Video';
+import MainPageText from './1_main/MainPageText';
+import Video from './2_video';
 
 import full_width from './assets/images/full_width.svg';
 import graph from './assets/images/graph.svg';
@@ -30,12 +30,12 @@ export default function Promo () {
         <Header/>
         <div className={css.promo_alignment}>
           <div>
-            <HugeTitle text='Выучить английский - легко'/>
-            <TextMainPage text='Уникальное приложение для изучения английского. 
+            <TitleHuge text='Выучить английский - легко'/>
+            <MainPageText text='Уникальное приложение для изучения английского. 
             Интересные игры для тренировки слов и метод интервального
             повторения для запоминания слов навсегда'/>
           </div>
-          <ImgMainPageStyled src={img_main_page} alt={'big colored pic'}/>
+          <MainPageImg src={img_main_page} alt={'big colored pic'}/>
         </div>
 
         <TitleH2 text='Что внутри?'/>
@@ -46,23 +46,23 @@ export default function Promo () {
         ' приложении для себя и своей семьи'}/>
         <Row>
           <Col xs={12} md={6}>
-            <GameFeature title={'Игры'}
+            <FeatureCard title={'Игры'}
                          text={'Don’t worry if your data is very large, the Data Warehoue provides a search engine, which is useful for making it easier to find data effectively saving time.'}
                          src={feature1}/>
           </Col>
           <Col xs={12} md={6}>
-            <GameFeature className={'top_pad'}
+            <FeatureCard className={'top_pad'}
                          title={'Онлайн доступ'}
                          text={'Don’t worry if your data is very large, the Data Warehoue provides a search engine, which is useful for making it easier to find data effectively saving time.'}
                          src={feature2}/>
           </Col>
           <Col xs={12} md={6}>
-            <GameFeature title={'Статистика прогресса'}
+            <FeatureCard title={'Статистика прогресса'}
                          text={'Don’t worry if your data is very large, the Data Warehoue provides a search engine, which is useful for making it easier to find data effectively saving time.'}
                          src={feature3}/>
           </Col>
           <Col xs={12} md={6}>
-            <GameFeature title={'Интервальное повторение'}
+            <FeatureCard title={'Интервальное повторение'}
                          text={'Don’t worry if your data is very large, the Data Warehoue provides a search engine, which is useful for making it easier to find data effectively saving time.'}
                          src={feature4}/>
           </Col>
