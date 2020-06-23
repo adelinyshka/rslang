@@ -13,18 +13,22 @@ export const logout = () => ({
 });
 
 const INITIAL_STATE = {
-  user: null,
+  user: JSON.parse(localStorage.getItem('user')),
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
+  const newState = {
+    ...state,
+    ...payload,
+  };
   switch (type) {
     case 'LOG_IN':
+      localStorage.setItem('user', JSON.stringify(newState.user));
+      return newState;
     case 'LOG_OUT':
-      return {
-        ...state,
-        ...payload,
-      };
+      localStorage.setItem('user', null);
+      return newState;
     default:
       return state;
   }
