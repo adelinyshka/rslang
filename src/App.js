@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 import Login from './auth/components/Login';
-import SignUp from './auth/components/SignUp';
+import SignUp from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
 import styles from './App.module.css';
 
