@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import style from './Card.module.css';
 
 function Card({
-  photo, name, github, text, bgColor,
+  photo, name, github, description, bgColor,
 }) {
   return (
     <div className={style.CardWrapper} style={{ backgroundColor: bgColor }}>
@@ -32,7 +32,7 @@ function Card({
           </div>
         </div>
         <p className={style.TextDev}>
-          {text}
+          {description}
         </p>
       </div>
     </div>
@@ -43,7 +43,7 @@ Card.propTypes = {
   photo: PropTypes.string,
   name: PropTypes.string,
   github: PropTypes.string,
-  text: PropTypes.string,
+  description: PropTypes.string,
   bgColor: PropTypes.string,
 };
 
@@ -51,7 +51,7 @@ Card.defaultProps = {
   photo: '',
   name: '',
   github: '',
-  text: '',
+  description: '',
   bgColor: '',
 };
 
