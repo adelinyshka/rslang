@@ -1,0 +1,40 @@
+.CardWrapper {
+  width: 360px;
+  height: 448px;
+  border: 1px solid grey;
+  margin-right: 30px;
+  margin-bottom: 35px;
+  background: #F2F2F2;
+  box-shadow: 0px 15px 19px rgba(0, 0, 0, 0.24);
+  border-radius: 5px;
+}
+
+.image {
+  border-radius: 5px 5px 0 0;
+}
+
+.TextWrapper {
+  padding: 30px;
+}
+
+.Name {
+  display: flex;
+  align-items: center;
+}
+
+.NameDev {
+  display: inline;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.TextDev {
+  text-align: left;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.IconGit {
+  margin-right: 30px;
+  display: inline-block;
+}

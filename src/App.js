@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 import Menu from './layout/components/Menu/Menu';
+import About from './layout/components/About/About';
 import styles from './App.module.css';
 
 const routes = [
@@ -39,6 +40,11 @@ const routes = [
     title: 'Страница регистрации',
     path: '/signin',
   },
+  {
+    title: 'О команде',
+    path: '/about',
+    component: <About />,
+  },
 ];
 
 function createRoute({ title, path }) {
@@ -62,6 +68,7 @@ const App = () => (
     <Switch>
       {routes.map(createRoute)}
     </Switch>
+    <About />
   </Router>
 );
 export default App;
