@@ -1,5 +1,5 @@
-export const signIn = ({ email, token, userId }) => ({
-  type: 'SIGN_IN',
+export const login = ({ email, token, userId }) => ({
+  type: 'LOG_IN',
   user: {
     email,
     token,
@@ -7,8 +7,8 @@ export const signIn = ({ email, token, userId }) => ({
   },
 });
 
-export const signOut = () => ({
-  type: 'SIGN_OUT',
+export const logout = () => ({
+  type: 'LOG_OUT',
   user: null,
 });
 
@@ -19,8 +19,8 @@ const INITIAL_STATE = {
 const authReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
   switch (type) {
-    case 'SIGN_IN':
-    case 'SIGN_OUT':
+    case 'LOG_IN':
+    case 'LOG_OUT':
       return { ...payload };
     default:
       return state;

@@ -1,0 +1,93 @@
+.Auth {
+  background-color: #FAFAFA;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.Auth h1 {
+  position: absolute;
+  top: 0;
+  left: 2vh;
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 8vh;
+  line-height: 4vh;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.header-blue {
+  color: #6979F8;
+}
+
+.line {
+  background: linear-gradient(187.9deg, #BD7AE3 0%, #8461C9 100%);
+  width: 12vh;
+  height: 100vh;
+  position: absolute;
+  display: block;
+  left: 0px;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  width: 35vh;
+}
+
+.Button {
+  width: 100%;
+  background: #6979F8;
+  border-radius: 6px;
+  height: 6vh;
+  text-transform: uppercase;
+  color: #fff;
+  border: none;
+  font-family: 'Exo';
+  margin-top: 3vh;
+}
+
+.Button:hover {
+  background: #5761ce;
+  cursor: pointer;
+}
+
+.Form input {
+  height: 1vh;
+  margin-bottom: 3vh;
+  padding: 2vh;
+  border-radius: 6px;
+  border: none;
+  font-family: 'Exo';
+}
+
+.Form input:nth-last-of-type(1) {
+  margin-bottom: 0;
+}
+
+.Link {
+  color: #6979F8;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 1vh;
+}
+
+.PasswordInfo {
+  color: black;
+  font-size: 0.5rem;
+  text-align: center;
+  margin-top: 1vh;
+  margin-bottom: -2vh;
+}
+
+.Form_link {
+  color: #6979F8;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 1vh;
+}

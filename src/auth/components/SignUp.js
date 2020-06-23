@@ -4,10 +4,10 @@ import {
   Link,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loggedSelector } from '../../redux/selectors';
-import { signIn } from '../../redux';
-import loginUser from '../../utils';
-import styles from './Signup.module.css';
+import { loggedSelector } from '../redux/selectors';
+import { login } from '../redux';
+import loginUser from '../utils';
+import styles from './Auth.module.css';
 
 const createUser = async (user) => {
   const url = 'https://afternoon-falls-25894.herokuapp.com/users';
@@ -40,13 +40,13 @@ const SignUp = () => {
     createUser({ 'email': email, 'password': password })
       .then(() => loginUser({ 'email': email, 'password': password }))
       .then(({ userId, token }) => {
-        dispatch(signIn({ email, token, userId }));
+        dispatch(login({ email, token, userId }));
       })
       .catch((er) => console.log(er));
   };
 
   return (
-    <>
+    <div className={styles.Auth}>
       {isLogged && <Redirect to="/" />}
       <form onSubmit={submitHandler} className={styles.Form}>
         <input
@@ -83,12 +83,12 @@ const SignUp = () => {
         </button>
         <Link
           className={styles.Link}
-          to="/signin"
+          to="/login"
         >
           У меня есть аккаунт
         </Link>
       </form>
-    </>
+    </div>
   );
 };
 
