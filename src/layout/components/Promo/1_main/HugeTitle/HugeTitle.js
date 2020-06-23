@@ -19,7 +19,6 @@ const HugeTitleStyled = styled.div`
     font-size: 40px;
     margin: 0 auto;
     text-align: center;
-
   }
 `;
 
