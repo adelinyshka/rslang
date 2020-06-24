@@ -27,7 +27,7 @@ const createUser = async (user) => {
   return true;
 };
 
-const SignUp = () => {
+const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -92,4 +92,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Signup;

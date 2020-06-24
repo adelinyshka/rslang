@@ -6,7 +6,7 @@ import {
 import { useSelector } from 'react-redux';
 import { isAuthenticatedSelector } from './auth/redux/selectors';
 import Login from './auth/components/Login';
-import SignUp from './auth/components/Signup';
+import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
 import styles from './App.module.css';
 
@@ -43,7 +43,7 @@ const routes = [
   {
     title: 'Страница регистрации',
     path: '/signup',
-    component: <SignUp />,
+    component: <Signup />,
   },
   {
     title: 'Стартовая страница',
