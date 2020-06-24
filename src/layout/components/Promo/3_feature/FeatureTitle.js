@@ -10,6 +10,7 @@ const FeatureTitle = styled.h6`
   line-height: 130%;
   color: #212353;
   padding: 16px;
+  width: 54%;
   
   @media (max-width: 570px) {
     font-size: 22px;

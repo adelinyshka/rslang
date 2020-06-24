@@ -10,18 +10,16 @@ const TextAfterTitleStyled = styled.div`
   line-height: 28px;
   text-align: center;
   color: #4B5D68;
-  padding: 0 30%;
+  padding: 20px 30%;
 
- 
   @media (max-width: 990px) and (min-width: 571px) {
-    padding: 0 20%;
+    padding: 10px 20%;
   }
   
   @media (max-width: 570px) {
-    padding: 0 10%;
+    padding: 10px 10%;
   }
 `;
-
 
 const TextAfterTitle = (props) => {
   return (

@@ -18,3 +18,9 @@
 .top_pad {
   padding-top: 40px;
 }
+
+.wrapper_game {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
