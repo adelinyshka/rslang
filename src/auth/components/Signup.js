@@ -45,9 +45,10 @@ const Signup = () => {
       .catch((er) => console.log(er));
   }, [email, password, dispatch]);
 
+  if (isLogged) return <Redirect to="/" />;
+
   return (
     <div className={styles.Auth}>
-      {isLogged && <Redirect to="/" />}
       <form onSubmit={submitHandler} className={styles.Form}>
         <input
           type="text"

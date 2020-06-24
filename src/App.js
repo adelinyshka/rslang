@@ -11,7 +11,34 @@ import Menu from './layout/components/Menu/Menu';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
 
-const routes = [
+const authRoutes = [
+  {
+    title: 'Страница авторизации',
+    path: '/login',
+    component: <Login />,
+  },
+  {
+    title: 'Страница регистрации',
+    path: '/signup',
+    component: <Signup />,
+  },
+];
+
+function createAuthRoutes({ title, path, component }) {
+  return (
+    <Route key={title} exact path={path}>
+      {component}
+    </Route>
+  );
+}
+
+createAuthRoutes.propTypes = {
+  title: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  component: PropTypes.func.isRequired,
+};
+
+const privateRoutes = [
   {
     title: 'Профиль',
     path: '/profile',
@@ -37,23 +64,13 @@ const routes = [
     path: '/statistics',
   },
   {
-    title: 'Страница авторизации',
-    path: '/login',
-    component: <Login />,
-  },
-  {
-    title: 'Страница регистрации',
-    path: '/signup',
-    component: <Signup />,
-  },
-  {
     title: 'Главная страница',
     path: '/',
     component: <Main />,
   },
 ];
 
-function createRoute({ title, path, component }, isLogged) {
+function createPrivateRoute({ title, path, component }, isLogged) {
   return (
     <Route key={title} exact path={path}>
       {!isLogged && <Redirect to="/login" />}
@@ -66,7 +83,7 @@ function createRoute({ title, path, component }, isLogged) {
   );
 }
 
-createRoute.propTypes = {
+createPrivateRoute.propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   component: PropTypes.func.isRequired,
@@ -78,7 +95,8 @@ const App = () => {
     <Router>
       <Menu />
       <Switch>
-        {routes.map((el) => createRoute(el, isLogged))}
+        {authRoutes.map(createAuthRoutes)}
+        {privateRoutes.map((el) => createPrivateRoute(el, isLogged))}
       </Switch>
     </Router>
   );
