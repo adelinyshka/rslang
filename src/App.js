@@ -40,14 +40,22 @@ const routes = [
     title: 'Страница регистрации',
     path: '/signin',
   },
+  {
+    title: 'Главная страница',
+    path: '/',
+    component: <Main />,
+  },
 ];
 
-function createRoute({ title, path }) {
+function createRoute({ title, path, component }) {
   return (
     <Route key={title} exact path={path}>
-      <div className={styles.PageName}>
-        <h1>{title}</h1>
-      </div>
+      { component
+      || (
+        <div className={styles.PageName}>
+          <h1>{title}</h1>
+        </div>
+      )}
     </Route>
   );
 }
@@ -55,55 +63,14 @@ function createRoute({ title, path }) {
 createRoute.propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
+  component: PropTypes.func.isRequired,
 };
 
 const App = () => (
   <Router>
     <Menu />
     <Switch>
-      <Route exact path="/">
-        <Main />
-      </Route>
-      <Route exact path="/profile">
-        <div>
-          <h1>Профиль</h1>
-        </div>
-      </Route>
-      <Route exact path="/settings">
-        <div>
-          <h1>Настройки</h1>
-        </div>
-      </Route>
-      <Route exact path="/games">
-        <div>
-          <h1>Мини игры</h1>
-        </div>
-      </Route>
-      <Route exact path="/cards">
-        <div>
-          <h1>Карточки</h1>
-        </div>
-      </Route>
-      <Route exact path="/dictionary">
-        <div>
-          <h1>Словарь</h1>
-        </div>
-      </Route>
-      <Route exact path="/statistics">
-        <div>
-          <h1>Статистика</h1>
-        </div>
-      </Route>
-      <Route exact path="/login">
-        <div>
-          <h1>Страница авторизации</h1>
-        </div>
-      </Route>
-      <Route exact path="/signin">
-        <div>
-          <h1>Страница регистрации</h1>
-        </div>
-      </Route>
+      {routes.map(createRoute)}
     </Switch>
   </Router>
 );
