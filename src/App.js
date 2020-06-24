@@ -9,6 +9,7 @@ import Login from './auth/components/Login';
 import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
 import styles from './App.module.css';
+import Main from './layout/components/Main/Main';
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
   {
     title: 'Стартовая страница',
     path: '/',
+  },
+  {
+    title: 'Главная страница',
+    path: '/',
+    component: <Main />,
   },
 ];
 
