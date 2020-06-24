@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Carousel } from 'react-bootstrap';
 import { cardsInfoSelector, lastCardSelector } from '../../../redux/selectors';
-import WordCard from './WordCard/WordCard';
+import WordCard from '../WordCard/WordCard';
 import styles from './CardsCarousel.module.css';
 
 const CardsCarousel = () => {

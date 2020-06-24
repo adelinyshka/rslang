@@ -3,10 +3,10 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { cardsInfoSelector } from '../../../../../redux/selectors';
+import { cardsInfoSelector } from '../../../redux/selectors';
 import {
   changeCards, changeLastCard, hideAnswer,
-} from '../../../../../redux/actions';
+} from '../../../redux/actions';
 import styles from './TestSentence.module.css';
 
 const mistakesInWord = (wrongWord, word) => {

@@ -2,10 +2,10 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { showAnswerSelector } from '../../../../redux/selectors';
+import { showAnswerSelector } from '../../../redux/selectors';
 
 import styles from './WordCard.module.css';
-import TestSentence from './TestSentence/TestSentence';
+import TestSentence from '../TestSentence/TestSentence';
 
 const WordCard = ({ cardInfo, isAnswered }) => {
   const {
