@@ -31,12 +31,12 @@ const CardsCarousel = () => {
     >
       {lastCard
       && (
-        <Carousel.Item className={styles.CarouseItem}>
+        <Carousel.Item className={styles.CarouselItem}>
           <WordCard cardInfo={lastCard} isAnswered />
         </Carousel.Item>
       )}
       {cardsArr.length && (
-        <Carousel.Item className={styles.CarouseItem}>
+        <Carousel.Item className={styles.CarouselItem}>
           <WordCard cardInfo={cardsArr[0]} isAnswered={false} />
         </Carousel.Item>
       )}

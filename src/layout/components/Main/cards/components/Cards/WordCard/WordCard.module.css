@@ -1,3 +1,7 @@
 .AnsweredWord {
   color: orange;
 }
+
+.Card {
+  height: 100%;
+}

@@ -1,6 +1,7 @@
 .Carousel {
-  height: 400px;
+  height: 30vh;
   background-color: black;
+  
 }
 
 .Carousel > div {
@@ -9,8 +10,8 @@
   align-items: center;
 }
 
-.CarouseItem {
-  width: 100%;
-
-  padding: 0 20%;
+.CarouselItem {
+  width: 80%;
+  margin: 0 auto;
+  height: 80%;
 }

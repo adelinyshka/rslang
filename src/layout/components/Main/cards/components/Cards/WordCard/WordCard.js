@@ -6,6 +6,7 @@ import { showAnswerSelector } from '../../../redux/selectors';
 
 import styles from './WordCard.module.css';
 import TestSentence from '../TestSentence/TestSentence';
+import Intervals from '../Intervals/Intervals';
 
 const WordCard = ({ cardInfo, isAnswered }) => {
   const {
@@ -23,27 +24,27 @@ const WordCard = ({ cardInfo, isAnswered }) => {
   };
   const showAnswer = useSelector(showAnswerSelector);
   return (
-    <Card>
+    <Card className={styles.Card}>
+      <Card.Header>
+        {
+          isAnswered
+            ? (
+              <p>
+                {testSentenceArr[0]}
+                <span className={styles.AnsweredWord}>{word}</span>
+                {testSentenceArr[1]}
+              </p>
+            )
+            : (
+              <TestSentence
+                testSentenceArr={testSentenceArr}
+                word={word}
+                playAudio={playAudio}
+              />
+            )
+        }
+      </Card.Header>
       <Card.Body>
-        <Card.Title>
-          {
-            isAnswered
-              ? (
-                <p>
-                  {testSentenceArr[0]}
-                  <span className={styles.AnsweredWord}>{word}</span>
-                  {testSentenceArr[1]}
-                </p>
-              )
-              : (
-                <TestSentence
-                  testSentenceArr={testSentenceArr}
-                  word={word}
-                  playAudio={playAudio}
-                />
-              )
-          }
-        </Card.Title>
         <Card.Text as="div">
           <p>{textExampleTranslate}</p>
           {(showAnswer || isAnswered) && (
@@ -58,6 +59,9 @@ const WordCard = ({ cardInfo, isAnswered }) => {
           )}
         </Card.Text>
       </Card.Body>
+      <Card.Footer>
+        <Intervals />
+      </Card.Footer>
     </Card>
   );
 };

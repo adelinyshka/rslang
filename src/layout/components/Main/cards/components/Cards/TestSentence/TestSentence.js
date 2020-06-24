@@ -38,13 +38,15 @@ const TestSentence = ({
   const [mistakes, setMistake] = useState([]);
   const [wasAnswered, setWasAnswered] = useState(false);
   const { cardsArr } = useSelector(cardsInfoSelector);
-  const wrongAnswers = useMemo(() => mistakes.map((wrongWord, i) => (
-    <p key={`wrongWord${i}`}>
-      {testSentenceArr[0]}
-      {mistakesInWord(wrongWord, word)}
-      {testSentenceArr[1]}
-    </p>
-  )), [word, mistakes, testSentenceArr]);
+  const wrongAnswers = useMemo(
+    () => mistakes.slice(0, 3).map((wrongWord, i) => (
+      <p key={`wrongWord${i}`}>
+        {testSentenceArr[0]}
+        {mistakesInWord(wrongWord, word)}
+        {testSentenceArr[1]}
+      </p>
+    )), [word, mistakes, testSentenceArr],
+  );
   let wordInput;
 
   const checkWord = useCallback((event) => {
@@ -62,7 +64,7 @@ const TestSentence = ({
       setMistake([]);
     } else {
       const newMistakes = [...mistakes];
-      newMistakes.push(value);
+      newMistakes.unshift(value);
       setMistake(newMistakes);
       setWasAnswered(true);
     }
@@ -75,15 +77,17 @@ const TestSentence = ({
   return (
     <>
       <form onSubmit={checkWord}>
-        {testSentenceArr[0]}
-        <input
-          type="text"
-          value={value}
-          onChange={(event) => setValue(event.target.value)}
-          ref={(input) => { wordInput = input; }}
-          placeholder={wasAnswered ? word : ''}
-        />
-        {testSentenceArr[1]}
+        <p>
+          {testSentenceArr[0]}
+          <input
+            type="text"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            ref={(input) => { wordInput = input; }}
+            placeholder={wasAnswered ? word : ''}
+          />
+          {testSentenceArr[1]}
+        </p>
       </form>
       <div>
         {wrongAnswers}

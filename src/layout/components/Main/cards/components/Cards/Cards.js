@@ -4,7 +4,6 @@ import { cardsInfoSelector } from '../../redux/selectors';
 import { changeCards } from '../../redux/actions';
 import CardsCarousel from './CardsCarousel/CardsCarousel';
 import Navigation from './Navigation/Navigation';
-import Intervals from './Intervals/Intervals';
 import Progress from './Progress/Progress';
 import styles from './Cards.module.css';
 
@@ -42,7 +41,6 @@ const Cards = () => {
           ? <CardsCarousel />
           : <h1>Карточек не осталось</h1>}
       </div>
-      <Intervals />
       <Progress cardsArr={cardsArr} newCardsAmount={20} />
     </div>
   );

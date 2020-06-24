@@ -1,12 +1,13 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import styles from './Intervals.module.css';
 
 const Intervals = () => (
   <div className={styles.Intervals}>
-    <button type="button">Повтор</button>
-    <button type="button">Легко</button>
-    <button type="button">Средне</button>
-    <button type="button">Сложно</button>
+    <Button type="Button">Повтор</Button>
+    <Button type="Button">Легко</Button>
+    <Button type="Button">Средне</Button>
+    <Button type="Button">Сложно</Button>
   </div>
 );
 
