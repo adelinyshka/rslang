@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import screen from '../assets/images/screen.png';
 import css from './VideoBlock.module.css';
+import TitleH2 from '../custom_components/Title_h2';
 
 const DivStyled = styled.div`
   position: relative;
@@ -33,6 +34,7 @@ const VideoYouTube = () => {
   return (
     <div className={css.thumb_wrap}>
       <iframe
+        title={'Our super video'}
         className={css.iframe_video}
         width="560" height="315"
         src="https://www.youtube.com/embed/93p3LxR9xfM" frameBorder="0"
@@ -44,10 +46,13 @@ const VideoYouTube = () => {
 
 const VideoBlock = () => {
   return (
-    <DivStyled>
-      <ImgScreen src={screen}/>
-      <VideoYouTube/>
-    </DivStyled>
+    <div>
+      <TitleH2 text='Что внутри?'/>
+      <DivStyled>
+        <ImgScreen src={screen}/>
+        <VideoYouTube/>
+      </DivStyled>
+    </div>
   );
 };
 

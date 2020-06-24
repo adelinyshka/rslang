@@ -5,15 +5,18 @@ import * as theme from './config/theme';
 import css from './Promo.module.css';
 
 import FeatureCard from './3_feature/FeatureCard';
+import Footer from './5_intevals/Footer/Footer';
 import GameCard from './4_game/GameCard/GameCard';
 import Header from './1_main/Header';
+import IntervalInfo from './5_intevals/IntervalInfo/IntervalInfo';
 import ImgFullWidth from './custom_components/ImgFullWidth';
 import MainPageImg from './1_main/MainPageImg';
 import MainPageText from './1_main/MainPageText';
+import Study from './5_intevals/Study/Study';
 import TitleHuge from './1_main/TitleHuge';
 import TitleH2 from './custom_components/Title_h2';
 import TextAfterTitle from './custom_components/Text_after_title';
-import Video from './2_video';
+import VideoBlock from './2_video';
 
 import full_width from './assets/images/full_width.svg';
 import graph from './assets/images/graph.svg';
@@ -24,9 +27,9 @@ import feature3 from './assets/images/feature3.svg';
 import feature4 from './assets/images/feature4.svg';
 import game1 from './assets/images/game_1.svg';
 import game2 from './assets/images/game_2.svg';
-import game3 from './assets/images/game_3.svg';
+import game5 from './assets/images/game_3.svg';
 import game4 from './assets/images/game_4.svg';
-import game5 from './assets/images/game_5.svg';
+import game3 from './assets/images/game_5.svg';
 import game6 from './assets/images/game_6.svg';
 
 export default function Promo () {
@@ -45,8 +48,7 @@ export default function Promo () {
           <MainPageImg src={img_main_page} alt={'big colored pic'}/>
         </div>
 
-        <TitleH2 text='Что внутри?'/>
-        <Video/>
+        <VideoBlock/>
 
         <TitleH2 text='Особенности'/>
         <TextAfterTitle text={'Что полезного вы найдете в нашем' +
@@ -82,21 +84,21 @@ export default function Promo () {
         {/*todo add grid layout*/}
         <div className={css.wrapper_game}>
           <GameCard src={game1} title={'English Puzzle'} text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
-          <GameCard src={game2} title={'English Puzzle'} text={'Lorem ipsum' +
+          <GameCard src={game2} title={'SpeakIt'} text={'Lorem ipsum' +
           ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
-          <GameCard src={game3} title={'English Puzzle'} text={'Lorem ipsum' +
+          <GameCard src={game3} title={'Аудиовызов'} text={'Lorem ipsum' +
           ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
         </div>
         <ImgFullWidth src={full_width} alt={'man on the table working with' +
         ' notebook'}/>
         <div className={css.wrapper_game}>
-          <GameCard src={game4} title={'English Puzzle'} text={'Lorem ipsum' +
+          <GameCard src={game4} title={'Спринт'} text={'Lorem ipsum' +
           ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
 
-          <GameCard src={game5} title={'English Puzzle'} text={'Lorem ipsum' +
+          <GameCard src={game5} title={'Саванна'} text={'Lorem ipsum' +
           ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
 
-          <GameCard src={game6} title={'English Puzzle'} text={'Lorem ipsum' +
+          <GameCard src={game6} title={'Мемори'} text={'Lorem ipsum' +
           ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
         </div>
 
@@ -108,6 +110,13 @@ export default function Promo () {
         ' память. Техника интервальных повторений поможет надолго запомнить новый ' +
         'материал'}/>
         <ImgFullWidth src={graph} alt={'green graph waved'}/>
+
+        <IntervalInfo/>
+
+        <Study/>
+
+
+        <Footer/>
 
       </div>
     </ThemeProvider>

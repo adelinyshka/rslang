@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import React from 'react';
 
 const ImgFullWidth = styled.img`
   width: 70%;
@@ -16,6 +15,5 @@ const ImgFullWidth = styled.img`
     width: 100%;
   }
 `;
-
 
 export default ImgFullWidth;
