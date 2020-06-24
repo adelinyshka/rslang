@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Redirect,
   Link,
@@ -34,7 +34,7 @@ const Signup = () => {
   const isLogged = useSelector(isAuthenticatedSelector);
   const dispatch = useDispatch();
 
-  const submitHandler = (event) => {
+  const submitHandler = useCallback((event) => {
     event.preventDefault();
 
     createUser({ 'email': email, 'password': password })
@@ -43,7 +43,7 @@ const Signup = () => {
         dispatch(login({ email, token, userId }));
       })
       .catch((er) => console.log(er));
-  };
+  }, [email, password, dispatch]);
 
   return (
     <div className={styles.Auth}>
