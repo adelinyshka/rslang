@@ -6,3 +6,13 @@ export const userSelector = createSelector(
   authStateSelector,
   ({ user }) => user,
 );
+
+export const isAuthenticatedSelector = createSelector(
+  authStateSelector,
+  ({ user }) => !!user,
+);
+
+export const emailSelector = createSelector(
+  authStateSelector,
+  ({ user }) => (user ? user.email : 'user_login'),
+);

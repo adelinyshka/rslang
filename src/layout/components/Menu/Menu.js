@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { logout } from '../../../auth/redux';
+import { emailSelector } from '../../../auth/redux/selectors';
 import NavItem from './NavItem/NavItem';
 import ToolBar from './ToolBar/ToolBar';
 
@@ -9,6 +12,8 @@ import classes from './Menu.module.css';
 
 function Menu() {
   const [position, toggle] = useState(false);
+  const email = useSelector(emailSelector);
+  const dispatch = useDispatch();
   return (
     <>
       <ToolBar ClickHandler={() => toggle(!position)} />
@@ -29,7 +34,7 @@ function Menu() {
                     <div className={classes.UserLoginIcon}>
                       <img src="./assets/images/menu/profile.svg" alt="" />
                     </div>
-                    <div className={classes.UserLoginLabel}>user_login</div>
+                    <div className={classes.UserLoginLabel}>{email}</div>
                   </div>
                 </li>
                 <NavItem title="Профиль" icon="settings.svg" link="/profile" />
@@ -42,7 +47,12 @@ function Menu() {
                   icon="clock.svg"
                   link="/statistics"
                 />
-                <NavItem title="Выход" icon="path.svg" link="/login" />
+                <NavItem
+                  title="Выход"
+                  icon="path.svg"
+                  link="/login"
+                  clicked={() => dispatch(logout())}
+                />
               </ul>
             </div>
             <div className={classNames(classes.BlackTheme,
