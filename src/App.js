@@ -47,10 +47,6 @@ const routes = [
     component: <Signup />,
   },
   {
-    title: 'Стартовая страница',
-    path: '/',
-  },
-  {
     title: 'Главная страница',
     path: '/',
     component: <Main />,
