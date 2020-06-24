@@ -47,12 +47,14 @@ const routes = [
   },
 ];
 
-function createRoute({ title, path }) {
+function createRoute({ title, path, component }) {
   return (
     <Route key={title} exact path={path}>
-      <div className={styles.PageName}>
-        <h1>{title}</h1>
-      </div>
+      {component || (
+        <div className={styles.PageName}>
+          <h1>{title}</h1>
+        </div>
+      )}
     </Route>
   );
 }
@@ -60,6 +62,7 @@ function createRoute({ title, path }) {
 createRoute.propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
+  component: PropTypes.string.isRequired,
 };
 
 const App = () => (
@@ -68,7 +71,6 @@ const App = () => (
     <Switch>
       {routes.map(createRoute)}
     </Switch>
-    <About />
   </Router>
 );
 export default App;
