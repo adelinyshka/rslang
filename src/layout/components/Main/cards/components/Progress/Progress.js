@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ProgressBar } from 'react-bootstrap';
 import styles from './Progress.module.css';
 
 const Progress = ({ cardsArr, newCardsAmount }) => {
-  const cardsLeft = cardsArr ? cardsArr.length : newCardsAmount;
-  const passedCards = newCardsAmount - cardsLeft;
+  const cardsLeft = useMemo(
+    () => (cardsArr ? cardsArr.length : newCardsAmount),
+    [cardsArr, newCardsAmount],
+  );
+  const passedCards = useMemo(
+    () => (newCardsAmount - cardsLeft),
+    [newCardsAmount, cardsLeft],
+  );
   return (
     <div className={styles.Progress}>
       0

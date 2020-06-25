@@ -17,7 +17,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   const wasAnswered = useSelector(wasAnsweredSelector);
   const {
     textExampleTranslate, wordTranslate, textExample, audio,
-  } = cardInfo;
+  } = useMemo(() => cardInfo, [cardInfo]);
   const testSentenceArr = useMemo(
     () => textExample.split(/<b>[\w]{0,}<\/b>/), [textExample],
   );
