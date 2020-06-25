@@ -4,7 +4,7 @@ import { showAnswer } from '../../../redux/actions';
 import NavItem from './NavItem';
 import styles from './Navigation.module.css';
 
-const Navigation = () => {
+const Navigation = ({ setShowAnswer }) => {
   const dispatch = useDispatch();
   const itemsInfo = useMemo(() => [
     {
@@ -20,9 +20,9 @@ const Navigation = () => {
     {
       alt: 'Показать перевод',
       icon: 'translationIcon.svg',
-      clicked: () => dispatch(showAnswer()),
+      clicked: setShowAnswer,
     },
-  ], [dispatch]);
+  ], [dispatch, setShowAnswer]);
 
   const navItems = useMemo(() => itemsInfo.map(({ alt, icon, clicked }) => (
     <NavItem alt={alt} icon={icon} clicked={clicked} key={alt} />
