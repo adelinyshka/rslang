@@ -24,10 +24,10 @@ export const clearAnswer = () => ({
   type: 'CLEAR_ANSWER',
 });
 
-// export const clearAnswer = () => ({
-//   type: 'ANSWERED_RIGHT',
-// });
-
 export const answeredWrong = () => ({
   type: 'ANSWERED_WRONG',
+});
+
+export const answeredRight = () => ({
+  type: 'ANSWERED_RIGHT',
 });

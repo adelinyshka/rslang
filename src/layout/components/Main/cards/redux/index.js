@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
-const wasMistakenReducer = (state = false, action) => {
+const wasMistakenReducer = (state = true, action) => {
   switch (action.type) {
+    case 'ANSWERED_RIGHT':
+      return false;
+    case 'CLEAR_ANSWER':
     case 'ANSWERED_WRONG':
       return true;
-    case 'CLEAR_ANSWER':
-      return false;
     default:
       return state;
   }

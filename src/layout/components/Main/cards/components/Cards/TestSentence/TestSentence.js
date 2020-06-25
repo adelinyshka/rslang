@@ -4,7 +4,7 @@ import React, {
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
-  submitAnswer, answeredWrong,
+  submitAnswer, answeredRight, answeredWrong,
 } from '../../../redux/actions';
 import styles from './TestSentence.module.css';
 
@@ -51,12 +51,13 @@ const TestSentence = ({
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
     if (value.toLowerCase() === word) {
+      if (!mistake) dispatch(answeredRight());
       playAudio();
       setMistake();
       dispatch(submitAnswer());
     } else {
-      setMistake(value);
       dispatch(answeredWrong());
+      setMistake(value);
     }
     setValue('');
   }, [playAudio, value, word, setMistake, dispatch]);

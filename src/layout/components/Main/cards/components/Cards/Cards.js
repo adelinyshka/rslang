@@ -28,7 +28,7 @@ const Cards = () => {
   const cardsArr = useSelector(cardsArrSelector);
   useEffect(() => {
     getWords(token)
-      .then((data) => dispatch(changeCards(data.splice(0, 1))))
+      .then((data) => dispatch(changeCards(data)))
       .catch((er) => console.log(er));
   }, [token, dispatch]);
 

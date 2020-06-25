@@ -8,6 +8,7 @@ import {
 import {
   cardsArrSelector,
   wasMistakenSelector,
+  wasAnsweredSelector,
 } from '../../../redux/selectors';
 import styles from './Intervals.module.css';
 
@@ -30,6 +31,7 @@ const Intervals = ({ showIntervals }) => {
   const dispatch = useDispatch();
   const cardsArr = useSelector(cardsArrSelector);
   const wasMistaken = useSelector(wasMistakenSelector);
+  const wasAnswered = useSelector(wasAnsweredSelector);
 
   const intervalButtons = useCallback((clicked) => (
     intervalButtonsInfo.map(({ title }) => (
@@ -40,13 +42,13 @@ const Intervals = ({ showIntervals }) => {
   const handleButton = useCallback(() => {
     const newCards = [...cardsArr];
     const lastCard = newCards.shift();
-    if (wasMistaken) {
+    if (wasMistaken || !wasAnswered) {
       newCards.push(lastCard);
     }
     dispatch(changeCards(newCards));
     dispatch(changeLastCard(lastCard));
     dispatch(clearAnswer());
-  }, [cardsArr, dispatch, wasMistaken]);
+  }, [cardsArr, dispatch, wasMistaken, wasAnswered]);
 
   return (
     <div className={styles.Intervals}>
