@@ -60,7 +60,7 @@ const TestSentence = ({
       setMistake(value);
     }
     setValue('');
-  }, [playAudio, value, word, setMistake, dispatch]);
+  }, [playAudio, value, word, setMistake, dispatch, mistake]);
 
   return (
     <>
