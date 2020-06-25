@@ -2,7 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 
-
 const MainPageTextStyled = styled.div`
   color: #4B5D68;
   max-width: 420px;
@@ -23,7 +22,6 @@ const MainPageTextStyled = styled.div`
     max-width: none;
   }
 `;
-
 
 const MainPageText = (props) => {
   return (

@@ -5,7 +5,8 @@
   height: 0;
   overflow: hidden;
 }
-.iframe_video{
+
+.iframe_video {
   position: absolute;
   top: 50px;
   left: 20%;

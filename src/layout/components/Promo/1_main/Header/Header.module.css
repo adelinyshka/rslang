@@ -24,3 +24,16 @@
     font: normal 30px 'Exo', sans-serif !important;
   }
 }
+
+
+.navbar_promo {
+  border-color: transparent!important;
+}
+
+.navbar_promo:hover,
+.navbar_promo:focus,
+.navbar_promo:active {
+  outline: none;
+
+}
+

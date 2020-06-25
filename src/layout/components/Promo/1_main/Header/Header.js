@@ -8,41 +8,47 @@ import HeaderMenuLink from './HeaderMenuLink';
 
 const links = [
   {
+    id: 'features',
     title: 'Особенности',
-    path: '/features'
+    path: '#features'
   },
   {
+    id: 'games',
     title: 'Игры',
-    path: '/games'
+    path: '#games'
   },
   {
+    id: 'method',
     title: 'Метод интервального повторения',
-    path: '/method'
+    path: '#method'
   },
   {
+    id: 'team',
     title: 'О команде',
-    path: '/team'
+    path: '' //место для ссылки на стр о команде
   }
 ];
 
-function createLink ({ title, path }) {
+function createLink ({ id, title, path }) {
   return (
-    <HeaderListItem key={title}>
+    <HeaderListItem key={id}>
       <HeaderMenuLink href={path}>{title}</HeaderMenuLink>
     </HeaderListItem>
   );
 }
 
 createLink.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired
 };
 
 const Header = () => {
+
   return (
     <Navbar expand="lg">
       <Navbar.Brand href="#home" className={css.logo}>RS Lang</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+      <Navbar.Toggle className={css.navbar_promo} aria-controls="basic-navbar-nav"/>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {links.map(createLink)}

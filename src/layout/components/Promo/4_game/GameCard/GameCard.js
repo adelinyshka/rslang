@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card,} from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import css from './GameCard.module.css';
 import styled from 'styled-components';
 
@@ -18,7 +18,7 @@ const GameCard = (prop) => {
   return (
     <Card className={css.game_card} bg='light' variant='top'>
       <GameCardWrapper>
-        <Card.Img className={css.game_card_img} src={prop.src} />
+        <Card.Img className={css.game_card_img} src={prop.src}/>
       </GameCardWrapper>
       <Card.Body>
         <Card.Title className={css.game_card_title}>{prop.title}</Card.Title>
@@ -30,6 +30,6 @@ const GameCard = (prop) => {
       </Card.Body>
     </Card>
   );
-}
+};
 
 export default GameCard;

@@ -2,7 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 
-
 const TitleHugeStyled = styled.div`
   color: #4B5D68;
   max-width: 560px;
@@ -21,7 +20,6 @@ const TitleHugeStyled = styled.div`
     text-align: center;
   }
 `;
-
 
 const TitleHuge = (props) => {
   return (

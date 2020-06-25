@@ -1,5 +1,7 @@
+
 .promo_body {
   background: #fafafa;
+  scroll-behavior: smooth !important;
 }
 
 .promo_bg {
@@ -8,6 +10,7 @@
   font-family: Exo, sans-serif;
   margin: 0 auto;
   max-width: 1200px;
+  scroll-behavior: smooth !important;
 }
 
 .promo_alignment {
