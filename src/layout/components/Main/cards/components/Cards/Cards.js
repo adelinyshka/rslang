@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cardsInfoSelector } from '../../redux/selectors';
 import { changeCards } from '../../redux/actions';
 import CardsCarousel from './CardsCarousel/CardsCarousel';
-import Navigation from './Navigation/Navigation';
 import Progress from './Progress/Progress';
 import styles from './Cards.module.css';
 
@@ -35,12 +34,9 @@ const Cards = () => {
 
   return (
     <div className={styles.Container}>
-      <Navigation />
-      <div className={styles.Cards}>
-        {cardsArr
-          ? <CardsCarousel />
-          : <h1>Карточек не осталось</h1>}
-      </div>
+      {cardsArr
+        ? <CardsCarousel />
+        : <h1>Карточек не осталось</h1>}
       <Progress cardsArr={cardsArr} newCardsAmount={20} />
     </div>
   );

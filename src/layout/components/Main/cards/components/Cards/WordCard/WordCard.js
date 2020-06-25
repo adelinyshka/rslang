@@ -7,6 +7,7 @@ import { showAnswerSelector } from '../../../redux/selectors';
 import styles from './WordCard.module.css';
 import TestSentence from '../TestSentence/TestSentence';
 import Intervals from '../Intervals/Intervals';
+import Navigation from '../Navigation/Navigation';
 
 const WordCard = ({ cardInfo, isAnswered }) => {
   const {
@@ -24,45 +25,53 @@ const WordCard = ({ cardInfo, isAnswered }) => {
   };
   const showAnswer = useSelector(showAnswerSelector);
   return (
-    <Card className={styles.Card}>
-      <Card.Header>
-        {
-          isAnswered
-            ? (
-              <p>
-                {testSentenceArr[0]}
-                <span className={styles.AnsweredWord}>{word}</span>
-                {testSentenceArr[1]}
-              </p>
-            )
-            : (
-              <TestSentence
-                testSentenceArr={testSentenceArr}
-                word={word}
-                playAudio={playAudio}
-              />
-            )
-        }
-      </Card.Header>
-      <Card.Body>
-        <Card.Text as="div">
-          <p>{textExampleTranslate}</p>
-          {(showAnswer || isAnswered) && (
+    <div className={styles.Container}>
+      <Navigation />
+      <Card className={styles.Card}>
+
+        {(isAnswered) && (
+          <Card.Header>
+            <button type="button" onClick={playAudio}>Play Word</button>
+          </Card.Header>
+        )}
+        <Card.Title />
+        <Card.Body>
+          <Card.Text as="div">
+            {
+              isAnswered
+                ? (
+                  <p>
+                    {testSentenceArr[0]}
+                    <span className={styles.AnsweredWord}>{word}</span>
+                    {testSentenceArr[1]}
+                  </p>
+                )
+                : (
+                  <TestSentence
+                    testSentenceArr={testSentenceArr}
+                    word={word}
+                    playAudio={playAudio}
+                  />
+                )
+            }
+            <hr />
+            <p>{textExampleTranslate}</p>
+
+          </Card.Text>
+        </Card.Body>
+        {(showAnswer || isAnswered) && (
+          <Card.Footer>
+
             <p>
               Перевод:
               {' '}
               <span className={styles.AnsweredWord}>{wordTranslate}</span>
             </p>
-          )}
-          {(isAnswered) && (
-            <button type="button" onClick={playAudio}>Play Word</button>
-          )}
-        </Card.Text>
-      </Card.Body>
-      <Card.Footer>
-        <Intervals />
-      </Card.Footer>
-    </Card>
+          </Card.Footer>
+        )}
+      </Card>
+      <Intervals />
+    </div>
   );
 };
 

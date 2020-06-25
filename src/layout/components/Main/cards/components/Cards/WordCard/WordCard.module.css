@@ -2,6 +2,16 @@
   color: orange;
 }
 
-.Card {
+.Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.Card {
+  width: 100%;
 }

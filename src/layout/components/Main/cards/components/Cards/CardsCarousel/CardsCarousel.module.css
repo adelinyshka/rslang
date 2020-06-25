@@ -1,7 +1,6 @@
 .Carousel {
-  height: 30vh;
+  height: 100%;
   background-color: black;
-  
 }
 
 .Carousel > div {
@@ -11,7 +10,6 @@
 }
 
 .CarouselItem {
-  width: 80%;
   margin: 0 auto;
-  height: 80%;
+  height: 100%;
 }
