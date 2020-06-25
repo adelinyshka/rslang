@@ -84,7 +84,7 @@ const WordCard = ({ cardInfo, isAnswered }) => {
         </Card.Body>
         {cardFooter}
       </Card>
-      <Intervals />
+      <Intervals isAnswered={isAnswered} />
     </div>
   );
 };
