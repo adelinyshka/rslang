@@ -17,6 +17,7 @@ const showAnswerReducer = (state = false, action) => {
     case 'SHOW_ANSWER':
       return !state;
     case 'HIDE_ANSWER':
+    case 'CLEAR_ANSWER':
       return false;
     default:
       return state;
