@@ -31,7 +31,12 @@ const WordCard = ({ cardInfo, isAnswered }) => {
 
         {(isAnswered) && (
           <Card.Header>
-            <button type="button" onClick={playAudio}>Play Word</button>
+            <div className={styles.Speaker} role="button" onClick={playAudio} tabIndex={0}>
+              <img
+                src="./assets/images/cards/speakerIcon.svg"
+                alt="Прослушать слово"
+              />
+            </div>
           </Card.Header>
         )}
         <Card.Title />
@@ -54,21 +59,20 @@ const WordCard = ({ cardInfo, isAnswered }) => {
                   />
                 )
             }
-
+            <hr />
+            <p>{textExampleTranslate}</p>
           </Card.Text>
         </Card.Body>
-        <Card.Footer>
-
-          <p>{textExampleTranslate}</p>
-          {(showAnswer || isAnswered) && (
+        {(showAnswer || isAnswered) && (
+          <Card.Footer>
 
             <p>
               Перевод:
               {' '}
               <span className={styles.AnsweredWord}>{wordTranslate}</span>
             </p>
-          )}
-        </Card.Footer>
+          </Card.Footer>
+        )}
       </Card>
       <Intervals />
     </div>

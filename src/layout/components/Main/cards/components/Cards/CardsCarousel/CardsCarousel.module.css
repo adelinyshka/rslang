@@ -1,7 +1,10 @@
 .Carousel {
   height: 80%;
   margin: 50px;
-  background-color: black;
+}
+
+.Carousel > a {
+  width: auto;
 }
 
 .Carousel > div {

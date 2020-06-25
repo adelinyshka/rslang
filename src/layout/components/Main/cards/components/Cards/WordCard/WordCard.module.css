@@ -20,3 +20,8 @@
 .Body {
   overflow: scroll;
 }
+
+.Speaker {
+  display: inline;
+  outline: none;
+}
