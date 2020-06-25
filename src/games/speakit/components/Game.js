@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import SwitcherLevel from './SwitcherLevel';
+import { useSelector, useDispatch, batch } from 'react-redux';
+import LevelSwitcher from '../../../common/components/LevelSwitcher';
 import BlockWords from './BlockWords';
 import { getWords } from '../utils/index';
 
@@ -8,6 +8,7 @@ import {
   setWords,
   setImage,
   setTranslateActiveWord,
+  setLevel,
 } from '../redux/index';
 
 import {
@@ -22,7 +23,7 @@ import {
 function Game() {
   const dispatch = useDispatch();
   const image = useSelector(imageSelector);
-  const level = useSelector(levelSelector);
+  const activeLevel = useSelector(levelSelector);
   const translateActiveWord = useSelector(translateActiveWordSelector);
   const activeWord = useSelector(activeWordSelector);
   const words = useSelector(wordsSelector);
@@ -33,16 +34,37 @@ function Game() {
     getWords(currentLevel).then((gettingWords) => {
       if (gettingWords.length > 1) {
         console.log(gettingWords);
-        dispatch(setWords(gettingWords));
-        dispatch(setImage(' '));
-        dispatch(setTranslateActiveWord(' '));
+        batch(() => {
+          dispatch(setWords(gettingWords));
+          dispatch(setImage(' '));
+          dispatch(setTranslateActiveWord(' '));
+        });
       }
     });
   }, [dispatch]);
 
+  const changeActiveLevel = useCallback((activeLevelProps, levelProps) => {
+    if (activeLevelProps !== levelProps) {
+      getWords(levelProps).then((wordsProps) => {
+        if (wordsProps.length > 1) {
+          console.log(wordsProps);
+          batch(() => {
+            dispatch(setWords(wordsProps));
+            dispatch(setLevel(levelProps));
+            dispatch(setImage(' '));
+            dispatch(setTranslateActiveWord(' '));
+          });
+        }
+      });
+    }
+  }, [activeLevel, dispatch]);
+
   return (
     <div className="wrapper">
-      <SwitcherLevel />
+      <LevelSwitcher
+        handlerOnClick={changeActiveLevel}
+        activeLevel={activeLevel}
+      />
       <figure>
         <img src={image} alt={translateActiveWord} />
         <figcaption>
@@ -55,7 +77,7 @@ function Game() {
         <button
           type="button"
           className="btn"
-          onClick={() => getNewWords(level)}
+          onClick={() => getNewWords(activeLevel)}
         >
           New words
         </button>

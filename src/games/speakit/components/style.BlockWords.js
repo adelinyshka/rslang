@@ -15,7 +15,7 @@ export const StyleWordBlock = style.div`
   border-radius: 12px;
   justify-content: space-between;
   align-items: center;
-  padding: 0% 2%;
+  padding: 0% 1%;
   box-sizing: border-box;
   margin-bottom: 3%;
   border: 2px solid ${(props) => (props.active ? '#03009e' : '#0AD1BD')};
@@ -24,9 +24,10 @@ export const StyleWordBlock = style.div`
     background: #6979f8;
     border: 2px solid #03009e;
   }
+
+  .word_div {
+    text-align: center;
+    flex-grow: 1;
+  }
 `;
 
-export const StyleWordDiv = style.div`
-  text-align: center;
-  flex-grow: 1;
-`;
