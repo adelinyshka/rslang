@@ -4,7 +4,7 @@ import { ProgressBar } from 'react-bootstrap';
 import styles from './Progress.module.css';
 
 const Progress = ({ cardsArr, newCardsAmount }) => {
-  const cardsLeft = cardsArr.length;
+  const cardsLeft = cardsArr ? cardsArr.length : newCardsAmount;
   const passedCards = newCardsAmount - cardsLeft;
   return (
     <div className={styles.Progress}>
@@ -22,12 +22,8 @@ const Progress = ({ cardsArr, newCardsAmount }) => {
 };
 
 Progress.propTypes = {
-  cardsArr: PropTypes.array,
+  cardsArr: PropTypes.array.isRequired,
   newCardsAmount: PropTypes.number.isRequired,
-};
-
-Progress.defaultProps = {
-  cardsArr: [],
 };
 
 export default Progress;

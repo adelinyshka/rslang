@@ -32,15 +32,17 @@ const Cards = () => {
       .catch((er) => console.log(er));
   }, [token, dispatch]);
 
+  if (!cardsArr || !cardsArr.length) {
+    return (
+      <div className={styles.EmptyCards}>
+        <h1>Карточек не осталось</h1>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.Container}>
-      {cardsArr.length
-        ? <CardsCarousel />
-        : (
-          <div className={styles.EmptyCards}>
-            <h1>Карточек не осталось</h1>
-          </div>
-        )}
+      <CardsCarousel />
       <Progress cardsArr={cardsArr} newCardsAmount={20} />
     </div>
   );

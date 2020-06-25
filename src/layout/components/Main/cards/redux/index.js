@@ -23,7 +23,7 @@ const showAnswerReducer = (state = false, action) => {
   }
 };
 
-const cardsArrReducer = (state = [], action) => {
+const cardsArrReducer = (state = null, action) => {
   const { type, cardsArr } = action;
   switch (type) {
     case 'CHANGE_CARDS':
