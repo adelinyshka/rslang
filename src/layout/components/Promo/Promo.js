@@ -58,23 +58,35 @@ export default function Promo () {
             <Row>
               <Col xs={12} md={6}>
                 <FeatureCard title={'Игры'}
-                             text={'Don’t worry if your data is very large, the Data Warehoue provides a search engine, which is useful for making it easier to find data effectively saving time.'}
+                             text={'Изучать новое интереснее во время игры.' +
+                             ' Поэтому мы подготовили 6 увлекательных' +
+                             ' красочных игр, чтобы учить английский было' +
+                             ' веселее.'}
                              src={feature1}/>
               </Col>
               <Col xs={12} md={6}>
                 <FeatureCard className={'top_pad'}
                              title={'Онлайн доступ'}
-                             text={'Don’t worry if your data is very large, the Data Warehoue provides a search engine, which is useful for making it easier to find data effectively saving time.'}
+                             text={'В отличии от оффлайн курсов наши игры' +
+                             ' и тренировки доступны всегда. Занимайтесь' +
+                             ' когда вам удобно, ни от чего не завися.'}
                              src={feature2}/>
               </Col>
               <Col xs={12} md={6}>
                 <FeatureCard title={'Статистика прогресса'}
-                             text={'Don’t worry if your data is very large, the Data Warehoue provides a search engine, which is useful for making it easier to find data effectively saving time.'}
+                             text={'Вне зависимости от того, играете ли вы' +
+                             ' или тренируете слова - статистика по' +
+                             ' изученным' +
+                             ' словам обновляется и всегда доступна в' +
+                             ' настройках.'}
                              src={feature3}/>
               </Col>
               <Col xs={12} md={6}>
-                <FeatureCard title={'Интервальное повторение'}
-                             text={'Don’t worry if your data is very large, the Data Warehoue provides a search engine, which is useful for making it easier to find data effectively saving time.'}
+                <FeatureCard title={'Интервальные повторения'}
+                             text={'В тренировке "Карточки" используется' +
+                             ' метод интервальных повторений, который' +
+                             ' признан одним из самых эффективных в' +
+                             ' изучении новых языков.'}
                              src={feature4}/>
               </Col>
             </Row>
@@ -88,23 +100,24 @@ export default function Promo () {
           <div className={css.wrapper_game}>
 
             <GameCard src={game1} title={'English Puzzle'}
-                      text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
-            <GameCard src={game2} title={'SpeakIt'} text={'Lorem ipsum' +
-            ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
-            <GameCard src={game3} title={'Аудиовызов'} text={'Lorem ipsum' +
-            ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
+                      text={'Формирует навыки обратного перевода и написания английских слов.'}/>
+            <GameCard src={game2} title={'SpeakIt'}
+                      text={'Помогает комплексно тренировать навык письма' +
+                      ' конструируя фразы.'}/>
+            <GameCard src={game3} title={'Аудиовызов'}
+                      text={'Улучшает восприятие английской речи на слух. '}/>
           </div>
           <ImgFullWidth src={full_width} alt={'man on the table working with' +
           ' notebook'}/>
           <div className={css.wrapper_game}>
-            <GameCard src={game4} title={'Спринт'} text={'Lorem ipsum' +
-            ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
+            <GameCard src={game4} title={'Спринт'}
+                      text={'Учит быстро переводить с английского на ваш родной язык. Для этой тренировки используются слова из вашего словаря.'}/>
 
-            <GameCard src={game5} title={'Саванна'} text={'Lorem ipsum' +
-            ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
+            <GameCard src={game5} title={'Саванна'}
+                      text={'Оттачивает понимание английской речи и быстрого перевода слов, помогает не забыть выученные слова. '}/>
 
-            <GameCard src={game6} title={'Мемори'} text={'Lorem ipsum' +
-            ' dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
+            <GameCard src={game6} title={'Мемори'}
+                      text={'Помогает выучить значение слов и учит лучше выражать свои мысли на английском.'}/>
           </div>
 
 
