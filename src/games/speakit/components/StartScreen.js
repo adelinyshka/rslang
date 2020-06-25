@@ -6,9 +6,7 @@ import {
   startGame,
 } from '../redux';
 
-import {
-  getWords,
-} from '../utils';
+import getWords from '../utils';
 
 const StartScreen = () => {
   const dispatch = useDispatch();

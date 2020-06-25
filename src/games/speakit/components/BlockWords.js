@@ -4,7 +4,6 @@ import {
   wordsSelector,
   activeWordSelector,
 } from '../redux/selectors';
-import { translater } from '../utils/index';
 
 import {
   setActiveWord,
@@ -15,7 +14,7 @@ import {
 import {
   StyleWordsContainer,
   StyleWordBlock,
-} from './style.BlockWords.js';
+} from './style.BlockWords';
 
 const audioPath = 'https://raw.githubusercontent.com'
   + '/irinainina/rslang-data/master/';
@@ -26,20 +25,16 @@ const BlockWords = () => {
   const words = useSelector(wordsSelector);
   console.log(words);
 
-  const activateWord = useCallback((word, audio, image) => {
-    translater(word).then((result) => {
-      console.log(result);
-      const [translateWord] = result.text;
-      const link = `${'https://raw.githubusercontent.com/'
+  const activateWord = useCallback((word, audio, image, wordTranslate) => {
+    const link = `${'https://raw.githubusercontent.com/'
       + 'irinainina/rslang-data/master/'}${image}`;
-      batch(() => {
-        dispatch(setActiveWord(word));
-        dispatch(setImage(link));
-        dispatch(setTranslateActiveWord(translateWord));
-      });
-      const pronounce = new Audio(`${audioPath}${audio}`);
-      pronounce.play();
+    batch(() => {
+      dispatch(setActiveWord(word));
+      dispatch(setImage(link));
+      dispatch(setTranslateActiveWord(wordTranslate));
     });
+    const pronounce = new Audio(`${audioPath}${audio}`);
+    pronounce.play();
   }, [dispatch]);
 
   return (
@@ -49,11 +44,12 @@ const BlockWords = () => {
         transcription,
         audio,
         image,
+        wordTranslate,
       }) => (
         <StyleWordBlock
           id={word}
           key={word}
-          onClick={() => activateWord(word, audio, image)}
+          onClick={() => activateWord(word, audio, image, wordTranslate)}
           active={word === activeWord}
         >
           <img

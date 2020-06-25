@@ -2,7 +2,8 @@ import React, { useCallback } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import LevelSwitcher from '../../../common/components/LevelSwitcher';
 import BlockWords from './BlockWords';
-import { getWords } from '../utils/index';
+import getWords from '../utils/index';
+import StyleGame from './style.Game';
 
 import {
   setWords,
@@ -37,7 +38,7 @@ function Game() {
         batch(() => {
           dispatch(setWords(gettingWords));
           dispatch(setImage(' '));
-          dispatch(setTranslateActiveWord(' '));
+          dispatch(setTranslateActiveWord(''));
         });
       }
     });
@@ -45,14 +46,14 @@ function Game() {
 
   const changeActiveLevel = useCallback((activeLevelProps, levelProps) => {
     if (activeLevelProps !== levelProps) {
-      getWords(levelProps).then((wordsProps) => {
-        if (wordsProps.length > 1) {
-          console.log(wordsProps);
+      getWords(levelProps).then((gettingWords) => {
+        if (gettingWords.length > 1) {
+          console.log(gettingWords);
           batch(() => {
-            dispatch(setWords(wordsProps));
+            dispatch(setWords(gettingWords));
             dispatch(setLevel(levelProps));
             dispatch(setImage(' '));
-            dispatch(setTranslateActiveWord(' '));
+            dispatch(setTranslateActiveWord(''));
           });
         }
       });
@@ -60,14 +61,14 @@ function Game() {
   }, [activeLevel, dispatch]);
 
   return (
-    <div className="wrapper">
+    <StyleGame>
       <LevelSwitcher
         handlerOnClick={changeActiveLevel}
         activeLevel={activeLevel}
       />
-      <figure>
-        <img src={image} alt={translateActiveWord} />
-        <figcaption>
+      <figure className="figure">
+        <img className="img" src={image} alt={translateActiveWord} />
+        <figcaption className="figcaption">
           {translateActiveWord}
         </figcaption>
       </figure>
@@ -76,15 +77,20 @@ function Game() {
       <div className="education__block-button">
         <button
           type="button"
-          className="btn"
+          className="button__new-words"
           onClick={() => getNewWords(activeLevel)}
         >
           New words
         </button>
-        <button type="button" className="btn">Speak please</button>
-        <button type="button" className="btn">Results</button>
+        <button
+          type="button"
+          className="button__speak-please"
+        >
+          Speak please
+        </button>
+        <button type="button" className="button__results">Results</button>
       </div>
-    </div>
+    </StyleGame>
   );
 }
 

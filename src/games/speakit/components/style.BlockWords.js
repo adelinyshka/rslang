@@ -10,14 +10,14 @@ export const StyleWordsContainer = style.div`
 
 export const StyleWordBlock = style.div`
   display: flex;
-  width: 18vw;
+  width: 16vw;
   background: ${(props) => (props.active ? '#6979f8' : '#0AD1BD')};
   border-radius: 12px;
   justify-content: space-between;
   align-items: center;
   padding: 0% 1%;
   box-sizing: border-box;
-  margin-bottom: 3%;
+  margin-bottom: 2vw;
   border: 2px solid ${(props) => (props.active ? '#03009e' : '#0AD1BD')};
 
   :hover{
@@ -28,6 +28,14 @@ export const StyleWordBlock = style.div`
   .word_div {
     text-align: center;
     flex-grow: 1;
+  }
+
+  .word_div p {
+    font-size: 17px;
+  }
+
+  .word_div p:last-child {
+    font-size: 14px;
   }
 `;
 

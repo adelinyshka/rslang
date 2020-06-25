@@ -2,11 +2,17 @@ import styled from 'styled-components';
 
 export default styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: max-content;
-  background: #e5e7fa;
-  border-radius: 8px;
+
+  .div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    background: #e5e7fa;
+    border-radius: 8px;
+  }
 
   .p {
     margin-left: 10px;
