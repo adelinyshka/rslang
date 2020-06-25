@@ -25,26 +25,19 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
     () => textExample.match(/<b>([\w]{0,})<\/b>/)[1], [textExample],
   );
 
+  const speakerIcon = useMemo(() => (
+    isPreviousCard || wasAnswered ? 'speakerOnIcon.svg' : 'speakerOffIcon.svg'
+  ),
+  [isPreviousCard, wasAnswered]);
+
+  const headerStyling = useMemo(() => ({
+    pointerEvents: (isPreviousCard || wasAnswered) ? 'auto' : 'none',
+  }), [isPreviousCard, wasAnswered]);
+
   const playAudio = useCallback(() => {
     new Audio('https://raw.githubusercontent.com/alekchaik/'
     + `rslang-data/master/${audio}`).play();
   }, [audio]);
-
-  const cardHeader = useMemo(() => (isPreviousCard || wasAnswered) && (
-    <Card.Header>
-      <div
-        className={styles.Speaker}
-        role="button"
-        onClick={playAudio}
-        tabIndex={0}
-      >
-        <img
-          src="./assets/images/cards/speakerIcon.svg"
-          alt="Прослушать слово"
-        />
-      </div>
-    </Card.Header>
-  ), [playAudio, isPreviousCard, wasAnswered]);
 
   const cardText = useMemo(() => (
     isPreviousCard || wasAnswered
@@ -80,7 +73,20 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
     <div className={styles.Container}>
       <Navigation isPreviousCard={isPreviousCard} />
       <Card className={styles.Card}>
-        {cardHeader}
+        <Card.Header>
+          <div
+            className={styles.Speaker}
+            role="button"
+            onClick={playAudio}
+            tabIndex={0}
+            style={headerStyling}
+          >
+            <img
+              src={`./assets/images/cards/${speakerIcon}`}
+              alt="Прослушать слово"
+            />
+          </div>
+        </Card.Header>
         <Card.Body className={styles.Body}>
           {cardText}
           <hr />

@@ -28,8 +28,8 @@ const Cards = () => {
   const cardsArr = useSelector(cardsArrSelector);
   useEffect(() => {
     getWords(token)
-      .then((data) => dispatch(changeCards(data)))
-      .catch((er) => console.log(er));
+      .then((data) => dispatch(changeCards(data)));
+    // .catch((er) => console.log(er));
   }, [token, dispatch]);
 
   if (!cardsArr || !cardsArr.length) {
