@@ -44,7 +44,7 @@ const WordCard = ({ cardInfo, isAnswered }) => {
       )
   ), [playAudio, isAnswered, testSentenceArr, word]);
 
-  const cardHeader = useMemo(() => (
+  const cardHeader = useMemo(() => isAnswered && (
     <Card.Header>
       <div
         className={styles.Speaker}
@@ -58,9 +58,9 @@ const WordCard = ({ cardInfo, isAnswered }) => {
         />
       </div>
     </Card.Header>
-  ), [playAudio]);
+  ), [playAudio, isAnswered]);
 
-  const cardFooter = useMemo(() => (
+  const cardFooter = useMemo(() => (showAnswer || isAnswered) && (
     <Card.Footer>
       <p>
               Перевод:
@@ -68,13 +68,13 @@ const WordCard = ({ cardInfo, isAnswered }) => {
         <span className={styles.AnsweredWord}>{wordTranslate}</span>
       </p>
     </Card.Footer>
-  ), [wordTranslate]);
+  ), [wordTranslate, showAnswer, isAnswered]);
 
   return (
     <div className={styles.Container}>
       <Navigation isAnswered={isAnswered} />
       <Card className={styles.Card}>
-        {isAnswered && cardHeader}
+        {cardHeader}
         <Card.Body className={styles.Body}>
           <Card.Text as="div">
             {cardText}
@@ -82,7 +82,7 @@ const WordCard = ({ cardInfo, isAnswered }) => {
             <p>{textExampleTranslate}</p>
           </Card.Text>
         </Card.Body>
-        {(showAnswer || isAnswered) && cardFooter}
+        {cardFooter}
       </Card>
       <Intervals />
     </div>
