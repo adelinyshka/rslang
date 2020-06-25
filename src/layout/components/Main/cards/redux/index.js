@@ -34,11 +34,11 @@ const cardsArrReducer = (state = null, action) => {
   }
 };
 
-const lastCardReducer = (state = {}, action) => {
-  const { type, ...payload } = action;
+const previousCardReducer = (state = null, action) => {
+  const { type, previousCard } = action;
   switch (type) {
     case 'CHANGE_LAST_CARD':
-      return payload;
+      return previousCard;
     default:
       return state;
   }
@@ -59,7 +59,7 @@ const wasAnsweredReducer = (state = false, action) => {
 export default combineReducers({
   showAnswer: showAnswerReducer,
   cardsArr: cardsArrReducer,
-  previousCard: lastCardReducer,
+  previousCard: previousCardReducer,
   wasAnswered: wasAnsweredReducer,
   wasMistaken: wasMistakenReducer,
 });

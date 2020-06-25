@@ -10,7 +10,7 @@ const rightArrow = <span aria-hidden="true" className={styles.RightArrow} />;
 
 const CardsCarousel = () => {
   const cardsArr = useSelector(cardsArrSelector);
-  const { previousCard } = useSelector(lastCardSelector);
+  const previousCard = useSelector(lastCardSelector);
   const [index, setIndex] = useState(0);
 
   const handleSelect = useCallback((selectedIndex) => {
