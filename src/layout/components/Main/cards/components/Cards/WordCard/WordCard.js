@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useState } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import Intervals from '../Intervals/Intervals';
 import Navigation from '../Navigation/Navigation';
 
 const WordCard = ({ cardInfo, isAnswered }) => {
-  const [showAnswer, setShowAnswer] = useState(false);
+  const showAnswer = useSelector(showAnswerSelector);
   const {
     textExampleTranslate, wordTranslate, textExample, audio,
   } = cardInfo;
@@ -72,7 +72,7 @@ const WordCard = ({ cardInfo, isAnswered }) => {
 
   return (
     <div className={styles.Container}>
-      <Navigation setShowAnswer={() => setShowAnswer(!showAnswer)} />
+      <Navigation isAnswered={isAnswered} />
       <Card className={styles.Card}>
         {isAnswered && cardHeader}
         <Card.Body className={styles.Body}>

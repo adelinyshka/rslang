@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { showAnswer } from '../../../redux/actions';
 import NavItem from './NavItem';
 import styles from './Navigation.module.css';
 
-const Navigation = ({ setShowAnswer }) => {
+const Navigation = ({ isAnswered }) => {
   const dispatch = useDispatch();
   const itemsInfo = useMemo(() => [
     {
@@ -20,9 +22,9 @@ const Navigation = ({ setShowAnswer }) => {
     {
       alt: 'Показать перевод',
       icon: 'translationIcon.svg',
-      clicked: setShowAnswer,
+      clicked: () => (isAnswered ? null : dispatch(showAnswer())),
     },
-  ], [dispatch, setShowAnswer]);
+  ], [dispatch, isAnswered]);
 
   const navItems = useMemo(() => itemsInfo.map(({ alt, icon, clicked }) => (
     <NavItem alt={alt} icon={icon} clicked={clicked} key={alt} />
@@ -34,5 +36,10 @@ const Navigation = ({ setShowAnswer }) => {
     </div>
   );
 };
+
+Navigation.propTypes = {
+  isAnswered: PropTypes.bool.isRequired,
+};
+
 export default Navigation;
 

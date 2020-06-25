@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 
-// const rightAnswerReducer = (state = false, action) => {
-//   switch (action.type) {
-//     case 'SHOW_ANSWER':
-//       return !state;
-//     case 'HIDE_ANSWER':
-//       return false;
-//     default:
-//       return state;
-//   }
-// };
+const rightAnswerReducer = (state = false, action) => {
+  switch (action.type) {
+    case 'SHOW_ANSWER':
+      return !state;
+    case 'HIDE_ANSWER':
+      return false;
+    default:
+      return state;
+  }
+};
 
 const cardsInfoReducer = (state = [], action) => {
   const { type, ...payload } = action;
@@ -32,7 +32,7 @@ const lastCardReducer = (state = {}, action) => {
 };
 
 export default combineReducers({
-  // rightAnswer: rightAnswerReducer,
+  rightAnswer: rightAnswerReducer,
   cardsInfo: cardsInfoReducer,
   lastCard: lastCardReducer,
 });
