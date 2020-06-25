@@ -1,11 +1,37 @@
-const INITIAL_STATE = {
+export const login = ({ email, token, userId }) => ({
+  type: 'LOG_IN',
+  user: {
+    email,
+    token,
+    userId,
+  },
+});
 
+export const logout = () => ({
+  type: 'LOG_OUT',
+  user: null,
+});
+
+const INITIAL_STATE = {
+  user: JSON.parse(localStorage.getItem('user')),
 };
 
-export default (state = INITIAL_STATE, action) => {
+const authReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
+  const newState = {
+    ...state,
+    ...payload,
+  };
   switch (type) {
+    case 'LOG_IN':
+      localStorage.setItem('user', JSON.stringify(newState.user));
+      return newState;
+    case 'LOG_OUT':
+      localStorage.setItem('user', null);
+      return newState;
     default:
       return state;
   }
 };
+
+export default authReducer;
