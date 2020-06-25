@@ -1,6 +1,6 @@
-export const changeCards = (cardsInfo) => ({
+export const changeCards = (cardsArr) => ({
   type: 'CHANGE_CARDS',
-  cardsArr: cardsInfo,
+  cardsArr,
 });
 
 export const showAnswer = () => ({
@@ -11,7 +11,23 @@ export const hideAnswer = () => ({
   type: 'HIDE_ANSWER',
 });
 
-export const changeLastCard = (lastCard) => ({
+export const changeLastCard = (previousCard) => ({
   type: 'CHANGE_LAST_CARD',
-  lastCard,
+  previousCard,
+});
+
+export const submitAnswer = () => ({
+  type: 'ANSWERED',
+});
+
+export const clearAnswer = () => ({
+  type: 'CLEAR_ANSWER',
+});
+
+// export const clearAnswer = () => ({
+//   type: 'ANSWERED_RIGHT',
+// });
+
+export const answeredWrong = () => ({
+  type: 'ANSWERED_WRONG',
 });

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Carousel } from 'react-bootstrap';
-import { cardsInfoSelector, lastCardSelector } from '../../../redux/selectors';
+import { cardsArrSelector, lastCardSelector } from '../../../redux/selectors';
 import WordCard from '../WordCard/WordCard';
 import styles from './CardsCarousel.module.css';
 
@@ -9,8 +9,8 @@ const leftArrow = <span aria-hidden="true" className={styles.LeftArrow} />;
 const rightArrow = <span aria-hidden="true" className={styles.RightArrow} />;
 
 const CardsCarousel = () => {
-  const { cardsArr } = useSelector(cardsInfoSelector);
-  const { lastCard } = useSelector(lastCardSelector);
+  const cardsArr = useSelector(cardsArrSelector);
+  const { previousCard } = useSelector(lastCardSelector);
   const [index, setIndex] = useState(0);
 
   const handleSelect = useCallback((selectedIndex) => {
@@ -18,9 +18,9 @@ const CardsCarousel = () => {
   }, [setIndex]);
 
   useEffect(() => {
-    const newIndex = (lastCard && cardsArr[0]) ? 1 : 0;
+    const newIndex = (previousCard && cardsArr[0]) ? 1 : 0;
     setIndex(newIndex);
-  }, [lastCard, cardsArr]);
+  }, [previousCard, cardsArr]);
 
   return (
     <Carousel
@@ -34,15 +34,15 @@ const CardsCarousel = () => {
       prevIcon={leftArrow}
       nextIcon={rightArrow}
     >
-      {lastCard
+      {previousCard
       && (
         <Carousel.Item className={styles.CarouselItem}>
-          <WordCard cardInfo={lastCard} isAnswered />
+          <WordCard cardInfo={previousCard} isPreviousCard />
         </Carousel.Item>
       )}
       {cardsArr.length && (
         <Carousel.Item className={styles.CarouselItem}>
-          <WordCard cardInfo={cardsArr[0]} isAnswered={false} />
+          <WordCard cardInfo={cardsArr[0]} isPreviousCard={false} />
         </Carousel.Item>
       )}
     </Carousel>

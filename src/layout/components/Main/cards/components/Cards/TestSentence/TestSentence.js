@@ -2,10 +2,9 @@ import React, {
   useState, useEffect, useMemo, useCallback,
 } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { cardsInfoSelector } from '../../../redux/selectors';
+import { useDispatch } from 'react-redux';
 import {
-  changeCards, changeLastCard, hideAnswer,
+  submitAnswer, answeredWrong,
 } from '../../../redux/actions';
 import styles from './TestSentence.module.css';
 
@@ -35,48 +34,36 @@ const TestSentence = ({
 }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
-  const [mistakes, setMistake] = useState([]);
-  const [wasAnswered, setWasAnswered] = useState(false);
-  const { cardsArr } = useSelector(cardsInfoSelector);
-  const wrongAnswers = useMemo(
-    () => mistakes.slice(0, 3).map((wrongWord, i) => (
-      <p key={`wrongWord${i}`}>
-        {testSentenceArr[0]}
-        {mistakesInWord(wrongWord, word)}
-        {testSentenceArr[1]}
-      </p>
-    )), [word, mistakes, testSentenceArr],
-  );
+  const [mistake, setMistake] = useState();
+  const wrongAnswer = useMemo(() => mistake && (
+    <div>
+      {testSentenceArr[0]}
+      <span className={styles.WrongAnswer}>
+        {mistakesInWord(mistake, word)}
+      </span>
+      {testSentenceArr[1]}
+    </div>
+  ), [word, mistake, testSentenceArr]);
   let wordInput;
-
-  const checkWord = useCallback((event) => {
-    event.preventDefault();
-    if (value.toLowerCase() === word) {
-      const newCards = [...cardsArr];
-      const activeCard = newCards.shift();
-      if (mistakes.length) {
-        newCards.push(activeCard);
-      }
-      setWasAnswered(false);
-      dispatch(changeLastCard(activeCard));
-      dispatch(changeCards(newCards));
-      dispatch(hideAnswer());
-      setMistake([]);
-    } else {
-      const newMistakes = [...mistakes];
-      newMistakes.unshift(value);
-      setMistake(newMistakes);
-      setWasAnswered(true);
-    }
-    setValue('');
-    if (!wasAnswered) playAudio();
-  }, [cardsArr, mistakes, value, wasAnswered, word, playAudio, dispatch]);
 
   useEffect(() => { wordInput.focus(); }, [wordInput]);
 
+  const handleSubmit = useCallback((event) => {
+    event.preventDefault();
+    if (value.toLowerCase() === word) {
+      playAudio();
+      setMistake();
+      dispatch(submitAnswer());
+    } else {
+      setMistake(value);
+      dispatch(answeredWrong());
+    }
+    setValue('');
+  }, [playAudio, value, word, setMistake, dispatch]);
+
   return (
     <>
-      <form onSubmit={checkWord}>
+      <form onSubmit={handleSubmit}>
         <p>
           {testSentenceArr[0]}
           <input
@@ -84,14 +71,12 @@ const TestSentence = ({
             value={value}
             onChange={(event) => setValue(event.target.value)}
             ref={(input) => { wordInput = input; }}
-            placeholder={wasAnswered ? word : ''}
+            required
           />
           {testSentenceArr[1]}
         </p>
       </form>
-      <div>
-        {wrongAnswers}
-      </div>
+      {wrongAnswer}
     </>
   );
 };

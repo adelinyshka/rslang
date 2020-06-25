@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cardsInfoSelector } from '../../redux/selectors';
+import { cardsArrSelector } from '../../redux/selectors';
+import { tokenSelector } from '../../../../../../auth/redux/selectors';
 import { changeCards } from '../../redux/actions';
 import CardsCarousel from './CardsCarousel/CardsCarousel';
 import Progress from './Progress/Progress';
@@ -22,21 +23,24 @@ const getWords = async (token) => {
 };
 
 const Cards = () => {
-  // token будем получать из redux
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzk5M2RmNGNhOWQ2MDAxNzg3NDBhZSIsImlhdCI6MTU5MDI2OTE1OCwiZXhwIjoxNTkwMjgzNTU4fQ.XHKmdY_jk1R7PUbgCZfqH8TxH6XQ0USwPBSKNHMdF6I';
-  const { cardsArr } = useSelector(cardsInfoSelector);
   const dispatch = useDispatch();
+  const token = useSelector(tokenSelector);
+  const cardsArr = useSelector(cardsArrSelector);
   useEffect(() => {
     getWords(token)
-      .then((data) => dispatch(changeCards(data)))
+      .then((data) => dispatch(changeCards(data.splice(0, 1))))
       .catch((er) => console.log(er));
   }, [token, dispatch]);
 
   return (
     <div className={styles.Container}>
-      {cardsArr
+      {cardsArr.length
         ? <CardsCarousel />
-        : <h1>Карточек не осталось</h1>}
+        : (
+          <div className={styles.EmptyCards}>
+            <h1>Карточек не осталось</h1>
+          </div>
+        )}
       <Progress cardsArr={cardsArr} newCardsAmount={20} />
     </div>
   );

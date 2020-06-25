@@ -6,7 +6,7 @@ import { showAnswer } from '../../../redux/actions';
 import NavItem from './NavItem';
 import styles from './Navigation.module.css';
 
-const Navigation = ({ isAnswered }) => {
+const Navigation = ({ isPreviousCard }) => {
   const dispatch = useDispatch();
   const itemsInfo = useMemo(() => [
     {
@@ -22,9 +22,9 @@ const Navigation = ({ isAnswered }) => {
     {
       alt: 'Показать перевод',
       icon: 'translationIcon.svg',
-      clicked: () => (isAnswered ? null : dispatch(showAnswer())),
+      clicked: () => (isPreviousCard ? null : dispatch(showAnswer())),
     },
-  ], [dispatch, isAnswered]);
+  ], [dispatch, isPreviousCard]);
 
   const navItems = useMemo(() => itemsInfo.map(({ alt, icon, clicked }) => (
     <NavItem alt={alt} icon={icon} clicked={clicked} key={alt} />
@@ -38,7 +38,7 @@ const Navigation = ({ isAnswered }) => {
 };
 
 Navigation.propTypes = {
-  isAnswered: PropTypes.bool.isRequired,
+  isPreviousCard: PropTypes.bool.isRequired,
 };
 
 export default Navigation;

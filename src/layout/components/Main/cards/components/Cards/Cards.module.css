@@ -3,3 +3,10 @@
   height: 80vh;
   margin: 0 auto;
 }
+
+.EmptyCards {
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

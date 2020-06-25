@@ -5,3 +5,8 @@
 .WrongLetter {
   color: red;
 }
+
+.WrongAnswer {
+  background-color: #D5F2EA;
+  border: 1px solid black;
+}

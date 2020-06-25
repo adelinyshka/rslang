@@ -1,6 +1,17 @@
 import { combineReducers } from 'redux';
 
-const rightAnswerReducer = (state = false, action) => {
+const wasMistakenReducer = (state = false, action) => {
+  switch (action.type) {
+    case 'ANSWERED_WRONG':
+      return true;
+    case 'CLEAR_ANSWER':
+      return false;
+    default:
+      return state;
+  }
+};
+
+const showAnswerReducer = (state = false, action) => {
   switch (action.type) {
     case 'SHOW_ANSWER':
       return !state;
@@ -11,11 +22,11 @@ const rightAnswerReducer = (state = false, action) => {
   }
 };
 
-const cardsInfoReducer = (state = [], action) => {
-  const { type, ...payload } = action;
+const cardsArrReducer = (state = [], action) => {
+  const { type, cardsArr } = action;
   switch (type) {
     case 'CHANGE_CARDS':
-      return payload;
+      return cardsArr;
     default:
       return state;
   }
@@ -31,8 +42,22 @@ const lastCardReducer = (state = {}, action) => {
   }
 };
 
+const wasAnsweredReducer = (state = false, action) => {
+  const { type } = action;
+  switch (type) {
+    case 'ANSWERED':
+      return true;
+    case 'CLEAR_ANSWER':
+      return false;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
-  rightAnswer: rightAnswerReducer,
-  cardsInfo: cardsInfoReducer,
-  lastCard: lastCardReducer,
+  showAnswer: showAnswerReducer,
+  cardsArr: cardsArrReducer,
+  previousCard: lastCardReducer,
+  wasAnswered: wasAnsweredReducer,
+  wasMistaken: wasMistakenReducer,
 });
