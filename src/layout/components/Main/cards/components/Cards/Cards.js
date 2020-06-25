@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cardsArrSelector } from '../../redux/selectors';
 import { tokenSelector } from '../../../../../../auth/redux/selectors';
 import { changeCards } from '../../redux/actions';
-import CardsCarousel from './CardsCarousel/CardsCarousel';
-import Progress from './Progress/Progress';
+import CardsCarousel from '../CardsCarousel/CardsCarousel';
+import Progress from '../Progress/Progress';
 import styles from './Cards.module.css';
 
 const getWords = async (token) => {

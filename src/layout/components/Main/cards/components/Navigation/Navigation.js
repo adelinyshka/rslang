@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { showAnswer } from '../../../redux/actions';
+import { showAnswer } from '../../redux/actions';
 import NavItem from './NavItem';
 import styles from './Navigation.module.css';
 

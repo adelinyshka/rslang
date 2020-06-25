@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   submitAnswer, answeredRight, answeredWrong,
-} from '../../../redux/actions';
+} from '../../redux/actions';
 import styles from './TestSentence.module.css';
 
 const mistakesInWord = (wrongWord, word) => {

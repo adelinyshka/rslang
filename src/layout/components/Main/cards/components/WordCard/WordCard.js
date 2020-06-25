@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import {
   showAnswerSelector,
   wasAnsweredSelector,
-} from '../../../redux/selectors';
+} from '../../redux/selectors';
 
 import styles from './WordCard.module.css';
 import TestSentence from '../TestSentence/TestSentence';

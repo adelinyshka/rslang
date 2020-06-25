@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeCards, changeLastCard, submitAnswer, clearAnswer,
-} from '../../../redux/actions';
+} from '../../redux/actions';
 import {
   cardsArrSelector,
   wasMistakenSelector,
   wasAnsweredSelector,
-} from '../../../redux/selectors';
+} from '../../redux/selectors';
 import styles from './Intervals.module.css';
 
 const intervalButtonsInfo = [
