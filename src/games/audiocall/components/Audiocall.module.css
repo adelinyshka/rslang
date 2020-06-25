@@ -1,0 +1,98 @@
+.Startpage {
+  display: block;
+  padding: 0 35px 0 160px;
+  height: 100vh;
+  background-color: #f6f6f6;
+}
+
+.XImage:hover {
+  cursor: pointer;
+}
+
+.WomanImage {
+    padding-top: 45px;
+}
+
+.Startpage h2 {
+  padding-top: 270px;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 22px;
+  text-align: center;
+  color: #6979f8;
+}
+
+.Startpage p {
+  font-family: Exo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 40px;
+  text-align: center;
+  color: #000000;
+}
+
+.Header {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 34px;
+}
+
+.Footer {
+  display: flex;
+  justify-content: flex-end;
+  /* padding-top: 34px; */
+}
+
+.StartBtn {
+  width: 175px;
+  height: 48px;
+  position: relative;
+  margin-top: 40px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: #0ad1bd;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ease-out 0.1s;
+}
+
+.StartBtn:hover {
+  width: 165px;
+}
+
+.StartBtn,
+.StartBtn:active,
+.StartBtn:focus {
+  cursor: pointer;
+  outline: none;
+}
+
+@media screen and (max-width: 767px) {
+    .Startpage {
+        padding: 0 35px 0 35px;
+    }
+    .Startpage h2 {
+        padding-top: 0;
+    }
+    .Header {
+        justify-content: center;
+    }
+    .WomanImage {
+        transform: scale(0.75);
+    }
+    .Footer {
+        justify-content: center;
+    }
+}

@@ -69,6 +69,7 @@ const Signup = () => {
           type="password"
           placeholder="Password"
           value={password}
+          // eslint-disable-next-line max-len
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[+\-_@$!%*?&#.,;:[\]{}])(?=.*[A-Z]).{8,}"
           onChange={(event) => setPassword(event.target.value)}
           autoComplete="new-password"

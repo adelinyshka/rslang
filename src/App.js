@@ -10,6 +10,7 @@ import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
+import Startpage from './games/audiocall/components/Startpage';
 
 const authRoutes = [
   {
@@ -50,6 +51,7 @@ const privateRoutes = [
   {
     title: 'Игры',
     path: '/games',
+    component: <Startpage />,
   },
   {
     title: 'Карточки',
