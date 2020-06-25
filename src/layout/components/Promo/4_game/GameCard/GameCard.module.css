@@ -23,6 +23,7 @@
 .game_card_img {
   margin: 0 auto;
   width: 60%;
+  background-size: contain;
 }
 
 .game_card_title {

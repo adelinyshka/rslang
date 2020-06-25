@@ -16,6 +16,7 @@ const FeatureText = styled.p`
     overflow-y: scroll;
     font-size: 14px;
     top: 45%;
+    padding-right: 5px;
     }
 
   @media(max-width: 986px) and (min-width:750px) {

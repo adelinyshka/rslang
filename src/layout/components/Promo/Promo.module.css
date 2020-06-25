@@ -1,7 +1,13 @@
-.promo_bg {
+.promo_body {
   background: #fafafa;
+}
+
+.promo_bg {
+
   height: 100%;
   font-family: Exo, sans-serif;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .promo_alignment {
