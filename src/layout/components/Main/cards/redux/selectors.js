@@ -1,8 +1,27 @@
-const showAnswerSelector = (state) => state.cards.showAnswer;
-const cardsArrSelector = (state) => state.cards.cardsArr;
-const lastCardSelector = (state) => state.cards.previousCard;
-const wasAnsweredSelector = (state) => state.cards.wasAnswered;
-const wasMistakenSelector = (state) => state.cards.wasMistaken;
+import { createSelector } from 'reselect';
+
+const cardsSelector = (state) => state.cards;
+
+const showAnswerSelector = createSelector(
+  cardsSelector,
+  ({ showAnswer }) => showAnswer,
+);
+const cardsArrSelector = createSelector(
+  cardsSelector,
+  ({ cardsArr }) => cardsArr,
+);
+const lastCardSelector = createSelector(
+  cardsSelector,
+  ({ previousCard }) => previousCard,
+);
+const wasAnsweredSelector = createSelector(
+  cardsSelector,
+  ({ wasAnswered }) => wasAnswered,
+);
+const wasMistakenSelector = createSelector(
+  cardsSelector,
+  ({ wasMistaken }) => wasMistaken,
+);
 
 export {
   showAnswerSelector, cardsArrSelector, lastCardSelector, wasAnsweredSelector,
