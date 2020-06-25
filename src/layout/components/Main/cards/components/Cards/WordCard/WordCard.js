@@ -35,7 +35,7 @@ const WordCard = ({ cardInfo, isAnswered }) => {
           </Card.Header>
         )}
         <Card.Title />
-        <Card.Body>
+        <Card.Body className={styles.Body}>
           <Card.Text as="div">
             {
               isAnswered
@@ -54,21 +54,21 @@ const WordCard = ({ cardInfo, isAnswered }) => {
                   />
                 )
             }
-            <hr />
-            <p>{textExampleTranslate}</p>
 
           </Card.Text>
         </Card.Body>
-        {(showAnswer || isAnswered) && (
-          <Card.Footer>
+        <Card.Footer>
+
+          <p>{textExampleTranslate}</p>
+          {(showAnswer || isAnswered) && (
 
             <p>
               Перевод:
               {' '}
               <span className={styles.AnsweredWord}>{wordTranslate}</span>
             </p>
-          </Card.Footer>
-        )}
+          )}
+        </Card.Footer>
       </Card>
       <Intervals />
     </div>

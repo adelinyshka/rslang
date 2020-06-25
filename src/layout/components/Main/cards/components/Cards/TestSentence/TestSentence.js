@@ -90,6 +90,7 @@ const TestSentence = ({
         </p>
       </form>
       <div>
+        <hr />
         {wrongAnswers}
       </div>
     </>

@@ -5,6 +5,9 @@ import { cardsInfoSelector, lastCardSelector } from '../../../redux/selectors';
 import WordCard from '../WordCard/WordCard';
 import styles from './CardsCarousel.module.css';
 
+const leftArrow = <span aria-hidden="true" className={styles.LeftArrow} />;
+const rightArrow = <span aria-hidden="true" className={styles.RightArrow} />;
+
 const CardsCarousel = () => {
   const { cardsArr } = useSelector(cardsInfoSelector);
   const { lastCard } = useSelector(lastCardSelector);
@@ -28,6 +31,8 @@ const CardsCarousel = () => {
       slide={false}
       wrap={false}
       indicators={false}
+      prevIcon={leftArrow}
+      nextIcon={rightArrow}
     >
       {lastCard
       && (
