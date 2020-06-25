@@ -1,11 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeCards, changeLastCard, submitAnswer, clearAnswer,
 } from '../../../redux/actions';
-import { cardsArrSelector, wasMistakenSelector } from '../../../redux/selectors';
+import {
+  cardsArrSelector,
+  wasMistakenSelector,
+} from '../../../redux/selectors';
 import styles from './Intervals.module.css';
 
 const intervalButtonsInfo = [
