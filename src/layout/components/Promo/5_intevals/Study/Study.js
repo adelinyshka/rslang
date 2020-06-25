@@ -40,7 +40,7 @@ const Study = () => {
       <StudyText>
         Учитесь эффективно
       </StudyText>
-      <RegBtn>Зарегистрироваться</RegBtn>
+      <RegBtn onClick>Зарегистрироваться</RegBtn>
     </DivStyled>
   )
 }

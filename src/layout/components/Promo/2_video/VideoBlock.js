@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
-import screen from '../assets/images/screen.png';
 import css from './VideoBlock.module.css';
 import TitleH2 from '../custom_components/Title_h2';
 
@@ -49,7 +48,7 @@ const VideoBlock = () => {
     <div>
       <TitleH2 text='Что внутри?'/>
       <DivStyled>
-        <ImgScreen src={screen}/>
+        <ImgScreen src={'./assets/images/promo/screen.png'}/>
         <VideoYouTube/>
       </DivStyled>
     </div>

@@ -16,20 +16,6 @@ import TitleH2 from './custom_components/Title_h2';
 import TextAfterTitle from './custom_components/Text_after_title';
 import VideoBlock from './2_video';
 
-import feature1 from './assets/images/feature1.svg';
-import feature2 from './assets/images/feature2.svg';
-import feature3 from './assets/images/feature3.svg';
-import feature4 from './assets/images/feature4.svg';
-import game1 from './assets/images/game_1.svg';
-import game2 from './assets/images/game_2.svg';
-import game5 from './assets/images/game_3.svg';
-import game4 from './assets/images/game_4.svg';
-import game3 from './assets/images/game_5.svg';
-import game6 from './assets/images/game_6.svg';
-import graph from './assets/images/graph.svg';
-import img_main_page from './assets/images/img_main_page.svg';
-import full_width from './assets/images/full_width.svg';
-
 export default function Promo () {
   return (
     <div className={css.promo_body}>
@@ -43,7 +29,7 @@ export default function Promo () {
             <MainPageText
               text='Уникальное приложение для изучения английского. Увлекательные игры для тренировки слов и метод интервального повторения для запоминания слов навсегда.'/>
           </div>
-          <MainPageImg src={img_main_page} alt={'big colored pic'}/>
+          <MainPageImg src={'./assets/images/promo/img_main_page.svg'} alt={'big colored pic'}/>
         </div>
 
         <VideoBlock/>
@@ -59,7 +45,7 @@ export default function Promo () {
                            ' Поэтому мы подготовили 6 увлекательных' +
                            ' красочных игр, чтобы учить английский было' +
                            ' веселее.'}
-                           src={feature1}/>
+                           src={'./assets/images/promo/feature1.svg'}/>
             </Col>
             <Col xs={12} md={6}>
               <FeatureCard className={'top_pad'}
@@ -67,7 +53,7 @@ export default function Promo () {
                            text={'В отличии от оффлайн курсов наши игры' +
                            ' и тренировки доступны всегда. Занимайтесь' +
                            ' когда вам удобно, ни от чего не завися.'}
-                           src={feature2}/>
+                           src={'./assets/images/promo/feature2.svg'}/>
             </Col>
             <Col xs={12} md={6}>
               <FeatureCard title={'Статистика прогресса'}
@@ -76,7 +62,7 @@ export default function Promo () {
                            ' изученным' +
                            ' словам обновляется и всегда доступна в' +
                            ' настройках.'}
-                           src={feature3}/>
+                           src={'./assets/images/promo/feature3.svg'}/>
             </Col>
             <Col xs={12} md={6}>
               <FeatureCard title={'Интервальные повторения'}
@@ -84,7 +70,7 @@ export default function Promo () {
                            ' метод интервальных повторений, который' +
                            ' признан одним из самых эффективных в' +
                            ' изучении новых языков.'}
-                           src={feature4}/>
+                           src={'./assets/images/promo/feature4.svg'}/>
             </Col>
           </Row>
         </Container>
@@ -96,24 +82,24 @@ export default function Promo () {
 
         <div className={css.wrapper_game}>
 
-          <GameCard src={game1} title={'English Puzzle'}
+          <GameCard src={'./assets/images/promo/game_1.svg'} title={'English Puzzle'}
                     text={'Формирует навыки обратного перевода и написания английских слов.'}/>
-          <GameCard src={game2} title={'SpeakIt'}
+          <GameCard src={'./assets/images/promo/game_2.svg'} title={'SpeakIt'}
                     text={'Помогает комплексно тренировать навык письма' +
                     ' конструируя фразы.'}/>
-          <GameCard src={game3} title={'Аудиовызов'}
+          <GameCard src={'./assets/images/promo/game_5.svg'} title={'Аудиовызов'}
                     text={'Улучшает восприятие английской речи на слух. '}/>
         </div>
-        <ImgFullWidth src={full_width} alt={'man on the table working with' +
+        <ImgFullWidth src={'./assets/images/promo/full_width.svg'} alt={'man on the table working with' +
         ' notebook'}/>
         <div className={css.wrapper_game}>
-          <GameCard src={game4} title={'Спринт'}
+          <GameCard src={'./assets/images/promo/game_4.svg'} title={'Спринт'}
                     text={'Учит быстро переводить с английского на ваш родной язык. Для этой тренировки используются слова из вашего словаря.'}/>
 
-          <GameCard src={game5} title={'Саванна'}
+          <GameCard src={'./assets/images/promo/game_3.svg'} title={'Саванна'}
                     text={'Оттачивает понимание английской речи и быстрого перевода слов, помогает не забыть выученные слова. '}/>
 
-          <GameCard src={game6} title={'Мемори'}
+          <GameCard src={'./assets/images/promo/game_6.svg'} title={'Мемори'}
                     text={'Помогает выучить значение слов и учит лучше выражать свои мысли на английском.'}/>
         </div>
 
@@ -126,7 +112,7 @@ export default function Promo () {
         ' каждый день, ни через год, а через определенные,' +
         ' увеличивающиеся со временем интервалы.'}/>
 
-        <ImgFullWidth src={graph} alt={'green graph waved'}/>
+        <ImgFullWidth src={'./assets/images/promo/graph.svg'} alt={'green graph waved'}/>
 
         <TextAfterTitle
           text={' Наше программное' +

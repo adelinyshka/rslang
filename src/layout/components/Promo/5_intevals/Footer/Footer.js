@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
-import footer_bg from './../../assets/images/footer_bg.svg';
 
 const FooterWrapper = styled.div`
   position: relative;
@@ -19,7 +18,7 @@ const FooterImg = styled.img`
 const Footer = () => {
   return (
     <FooterWrapper>
-      <FooterImg src={footer_bg}/>
+      <FooterImg src={'./assets/images/promo/footer_bg.svg'}/>
     </FooterWrapper>
   );
 };

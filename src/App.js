@@ -13,41 +13,6 @@ import styles from './App.module.css';
 import Promo from './layout/components/Promo';
 import Main from './layout/components/Main/Main';
 
-const routes = [
-  {
-    title: 'Профиль',
-    path: '/profile',
-  },
-  {
-    title: 'Настройки',
-    path: '/settings',
-  },
-  {
-    title: 'Игры',
-    path: '/games',
-  },
-  {
-    title: 'Карточки',
-    path: '/cards',
-  },
-  {
-    title: 'Словарь',
-    path: '/dictionary',
-  },
-  {
-    title: 'Статистика',
-    path: '/statistics',
-  },
-  {
-    title: 'Страница авторизации',
-    path: '/login',
-  },
-  {
-    title: 'Страница регистрации',
-    path: '/signin',
-  },
-];
-
 const authRoutes = [
   {
     title: 'Страница авторизации',
@@ -58,6 +23,11 @@ const authRoutes = [
     title: 'Страница регистрации',
     path: '/signup',
     component: <Signup />,
+  },
+  {
+    title: 'Промо',
+    path: '/promo',
+    component: <Promo />,
   },
 ];
 
@@ -110,11 +80,6 @@ const privateRoutes = [
     path: '/about',
     component: <About />,
   },
-  {
-    title: 'Промо',
-    path: '/promo',
-    component: <Promo />,
-  },
 ];
 
 function createPrivateRoute({ title, path, component }, isLogged) {
@@ -146,7 +111,6 @@ const App = () => {
         {authRoutes.map(createAuthRoutes)}
         {privateRoutes.map((el) => createPrivateRoute(el, isLogged))}
       </Switch>
-      <Promo/>
     </Router>
   );
 };
