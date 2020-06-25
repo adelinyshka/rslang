@@ -88,7 +88,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
         </Card.Body>
         {cardFooter}
       </Card>
-      <Intervals showIntervals={isPreviousCard || wasAnswered} />
+      <Intervals isPreviousCard={isPreviousCard} />
     </div>
   );
 };

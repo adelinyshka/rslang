@@ -27,7 +27,7 @@ const intervalButtonsInfo = [
   },
 ];
 
-const Intervals = ({ showIntervals }) => {
+const Intervals = ({ isPreviousCard }) => {
   const dispatch = useDispatch();
   const cardsArr = useSelector(cardsArrSelector);
   const wasMistaken = useSelector(wasMistakenSelector);
@@ -50,10 +50,12 @@ const Intervals = ({ showIntervals }) => {
     dispatch(clearAnswer());
   }, [cardsArr, dispatch, wasMistaken, wasAnswered]);
 
+  if (isPreviousCard) return null;
+
   return (
     <div className={styles.Intervals}>
       {
-        showIntervals
+        wasAnswered
           ? (
             <>
               {intervalButtons(handleButton)}
@@ -73,7 +75,7 @@ const Intervals = ({ showIntervals }) => {
 };
 
 Intervals.propTypes = {
-  showIntervals: PropTypes.bool.isRequired,
+  isPreviousCard: PropTypes.bool.isRequired,
 };
 
 export default Intervals;
