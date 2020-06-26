@@ -11,6 +11,7 @@ import Menu from './layout/components/Menu/Menu';
 import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
+import Memory from './games/memory/components/Memory';
 
 const authRoutes = [
   {
@@ -73,6 +74,11 @@ const privateRoutes = [
     title: 'О команде',
     path: '/about',
     component: <About />,
+  },
+  {
+    title: 'Мемори',
+    path: '/games/memory',
+    component: <Memory />,
   },
 ];
 
