@@ -11,6 +11,7 @@ import Menu from './layout/components/Menu/Menu';
 import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
+import Startpage from './games/savannah/components/Startpage/Startpage';
 
 const authRoutes = [
   {
@@ -51,6 +52,7 @@ const privateRoutes = [
   {
     title: 'Игры',
     path: '/games',
+    component: <Startpage />,
   },
   {
     title: 'Карточки',
