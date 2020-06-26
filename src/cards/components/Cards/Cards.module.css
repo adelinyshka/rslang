@@ -1,7 +1,15 @@
 .Container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-evenly;
   width: 80%;
-  height: 80vh;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+.Container div {
+  overflow: visible;
 }
 
 .EmptyCards {
