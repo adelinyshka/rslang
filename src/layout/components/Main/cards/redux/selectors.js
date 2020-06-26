@@ -24,6 +24,6 @@ const wasMistakenSelector = createSelector(
 );
 
 export {
-  isShowingAnswerSelector, cardsArrSelector, lastCardSelector, wasAnsweredSelector,
-  wasMistakenSelector,
+  isShowingAnswerSelector, cardsArrSelector, lastCardSelector,
+  wasAnsweredSelector, wasMistakenSelector,
 };
