@@ -27,10 +27,11 @@ const Cards = () => {
   const token = useSelector(tokenSelector);
   const cardsArr = useSelector(cardsArrSelector);
   useEffect(() => {
+    if (cardsArr) return;
     getWords(token)
       .then((data) => dispatch(setCards(data)))
       .catch((er) => console.log(er));
-  }, [token, dispatch]);
+  }, [token, dispatch, cardsArr]);
 
   if (!cardsArr || !cardsArr.length) {
     return (
