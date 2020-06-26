@@ -11,6 +11,7 @@ import Menu from './layout/components/Menu/Menu';
 import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
+import Dictionary from './dictionary/components/Dictionary/Dictionary';
 
 const authRoutes = [
   {
@@ -59,6 +60,7 @@ const privateRoutes = [
   {
     title: 'Словарь',
     path: '/dictionary',
+    component: <Dictionary />,
   },
   {
     title: 'Статистика',
