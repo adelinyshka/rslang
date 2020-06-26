@@ -8,6 +8,7 @@ import { isAuthenticatedSelector } from './auth/redux/selectors';
 import Login from './auth/components/Login';
 import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
+import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
 import Startpage from './games/audiocall/components/Startpage';
@@ -69,6 +70,11 @@ const privateRoutes = [
     title: 'Главная страница',
     path: '/',
     component: <Main />,
+  },
+  {
+    title: 'О команде',
+    path: '/about',
+    component: <About />,
   },
 ];
 
