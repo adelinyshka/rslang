@@ -12,6 +12,7 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
 import Startpage from './games/audiocall/components/Startpage';
+import Audiocall from './games/audiocall/components/Audiocall';
 
 const authRoutes = [
   {
@@ -48,6 +49,7 @@ const privateRoutes = [
   {
     title: 'Настройки',
     path: '/settings',
+    component: <Audiocall />,
   },
   {
     title: 'Игры',

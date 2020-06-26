@@ -10,7 +10,7 @@
 }
 
 .WomanImage {
-    padding-top: 45px;
+  padding-top: 45px;
 }
 
 .Startpage h2 {
@@ -43,7 +43,6 @@
 .Footer {
   display: flex;
   justify-content: flex-end;
-  /* padding-top: 34px; */
 }
 
 .StartBtn {
@@ -79,20 +78,108 @@
   outline: none;
 }
 
+.Game {
+  height: 100vh;
+  background: linear-gradient(180deg, #7d5db0 0, #b06d9a 72%, #c584a4);
+}
+
+.Header img {
+  width: 35px;
+  height: 35px;
+  padding-left: 20px;
+}
+
+.Header img:hover {
+  cursor: pointer;
+}
+
+.Header img:nth-child(3) {
+  padding-right: 40px;
+}
+
+.GamePanel {
+  margin-top: 170px;
+}
+
+.GamePanel img {
+  display: block;
+  margin: 0 auto;
+  width: 160px;
+  height: 160px;
+}
+
+.Words {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 90px;
+}
+
+.Words p {
+  margin: 0 40px;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 22px;
+  color: white;
+}
+
+.Words p:hover {
+  cursor: pointer;
+}
+
+.Words p::first-letter {
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.AnswerBtn { 
+  width: 175px;
+  height: 48px;
+  position: relative;
+  margin-top: 40px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(255, 255, 255, 0.0);
+  color: white;
+  border: 2px solid white;
+  border-radius: 7px;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ease-out 0.1s;
+}
+
+.AnswerBtn:hover {
+  width: 165px;
+}
+
+.AnswerBtn,
+.AnswerBtn:active,
+.AnswerBtn:focus {
+  cursor: pointer;
+  outline: none;
+}
+
 @media screen and (max-width: 767px) {
-    .Startpage {
-        padding: 0 35px 0 35px;
-    }
-    .Startpage h2 {
-        padding-top: 0;
-    }
-    .Header {
-        justify-content: center;
-    }
-    .WomanImage {
-        transform: scale(0.75);
-    }
-    .Footer {
-        justify-content: center;
-    }
+  .Startpage {
+    padding: 0 35px 0 35px;
+  }
+  .Startpage h2 {
+    padding-top: 0;
+  }
+  .Header {
+    justify-content: center;
+  }
+  .WomanImage {
+    transform: scale(0.75);
+  }
+  .Footer {
+    justify-content: center;
+  }
 }
