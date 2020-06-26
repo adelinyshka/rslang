@@ -26,13 +26,13 @@ export const setWasMistaken = (wasMistaken) => ({
 export const clearAnswer = () => ({
   type: 'CLEAR_ANSWER',
   wasMistaken: true,
-  showAnswer: false,
+  isShowingAnswer: false,
   wasAnswered: false,
 });
 
 const INITIAL_STATE = {
   wasMistaken: true,
-  showAnswer: false,
+  isShowingAnswer: false,
   wasAnswered: false,
   cardsArr: null,
   previousCard: null,

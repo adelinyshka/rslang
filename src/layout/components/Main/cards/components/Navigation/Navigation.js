@@ -24,7 +24,9 @@ const Navigation = ({ isPreviousCard }) => {
     {
       alt: 'Показать перевод',
       icon: 'translationIcon.svg',
-      clicked: () => (isPreviousCard ? null : dispatch(showAnswer(!isShowingAnswer))),
+      clicked: () => (
+        isPreviousCard ? null : dispatch(showAnswer(!isShowingAnswer))
+      ),
     },
   ], [dispatch, isPreviousCard, isShowingAnswer]);
 

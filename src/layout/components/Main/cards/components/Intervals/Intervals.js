@@ -56,11 +56,7 @@ const Intervals = ({ isPreviousCard }) => {
     <div className={styles.Intervals}>
       {
         wasAnswered
-          ? (
-            <>
-              {intervalButtons(handleButton)}
-            </>
-          )
+          ? intervalButtons(handleButton)
           : (
             <Button
               type="Button"

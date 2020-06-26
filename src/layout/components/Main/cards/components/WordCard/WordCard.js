@@ -15,12 +15,15 @@ import Navigation from '../Navigation/Navigation';
 const WordCard = ({ cardInfo, isPreviousCard }) => {
   const isShowingAnswer = useSelector(isShowingAnswerSelector);
   const wasAnswered = useSelector(wasAnsweredSelector);
+
   const {
     textExampleTranslate, wordTranslate, textExample, audio,
   } = useMemo(() => cardInfo, [cardInfo]);
+
   const testSentenceArr = useMemo(
     () => textExample.split(/<b>[\w]{0,}<\/b>/), [textExample],
   );
+
   const word = useMemo(
     () => textExample.match(/<b>([\w]{0,})<\/b>/)[1], [textExample],
   );
