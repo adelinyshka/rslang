@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  BrowserRouter as Router, Switch, Route, Redirect,
+  BrowserRouter as Router, Switch, Route, Redirect
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { isAuthenticatedSelector } from './auth/redux/selectors';
@@ -10,28 +10,28 @@ import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
 import About from './layout/components/About/About';
 import styles from './App.module.css';
-import Promo from './layout/components/Promo';
+import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
 
 const authRoutes = [
   {
     title: 'Страница авторизации',
     path: '/login',
-    component: <Login />,
+    component: <Login/>
   },
   {
     title: 'Страница регистрации',
     path: '/signup',
-    component: <Signup />,
+    component: <Signup/>
   },
   {
     title: 'Промо',
-    path: '/promo',
-    component: <Promo />,
-  },
+    path: '/',
+    component: <Promo/>
+  }
 ];
 
-function createAuthRoutes({ title, path, component }) {
+function createAuthRoutes ({ title, path, component }) {
   return (
     <Route key={title} exact path={path}>
       {component}
@@ -42,51 +42,50 @@ function createAuthRoutes({ title, path, component }) {
 createAuthRoutes.propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  component: PropTypes.func.isRequired,
+  component: PropTypes.func.isRequired
 };
 
 const privateRoutes = [
   {
     title: 'Профиль',
-    path: '/profile',
+    path: '/profile'
   },
   {
     title: 'Настройки',
-    path: '/settings',
+    path: '/settings'
   },
   {
     title: 'Игры',
-    path: '/games',
+    path: '/games'
   },
   {
     title: 'Карточки',
-    path: '/cards',
+    path: '/cards'
   },
   {
     title: 'Словарь',
-    path: '/dictionary',
+    path: '/dictionary'
   },
   {
     title: 'Статистика',
-    path: '/statistics',
+    path: '/statistics'
   },
   {
     title: 'Главная страница',
     path: '/',
-    component: <Main />,
+    component: <Main/>
   },
   {
     title: 'О команде',
     path: '/about',
-    component: <About />,
-  },
+    component: <About/>
+  }
 ];
 
-function createPrivateRoute({ title, path, component }, isLogged) {
-
+function createPrivateRoute ({ title, path, component }, isLogged) {
   return (
     <Route key={title} exact path={path}>
-      {!isLogged && <Redirect to="/login" />}
+      {!isLogged && <Redirect to="/login"/>}
       {component || (
         <div className={styles.PageName}>
           <h1>{title}</h1>
@@ -99,14 +98,14 @@ function createPrivateRoute({ title, path, component }, isLogged) {
 createPrivateRoute.propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  component: PropTypes.func.isRequired,
+  component: PropTypes.func.isRequired
 };
 
 const App = () => {
   const isLogged = useSelector(isAuthenticatedSelector);
   return (
     <Router>
-      <Menu />
+      <Menu/>
       <Switch>
         {authRoutes.map(createAuthRoutes)}
         {privateRoutes.map((el) => createPrivateRoute(el, isLogged))}

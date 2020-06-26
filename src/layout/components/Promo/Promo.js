@@ -2,36 +2,36 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import css from './Promo.module.css';
 
-import FeatureCard from './3_feature/FeatureCard';
-import Footer from './5_intevals/Footer';
-import GameCard from './4_game/GameCard/GameCard';
-import Header from './1_main/Header';
-import IntervalInfo from './5_intevals/IntervalInfo';
-import ImgFullWidth from './custom_components/ImgFullWidth';
-import MainPageImg from './1_main/MainPageImg';
-import MainPageText from './1_main/MainPageText';
-import Study from './5_intevals/Study/Study';
-import TitleHuge from './1_main/TitleHuge';
-import TitleH2 from './custom_components/Title_h2';
-import TextAfterTitle from './custom_components/Text_after_title';
-import VideoBlock from './2_video';
+import FeatureCard from './FeatureCard/FeatureCard';
+import Footer from './Footer/Footer';
+import GameCard from './GameCard/GameCard';
+import Header from './Header/Header';
+import IntervalInfo from './IntervalInfo/IntervalInfo';
+import ImgFullWidth from './ImgFullWidth';
+import FirstPageImg from './FirstPage/FirstPageImg';
+import FirstPageText from './FirstPage/FirstPageText';
+import Study from './Study/Study';
+import TitleHuge from './TitleHuge/TitleHuge';
+import TitleH2 from './TitleH2/TitleH2';
+import TextAfterTitle from './TextAfterTitle/TextAfterTitle';
+import VideoBlock from './VideoBlock/VideoBlock';
 
 export default function Promo () {
   return (
     <div className={css.promo_body}>
-
       <div className={css.promo_bg}>
-
         <Header/>
         <div className={css.promo_alignment}>
           <div>
             <TitleHuge text='Выучить английский - легко'/>
-            <MainPageText
-              text='Уникальное приложение для изучения английского. Увлекательные игры для тренировки слов и метод интервального повторения для запоминания слов навсегда.'/>
+            <FirstPageText
+              text='Уникальное приложение для изучения английского.
+              Увлекательные игры для тренировки слов и метод интервального
+              повторения для запоминания слов навсегда.'/>
           </div>
-          <MainPageImg src={'./assets/images/promo/img_main_page.svg'} alt={'big colored pic'}/>
+          <FirstPageImg src={'./assets/images/promo/img_main_page.svg'}
+                        alt={'big colored pic'}/>
         </div>
-
         <VideoBlock/>
         <div id='features'/>
         <TitleH2 text='Особенности'/>
@@ -74,35 +74,40 @@ export default function Promo () {
             </Col>
           </Row>
         </Container>
-
         <div id='games'/>
         <TitleH2 text='Игры'/>
         <TextAfterTitle text={'Английский можно учить интересно и ' +
         'по-настоящему наслаждаться процессом'}/>
-
         <div className={css.wrapper_game}>
 
-          <GameCard src={'./assets/images/promo/game_1.svg'} title={'English Puzzle'}
-                    text={'Формирует навыки обратного перевода и написания английских слов.'}/>
+          <GameCard src={'./assets/images/promo/game_1.svg'}
+                    title={'English Puzzle'}
+                    text={'Формирует навыки обратного перевода и написания ' +
+                    'английских слов.'}/>
           <GameCard src={'./assets/images/promo/game_2.svg'} title={'SpeakIt'}
                     text={'Помогает комплексно тренировать навык письма' +
                     ' конструируя фразы.'}/>
-          <GameCard src={'./assets/images/promo/game_5.svg'} title={'Аудиовызов'}
+          <GameCard src={'./assets/images/promo/game_5.svg'}
+                    title={'Аудиовызов'}
                     text={'Улучшает восприятие английской речи на слух. '}/>
         </div>
-        <ImgFullWidth src={'./assets/images/promo/full_width.svg'} alt={'man on the table working with' +
-        ' notebook'}/>
+        <ImgFullWidth src={'./assets/images/promo/full_width.svg'}
+                      alt={'man on the table working with' +
+                      ' notebook'}/>
         <div className={css.wrapper_game}>
           <GameCard src={'./assets/images/promo/game_4.svg'} title={'Спринт'}
-                    text={'Учит быстро переводить с английского на ваш родной язык. Для этой тренировки используются слова из вашего словаря.'}/>
+                    text={'Учит быстро переводить с английского на ваш ' +
+                    'родной язык. Для этой тренировки используются слова из' +
+                    ' вашего словаря.'}/>
 
           <GameCard src={'./assets/images/promo/game_3.svg'} title={'Саванна'}
-                    text={'Оттачивает понимание английской речи и быстрого перевода слов, помогает не забыть выученные слова. '}/>
+                    text={'Оттачивает понимание английской речи и быстрого ' +
+                    'перевода слов, помогает не забыть выученные слова. '}/>
 
           <GameCard src={'./assets/images/promo/game_6.svg'} title={'Мемори'}
-                    text={'Помогает выучить значение слов и учит лучше выражать свои мысли на английском.'}/>
+                    text={'Помогает выучить значение слов и учит лучше ' +
+                    'выражать свои мысли на английском.'}/>
         </div>
-
         <div id='method'/>
         <TitleH2 text='Метод интервальных повторений'/>
         <TextAfterTitle text={' Метод интервальных повторений поможет' +
@@ -111,23 +116,18 @@ export default function Promo () {
         ' которую мы запоминаем, необходимо со временем повторять, но ни' +
         ' каждый день, ни через год, а через определенные,' +
         ' увеличивающиеся со временем интервалы.'}/>
-
-        <ImgFullWidth src={'./assets/images/promo/graph.svg'} alt={'green graph waved'}/>
-
+        <ImgFullWidth src={'./assets/images/promo/graph.svg'}
+                      alt={'green graph waved'}/>
         <TextAfterTitle
           text={' Наше программное' +
           ' обеспечение на основе метода интервального повторения все' +
           ' сделает за вас. Вам лишь необходимо регулярно тренироваться.' +
-          ' При необходимости длительность интервалов можно изменить в настройках.'}/>
-
+          ' При необходимости длительность интервалов можно изменить ' +
+          'в настройках.'}/>
         <IntervalInfo/>
-
         <Study/>
-
       </div>
-
       <Footer/>
-
     </div>
   );
 }
