@@ -72,6 +72,7 @@ const TestSentence = ({
           value={value}
           onChange={(event) => setValue(event.target.value)}
           ref={(input) => { wordInput = input; }}
+          size={word.length}
           required
         />
         {testSentenceArr[1]}
