@@ -1,65 +1,63 @@
-import { combineReducers } from 'redux';
-
-const wasMistakenReducer = (state = true, action) => {
-  switch (action.type) {
-    case 'ANSWERED_RIGHT':
-      return false;
-    case 'CLEAR_ANSWER':
-    case 'ANSWERED_WRONG':
-      return true;
-    default:
-      return state;
-  }
-};
-
-const showAnswerReducer = (state = false, action) => {
-  switch (action.type) {
-    case 'SHOW_ANSWER':
-      return !state;
-    case 'HIDE_ANSWER':
-    case 'CLEAR_ANSWER':
-      return false;
-    default:
-      return state;
-  }
-};
-
-const cardsArrReducer = (state = null, action) => {
-  const { type, cardsArr } = action;
-  switch (type) {
-    case 'CHANGE_CARDS':
-      return cardsArr;
-    default:
-      return state;
-  }
-};
-
-const previousCardReducer = (state = null, action) => {
-  const { type, previousCard } = action;
-  switch (type) {
-    case 'CHANGE_LAST_CARD':
-      return previousCard;
-    default:
-      return state;
-  }
-};
-
-const wasAnsweredReducer = (state = false, action) => {
-  const { type } = action;
-  switch (type) {
-    case 'ANSWERED':
-      return true;
-    case 'CLEAR_ANSWER':
-      return false;
-    default:
-      return state;
-  }
-};
-
-export default combineReducers({
-  showAnswer: showAnswerReducer,
-  cardsArr: cardsArrReducer,
-  previousCard: previousCardReducer,
-  wasAnswered: wasAnsweredReducer,
-  wasMistaken: wasMistakenReducer,
+export const setCards = (cardsArr) => ({
+  type: 'SET_CARDS',
+  cardsArr,
 });
+
+export const showAnswer = (isShowingAnswer) => ({
+  type: 'SHOW_ANSWER',
+  isShowingAnswer,
+});
+
+export const setLastCard = (previousCard) => ({
+  type: 'SET_LAST_CARD',
+  previousCard,
+});
+
+export const setAnswered = (wasAnswered) => ({
+  type: 'SET_ANSWERED',
+  wasAnswered,
+});
+
+export const setWasMistaken = (wasMistaken) => ({
+  type: 'WAS_MISTAKEN',
+  wasMistaken,
+});
+
+export const clearAnswer = () => ({
+  type: 'CLEAR_ANSWER',
+  wasMistaken: true,
+  showAnswer: false,
+  wasAnswered: false,
+});
+
+const INITIAL_STATE = {
+  wasMistaken: true,
+  showAnswer: false,
+  wasAnswered: false,
+  cardsArr: null,
+  previousCard: null,
+};
+
+const cardsReducer = (state = INITIAL_STATE, action) => {
+  const {
+    type,
+    ...payload
+  } = action;
+
+  switch (type) {
+    case 'SET_CARDS':
+    case 'SET_LAST_CARD':
+    case 'SHOW_ANSWER':
+    case 'SET_ANSWERED':
+    case 'WAS_MISTAKEN':
+    case 'CLEAR_ANSWER':
+      return {
+        ...state,
+        ...payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export default cardsReducer;

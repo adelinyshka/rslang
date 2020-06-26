@@ -2,9 +2,9 @@ import { createSelector } from 'reselect';
 
 const cardsSelector = (state) => state.cards;
 
-const showAnswerSelector = createSelector(
+const isShowingAnswerSelector = createSelector(
   cardsSelector,
-  ({ showAnswer }) => showAnswer,
+  ({ isShowingAnswer }) => isShowingAnswer,
 );
 const cardsArrSelector = createSelector(
   cardsSelector,
@@ -24,6 +24,6 @@ const wasMistakenSelector = createSelector(
 );
 
 export {
-  showAnswerSelector, cardsArrSelector, lastCardSelector, wasAnsweredSelector,
+  isShowingAnswerSelector, cardsArrSelector, lastCardSelector, wasAnsweredSelector,
   wasMistakenSelector,
 };

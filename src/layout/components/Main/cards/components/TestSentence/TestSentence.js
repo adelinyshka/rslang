@@ -1,11 +1,12 @@
 import React, {
   useState, useEffect, useMemo, useCallback,
 } from 'react';
+import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
-  submitAnswer, answeredRight, answeredWrong,
-} from '../../redux/actions';
+  setAnswered, setWasMistaken,
+} from '../../redux';
 import styles from './TestSentence.module.css';
 
 const mistakesInWord = (wrongWord, word) => {
@@ -51,34 +52,33 @@ const TestSentence = ({
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
     if (value.toLowerCase() === word) {
-      if (!mistake) dispatch(answeredRight());
+      if (!mistake) dispatch(setWasMistaken(false));
       playAudio();
       setMistake();
-      dispatch(submitAnswer());
+      dispatch(setAnswered(true));
     } else {
-      dispatch(answeredWrong());
+      dispatch(setWasMistaken(true));
       setMistake(value);
     }
     setValue('');
   }, [playAudio, value, word, setMistake, dispatch, mistake]);
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <p>
-          {testSentenceArr[0]}
-          <input
-            type="text"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            ref={(input) => { wordInput = input; }}
-            required
-          />
-          {testSentenceArr[1]}
-        </p>
-      </form>
+    <form onSubmit={handleSubmit}>
+      <p>
+        {testSentenceArr[0]}
+        <input
+          type="text"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          ref={(input) => { wordInput = input; }}
+          required
+        />
+        {testSentenceArr[1]}
+      </p>
       {wrongAnswer}
-    </>
+      <Button type="submit" className={styles.SubmitBtn}>Проверить</Button>
+    </form>
   );
 };
 

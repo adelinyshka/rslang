@@ -3,8 +3,8 @@ import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  changeCards, changeLastCard, submitAnswer, clearAnswer,
-} from '../../redux/actions';
+  setCards, setLastCard, setAnswered, clearAnswer,
+} from '../../redux';
 import {
   cardsArrSelector,
   wasMistakenSelector,
@@ -45,8 +45,8 @@ const Intervals = ({ isPreviousCard }) => {
     if (wasMistaken || !wasAnswered) {
       newCards.push(lastCard);
     }
-    dispatch(changeCards(newCards));
-    dispatch(changeLastCard(lastCard));
+    dispatch(setCards(newCards));
+    dispatch(setLastCard(lastCard));
     dispatch(clearAnswer());
   }, [cardsArr, dispatch, wasMistaken, wasAnswered]);
 
@@ -64,7 +64,7 @@ const Intervals = ({ isPreviousCard }) => {
           : (
             <Button
               type="Button"
-              onClick={() => dispatch(submitAnswer())}
+              onClick={() => dispatch(setAnswered(true))}
             >
               Показать ответ
             </Button>

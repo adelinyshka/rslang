@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import {
-  showAnswerSelector,
+  isShowingAnswerSelector,
   wasAnsweredSelector,
 } from '../../redux/selectors';
 
@@ -13,7 +13,7 @@ import Intervals from '../Intervals/Intervals';
 import Navigation from '../Navigation/Navigation';
 
 const WordCard = ({ cardInfo, isPreviousCard }) => {
-  const showAnswer = useSelector(showAnswerSelector);
+  const isShowingAnswer = useSelector(isShowingAnswerSelector);
   const wasAnswered = useSelector(wasAnsweredSelector);
   const {
     textExampleTranslate, wordTranslate, textExample, audio,
@@ -58,7 +58,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   ), [playAudio, isPreviousCard, testSentenceArr, word, wasAnswered]);
 
   const cardFooter = useMemo(
-    () => (showAnswer || isPreviousCard || wasAnswered) && (
+    () => (isShowingAnswer || isPreviousCard || wasAnswered) && (
       <Card.Footer>
         <p>
         Перевод:
@@ -66,7 +66,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
           <span className={styles.AnsweredWord}>{wordTranslate}</span>
         </p>
       </Card.Footer>
-    ), [wordTranslate, showAnswer, isPreviousCard, wasAnswered],
+    ), [wordTranslate, isShowingAnswer, isPreviousCard, wasAnswered],
   );
 
   return (

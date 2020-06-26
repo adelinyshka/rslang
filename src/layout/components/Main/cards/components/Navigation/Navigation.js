@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { showAnswer } from '../../redux/actions';
+import { isShowingAnswerSelector } from '../../redux/selectors';
+import { showAnswer } from '../../redux';
 import NavItem from './NavItem';
 import styles from './Navigation.module.css';
 
 const Navigation = ({ isPreviousCard }) => {
   const dispatch = useDispatch();
+  const isShowingAnswer = useSelector(isShowingAnswerSelector);
   const itemsInfo = useMemo(() => [
     {
       alt: 'Удалить',
@@ -22,9 +24,9 @@ const Navigation = ({ isPreviousCard }) => {
     {
       alt: 'Показать перевод',
       icon: 'translationIcon.svg',
-      clicked: () => (isPreviousCard ? null : dispatch(showAnswer())),
+      clicked: () => (isPreviousCard ? null : dispatch(showAnswer(!isShowingAnswer))),
     },
-  ], [dispatch, isPreviousCard]);
+  ], [dispatch, isPreviousCard, isShowingAnswer]);
 
   const navItems = useMemo(() => itemsInfo.map(({ alt, icon, clicked }) => (
     <NavItem alt={alt} icon={icon} clicked={clicked} key={alt} />

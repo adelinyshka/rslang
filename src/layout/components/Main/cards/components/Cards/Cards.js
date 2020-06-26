@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardsArrSelector } from '../../redux/selectors';
 import { tokenSelector } from '../../../../../../auth/redux/selectors';
-import { changeCards } from '../../redux/actions';
+import { setCards } from '../../redux';
 import CardsCarousel from '../CardsCarousel/CardsCarousel';
 import Progress from '../Progress/Progress';
 import styles from './Cards.module.css';
@@ -28,8 +28,8 @@ const Cards = () => {
   const cardsArr = useSelector(cardsArrSelector);
   useEffect(() => {
     getWords(token)
-      .then((data) => dispatch(changeCards(data)));
-    // .catch((er) => console.log(er));
+      .then((data) => dispatch(setCards(data)))
+      .catch((er) => console.log(er));
   }, [token, dispatch]);
 
   if (!cardsArr || !cardsArr.length) {
