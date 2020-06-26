@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Cards from './layout/components/Main/cards/components/Cards/Cards';
+import Cards from './cards/components/Cards/Cards';
 import { isAuthenticatedSelector } from './auth/redux/selectors';
 import Login from './auth/components/Login';
 import Signup from './auth/components/Signup';

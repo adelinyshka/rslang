@@ -9,7 +9,7 @@ import savannahReducer from '../games/savannah/redux';
 import speakitReducer from '../games/speakit/redux';
 import sprintReducer from '../games/sprint/redux';
 import statisticsReducer from '../statistics/redux';
-import cardsReducer from '../layout/components/Main/cards/redux';
+import cardsReducer from '../cards/redux';
 
 export default combineReducers({
   auth: authReducer,
