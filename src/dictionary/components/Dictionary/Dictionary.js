@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import { userSelector } from '../../../auth/redux/selectors';
 
 import { setUserWords } from '../../redux/index';
@@ -28,11 +29,11 @@ const Dictionary = () => {
   return (
     <div className={styles.Dictionary}>
       <h1>Словарь</h1>
-      <div>
-        <button type="button">Изучаемые</button>
-        <button type="button">Сложные</button>
-        <button type="button">Удаленные</button>
-      </div>
+      <ButtonGroup aria-label="Слова" className={styles.ButtonGroup}>
+        <Button variant="light" className={styles.Button}>Изучаемые</Button>
+        <Button variant="light" className={styles.Button}>Сложные</Button>
+        <Button variant="light" className={styles.Button}>Удаленные</Button>
+      </ButtonGroup>
       {userWords && <Table userWords={userWords} />}
     </div>
   );

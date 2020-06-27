@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import allReducers from './redux/rootReducer';
 import './index.css';
 import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = createStore(allReducers,
   // eslint-disable-next-line no-underscore-dangle

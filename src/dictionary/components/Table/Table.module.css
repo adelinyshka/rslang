@@ -1,4 +1,35 @@
 .Table {
   display: flex;
   flex-direction: column;
+  overflow: scroll;
+}
+
+.Header {
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+/* Каждая строка */
+
+.Table > div {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 15px 0;
+}
+
+/* Каждый столбец */
+
+.Table > div > div {
+  display: flex;
+  justify-content: space-evenly;
+  width: 12%
+}
+
+/* Первый столбец в каждой строке (место нахождения слов и перевода) */
+
+.Table > div > div:nth-child(1) {
+  width: 40%;
+  display: flex;
+  justify-content: flex-start;
 }

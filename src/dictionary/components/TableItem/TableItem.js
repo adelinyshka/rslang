@@ -8,6 +8,7 @@ const TableItem = ({ userWord }) => {
   const [wordInfo, setWordInfo] = useState({});
   const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
   const { wordId } = useMemo(() => userWord, [userWord]);
+
   const options = useMemo(() => ({
     method: 'GET',
   }), []);
@@ -52,21 +53,25 @@ const TableItem = ({ userWord }) => {
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word}>
+        <input type="checkbox" />
         <div onClick={playAudio}>Listen</div>
         <div>{word}</div>
         <div>{wordTranslate}</div>
       </div>
       <div>
-        Начали изучать
+        01.09
       </div>
       <div>
-        Дата следующего изучения
+        16.09
       </div>
       <div>
-        Повторов
+        5
       </div>
       <div>
         {progress}
+      </div>
+      <div>
+        <img src="./assets/images/dictionary/deleteIcon.svg" alt="delete word" />
       </div>
     </div>
   );

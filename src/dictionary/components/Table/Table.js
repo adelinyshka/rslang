@@ -10,6 +10,26 @@ const Table = ({ userWords }) => {
   )), [userWords]);
   return (
     <div className={styles.Table}>
+      <div className={styles.Header}>
+        <div>
+          <input type="checkbox" />
+        </div>
+        <div>
+          дата последнего изучения
+        </div>
+        <div>
+          дата следующего изучения
+        </div>
+        <div>
+          повторов
+        </div>
+        <div>
+          прогресс
+        </div>
+        <div>
+          <img src="./assets/images/dictionary/deleteIcon.svg" alt="delete word" />
+        </div>
+      </div>
       {tableItems}
     </div>
   );

@@ -1,12 +1,4 @@
-.TableItem {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-}
-
-.Word {
-  width: 30%;
-  display: flex;
-  justify-content: space-evenly;
-
-}
+.Word div {
+  width: 20%;
+  margin-right: 5%;
+} 
