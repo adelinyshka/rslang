@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useMemo, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { userSelector } from '../../../auth/redux/selectors';
 
 import { setUserWords } from '../../redux/index';
@@ -9,13 +9,22 @@ import Table from '../Table/Table';
 import styles from './Dictionary.module.css';
 
 const Dictionary = () => {
-  const { userId } = useSelector(userSelector);
+  const dispatch = useDispatch();
   const userWords = useSelector(userWordsSelector);
+  const { userId } = useSelector(userSelector);
+
   const options = useMemo(() => ({
     method: 'GET',
   }), []);
-  const url = useMemo(() => `users/${userId}/words/`, [userId]);
-  useFetch(url, options, setUserWords);
+
+  const userWordsURL = useMemo(() => `users/${userId}/words/`, [userId]);
+
+  const action = useCallback(
+    (data) => dispatch(setUserWords(data)), [dispatch],
+  );
+
+  useFetch(userWordsURL, options, action);
+
   return (
     <div className={styles.Dictionary}>
       <h1>Словарь</h1>
@@ -24,7 +33,7 @@ const Dictionary = () => {
         <button type="button">Сложные</button>
         <button type="button">Удаленные</button>
       </div>
-      {userWords && <Table wordsInfo={userWords} />}
+      {userWords && <Table userWords={userWords} />}
     </div>
   );
 };

@@ -1,8 +1,26 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
+import useFetch from '../../../common/utils';
 import styles from './TableItem.module.css';
 
-const TableItem = () => {
+const TableItem = ({ userWord }) => {
+  const [wordInfo, setWordInfo] = useState({});
+  const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
+  const { wordId } = useMemo(() => userWord, [userWord]);
+  const options = useMemo(() => ({
+    method: 'GET',
+  }), []);
+  const wordUrl = useMemo(() => `words/${wordId}`, [wordId]);
+  const action = useCallback((data) => setWordInfo(data), [setWordInfo]);
+
+  useFetch(wordUrl, options, action);
+
+  const playAudio = useCallback(() => {
+    new Audio('https://raw.githubusercontent.com/alekchaik/'
+    + `rslang-data/master/${audio}`).play();
+  }, [audio]);
+
   const progressInt = 5;
   let progressClass = null;
   switch (progressInt) {
@@ -34,24 +52,28 @@ const TableItem = () => {
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word}>
-        <div>Listen</div>
-        <div>word</div>
-        <div>слово</div>
+        <div onClick={playAudio}>Listen</div>
+        <div>{word}</div>
+        <div>{wordTranslate}</div>
       </div>
       <div>
-      01.06
+        Начали изучать
       </div>
       <div>
-      19.06
+        Дата следующего изучения
       </div>
       <div>
-      21
+        Повторов
       </div>
       <div>
         {progress}
       </div>
     </div>
   );
+};
+
+TableItem.propTypes = {
+  userWord: PropTypes.object.isRequired,
 };
 
 export default TableItem;
