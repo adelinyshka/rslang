@@ -44,9 +44,7 @@ const TableItem = ({ userWord }) => {
       <div>
         5
       </div>
-      <div>
-        <ProgressBar progressStatus={progressStatus} />
-      </div>
+      <ProgressBar progressStatus={progressStatus} />
       <div>
         <img
           src="./assets/images/dictionary/deleteIcon.svg"

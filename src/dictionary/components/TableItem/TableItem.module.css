@@ -1,3 +1,7 @@
+.Word {
+  align-items: center;
+}
+
 .Word div {
   width: 20%;
   margin-right: 5%;

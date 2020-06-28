@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import styles from './ProgressBar.module.css';
 
 const ProgressBar = ({ progressStatus }) => {
   const [progressClass, setProgressClass] = useState(null);
@@ -6,19 +8,19 @@ const ProgressBar = ({ progressStatus }) => {
   useEffect(() => {
     switch (progressStatus) {
       case 5:
-        setProgressClass('Blue');
+        setProgressClass(styles.Cyan);
         break;
       case 4:
-        setProgressClass('DarkGreen');
+        setProgressClass(styles.DarkGreen);
         break;
       case 3:
-        setProgressClass('Green');
+        setProgressClass(styles.Green);
         break;
       case 2:
-        setProgressClass('LightGreen');
+        setProgressClass(styles.LightGreen);
         break;
       case 1:
-        setProgressClass('Orange');
+        setProgressClass(styles.Orange);
         break;
       default:
         setProgressClass(null);
@@ -35,7 +37,15 @@ const ProgressBar = ({ progressStatus }) => {
     ))
   ), [progressStatus, progressClass]);
 
-  return progressBar;
+  return (
+    <div className={styles.ProgressBar}>
+      {progressBar}
+    </div>
+  );
+};
+
+ProgressBar.propTypes = {
+  progressStatus: PropTypes.number.isRequired,
 };
 
 export default ProgressBar;
