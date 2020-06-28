@@ -1,60 +1,37 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, {
+  useMemo, useState, useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 
+import ProgressBar from '../ProgressBar/ProgressBar';
 import useFetch from '../../../common/utils';
 import styles from './TableItem.module.css';
+
+const fetchOptions = {
+  method: 'GET',
+};
 
 const TableItem = ({ userWord }) => {
   const [wordInfo, setWordInfo] = useState({});
   const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
   const { wordId } = useMemo(() => userWord, [userWord]);
+  const progressStatus = useMemo(() => 5, []); // получаем из wordInfo
 
-  const options = useMemo(() => ({
-    method: 'GET',
-  }), []);
   const wordUrl = useMemo(() => `words/${wordId}`, [wordId]);
   const action = useCallback((data) => setWordInfo(data), [setWordInfo]);
 
-  useFetch(wordUrl, options, action);
+  useFetch(wordUrl, fetchOptions, action);
 
   const playAudio = useCallback(() => {
     new Audio('https://raw.githubusercontent.com/alekchaik/'
     + `rslang-data/master/${audio}`).play();
   }, [audio]);
 
-  const progressInt = 5;
-  let progressClass = null;
-  switch (progressInt) {
-    case 5:
-      progressClass = 'Blue';
-      break;
-    case 4:
-      progressClass = 'Blue';
-      break;
-    case 3:
-      progressClass = 'Blue';
-      break;
-    case 2:
-      progressClass = 'Blue';
-      break;
-    case 1:
-      progressClass = 'Blue';
-      break;
-    default:
-      progressClass = null;
-      break;
-  }
-  const progress = useMemo(() => Array(5).map((el, index) => (
-    <div
-      key={`progressPoint${index}`}
-      className={index <= progressInt ? progressClass : null}
-    />
-  )), [progressInt, progressClass]);
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word}>
         <input type="checkbox" />
-        <div onClick={playAudio}>Listen</div>
+        <div onClick={playAudio}>Listen (картинка)</div>
         <div>{word}</div>
         <div>{wordTranslate}</div>
       </div>
@@ -68,10 +45,13 @@ const TableItem = ({ userWord }) => {
         5
       </div>
       <div>
-        {progress}
+        <ProgressBar progressStatus={progressStatus} />
       </div>
       <div>
-        <img src="./assets/images/dictionary/deleteIcon.svg" alt="delete word" />
+        <img
+          src="./assets/images/dictionary/deleteIcon.svg"
+          alt="delete word"
+        />
       </div>
     </div>
   );

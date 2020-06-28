@@ -1,5 +1,5 @@
 import React, {
-  useMemo, useCallback, useState, useEffect,
+  useMemo, useCallback, useState,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, ButtonGroup } from 'react-bootstrap';
