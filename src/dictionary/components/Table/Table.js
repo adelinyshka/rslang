@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import TableItem from '../TableItem/TableItem';
-import Checkbox from '../Checkbox/Checkbox';
+import HeaderCheckbox from '../Checkbox/HeaderCheckbox';
 import styles from './Table.module.css';
 
 const headerInfo = [
@@ -15,24 +15,25 @@ const headerInfo = [
 const headerDivs = headerInfo.map((title) => <div key={title}>{title}</div>);
 
 const Table = ({ userWords }) => {
-  const [allSelected, setAllSelected] = useState(false);
   const tableItems = useMemo(() => (
     userWords.map((userWord) => (
       <TableItem
         userWord={userWord}
         key={userWord.wordId}
-        allSelected={allSelected}
       />
-    ))), [userWords, allSelected]);
+    ))), [userWords]);
+
+  const userWordsIds = useMemo(
+    () => userWords.map(({ wordId }) => wordId), [userWords],
+  );
 
   return (
     <div className={styles.Table}>
       <div className={styles.Header}>
         <div>
-          <Checkbox
-            clicked={setAllSelected}
+          <HeaderCheckbox
             id="header"
-            allSelected={allSelected}
+            words={userWordsIds}
           />
         </div>
         {headerDivs}

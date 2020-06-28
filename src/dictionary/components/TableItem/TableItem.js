@@ -12,7 +12,7 @@ const fetchOptions = {
   method: 'GET',
 };
 
-const TableItem = ({ userWord, section, allSelected }) => {
+const TableItem = ({ userWord, section }) => {
   const [wordInfo, setWordInfo] = useState({});
   const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
   const { wordId } = useMemo(() => userWord, [userWord]);
@@ -33,7 +33,7 @@ const TableItem = ({ userWord, section, allSelected }) => {
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word}>
-        <Checkbox allSelected={allSelected} id={word} />
+        <Checkbox wordId={wordId} />
         <div onClick={playAudio}>Listen</div>
         <div>{word}</div>
         <div>{wordTranslate}</div>
@@ -61,7 +61,6 @@ const TableItem = ({ userWord, section, allSelected }) => {
 TableItem.propTypes = {
   userWord: PropTypes.object.isRequired,
   section: PropTypes.string.isRequired,
-  allSelected: PropTypes.bool.isRequired,
 };
 
 export default TableItem;

@@ -7,4 +7,14 @@ export const userWordsSelector = createSelector(
   ({ userWords }) => userWords,
 );
 
+export const selectedWordsSelector = createSelector(
+  dictionarySelector,
+  ({ selectedWords }) => selectedWords,
+);
+
+export const isAllSelectedSelector = createSelector(
+  dictionarySelector,
+  ({ isAllSelected }) => isAllSelected,
+);
+
 export default dictionarySelector;

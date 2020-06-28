@@ -2,37 +2,37 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectWords } from '../../redux';
+import { selectWords, setAllSelected } from '../../redux';
 import {
   isAllSelectedSelector,
 } from '../../redux/selectors';
 import styles from './Checkbox.module.css';
 
-const Checkbox = ({ wordId }) => {
+const Checkbox = ({
+  id, words,
+}) => {
   const dispatch = useDispatch();
   const isAllSelected = useSelector(isAllSelectedSelector);
   const [checked, setChecked] = useState(false);
 
-  useEffect(() => {
-    setChecked(isAllSelected);
-  }, [isAllSelected]);
-
-  useEffect(() => {
-    dispatch(selectWords({ [wordId]: checked }));
-  }, [dispatch, wordId, checked]);
-
   const handleChange = useCallback((event) => {
     setChecked(event.target.checked);
-    // dispatch(setAllSelected(false));
-  }, [setChecked]);
+    dispatch(setAllSelected((event.target.checked)));
+  }, [setChecked, dispatch]);
+
+  useEffect(() => {
+    const newSelected = {};
+    words.forEach((el) => { newSelected[el] = isAllSelected; });
+    dispatch(selectWords(newSelected));
+  }, [dispatch, isAllSelected, words]);
 
   return (
-    <label className={styles.CheckboxContainer} htmlFor={wordId}>
+    <label className={styles.CheckboxContainer} htmlFor={id}>
       <input
         type="checkbox"
-        checked={checked}
+        checked={checked && isAllSelected}
         onChange={handleChange}
-        id={wordId}
+        id={id}
       />
       <span className={styles.Checkmark} />
     </label>
@@ -40,7 +40,8 @@ const Checkbox = ({ wordId }) => {
 };
 
 Checkbox.propTypes = {
-  wordId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  words: PropTypes.array.isRequired,
 };
 
 export default Checkbox;
