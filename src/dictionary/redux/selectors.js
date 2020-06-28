@@ -17,4 +17,14 @@ export const isAllSelectedSelector = createSelector(
   ({ isAllSelected }) => isAllSelected,
 );
 
+export const isSomeUnSelectedSelector = createSelector(
+  dictionarySelector,
+  ({ selectedWords }) => Object.values(selectedWords).some((el) => !el),
+);
+
+export const isEveryUnselectedSelector = createSelector(
+  dictionarySelector,
+  ({ selectedWords }) => Object.values(selectedWords).every((el) => !el),
+);
+
 export default dictionarySelector;
