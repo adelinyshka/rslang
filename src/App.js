@@ -79,9 +79,9 @@ const privateRoutes = [
 ];
 
 function createPrivateRoute({ title, path, component }, isLogged) {
+  if (!isLogged) return <Redirect to="/login" />;
   return (
     <Route key={title} exact path={path}>
-      {!isLogged && <Redirect to="/login" />}
       {component || (
         <div className={styles.PageName}>
           <h1>{title}</h1>
