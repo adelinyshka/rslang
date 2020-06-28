@@ -11,7 +11,7 @@ const fetchOptions = {
   method: 'GET',
 };
 
-const TableItem = ({ userWord }) => {
+const TableItem = ({ userWord, section }) => {
   const [wordInfo, setWordInfo] = useState({});
   const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
   const { wordId } = useMemo(() => userWord, [userWord]);
@@ -57,6 +57,7 @@ const TableItem = ({ userWord }) => {
 
 TableItem.propTypes = {
   userWord: PropTypes.object.isRequired,
+  section: PropTypes.string.isRequired,
 };
 
 export default TableItem;
