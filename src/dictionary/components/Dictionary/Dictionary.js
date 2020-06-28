@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { userIdSelector } from '../../../auth/redux/selectors';
@@ -9,14 +9,43 @@ import useFetch from '../../../common/utils';
 import Table from '../Table/Table';
 import styles from './Dictionary.module.css';
 
+const buttonsInfo = [
+  {
+    title: 'Изучаемые',
+    section: 'learning',
+  },
+  {
+    title: 'Сложные',
+    section: 'difficult',
+  },
+  {
+    title: 'Удалённые',
+    section: 'deleted',
+  },
+];
+
+const fetchOptions = {
+  method: 'GET',
+};
+
 const Dictionary = () => {
   const dispatch = useDispatch();
   const userWords = useSelector(userWordsSelector);
   const userId = useSelector(userIdSelector);
+  const [dictionarySection, setDictionarySection] = useState('learning');
 
-  const options = useMemo(() => ({
-    method: 'GET',
-  }), []);
+  const buttons = useMemo(() => (
+    buttonsInfo.map(({ title, section }) => (
+      <Button
+        variant="light"
+        className={styles.Button}
+        key={section}
+        onClick={() => { setDictionarySection(section); }}
+      >
+        {title}
+      </Button>
+    ))
+  ), [setDictionarySection]);
 
   const userWordsURL = useMemo(() => `users/${userId}/words/`, [userId]);
 
@@ -24,17 +53,15 @@ const Dictionary = () => {
     (data) => dispatch(setUserWords(data)), [dispatch],
   );
 
-  useFetch(userWordsURL, options, action);
+  useFetch(userWordsURL, fetchOptions, action);
 
   return (
     <div className={styles.Dictionary}>
       <h1>Словарь</h1>
       <ButtonGroup aria-label="Слова" className={styles.ButtonGroup}>
-        <Button variant="light" className={styles.Button}>Изучаемые</Button>
-        <Button variant="light" className={styles.Button}>Сложные</Button>
-        <Button variant="light" className={styles.Button}>Удаленные</Button>
+        {buttons}
       </ButtonGroup>
-      {userWords && <Table userWords={userWords} />}
+      {userWords && <Table userWords={userWords} section={dictionarySection} />}
     </div>
   );
 };
