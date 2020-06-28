@@ -3,15 +3,16 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 
-import ProgressBar from '../ProgressBar/ProgressBar';
 import useFetch from '../../../common/utils';
+import Checkbox from '../Checkbox/Checkbox';
+import ProgressBar from '../ProgressBar/ProgressBar';
 import styles from './TableItem.module.css';
 
 const fetchOptions = {
   method: 'GET',
 };
 
-const TableItem = ({ userWord, section }) => {
+const TableItem = ({ userWord, section, allSelected }) => {
   const [wordInfo, setWordInfo] = useState({});
   const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
   const { wordId } = useMemo(() => userWord, [userWord]);
@@ -27,11 +28,13 @@ const TableItem = ({ userWord, section }) => {
     + `rslang-data/master/${audio}`).play();
   }, [audio]);
 
+  if (!word) return null;
+
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word}>
-        <input type="checkbox" />
-        <div onClick={playAudio}>Listen (картинка)</div>
+        <Checkbox allSelected={allSelected} id={word} />
+        <div onClick={playAudio}>Listen</div>
         <div>{word}</div>
         <div>{wordTranslate}</div>
       </div>
@@ -58,6 +61,7 @@ const TableItem = ({ userWord, section }) => {
 TableItem.propTypes = {
   userWord: PropTypes.object.isRequired,
   section: PropTypes.string.isRequired,
+  allSelected: PropTypes.bool.isRequired,
 };
 
 export default TableItem;
