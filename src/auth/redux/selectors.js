@@ -16,3 +16,9 @@ export const emailSelector = createSelector(
   authStateSelector,
   ({ user }) => (user ? user.email : 'user_login'),
 );
+
+export const userIdSelector = createSelector(
+  authStateSelector,
+  ({ user }) => (user && user.userId),
+);
+

@@ -27,14 +27,13 @@ const useFetch = (url, options = {}, action) => {
         action(json);
         setResult(json);
       } catch (er) {
-        console.log(er);
         setError(er);
       }
       console.log('fetch');
     };
     fetchData();
   }, [url, options, token, action, dispatch]);
-  if (error) throw new Error(error);
+  if (error) console.log(error);
   return result;
 };
 

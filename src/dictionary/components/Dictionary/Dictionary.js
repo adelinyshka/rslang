@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, ButtonGroup } from 'react-bootstrap';
-import { userSelector } from '../../../auth/redux/selectors';
+import { userIdSelector } from '../../../auth/redux/selectors';
 
 import { setUserWords } from '../../redux/index';
 import { userWordsSelector } from '../../redux/selectors';
@@ -12,7 +12,7 @@ import styles from './Dictionary.module.css';
 const Dictionary = () => {
   const dispatch = useDispatch();
   const userWords = useSelector(userWordsSelector);
-  const { userId } = useSelector(userSelector);
+  const userId = useSelector(userIdSelector);
 
   const options = useMemo(() => ({
     method: 'GET',
