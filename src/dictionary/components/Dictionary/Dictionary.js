@@ -1,4 +1,6 @@
-import React, { useMemo, useCallback, useState } from 'react';
+import React, {
+  useMemo, useCallback, useState, useEffect,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { userIdSelector } from '../../../auth/redux/selectors';
@@ -38,14 +40,14 @@ const Dictionary = () => {
     buttonsInfo.map(({ title, section }) => (
       <Button
         variant="light"
-        className={styles.Button}
+        className={section === dictionarySection && styles.Active}
         key={section}
         onClick={() => { setDictionarySection(section); }}
       >
         {title}
       </Button>
     ))
-  ), [setDictionarySection]);
+  ), [setDictionarySection, dictionarySection]);
 
   const userWordsURL = useMemo(() => `users/${userId}/words/`, [userId]);
 

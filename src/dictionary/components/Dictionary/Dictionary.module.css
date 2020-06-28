@@ -6,22 +6,22 @@
 }
 
 
-.Button {
-  border-radius: 5px !important;
-  transition: all 0.5s ease-in-out !important;
-  padding:0;
+.Dictionary button {
+  border-radius: 5px;
   color:black;
+  border-radius: 5px !important;
+  background: white;
+  transition: background 0.5s ease-out;
 }
 
-.Button:hover {
-  background: linear-gradient(199.65deg, #e8c3fd 0%, #c6aaff 100%);
-  color: white !important;
-  transition: all 0.5s ease-in-out !important;
+.Dictionary button:hover {
+  background: #c291df;
+  color: white;
 }
 
-.Button:focus {
+.Dictionary button:focus,
+.Dictionary button.Active {
   background: linear-gradient(199.65deg, #BD7AE3 0%, #8461C9 100%);
-  color: white !important;
-  transition: all 0.5s ease-in-out !important;
-  box-shadow: none !important;
+  color: white  ;
+  box-shadow: none  ;
 }
