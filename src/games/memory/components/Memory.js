@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { useSelector } from 'react-redux';
-// import Game from './Game';
+import Game from './Game';
 import StartPage from './StartPage';
 
 function Memory() {
-  // const statusGame = useSelector((state) => state.memory.stateGame);
+  const [isGame, setIsGame] = useState(false);
+  const startGame = () => setIsGame(true);
 
   return (
-    // statusGame ? <Game /> : <startPage />
-    <StartPage />
+    isGame ? <Game /> : <StartPage onStart={startGame} />
   );
 }
 

@@ -1,39 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Game from './Game';
+import Button from './Button';
 import style from './StartPage.module.css';
 
-// import {
-//   setWords,
-//   startGame,
-// } from '../redux';
-
-// import {
-//   getWords,
-// } from '../utils/index';
-
-const StartPage = () =>
-// const dispatch = useDispatch();
-// const level = useSelector((state) => state.memory.level);
-
-// const onStartGame = useCallback(() => {
-//   getWords(level).then((words) => {
-//     dispatch(setWords(words));
-//     dispatch(startGame());
-//   });
-// }, [dispatch, level]);
-
-  (
-    <div className={style.Wrapper}>
-      <h1>
-        memory
-      </h1>
-
-      <button
-        type="button"
-        // onClick={onStartGame}
-      >
-          Start
-      </button>
-    </div>
-  );
+const StartPage = (props) => (
+  <div className={style.Wrapper}>
+    {console.log('props start page: ', props)}
+    <h1>
+        Мемори
+    </h1>
+    <p>Соберите все пары слов, за отведенное время.</p>
+    <p>Игра помогает улучшить запоминание слов.</p>
+    <Button type="start" onClick={props.onStart}>Start</Button>
+  </div>
+);
 export default StartPage;

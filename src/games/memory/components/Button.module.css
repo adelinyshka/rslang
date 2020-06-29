@@ -1,0 +1,26 @@
+.Button {
+  font-family: Exo, sans-serif;
+  width: 175px;
+  height: 48px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 22px;
+  margin-top: 45px;
+}
+
+.start {
+  background-color: #0AD1BD;
+}
+
+.Button:hover {
+  background: #08A999;
+  cursor: pointer;
+}
+
+.Button:focus {
+  outline: none;
+}

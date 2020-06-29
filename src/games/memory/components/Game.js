@@ -1,67 +1,20 @@
-import React, { useCallback } from 'react';
-import { useSelector, useDispatch, batch } from 'react-redux';
-// import LevelSwitcher from '../../../common/components/LevelSwitcher';
-// import BlockWords from './BlockWords';
-import getWords from '../utils/index';
-
-import {
-  setWords,
-  setImage,
-  setTranslateActiveWord,
-  setLevel,
-} from '../redux/index';
-
-import {
-  modeSelector,
-  wordsSelector,
-  activeWordSelector,
-  // imageSelector,
-  translateActiveWordSelector,
-  levelSelector,
-} from '../redux/selectors';
+import React from 'react';
+import style from './Game.module.css';
 
 function Game() {
-  const dispatch = useDispatch();
-  // const image = useSelector(imageSelector);
-  const activeLevel = useSelector(levelSelector);
-  const translateActiveWord = useSelector(translateActiveWordSelector);
-  const activeWord = useSelector(activeWordSelector);
-  const words = useSelector(wordsSelector);
-  const statusGame = useSelector(modeSelector);
-  // console.log(translateActiveWord);
-
-  const getNewWords = useCallback((currentLevel) => {
-    getWords(currentLevel).then((gettingWords) => {
-      if (gettingWords.length > 1) {
-        console.log(gettingWords);
-        batch(() => {
-          dispatch(setWords(gettingWords));
-          dispatch(setImage(' '));
-          dispatch(setTranslateActiveWord(' '));
-        });
-      }
-    });
-  }, [dispatch]);
-
-  const changeActiveLevel = useCallback((activeLevelProps, levelProps) => {
-    if (activeLevelProps !== levelProps) {
-      getWords(levelProps).then((wordsProps) => {
-        if (wordsProps.length > 1) {
-          console.log(wordsProps);
-          batch(() => {
-            dispatch(setWords(wordsProps));
-            dispatch(setLevel(levelProps));
-            dispatch(setImage(' '));
-            dispatch(setTranslateActiveWord(' '));
-          });
-        }
-      });
-    }
-  }, [activeLevel, dispatch]);
+  const level = 0;
 
   return (
-    <div className="wrapper">
-      Hello from game
+    <div className={style.GameWrapper}>
+      <div className={style.Level}>
+        Блок с уровнем
+        {level}
+      </div>
+      <div className={style.Lives}>
+        <div>Жизни</div>
+        <div>Часы</div>
+      </div>
+      <div className={style.CardBlock}>Блок с карточками</div>
     </div>
   );
 }

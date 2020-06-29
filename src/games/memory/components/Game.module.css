@@ -1,0 +1,23 @@
+.GameWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.Level {
+  flex: 1;
+  margin: 20px;
+}
+
+.Lives {
+  display: flex;
+  flex: 1;
+  margin: 20px;
+}
+
+.CardBlock {
+  flex: 5;
+
+}
