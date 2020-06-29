@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const MainPageTextStyled = styled.div`
   color: #4B5D68;
@@ -26,5 +27,9 @@ const MainPageTextStyled = styled.div`
 const FirstPageText = ({ text }) => (
   <MainPageTextStyled>{text}</MainPageTextStyled>
 );
+
+FirstPageText.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
 export default FirstPageText;

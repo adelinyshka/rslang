@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const TitleHugeStyled = styled.div`
   color: #4B5D68;
@@ -24,5 +25,9 @@ const TitleHugeStyled = styled.div`
 const TitleHuge = ({ text }) => (
   <TitleHugeStyled>{text}</TitleHugeStyled>
 );
+
+TitleHuge.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
 export default TitleHuge;

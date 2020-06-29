@@ -63,8 +63,11 @@ const VideoStyled = styled.div`
 
 const VideoBlockStyled = () => (
   <VideoStyled>
-    <img src={'./assets/images/promo/screen.png'} alt={'picture of' +
-    ' notebook monitor'}/>
+    <img
+      src="./assets/images/promo/screen.png"
+      alt={'picture of'
+      + ' notebook monitor'}
+    />
     <div className="thumb_wrap">
       <iframe
         title="Our super video"
@@ -82,5 +85,4 @@ const VideoBlockStyled = () => (
 );
 
 export default VideoBlockStyled;
-
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const TitleH2Styled = styled.div`
   font-family: Helvetica;
@@ -26,5 +27,9 @@ const TitleH2Styled = styled.div`
 const TitleH2 = ({ text }) => (
   <TitleH2Styled>{text}</TitleH2Styled>
 );
+
+TitleH2.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
 export default TitleH2;

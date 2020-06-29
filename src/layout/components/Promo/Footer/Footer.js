@@ -17,7 +17,7 @@ const FooterImg = styled.img`
 
 const Footer = () => (
   <FooterWrapper>
-    <FooterImg src={'./assets/images/promo/footer_bg.svg'}/>
+    <FooterImg src="./assets/images/promo/footer_bg.svg" />
   </FooterWrapper>
 );
 
