@@ -1,0 +1,29 @@
+.Card {
+  width: 170px;
+  height: 100px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: brown;
+  border: 1px solid #D0C9D6;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.Card:hover {
+  box-shadow: 5px 5px 5px rgba(52, 69, 221, 0.5);
+  cursor: pointer;
+}
+
+.CardEng, .cardRus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pick {
+  background-color: #A5AFFB;
+}
+
