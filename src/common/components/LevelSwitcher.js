@@ -18,7 +18,7 @@ const SwitcherLevel = ({ activeLevel, handlerOnClick }) => (
             .map((level, index) => (
               <li
                 key={level}
-                onClick={() => handlerOnClick(activeLevel, index)}
+                onClick={() => handlerOnClick(index)}
                 className={activeLevel === index ? 'li active' : 'li'}
               >
                 {level}

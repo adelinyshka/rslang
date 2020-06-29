@@ -48,8 +48,8 @@ const Game = () => {
 
   console.log(translateActiveWord);
 
-  const changeActiveLevel = useCallback((activeLevelProps, levelProps) => {
-    if (activeLevelProps !== levelProps) {
+  const changeActiveLevel = useCallback((levelProps) => {
+    if (activeLevel !== levelProps) {
       getWords(levelProps).then((gettingWords) => {
         if (gettingWords.length > 1) {
           console.log(gettingWords);
@@ -63,7 +63,7 @@ const Game = () => {
         }
       });
     }
-  }, [dispatch]);
+  }, [dispatch, activeLevel]);
 
   const getNewWords = useCallback((currentLevel) => {
     getWords(currentLevel).then((gettingWords) => {
@@ -100,21 +100,30 @@ const Game = () => {
   recognition.onresult = (event) => {
     const speachWord = event.results[event.resultIndex][0].transcript.replace(' ', '');
     let trueSpeech = false;
+    let img = '';
     if (speachWord) {
-      words.forEach(({ word }) => {
+      words.forEach(({ word, image: wordImage }) => {
         if (!trueSpeech) {
-          console.log(word, speachWord, trueSpeech);
           trueSpeech = word === speachWord;
+          console.log(word, speachWord, trueSpeech, image);
         }
+        img = trueSpeech ? wordImage : '';
+        console.log(img)
       });
       if (trueSpeech) {
+        let linkImage = `${'https://raw.githubusercontent.com/'
+      + 'irinainina/rslang-data/master/'}${img}`;
         const trueSpeechWords = Array.from(speechWords);
         trueSpeechWords.push(speachWord);
         batch(() => {
           dispatch(setSpeechActiveWord(speachWord));
           dispatch(setSpeechWords(trueSpeechWords));
+          dispatch(setImage(linkImage));
         });
-      } else dispatch(setSpeechActiveWord(speachWord));
+      } else {
+        dispatch(setSpeechActiveWord(speachWord));
+        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+      }
     }
   };
 

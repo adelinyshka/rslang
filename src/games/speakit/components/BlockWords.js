@@ -4,6 +4,7 @@ import {
   wordsSelector,
   activeWordSelector,
   statusGameSelector,
+  speechWordsSelector,
 } from '../redux/selectors';
 
 import {
@@ -25,6 +26,7 @@ const BlockWords = () => {
   const activeWord = useSelector(activeWordSelector);
   const words = useSelector(wordsSelector);
   const statusGame = useSelector(statusGameSelector);
+  const speechWords = useSelector(speechWordsSelector);
   console.log(words, 'blockword');
 
   const activateWord = useCallback((word, audio, image, wordTranslate) => {
@@ -54,7 +56,8 @@ const BlockWords = () => {
           onClick={() => (statusGame === 'no-speach'
             ? activateWord(word, audio, image, wordTranslate)
             : false) }
-          active={word === activeWord}
+          active={word === activeWord
+            || speechWords.find((element) => word === element)}
           statusGame={statusGame}
         >
           <img
