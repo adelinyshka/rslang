@@ -1,89 +1,14 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
-import css from './IntervalInfo.module.css';
-
-const IntervalCard = styled.div`
-  margin: 48px;
-  border-radius: 50px;
-  background: white;
-  
-  @media (max-width: 570px) {
-    margin: 0;
-  }
-`;
-
-const IntervalH5 = styled.h5`
-  font-style: normal;
-  font-weight: normal;
-  font-size: 30px;
-  line-height: 130%;
-  color: #212353;
-  text-align: center;
-  padding: 44px;
-  font-family: 'Exo', sans-serif;
-  
-  @media (max-width: 570px) {
-    font-size: 22px;
-    padding: 20px 5px;
-    
-  }
-`;
-
-const IntervalBtn = styled.button`
-  width: 94px;
-  height: 48px;
-  border-radius: 16px;
-  color: white;
-  border-color: transparent;
-  cursor: unset!important;
-  margin: 10px;
-  
-  &:hover,
-  &:focus,
-  &:active {
-    outline: none;
-  }
-`;
-
-const DivStyled = styled.div`
-  width: 70%;
-  margin: 0 auto;
-  display:flex;
-  justify-content: space-around;
-  
-  @media (max-width: 690px) {
-    display:flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-`;
-
-const RepeatBtn = styled(IntervalBtn)`
-  background: #6979F8;
-`;
-
-const EasyBtn = styled(IntervalBtn)`
-  background: #DB7CF5;
-`;
-
-const MidBtn = styled(IntervalBtn)`
-  background: #AA5DDB;
-`;
-
-const HardBtn = styled(IntervalBtn)`
-  background: #7348BF;
-`;
+import IntervalCard from './IntervalCard';
 
 const IntervalInfo = () => (
   <>
     <IntervalCard>
-      <IntervalH5>Реализация метода в тренировках</IntervalH5>
-
+      <h5>Реализация метода в тренировках</h5>
       <Container fluid>
-        <Row className={css.interval_row}>
-          <Col className={css.interval_text} md={12}>
+        <Row className="interval_row">
+          <Col className="interval_text" md={12}>
             Метод интервальных повторений реализован в тренировке
             &apos;Карточки&apos;.
             На экране появляется слово на английском и вы определяете для
@@ -94,16 +19,16 @@ const IntervalInfo = () => (
         </Row>
       </Container>
 
-      <DivStyled>
-        <RepeatBtn>Повтор</RepeatBtn>
-        <EasyBtn>Легко</EasyBtn>
-        <MidBtn>Средне</MidBtn>
-        <HardBtn>Сложно</HardBtn>
-      </DivStyled>
+      <div className="styled">
+        <button className="repeat" type="submit">Повтор</button>
+        <button className="easy" type="submit">Легко</button>
+        <button className="mid" type="submit">Средне</button>
+        <button className="hard" type="submit">Сложно</button>
+      </div>
 
       <Container fluid>
-        <Row className={css.interval_row}>
-          <Col className={css.interval_text} md={12}>
+        <Row className="interval_row">
+          <Col className="interval_text" md={12}>
             Слово будет появляться в тренировках в зависимости от указанной
             для вас сложности.
             <br />

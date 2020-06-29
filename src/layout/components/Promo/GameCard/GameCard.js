@@ -1,19 +1,8 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import css from './GameCard.module.css';
-
-const GameCardWrapper = styled.div`
-  height: 150px;
-  display: flex;
-`;
-
-const GameCardTextWrapper = styled.div`
-  height: 135px;
-  overflow-y: scroll;
-`;
+import { GameCardTextWrapper, GameCardWrapper } from './GameCardWrapper';
 
 const GameCard = ({ src, title, text }) => (
   <Card className={css.game_card} bg="light" variant="top">

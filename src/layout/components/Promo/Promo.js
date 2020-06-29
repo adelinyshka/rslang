@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import css from './Promo.module.css';
 
 import FeatureCard from './FeatureCard/FeatureCard';
 import Footer from './Footer/Footer';
@@ -10,6 +9,7 @@ import IntervalInfo from './IntervalInfo/IntervalInfo';
 import ImgFullWidth from './ImgFullWidth';
 import FirstPageImg from './FirstPage/FirstPageImg';
 import FirstPageText from './FirstPage/FirstPageText';
+import PromoWrapper from './PromoWrapper';
 import Study from './Study/Study';
 import TitleHuge from './TitleHuge/TitleHuge';
 import TitleH2 from './TitleH2/TitleH2';
@@ -18,10 +18,10 @@ import VideoBlock from './VideoBlock/VideoBlock';
 
 export default function Promo() {
   return (
-    <div className={css.promo_body}>
-      <div className={css.promo_bg}>
+    <PromoWrapper>
+      <div className="promo_bg">
         <Header />
-        <div className={css.promo_alignment}>
+        <div className="promo_alignment">
           <div>
             <TitleHuge text="Выучить английский - легко" />
             <FirstPageText
@@ -92,7 +92,7 @@ export default function Promo() {
         <TextAfterTitle text={'Английский можно учить интересно и '
         + 'по-настоящему наслаждаться процессом'}
         />
-        <div className={css.wrapper_game}>
+        <div className="wrapper_game">
 
           <GameCard
             src="./assets/images/promo/game_1.svg"
@@ -117,7 +117,7 @@ export default function Promo() {
           alt={'man on the table working with'
           + ' notebook'}
         />
-        <div className={css.wrapper_game}>
+        <div className="wrapper_game">
           <GameCard
             src="./assets/images/promo/game_4.svg"
             title="Спринт"
@@ -164,6 +164,6 @@ export default function Promo() {
         <Study />
       </div>
       <Footer />
-    </div>
+    </PromoWrapper>
   );
 }
