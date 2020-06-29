@@ -19,6 +19,7 @@ const useAPI = (url, options = {}, action) => {
         'Authorization': `Bearer ${token}`,
       },
     };
+
     const fetchData = async () => {
       try {
         const data = await fetch(finalUrl, finalOptions);
