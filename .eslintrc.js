@@ -33,7 +33,6 @@ module.exports = {
     'react/prefer-stateless-function': 'warn',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
-    'jsx-a11y/no-noninteractive-element-interactions': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/no-named-as-default': 'off',
     'react-hooks/rules-of-hooks': 'error',

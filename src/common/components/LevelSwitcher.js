@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import StyleSwitcherLevel from './style.LevelSwitcher';
 
 const countLevel = 6;
-const levels = new Array(countLevel);
+let levels = new Array(countLevel);
+levels = levels
+  .fill(' ')
+  .map((el, index) => index + 1);
 
-const SwitcherLevel = ({ handlerOnClick }) => {
+const SwitcherLevel = ({ changeActiveLevel }) => {
   const [activeLevel, setActiveLevel] = useState(1);
+
+  const handlerOnClick = (level, index) => {
+    setActiveLevel(level);
+    changeActiveLevel(index);
+  };
 
   return (
     <StyleSwitcherLevel>
@@ -15,22 +24,16 @@ const SwitcherLevel = ({ handlerOnClick }) => {
         <p className="p">Уровень</p>
         <ul className="ul">
           {
-            levels
-              .fill(' ')
-              .map((el, index) => index + 1)
-              .map((level, index) => (
-                <li
-                  key={level}
-                  onClick={() => {
-                    console.log(level);
-                    setActiveLevel(level);
-                    handlerOnClick(index);
-                  }}
-                  className={activeLevel === level ? 'li active' : 'li'}
-                >
-                  {level}
-                </li>
-              ))
+            levels.map((level, index) => (
+              <li
+                key={level}
+                onClick={() => handlerOnClick(level, index)}
+                className={classNames('li', { active: activeLevel === level })}
+                role="menuitem"
+              >
+                {level}
+              </li>
+            ))
           }
         </ul>
       </div>
@@ -39,7 +42,7 @@ const SwitcherLevel = ({ handlerOnClick }) => {
 };
 
 SwitcherLevel.propTypes = {
-  handlerOnClick: PropTypes.func.isRequired,
+  changeActiveLevel: PropTypes.func.isRequired,
 };
 
 export default SwitcherLevel;

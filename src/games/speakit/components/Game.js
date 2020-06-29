@@ -110,7 +110,7 @@ const Game = () => {
           console.log(word, speachWord, trueSpeech, image);
         }
         img = trueSpeech ? wordImage : '';
-        console.log(img)
+        console.log(img);
       });
       if (trueSpeech) {
         let linkImage = `${'https://raw.githubusercontent.com/'
@@ -132,7 +132,7 @@ const Game = () => {
   return (
     <StyleGame>
       <LevelSwitcher
-        handlerOnClick={changeActiveLevel}
+        changeActiveLevel={changeActiveLevel}
       />
       <figure className="figure">
         <img className="img" src={image} alt={translateActiveWord} />
