@@ -1,0 +1,16 @@
+.RightLetter {
+  color: green;
+}
+
+.WrongLetter {
+  color: red;
+}
+
+.WrongAnswer {
+  background-color: #D5F2EA;
+  border: 1px solid black;
+}
+
+.SubmitBtn {
+  margin: 10px 0;
+}

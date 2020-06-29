@@ -22,3 +22,7 @@ export const userIdSelector = createSelector(
   ({ user }) => (user && user.userId),
 );
 
+export const tokenSelector = createSelector(
+  authStateSelector,
+  ({ user }) => (user ? user.token : null),
+);

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { userSelector } from '../../auth/redux/selectors';
 
-const useFetch = (url, options = {}, action) => {
+const useAPI = (url, options = {}, action) => {
   const dispatch = useDispatch();
   const { token } = useSelector(userSelector);
   const [result, setResult] = useState();
@@ -29,12 +29,12 @@ const useFetch = (url, options = {}, action) => {
       } catch (er) {
         setError(er);
       }
-      console.log('fetch');
     };
+
     fetchData();
   }, [url, options, token, action, dispatch]);
   if (error) console.log(error);
   return result;
 };
 
-export default useFetch;
+export default useAPI;
