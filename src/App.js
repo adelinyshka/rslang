@@ -6,6 +6,7 @@ import {
 import Menu from './layout/components/Menu/Menu';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
+import Sprint from './games/sprint/Sprint';
 
 const routes = [
   {
@@ -19,6 +20,7 @@ const routes = [
   {
     title: 'Игры',
     path: '/games',
+    component: <Sprint />,
   },
   {
     title: 'Карточки',
