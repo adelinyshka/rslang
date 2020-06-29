@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import StyleSwitcherLevel from './style.LevelSwitcher';
 
 const countLevel = 6;
-const levels = new Array(countLevel);
-levels
+let levels = new Array(countLevel);
+levels = levels
   .fill(' ')
   .map((el, index) => index + 1);
 
