@@ -5,7 +5,7 @@ export default style.div`
   text-align: center;
   background: #FAFAFA;
 
-  .button__new-words,
+  .button__restart,
   .button__results {
     border: 2px solid #6979F8;
     box-sizing: border-box;
@@ -16,7 +16,7 @@ export default style.div`
     outline: none;
   }
 
-  .button__new-words {
+  .button__restart {
     margin-right: 4vw;
   }
 
@@ -32,7 +32,7 @@ export default style.div`
     outline: none;
   }
 
-  .button__new-words:hover,
+  .button__restart:hover,
   .button__results:hover {
     cursor: pointer;
     background: #6979F8;
@@ -58,11 +58,18 @@ export default style.div`
   }
 
   .figcaption {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 17px;
     margin-bottom: 1vh;
     height: 5vh;
+  }
+
+  .figcaption .microphone {
+    position: absolute;
+    width: 20px;
+    left: 2%;
   }
 `;

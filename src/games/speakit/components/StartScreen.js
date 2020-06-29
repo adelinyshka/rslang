@@ -3,19 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   setWords,
-  startGame,
+  setStatusGame,
 } from '../redux';
+
+import {
+  levelSelector,
+} from '../redux/selectors';
 
 import getWords from '../utils';
 
 const StartScreen = () => {
   const dispatch = useDispatch();
-  const level = useSelector((state) => state.speakit.level);
+  const level = useSelector(levelSelector);
 
   const onStartGame = useCallback(() => {
     getWords(level).then((words) => {
       dispatch(setWords(words));
-      dispatch(startGame());
+      dispatch(setStatusGame('no-speach'));
     });
   }, [dispatch, level]);
 

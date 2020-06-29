@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import LevelSwitcher from '../../../common/components/LevelSwitcher';
 import BlockWords from './BlockWords';
@@ -10,39 +10,43 @@ import {
   setImage,
   setTranslateActiveWord,
   setLevel,
+  setStatusGame,
+  setActiveWord,
+  setSpeechActiveWord,
+  setSpeechWords,
 } from '../redux/index';
 
 import {
-  modeSelector,
+  statusGameSelector,
   wordsSelector,
   activeWordSelector,
   imageSelector,
   translateActiveWordSelector,
   levelSelector,
+  speechActiveWordSelector,
+  speechWordsSelector,
 } from '../redux/selectors';
 
-function Game() {
+const imgMicro = './assets/images/speakit/microphone.svg';
+
+const SpeechRecognition = window.SpeechRecognition
+  || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.lang = 'en-US';
+recognition.continuous = true;
+
+const Game = () => {
   const dispatch = useDispatch();
   const image = useSelector(imageSelector);
   const activeLevel = useSelector(levelSelector);
   const translateActiveWord = useSelector(translateActiveWordSelector);
-  const activeWord = useSelector(activeWordSelector);
+  const speechActiveWord = useSelector(speechActiveWordSelector);
+  const speechWords = useSelector(speechWordsSelector);
+  const statusGame = useSelector(statusGameSelector);
   const words = useSelector(wordsSelector);
-  const statusGame = useSelector(modeSelector);
-  console.log(translateActiveWord);
+  const activeWord = useSelector(activeWordSelector);
 
-  const getNewWords = useCallback((currentLevel) => {
-    getWords(currentLevel).then((gettingWords) => {
-      if (gettingWords.length > 1) {
-        console.log(gettingWords);
-        batch(() => {
-          dispatch(setWords(gettingWords));
-          dispatch(setImage(' '));
-          dispatch(setTranslateActiveWord(''));
-        });
-      }
-    });
-  }, [dispatch]);
+  console.log(translateActiveWord);
 
   const changeActiveLevel = useCallback((activeLevelProps, levelProps) => {
     if (activeLevelProps !== levelProps) {
@@ -52,13 +56,67 @@ function Game() {
           batch(() => {
             dispatch(setWords(gettingWords));
             dispatch(setLevel(levelProps));
-            dispatch(setImage(' '));
+            dispatch(setImage('./assets/images/speakit/base-game-image.png'));
             dispatch(setTranslateActiveWord(''));
+            dispatch(setSpeechActiveWord(''));
           });
         }
       });
     }
-  }, [activeLevel, dispatch]);
+  }, [dispatch]);
+
+  const getNewWords = useCallback((currentLevel) => {
+    getWords(currentLevel).then((gettingWords) => {
+      if (gettingWords.length > 1) {
+        console.log(gettingWords);
+        batch(() => {
+          dispatch(setWords(gettingWords));
+          dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+          dispatch(setTranslateActiveWord(''));
+        });
+      }
+    });
+  }, [dispatch]);
+
+  const changeStatusGame = useCallback(() => {
+    if (statusGame === 'no-speach') {
+      batch(() => {
+        dispatch(setStatusGame('speach'));
+        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+        dispatch(setTranslateActiveWord(''));
+        dispatch(setActiveWord(''));
+      });
+      recognition.start();
+    } else {
+      batch(() => {
+        dispatch(setStatusGame('no-speach'));
+        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+        dispatch(setTranslateActiveWord(''));
+      });
+      recognition.stop();
+    }
+  }, [dispatch, statusGame]);
+
+  recognition.onresult = (event) => {
+    const speachWord = event.results[event.resultIndex][0].transcript.replace(' ', '');
+    let trueSpeech = false;
+    if (speachWord) {
+      words.forEach(({ word }) => {
+        if (!trueSpeech) {
+          console.log(word, speachWord, trueSpeech);
+          trueSpeech = word === speachWord;
+        }
+      });
+      if (trueSpeech) {
+        const trueSpeechWords = Array.from(speechWords);
+        trueSpeechWords.push(speachWord);
+        batch(() => {
+          dispatch(setSpeechActiveWord(speachWord));
+          dispatch(setSpeechWords(trueSpeechWords));
+        });
+      } else dispatch(setSpeechActiveWord(speachWord));
+    }
+  };
 
   return (
     <StyleGame>
@@ -69,7 +127,10 @@ function Game() {
       <figure className="figure">
         <img className="img" src={image} alt={translateActiveWord} />
         <figcaption className="figcaption">
-          {translateActiveWord}
+          {statusGame === 'speach'
+            ? <img className="microphone" src={imgMicro} alt="Microphone" />
+            : false}
+          {statusGame === 'speach' ? speechActiveWord : translateActiveWord}
         </figcaption>
       </figure>
       <div className="education__block-spoken-words" />
@@ -77,21 +138,22 @@ function Game() {
       <div className="education__block-button">
         <button
           type="button"
-          className="button__new-words"
+          className="button__restart"
           onClick={() => getNewWords(activeLevel)}
         >
-          New words
+          Restart
         </button>
         <button
           type="button"
           className="button__speak-please"
+          onClick={() => changeStatusGame()}
         >
-          Speak please
+          {statusGame === 'no-speach' ? 'Speak please' : 'Stop speak'}
         </button>
         <button type="button" className="button__results">Results</button>
       </div>
     </StyleGame>
   );
-}
+};
 
 export default Game;

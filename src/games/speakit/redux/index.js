@@ -1,6 +1,6 @@
-export const startGame = () => ({
-  type: 'START_GAME',
-  stateGame: true,
+export const setStatusGame = (statusGame) => ({
+  type: 'SET_STATUS_GAME',
+  statusGame,
 });
 
 export const setWords = (gettingWords) => ({
@@ -28,13 +28,25 @@ export const setImage = (image) => ({
   image,
 });
 
+export const setSpeechActiveWord = (speechActiveWord) => ({
+  type: 'SET_SPEECH_ACTIVE_WORD',
+  speechActiveWord,
+});
+
+export const setSpeechWords = (speechWords) => ({
+  type: 'SET_SPEECH_WORDS',
+  speechWords,
+});
+
 const INITIAL_STATE = {
-  stateGame: false,
+  statusGame: '', // no-speach and speach and ''(startScreen)
   words: {},
   level: 0,
-  activeWord: 'base_word',
-  translateActiveWord: ' ',
-  image: '',
+  activeWord: '',
+  translateActiveWord: '',
+  speechActiveWord: '',
+  image: './assets/images/speakit/base-game-image.png',
+  speechWords: [],
 };
 
 const speakitReducer = (state = INITIAL_STATE, action) => {
@@ -44,12 +56,14 @@ const speakitReducer = (state = INITIAL_STATE, action) => {
   } = action;
 
   switch (type) {
-    case 'START_GAME':
+    case 'SET_STATUS_GAME':
     case 'SET_WORDS':
     case 'SET_LEVEL':
     case 'SET_ACTIVE_WORD':
     case 'SET_IMAGE':
     case 'SET_TRANSLATE_ACTIVE_WORD':
+    case 'SET_SPEECH_ACTIVE_WORD':
+    case 'SET_SPEECH_WORDS':
       return {
         ...state,
         ...payload,

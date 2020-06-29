@@ -3,6 +3,7 @@ import { useSelector, useDispatch, batch } from 'react-redux';
 import {
   wordsSelector,
   activeWordSelector,
+  statusGameSelector,
 } from '../redux/selectors';
 
 import {
@@ -23,7 +24,8 @@ const BlockWords = () => {
   const dispatch = useDispatch();
   const activeWord = useSelector(activeWordSelector);
   const words = useSelector(wordsSelector);
-  console.log(words);
+  const statusGame = useSelector(statusGameSelector);
+  console.log(words, 'blockword');
 
   const activateWord = useCallback((word, audio, image, wordTranslate) => {
     const link = `${'https://raw.githubusercontent.com/'
@@ -49,8 +51,11 @@ const BlockWords = () => {
         <StyleWordBlock
           id={word}
           key={word}
-          onClick={() => activateWord(word, audio, image, wordTranslate)}
+          onClick={() => (statusGame === 'no-speach'
+            ? activateWord(word, audio, image, wordTranslate)
+            : false) }
           active={word === activeWord}
+          statusGame={statusGame}
         >
           <img
             src="./assets/images/speakit/audio-icon.svg"

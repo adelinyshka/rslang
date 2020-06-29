@@ -12,9 +12,9 @@ export const activeWordSelector = createSelector(
   ({ activeWord }) => activeWord,
 );
 
-export const modeSelector = createSelector(
+export const statusGameSelector = createSelector(
   speakitSelector,
-  ({ mode }) => mode,
+  ({ statusGame }) => statusGame,
 );
 
 export const levelSelector = createSelector(
@@ -30,4 +30,14 @@ export const imageSelector = createSelector(
 export const translateActiveWordSelector = createSelector(
   speakitSelector,
   ({ translateActiveWord }) => translateActiveWord,
-)
+);
+
+export const speechActiveWordSelector = createSelector(
+  speakitSelector,
+  ({ speechActiveWord }) => speechActiveWord,
+);
+
+export const speechWordsSelector = createSelector(
+  speakitSelector,
+  ({ speechWords }) => speechWords,
+);

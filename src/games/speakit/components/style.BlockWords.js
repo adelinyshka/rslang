@@ -4,26 +4,25 @@ export const StyleWordsContainer = style.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  cursor: pointer;
   color: white;
 `;
 
 export const StyleWordBlock = style.div`
   display: flex;
   width: 16vw;
-  background: ${(props) => (props.active ? '#6979f8' : '#0AD1BD')};
+  background: ${({ active }) => (active ? '#6979f8' : '#0AD1BD')};
   border-radius: 12px;
   justify-content: space-between;
   align-items: center;
   padding: 0% 1%;
   box-sizing: border-box;
   margin-bottom: 2vw;
-  border: 2px solid ${(props) => (props.active ? '#03009e' : '#0AD1BD')};
+  border: 2px solid ${({ active }) => (active ? '#03009e' : '#0AD1BD')};
 
-  :hover{
-    background: #6979f8;
-    border: 2px solid #03009e;
-  }
+  ${({ statusGame }) => (statusGame === 'no-speach'
+    ? ':hover {background: #6979f8; border:'
+    + '2px solid #03009e; cursor: pointer;}'
+    : false)}
 
   .word_div {
     text-align: center;
