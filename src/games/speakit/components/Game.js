@@ -98,7 +98,9 @@ const Game = () => {
   }, [dispatch, statusGame]);
 
   recognition.onresult = (event) => {
-    const speachWord = event.results[event.resultIndex][0].transcript.replace(' ', '');
+    const speachWord = event
+      .results[event.resultIndex][0]
+      .transcript.replace(' ', '');
     let trueSpeech = false;
     let img = '';
     if (speachWord) {
@@ -131,7 +133,6 @@ const Game = () => {
     <StyleGame>
       <LevelSwitcher
         handlerOnClick={changeActiveLevel}
-        activeLevel={activeLevel}
       />
       <figure className="figure">
         <img className="img" src={image} alt={translateActiveWord} />
