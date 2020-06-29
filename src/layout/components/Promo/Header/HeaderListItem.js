@@ -27,8 +27,8 @@ const HeaderWrapper = styled.header`
   }
   
   .logo {
-  color: #6979F8 !important;
-  font: normal 50px 'Exo', sans-serif !important;
+  color: #6979F8;
+  font: normal 50px 'Exo', sans-serif;
   }
 
   .enter_btn {
@@ -49,19 +49,19 @@ const HeaderWrapper = styled.header`
 
   @media (max-width: 991px) {
     .logo {
-      font: normal 30px 'Exo', sans-serif !important;
+      font: normal 30px 'Exo', sans-serif;
     }
   }
 
   .navbar_promo {
-    border-color: transparent !important;
+    border-color: transparent;
   }
 
   .navbar_promo:hover,
   .navbar_promo:focus,
   .navbar_promo:active {
     outline: none;
-  } 
+  }
 `;
 
 export default HeaderWrapper;

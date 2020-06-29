@@ -59,7 +59,7 @@ const IntervalCard = styled.div`
     border-radius: 16px;
     color: white;
     border-color: transparent;
-    cursor: unset!important;
+    cursor: unset;
     margin: 10px;
   
     &:hover,

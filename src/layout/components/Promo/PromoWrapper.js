@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 const PromoWrapper = styled.div`
   background: #fafafa;
-  scroll-behavior: smooth !important;
+  scroll-behavior: smooth;
 
   .promo_bg {
     height: 100%;
     font-family: Exo, sans-serif;
     margin: 0 auto;
     max-width: 1200px;
-    scroll-behavior: smooth !important;
+    scroll-behavior: smooth;
   }
   
   .promo_alignment {

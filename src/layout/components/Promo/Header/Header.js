@@ -3,6 +3,7 @@ import {
   Button, Navbar, Form, Nav,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 import HeaderWrapper from './HeaderListItem';
 
 const links = [
@@ -33,6 +34,12 @@ function createLink({ id, title, path }) {
     <li key={id}>
       <a href={path}>{title}</a>
     </li>
+  );
+}
+
+function moveToHeader() {
+  return (
+    <Route key="login" exact path="/login" />
   );
 }
 
