@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
+import SpeechRecognition from 'react-speech-recognition';
+import PropTypes from 'prop-types';
+
 import LevelSwitcher from '../../../common/components/LevelSwitcher';
 import BlockWords from './BlockWords';
 import getWords from '../utils/index';
@@ -29,13 +32,28 @@ import {
 
 const imgMicro = './assets/images/speakit/microphone.svg';
 
-const SpeechRecognition = window.SpeechRecognition
-  || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-recognition.lang = 'en-US';
-recognition.continuous = true;
+const propTypes = {
+  // Props injected by SpeechRecognition
+  transcript: PropTypes.string.isRequired,
+  resetTranscript: PropTypes.func.isRequired,
+  startListening: PropTypes.func.isRequired,
+  listening: PropTypes.bool.isRequired,
+  recognition: PropTypes.object.isRequired,
+  browserSupportsSpeechRecognition: PropTypes.bool.isRequired,
+};
 
-const Game = () => {
+const option = {
+  continuous: false,
+};
+
+const Game = ({
+  transcript,
+  resetTranscript,
+  startListening,
+  listening,
+  browserSupportsSpeechRecognition,
+  recognition,
+}) => {
   const dispatch = useDispatch();
   const image = useSelector(imageSelector);
   const activeLevel = useSelector(levelSelector);
@@ -86,48 +104,59 @@ const Game = () => {
         dispatch(setTranslateActiveWord(''));
         dispatch(setActiveWord(''));
       });
-      recognition.start();
     } else {
       batch(() => {
         dispatch(setStatusGame('no-speach'));
         dispatch(setImage('./assets/images/speakit/base-game-image.png'));
         dispatch(setTranslateActiveWord(''));
       });
-      recognition.stop();
     }
   }, [dispatch, statusGame]);
 
-  recognition.onresult = (event) => {
-    const speachWord = event
-      .results[event.resultIndex][0]
-      .transcript.replace(' ', '');
-    let trueSpeech = false;
-    let img = '';
-    if (speachWord) {
-      words.forEach(({ word, image: wordImage }) => {
-        if (!trueSpeech) {
-          trueSpeech = word === speachWord;
-          console.log(word, speachWord, trueSpeech, image);
-        }
-        img = trueSpeech ? wordImage : '';
-        console.log(img);
-      });
-      if (trueSpeech) {
-        let linkImage = `${'https://raw.githubusercontent.com/'
-      + 'irinainina/rslang-data/master/'}${img}`;
-        const trueSpeechWords = Array.from(speechWords);
-        trueSpeechWords.push(speachWord);
-        batch(() => {
-          dispatch(setSpeechActiveWord(speachWord));
-          dispatch(setSpeechWords(trueSpeechWords));
-          dispatch(setImage(linkImage));
+  useEffect(() => {
+    recognition.lang = 'en-US';
+    if (statusGame === 'speach') {
+      if (!listening) {
+        let trueSpeech = false;
+        let img = '';
+        words.forEach(({ word, image: wordImage }) => {
+          if (!trueSpeech) {
+            trueSpeech = word === transcript;
+            console.log(word, transcript, trueSpeech, image);
+            img = trueSpeech ? wordImage : '';
+          }
+          console.log(img);
         });
-      } else {
-        dispatch(setSpeechActiveWord(speachWord));
-        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+        if (trueSpeech) {
+          const linkImage = `${'https://raw.githubusercontent.com/'
+            + 'irinainina/rslang-data/master/'}${img}`;
+          const trueSpeechWords = Array.from(speechWords);
+          trueSpeechWords.push(transcript);
+          batch(() => {
+            dispatch(setSpeechActiveWord(transcript));
+            dispatch(setSpeechWords(trueSpeechWords));
+            dispatch(setImage(linkImage));
+          });
+        } else {
+          dispatch(setSpeechActiveWord(transcript));
+          dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+        }
+        startListening();
       }
     }
-  };
+  }, [dispatch,
+    statusGame,
+    listening,
+    transcript,
+    startListening,
+    words,
+    image,
+    speechWords,
+    recognition.lang]);
+
+  if (!browserSupportsSpeechRecognition) {
+    return null;
+  }
 
   return (
     <StyleGame>
@@ -166,4 +195,6 @@ const Game = () => {
   );
 };
 
-export default Game;
+Game.propTypes = propTypes;
+
+export default SpeechRecognition(option)(Game);
