@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import DivStyled from './StudyWrapper';
 
 const Study = () => (
@@ -6,7 +7,9 @@ const Study = () => (
     <h6>
       Учитесь эффективно
     </h6>
-    <button type="submit" onClick>Зарегистрироваться</button>
+    <Link to="login">
+      <button type="submit">Зарегистрироваться</button>
+    </Link>
   </DivStyled>
 );
 

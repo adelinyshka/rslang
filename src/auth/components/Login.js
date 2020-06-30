@@ -24,7 +24,7 @@ const Login = () => {
       .catch((er) => console.log(er));
   }, [email, password, dispatch]);
 
-  if (isLogged) return <Redirect to="/" />;
+  if (isLogged) return <Redirect to="/main" />;
 
   return (
     <div className={styles.Auth}>

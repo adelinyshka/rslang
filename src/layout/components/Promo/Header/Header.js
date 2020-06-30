@@ -3,7 +3,9 @@ import {
   Button, Navbar, Form, Nav,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+
 import HeaderWrapper from './HeaderListItem';
 
 const links = [
@@ -32,14 +34,8 @@ const links = [
 function createLink({ id, title, path }) {
   return (
     <li key={id}>
-      <a href={path}>{title}</a>
+      <HashLink to={`/${path}`}>{title}</HashLink>
     </li>
-  );
-}
-
-function moveToHeader() {
-  return (
-    <Route key="login" exact path="/login" />
   );
 }
 
@@ -62,12 +58,14 @@ const Header = () => (
           {links.map(createLink)}
         </Nav>
         <Form inline>
-          <Button
-            className="enter_btn"
-            variant="outline-success"
-          >
+          <Link to="login">
+            <Button
+              className="enter_btn"
+              variant="outline-success"
+            >
             Войти
-          </Button>
+            </Button>
+          </Link>
         </Form>
       </Navbar.Collapse>
     </Navbar>
