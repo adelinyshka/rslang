@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 
+import WordCard from '../WordCard/WordCard';
 import useFetch from '../../../common/utils';
 import Checkbox from '../Checkbox/Checkbox';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -14,6 +15,7 @@ const fetchOptions = {
 
 const TableItem = ({ userWord, section }) => {
   const [wordInfo, setWordInfo] = useState({});
+  const [isCardVisible, setIsCardsVisible] = useState(false);
   const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
   const { wordId } = useMemo(() => userWord, [userWord]);
   const progressStatus = useMemo(() => 5, []); // получаем из wordInfo
@@ -28,13 +30,24 @@ const TableItem = ({ userWord, section }) => {
     + `rslang-data/master/${audio}`).play();
   }, [audio]);
 
+  const handleCardClick = useCallback((event) => {
+    if (event.target.tagName === 'IMG') return;
+    setIsCardsVisible(true);
+  }, []);
+
+  const handleModal = useCallback(() => {
+    setIsCardsVisible(false);
+  }, []);
+
   if (!word) return null;
 
   return (
     <div className={styles.TableItem}>
-      <div className={styles.Word}>
+      <div className={styles.Word} onClick={handleCardClick}>
         <Checkbox wordId={wordId} />
-        <div onClick={playAudio}>Listen</div>
+        <div onClick={playAudio}>
+          <img src="/assets/images/common/speakerOnIcon.svg" alt="play word" />
+        </div>
         <div>{word}</div>
         <div>{wordTranslate}</div>
       </div>
@@ -54,7 +67,9 @@ const TableItem = ({ userWord, section }) => {
           alt="delete word"
         />
       </div>
+      {isCardVisible && <WordCard options="" action={handleModal} />}
     </div>
+
   );
 };
 
