@@ -2,7 +2,6 @@ const loginUser = async (user) => {
   const url = 'https://afternoon-falls-25894.herokuapp.com/signin';
   const rawResponse = await fetch(url, {
     'method': 'POST',
-    'mode': 'no-cors',
     'headers': {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
