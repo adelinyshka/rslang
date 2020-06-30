@@ -129,7 +129,7 @@ const Game = ({
         });
         if (trueSpeech) {
           const linkImage = `${'https://raw.githubusercontent.com/'
-            + 'irinainina/rslang-data/master/'}${img}`;
+            + 'alekchaik/rslang-data/master/'}${img}`;
           const trueSpeechWords = [...speechWords];
           trueSpeechWords.push(transcript);
           batch(() => {

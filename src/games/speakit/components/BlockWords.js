@@ -19,7 +19,7 @@ import {
 } from './style.BlockWords';
 
 const audioPath = 'https://raw.githubusercontent.com'
-  + '/irinainina/rslang-data/master/';
+  + 'alekchaik/rslang-data/master/';
 
 const BlockWords = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const BlockWords = () => {
 
   const activateWord = useCallback((word, audio, image, wordTranslate) => {
     const link = `${'https://raw.githubusercontent.com/'
-      + 'irinainina/rslang-data/master/'}${image}`;
+      + 'alekchaik/rslang-data/master/'}${image}`;
     batch(() => {
       dispatch(setActiveWord(word));
       dispatch(setImage(link));
