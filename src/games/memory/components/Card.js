@@ -1,10 +1,14 @@
 import React from 'react';
 import style from './Card.module.css';
 
-function Card({ onCardClick, children }) {
+function Card({
+  onCardClick, isActive, isRight, children,
+}) {
   const cls = [
     style.Card,
-    // style[props.type],
+    isActive ? style.active : '',
+    isActive && isRight === true ? style.right : '',
+    isActive && isRight === false ? style.error : '',
   ];
 
   return (

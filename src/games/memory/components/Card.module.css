@@ -23,7 +23,14 @@
   flex-wrap: wrap;
 }
 
-.pick {
+.active {
   background-color: #A5AFFB;
 }
 
+.right {
+  background-color: #0AD1BD;
+}
+
+.error {
+  background-color: #E10050;
+}

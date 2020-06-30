@@ -3,8 +3,6 @@ import Card from './Card';
 import style from './Game.module.css';
 
 function Game() {
-  const level = 0;
-
   const dictionary = [
     {
       word: 'game',
@@ -58,14 +56,34 @@ function Game() {
     },
   ];
 
-  function onPickCard(cardId) {
-    console.log('добавить другой цвет', cardId);
-    // нахожу нужное слово
-    dictionary.filter((item) => {
-      if (item.id === cardId) {
-        console.log(item.word);
-      }
-    });
+  const level = 0;
+
+  const [russianWord, setRussianWord] = useState(null);
+  const [engleshWord, setEngleshWord] = useState(null);
+  const [isRight, setIsRight] = useState(null);
+
+  function russianCardHandler(cardId) {
+    setRussianWord(cardId);
+    if (engleshWord) {
+      setIsRight(cardId === engleshWord);
+      checkResult();
+    }
+  }
+
+  function engleshCardHandler(cardId) {
+    setEngleshWord(cardId);
+    if (russianWord) {
+      setIsRight(russianWord === cardId);
+      checkResult();
+    }
+  }
+
+  function checkResult() {
+    setTimeout(() => {
+      setIsRight(null);
+      setRussianWord(null);
+      setEngleshWord(null);
+    }, 1000);
   }
 
   return (
@@ -84,7 +102,9 @@ function Game() {
             dictionary.map(({ word, id }, index) => (
               <Card
                 key={index}
-                onCardClick={() => onPickCard(id)}
+                onCardClick={() => engleshCardHandler(id)}
+                isActive={engleshWord === id}
+                isRight={isRight}
               >
                 {word}
               </Card>
@@ -97,7 +117,9 @@ function Game() {
             dictionary.map(({ translate, id }, index) => (
               <Card
                 key={index}
-                onCardClick={() => onPickCard(id)}
+                onCardClick={() => russianCardHandler(id)}
+                isActive={russianWord === id}
+                isRight={isRight}
               >
                 {translate}
               </Card>
