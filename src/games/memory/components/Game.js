@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Card from './Card';
+import Timer from './Timer';
+import Lives from './Lives';
 import style from './Game.module.css';
 
 function Game() {
@@ -93,8 +95,8 @@ function Game() {
         {level}
       </div>
       <div className={style.Lives}>
-        <div>Жизни</div>
-        <div>Часы</div>
+        <Lives />
+        <Timer />
       </div>
       <div className={style.CardBlock}>
         <div className={style.cardEng}>

@@ -3,18 +3,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90%;
+  width: 960px;
+  margin: 0 auto;
 }
 
 .Level {
-  width: 10%;
+  height: 30px;
   margin: 20px;
 }
 
 .Lives {
-  display: flex;
-  width: 10%;
+  width: 100%;
   margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .CardBlock {
@@ -23,7 +27,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70%;
   /* background-image: url('public/assets/images/memory/lesBack.jpg'); */
   background-color: cornsilk;
   margin-bottom: 50px;

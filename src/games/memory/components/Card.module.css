@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: brown;
+  background-color: #fff;
   border: 1px solid #D0C9D6;
   box-sizing: border-box;
   border-radius: 8px;
@@ -33,4 +33,8 @@
 
 .error {
   background-color: #E10050;
+}
+
+.correct {
+  background-color: rgba(255, 255, 255, 0.1);
 }
