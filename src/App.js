@@ -103,7 +103,6 @@ const App = () => {
   return (
     <Router>
       {isLogged && <Menu />}
-      {isLogged && <Redirect to="/main" />}
       <Switch>
         {publicRoutes.map(createPublicRoutes)}
         {privateRoutes.map((el) => createPrivateRoute(el, isLogged))}

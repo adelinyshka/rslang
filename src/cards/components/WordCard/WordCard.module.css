@@ -17,11 +17,22 @@
   height: 60%;
 }
 
+.Header {
+  border-bottom: transparent;
+  background: linear-gradient(195.78deg, #CDDDF4 3.26%, #CDBAFA 100%);
+}
+
 .Body {
   overflow: scroll;
+  background: linear-gradient(195.78deg, #CDDDF4 3.26%, #CDBAFA 100%);
 }
 
 .Speaker {
-  display: inline;
+  display: block;
   outline: none;
+  text-align: right;
+}
+
+.Footer {
+  background-color: white;
 }

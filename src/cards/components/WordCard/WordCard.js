@@ -62,7 +62,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
 
   const cardFooter = useMemo(
     () => (isShowingAnswer || isPreviousCard || wasAnswered) && (
-      <Card.Footer>
+      <Card.Footer className={styles.Footer}>
         <p>
         Перевод:
           {' '}
