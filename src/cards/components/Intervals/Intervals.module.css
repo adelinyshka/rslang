@@ -1,0 +1,8 @@
+.Intervals {
+  display: flex;
+  justify-content: center;
+}
+
+.Intervals button {
+  margin: 10px;
+}

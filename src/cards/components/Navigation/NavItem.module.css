@@ -1,0 +1,29 @@
+.NavItem {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: 103px;
+  margin: 0 20px;
+}
+
+.NavItem:hover .Description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Description {
+  display: none;
+  flex-shrink: 0;
+  width: 103px;
+  height: 65px;
+  text-align: center;
+  margin: 10px;
+  background-color: #6979F8;
+  color: white;
+  mask: url('/assets/images/cards/descriptionMask.svg')  top left / cover;
+}
+
+.Icon {
+  max-width: 40px;
+}
