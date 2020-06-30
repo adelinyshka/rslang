@@ -1,9 +1,9 @@
 .RightLetter {
-  color: green;
+  color: rgba(0, 166, 17, 0.55);
 }
 
 .WrongLetter {
-  color: red;
+  color: rgba(222, 40, 40, 0.69);
 }
 
 .WrongAnswer {

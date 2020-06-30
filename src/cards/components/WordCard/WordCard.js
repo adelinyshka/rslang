@@ -66,7 +66,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
         <p>
         Перевод:
           {' '}
-          <span className={styles.AnsweredWord}>{wordTranslate}</span>
+          <span className={styles.TranslatedWord}>{wordTranslate}</span>
         </p>
       </Card.Footer>
     ), [wordTranslate, isShowingAnswer, isPreviousCard, wasAnswered],
@@ -76,7 +76,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
     <div className={styles.Container}>
       <Navigation isPreviousCard={isPreviousCard} />
       <Card className={styles.Card}>
-        <Card.Header>
+        <Card.Header className={styles.Header}>
           <div
             className={styles.Speaker}
             role="button"

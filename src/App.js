@@ -82,7 +82,6 @@ function createPrivateRoute({ title, path, component }, isLogged) {
   return (
     <Route key={title} exact path={path}>
       {!isLogged && <Redirect to="/login" />}
-
       {component || (
         <div className={styles.PageName}>
           <h1>{title}</h1>
