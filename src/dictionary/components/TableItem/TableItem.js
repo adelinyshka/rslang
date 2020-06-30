@@ -14,15 +14,14 @@ const fetchOptions = {
 };
 
 const TableItem = ({ userWord, section }) => {
-  const [wordInfo, setWordInfo] = useState({});
+  const { wordId } = useMemo(() => userWord, [userWord]);
+  const progressStatus = useMemo(() => 5, []); // получаем из userWord
+  const [wordInfo, setWordInfo] = useState({}); // из API
   const [isCardVisible, setIsCardsVisible] = useState(false);
   const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
-  const { wordId } = useMemo(() => userWord, [userWord]);
-  const progressStatus = useMemo(() => 5, []); // получаем из wordInfo
 
   const wordUrl = useMemo(() => `words/${wordId}`, [wordId]);
   const action = useCallback((data) => setWordInfo(data), [setWordInfo]);
-
   useFetch(wordUrl, fetchOptions, action);
 
   const playAudio = useCallback(() => {
@@ -67,7 +66,14 @@ const TableItem = ({ userWord, section }) => {
           alt="delete word"
         />
       </div>
-      {isCardVisible && <WordCard options="" action={handleModal} />}
+      {isCardVisible
+      && (
+        <WordCard
+          wordInfo={wordInfo}
+          onHide={handleModal}
+          playAudio={playAudio}
+        />
+      )}
     </div>
 
   );
