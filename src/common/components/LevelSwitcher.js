@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -13,10 +13,10 @@ levels = levels
 const SwitcherLevel = ({ changeActiveLevel }) => {
   const [activeLevel, setActiveLevel] = useState(1);
 
-  const handlerOnClick = (level, index) => {
+  const handlerOnClick = useCallback((level, index) => {
     setActiveLevel(level);
     changeActiveLevel(index);
-  };
+  }, [changeActiveLevel]);
 
   return (
     <StyleSwitcherLevel>
