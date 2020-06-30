@@ -13,4 +13,14 @@
 
 .SubmitBtn {
   margin: 10px 0;
+  background: #0AD1BD;
+  border: #0AD1BD;
+}
+
+.SubmitBtn:hover,
+.SubmitBtn:focus,
+.SubmitBtn:active {
+  transform: scale(1.1);
+  background: #0AD1BD;
+  border: #0AD1BD;
 }

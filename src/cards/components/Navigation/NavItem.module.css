@@ -2,23 +2,27 @@
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  width: 103px;
-  margin: 0 20px;
+  width: auto;
+  margin: 0 0 10px 0;
+  outline: none;
+  padding: 0 0 0 10px;
 }
 
 .NavItem:hover .Description {
   display: flex;
   justify-content: center;
   align-items: center;
+  outline: none;
 }
 
 .Description {
+  position: absolute;
+  top: -38px;
   display: none;
   flex-shrink: 0;
   width: 103px;
   height: 65px;
   text-align: center;
-  margin: 10px;
   background-color: #6979F8;
   color: white;
   mask: url('/assets/images/cards/descriptionMask.svg')  top left / cover;

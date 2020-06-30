@@ -1,8 +1,34 @@
 .Intervals {
   display: flex;
   justify-content: center;
+  padding: 20px 0 0 0;
 }
 
 .Intervals button {
   margin: 10px;
+}
+
+.interval_btn {
+  font-size: 17px;
+  border-radius: 16px;
+  padding: 13px 15px;
+}
+
+.interval_btn:hover,
+.interval_btn:focus,
+.interval_btn:active {
+  transform: scale(1.1);
+}
+
+.showAnswer {
+  background: #7348BF;
+  border: #7348BF;
+}
+
+.showAnswer:hover,
+.showAnswer:focus,
+.showAnswer:active {
+  transform: scale(1.1);
+  background: #7348BF;
+  border: #7348BF;
 }

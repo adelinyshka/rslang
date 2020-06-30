@@ -45,7 +45,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   const cardText = useMemo(() => (
     isPreviousCard || wasAnswered
       ? (
-        <p>
+        <p className={styles.sentence}>
           {testSentenceArr[0]}
           <span className={styles.AnsweredWord}>{word}</span>
           {testSentenceArr[1]}
@@ -53,6 +53,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
       )
       : (
         <TestSentence
+          className={styles.sentence}
           testSentenceArr={testSentenceArr}
           word={word}
           playAudio={playAudio}
@@ -92,8 +93,8 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
         </Card.Header>
         <Card.Body className={styles.Body}>
           {cardText}
-          <hr />
-          <p>{textExampleTranslate}</p>
+          <hr className={styles.Interval_hr} />
+          <p className={styles.translated_sentence}>{textExampleTranslate}</p>
         </Card.Body>
         {cardFooter}
       </Card>

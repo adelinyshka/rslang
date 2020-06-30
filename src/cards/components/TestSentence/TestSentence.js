@@ -65,7 +65,7 @@ const TestSentence = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <p>
+      <p className={styles.sentence}>
         {testSentenceArr[0]}
         <input
           type="text"

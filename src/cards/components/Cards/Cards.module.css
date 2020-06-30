@@ -1,3 +1,7 @@
+.bgColor {
+  background: #fafafa;
+}
+
 .Container {
   display: flex;
   flex-direction: column;
@@ -13,6 +17,7 @@
 }
 
 .EmptyCards {
+  background: #fafafa;
   height: 50vh;
   display: flex;
   align-items: center;
