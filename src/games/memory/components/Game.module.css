@@ -27,9 +27,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-image: url('public/assets/images/memory/lesBack.jpg'); */
   background-color: cornsilk;
   margin-bottom: 50px;
+  /* position: relative; */
+}
+
+.image { 
+  width: 100%;
+  height: 100%;
 }
 
 .cardEng, .cardRus {
@@ -37,6 +42,7 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  /* position: absolute; */
 }
 
 .cardRus {

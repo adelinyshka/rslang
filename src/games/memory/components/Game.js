@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import SwitcherLevel from '../../../common/components/SwitcherLevel'
 import Card from './Card';
 import Timer from './Timer';
 import Lives from './Lives';
@@ -63,11 +64,12 @@ function Game() {
   const [russianWord, setRussianWord] = useState(null);
   const [engleshWord, setEngleshWord] = useState(null);
   const [isRight, setIsRight] = useState(null);
+  const [livesCount, setLivesCount] = useState(5);
 
   function russianCardHandler(cardId) {
     setRussianWord(cardId);
     if (engleshWord) {
-      setIsRight(cardId === engleshWord);
+      cardId === engleshWord ? correct() : incorrect();
       checkResult();
     }
   }
@@ -75,9 +77,18 @@ function Game() {
   function engleshCardHandler(cardId) {
     setEngleshWord(cardId);
     if (russianWord) {
-      setIsRight(russianWord === cardId);
+      russianWord === cardId ? correct() : incorrect();
       checkResult();
     }
+  }
+
+  function correct() {
+    setIsRight(true);
+  }
+
+  function incorrect() {
+    setIsRight(false);
+    setLivesCount(livesCount - 1);
   }
 
   function checkResult() {
@@ -95,10 +106,17 @@ function Game() {
         {level}
       </div>
       <div className={style.Lives}>
-        <Lives />
+        <Lives
+          livesCount={livesCount}
+        />
         <Timer />
       </div>
       <div className={style.CardBlock}>
+        {/* <img
+          className={style.image}
+          src="../assets/images/memory/lesBack.jpg"
+          alt="back"
+        /> */}
         <div className={style.cardEng}>
           {
             dictionary.map(({ word, id }, index) => (
