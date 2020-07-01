@@ -109,4 +109,17 @@
   .Card {
     width: 95%;
   }
+
+  .Body {
+    padding: 0.7rem;
+  }
+
+  .Body p {
+    height: 80px;
+  }
+
+  .Interval_hr {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
 }
