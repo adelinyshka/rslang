@@ -27,9 +27,7 @@ export const setAllDeleted = (isAllDeleted) => ({
 
 export const resetState = () => ({
   type: 'RESET_STATE',
-  selectedWords: {},
-  isAllSelected: false,
-  isAllDeleted: false,
+  ...INITIAL_STATE,
 });
 
 export default (state = INITIAL_STATE, action) => {
