@@ -112,11 +112,6 @@ function Game() {
         <Timer />
       </div>
       <div className={style.CardBlock}>
-        {/* <img
-          className={style.image}
-          src="../assets/images/memory/lesBack.jpg"
-          alt="back"
-        /> */}
         <div className={style.cardEng}>
           {
             dictionary.map(({ word, id }, index) => (

@@ -1,0 +1,39 @@
+.BlackScreen {
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.GameOver {
+  z-index: 50;
+  width: 745px;
+  height: 485px;
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Top {
+  width: 100%;
+  height: 70%;
+  background-color: #FDAFBB;
+  color: #000;
+  border-radius: 12px 12px 0 0;
+  text-align: center;
+}
+
+.Bottom {
+  width: 100%;
+  height: 30%;
+  background-color: #fff;
+  color: #6979F8;
+  text-align: center;
+  margin: auto;
+  border-radius: 0 0 12px 12px;
+  font-size: 24px;
+}
