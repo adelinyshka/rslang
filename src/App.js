@@ -12,6 +12,7 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
 import Startpage from './games/savannah/components/Startpage/Startpage';
+import Savannah from './games/savannah/components/Savannah/Savannah';
 
 const authRoutes = [
   {
@@ -55,6 +56,11 @@ const privateRoutes = [
     component: <Startpage />,
   },
   {
+    title: 'Savannah',
+    path: '/games/savannah',
+    component: <Savannah />,
+  },
+  {
     title: 'Карточки',
     path: '/cards',
   },
@@ -68,7 +74,7 @@ const privateRoutes = [
   },
   {
     title: 'Главная страница',
-    path: '/',
+    path: '/main',
     component: <Main />,
   },
   {
@@ -101,7 +107,7 @@ const App = () => {
   const isLogged = useSelector(isAuthenticatedSelector);
   return (
     <Router>
-      <Menu />
+      {isLogged && <Menu />}
       <Switch>
         {authRoutes.map(createAuthRoutes)}
         {privateRoutes.map((el) => createPrivateRoute(el, isLogged))}

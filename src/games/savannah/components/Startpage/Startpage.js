@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import css from './Startpage.module.css';
 
 const StartPageWrapper = styled.div`
@@ -76,27 +77,34 @@ const CenterAlignment = styled.div`
   justify-content: center; 
 `;
 
-export default function Startpage () {
+export default function Startpage() {
   return (
     <StartPageWrapper>
-      <Cross src='./assets/images/savannah/x.svg'
-             alt="close"/>
-        <CenterAlignment>
-          <Title>Саванна</Title>
-          <GameDescription>
-            Тренировка Саванна развивает словарный запас. Выберите правильный
-            перевод слова.
-          </GameDescription>
-          <Form className={css.form_start}>
-            <Button className={css.start_btn}
-                    variant="outline-success">
-              Start</Button>
-          </Form>
-        </CenterAlignment>
-        <ImgDecoration
-          src="./assets/images/savannah/2_trees.svg"
-          alt="two trees"
-        />
+      <Cross
+        src="./assets/images/savannah/x.svg"
+        alt="close"
+      />
+      <CenterAlignment>
+        <Title>Саванна</Title>
+        <GameDescription>
+          Тренировка Саванна развивает словарный запас. Выберите правильный
+          перевод слова.
+        </GameDescription>
+        <Form className={css.form_start}>
+          <Link to="/games/savannah">
+            <Button
+              className={css.start_btn}
+              variant="outline-success"
+            >
+              Start
+            </Button>
+          </Link>
+        </Form>
+      </CenterAlignment>
+      <ImgDecoration
+        src="./assets/images/savannah/2_trees.svg"
+        alt="two trees"
+      />
     </StartPageWrapper>
-);
+  );
 }
