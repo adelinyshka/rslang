@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectWords, setAllSelected } from '../../redux';
+import { setAllSelected } from '../../redux';
 import {
   isAllSelectedSelector,
   isSomeUnSelectedSelector,
@@ -11,7 +11,7 @@ import {
 import styles from './Checkbox.module.css';
 
 const Checkbox = ({
-  id, words,
+  id,
 }) => {
   const dispatch = useDispatch();
   const isAllSelected = useSelector(isAllSelectedSelector);
@@ -23,12 +23,6 @@ const Checkbox = ({
     if (isSomeUnselected && isAllSelected) isChecked = false;
     dispatch(setAllSelected(isChecked));
   }, [dispatch, isSomeUnselected, isAllSelected]);
-
-  useEffect(() => {
-    const newSelected = {};
-    words.forEach((el) => { newSelected[el] = isAllSelected; });
-    dispatch(selectWords(newSelected));
-  }, [dispatch, isAllSelected, words]);
 
   useEffect(() => {
     if (isEveryUnselected) dispatch(setAllSelected(false));
@@ -49,7 +43,6 @@ const Checkbox = ({
 
 Checkbox.propTypes = {
   id: PropTypes.string.isRequired,
-  words: PropTypes.array.isRequired,
 };
 
 export default Checkbox;

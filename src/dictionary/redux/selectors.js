@@ -4,7 +4,13 @@ const dictionarySelector = (state) => state.dictionary;
 
 export const userWordsSelector = createSelector(
   dictionarySelector,
-  ({ userWords }) => userWords,
+  ({ userWords }) => userWords || [],
+);
+
+export const paginatedResultsSelector = createSelector(
+  dictionarySelector,
+  // ({ userWords }) => (userWords ? userWords[0].paginatedResults : []),
+  () => [],
 );
 
 export const selectedWordsSelector = createSelector(

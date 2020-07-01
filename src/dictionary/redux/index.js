@@ -1,3 +1,10 @@
+const INITIAL_STATE = {
+  userWords: null,
+  selectedWords: {},
+  isAllSelected: false,
+  isAllDeleted: false,
+};
+
 export const setUserWords = (userWords) => ({
   type: 'SET_USER_WORDS',
   userWords,
@@ -18,12 +25,12 @@ export const setAllDeleted = (isAllDeleted) => ({
   isAllDeleted,
 });
 
-const INITIAL_STATE = {
-  userWords: null,
+export const resetState = () => ({
+  type: 'RESET_STATE',
   selectedWords: {},
   isAllSelected: false,
   isAllDeleted: false,
-};
+});
 
 export default (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
@@ -39,6 +46,7 @@ export default (state = INITIAL_STATE, action) => {
     case 'SET_USER_WORDS':
     case 'SET_ALL_SELECTED':
     case 'SET_ALL_DELETED':
+    case 'RESET_STATE':
       return {
         ...state,
         ...payload,

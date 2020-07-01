@@ -3,11 +3,11 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 
+import LearningSection from './LearningSection';
 import WordCard from '../WordCard/WordCard';
-import useFetch from '../../../common/utils';
+import useAPI from '../../../common/utils';
 import Checkbox from '../Checkbox/Checkbox';
 import WordRemoval from '../WordRemoval/WordRemoval';
-import ProgressBar from '../ProgressBar/ProgressBar';
 import styles from './TableItem.module.css';
 
 const fetchOptions = {
@@ -15,14 +15,28 @@ const fetchOptions = {
 };
 
 const TableItem = ({ userWord, section }) => {
-  const { wordId, difficulty } = useMemo(() => userWord, [userWord]);
+  const { _id, difficulty } = useMemo(() => userWord, [userWord]);
   const progressStatus = useMemo(() => 5, []); // получаем из userWord
+
   const [wordInfo, setWordInfo] = useState({}); // из API
   const [isCardVisible, setIsCardsVisible] = useState(false);
+
+  const content = useMemo(() => {
+    switch (section) {
+      case 'learning':
+        return <LearningSection progressStatus={progressStatus} />;
+      default:
+        return null;
+    }
+  }, [progressStatus, section]);
+
   const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
-  const wordUrl = useMemo(() => `words/${wordId}`, [wordId]);
+
+  const wordUrl = useMemo(() => `words/${_id}`, [_id]);
   const action = useCallback((data) => setWordInfo(data), [setWordInfo]);
-  useFetch(wordUrl, fetchOptions, action);
+
+  useAPI(wordUrl, fetchOptions, action);
+
   const playAudio = useCallback(() => {
     new Audio('https://raw.githubusercontent.com/alekchaik/'
     + `rslang-data/master/${audio}`).play();
@@ -30,7 +44,6 @@ const TableItem = ({ userWord, section }) => {
 
   const handleCardClick = useCallback((event) => {
     const { tagName } = event.target;
-    console.log(tagName);
     if (tagName !== 'DIV') return;
     setIsCardsVisible(true);
   }, []);
@@ -44,24 +57,15 @@ const TableItem = ({ userWord, section }) => {
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word} onClick={handleCardClick}>
-        <Checkbox wordId={wordId} />
+        <Checkbox wordId={_id} />
         <div onClick={playAudio}>
           <img src="/assets/images/common/speakerOnIcon.svg" alt="play word" />
         </div>
         <div>{word}</div>
         <div>{wordTranslate}</div>
       </div>
-      <div>
-        01.09
-      </div>
-      <div>
-        16.09
-      </div>
-      <div>
-        5
-      </div>
-      <ProgressBar progressStatus={progressStatus} />
-      <WordRemoval wordId={wordId} difficulty={difficulty} />
+      {content}
+      <WordRemoval wordId={_id} difficulty={difficulty} />
       {isCardVisible
       && (
         <WordCard

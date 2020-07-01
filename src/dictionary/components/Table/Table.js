@@ -1,6 +1,10 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
+import { useSelector } from 'react-redux';
+
+import { userWordsSelector } from '../../redux/selectors';
+
 import TableItem from '../TableItem/TableItem';
 import HeaderCheckbox from '../Checkbox/HeaderCheckbox';
 import AllWordsRemoval from '../WordRemoval/AllWordsRemoval';
@@ -13,20 +17,27 @@ const headerInfo = [
   'прогресс',
 ];
 
-const headerDivs = headerInfo.map((title) => <div key={title}>{title}</div>);
+const Table = ({ section }) => {
+  const userWords = useSelector(userWordsSelector);
 
-const Table = ({ userWords }) => {
   const tableItems = useMemo(() => (
     userWords.map((userWord) => (
       <TableItem
         userWord={userWord}
-        key={userWord.wordId}
+        key={userWord._id}
+        section={section}
       />
-    ))), [userWords]);
+    ))), [userWords, section]);
 
   const userWordsIds = useMemo(
     () => userWords.map(({ wordId }) => wordId), [userWords],
   );
+
+  const headerDivs = useMemo(() => (
+    section !== 'learning'
+      ? null
+      : headerInfo.map((title) => <div key={title}>{title}</div>)
+  ), [section]);
 
   return (
     <div className={styles.Table}>
@@ -46,7 +57,7 @@ const Table = ({ userWords }) => {
 };
 
 Table.propTypes = {
-  userWords: PropTypes.array.isRequired,
+  section: PropTypes.string.isRequired,
 };
 
 export default Table;

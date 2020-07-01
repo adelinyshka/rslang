@@ -3,11 +3,12 @@ import React, {
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, ButtonGroup } from 'react-bootstrap';
+import useAPI from '../../../common/utils';
+
+import { resetState, setUserWords } from '../../redux/index';
+
 import { userIdSelector } from '../../../auth/redux/selectors';
 
-import { setUserWords } from '../../redux/index';
-import { userWordsSelector } from '../../redux/selectors';
-import useFetch from '../../../common/utils';
 import Table from '../Table/Table';
 import styles from './Dictionary.module.css';
 
@@ -32,9 +33,17 @@ const fetchOptions = {
 
 const Dictionary = () => {
   const dispatch = useDispatch();
-  const userWords = useSelector(userWordsSelector);
   const userId = useSelector(userIdSelector);
   const [dictionarySection, setDictionarySection] = useState('learning');
+
+  const userWordsURL = useMemo(
+    // eslint-disable-next-line max-len
+    () => `users/${userId}/aggregatedWords?group=0-20&wordsPerPage=100&filter=%7B%22userWord.optional.${dictionarySection}%22%3A%20true%7D`, [userId, dictionarySection],
+  );
+
+  const action = useCallback(
+    (data) => dispatch(setUserWords(data[0].paginatedResults)), [dispatch],
+  );
 
   const buttons = useMemo(() => (
     buttonsInfo.map(({ title, section }) => (
@@ -42,20 +51,17 @@ const Dictionary = () => {
         variant="light"
         className={section === dictionarySection && styles.Active}
         key={section}
-        onClick={() => { setDictionarySection(section); }}
+        onClick={() => {
+          dispatch(resetState());
+          setDictionarySection(section);
+        }}
       >
         {title}
       </Button>
     ))
-  ), [setDictionarySection, dictionarySection]);
+  ), [setDictionarySection, dictionarySection, dispatch]);
 
-  const userWordsURL = useMemo(() => `users/${userId}/words/`, [userId]);
-
-  const action = useCallback(
-    (data) => dispatch(setUserWords(data)), [dispatch],
-  );
-
-  useFetch(userWordsURL, fetchOptions, action);
+  useAPI(userWordsURL, fetchOptions, action);
 
   return (
     <div className={styles.Dictionary}>
@@ -63,7 +69,7 @@ const Dictionary = () => {
       <ButtonGroup aria-label="Слова" className={styles.ButtonGroup}>
         {buttons}
       </ButtonGroup>
-      {userWords && <Table userWords={userWords} section={dictionarySection} />}
+      <Table section={dictionarySection} />
     </div>
   );
 };
