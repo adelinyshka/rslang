@@ -12,6 +12,7 @@
   font-size: 17px;
   border-radius: 16px;
   padding: 13px 15px;
+  width: 93px;
 }
 
 .interval_btn:hover,
@@ -31,4 +32,11 @@
   transform: scale(1.1);
   background: #7348BF;
   border: #7348BF;
+}
+
+@media (max-width: 767px) {
+  .Intervals {
+    padding: 10px 0 0 0;
+    flex-wrap: wrap;
+  }
 }

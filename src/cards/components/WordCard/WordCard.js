@@ -39,7 +39,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
 
   const playAudio = useCallback(() => {
     new Audio('https://raw.githubusercontent.com/alekchaik/'
-    + `rslang-data/master/${audio}`).play();
+      + `rslang-data/master/${audio}`).play();
   }, [audio]);
 
   const cardText = useMemo(() => (
@@ -65,7 +65,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
     () => (isShowingAnswer || isPreviousCard || wasAnswered) && (
       <Card.Footer className={styles.Footer}>
         <p>
-        Перевод:
+          Перевод:
           {' '}
           <span className={styles.TranslatedWord}>{wordTranslate}</span>
         </p>

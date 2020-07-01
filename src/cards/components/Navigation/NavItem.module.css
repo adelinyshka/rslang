@@ -25,9 +25,15 @@
   text-align: center;
   background-color: #6979F8;
   color: white;
-  mask: url('/assets/images/cards/descriptionMask.svg')  top left / cover;
+  mask: url('/assets/images/cards/descriptionMask.svg') top left / cover;
 }
 
 .Icon {
   max-width: 40px;
+}
+
+@media (max-width: 767px) {
+  .Description {
+    top: -30px;
+  }
 }
