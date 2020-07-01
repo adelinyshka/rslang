@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
