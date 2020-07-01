@@ -88,6 +88,7 @@ function createPrivateRoute({ title, path, component }, isLogged) {
   return (
     <Route key={title} exact path={path}>
       {!isLogged && <Redirect to="/login" />}
+      {isLogged && <Menu />}
       {component || (
         <div className={styles.PageName}>
           <h1>{title}</h1>
@@ -107,7 +108,6 @@ const App = () => {
   const isLogged = useSelector(isAuthenticatedSelector);
   return (
     <Router>
-      {isLogged && <Menu />}
       <Switch>
         {publicRoutes.map(createPublicRoutes)}
         {privateRoutes.map((el) => createPrivateRoute(el, isLogged))}

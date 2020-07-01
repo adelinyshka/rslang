@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
-import HeaderWrapper from './HeaderListItem';
+import HeaderWrapper from './HeaderWrapper';
 
 const links = [
   {
@@ -63,7 +63,7 @@ const Header = () => (
               className="enter_btn"
               variant="outline-success"
             >
-            Войти
+              Войти
             </Button>
           </Link>
         </Form>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const IntervalCard = styled.div`
+const IntervalInfoWrapper = styled.div`
   margin: 48px;
   border-radius: 50px;
   background: white;
@@ -87,4 +87,4 @@ const IntervalCard = styled.div`
   }
 `;
 
-export default IntervalCard;
+export default IntervalInfoWrapper;

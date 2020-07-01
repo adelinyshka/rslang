@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const VideoStyled = styled.div`
+const VideoWrapper = styled.div`
   position: relative;
 
   .thumb_wrap {
@@ -53,36 +53,12 @@ const VideoStyled = styled.div`
   }
 
   @media (max-width: 570px) {
-  width: 100%;
-  padding: 0 8px;
-  left: 0;
-  display: none;
+    width: 100%;
+    padding: 0 8px;
+    left: 0;
+    display: none;
     }
   }
 `;
 
-const VideoBlockStyled = () => (
-  <VideoStyled>
-    <img
-      src="./assets/images/promo/screen.png"
-      alt={'picture of'
-      + ' notebook monitor'}
-    />
-    <div className="thumb_wrap">
-      <iframe
-        title="Our super video"
-        className="iframe_video"
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/93p3LxR9xfM"
-        frameBorder="0"
-        allow="accelerometer; autoplay;
-        encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-    </div>
-  </VideoStyled>
-);
-
-export default VideoBlockStyled;
-
+export default VideoWrapper;

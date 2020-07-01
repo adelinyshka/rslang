@@ -15,7 +15,7 @@ const DivStyled = styled.div`
   color: #6D6D6D;
   }
   
-  button {
+  button.btn_study {
     width: 240px;
     height: 48px;
     background: #6979F8;

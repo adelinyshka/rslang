@@ -6,14 +6,8 @@ import Footer from './Footer/Footer';
 import GameCard from './GameCard/GameCard';
 import Header from './Header/Header';
 import IntervalInfo from './IntervalInfo/IntervalInfo';
-import ImgFullWidth from './ImgFullWidth';
-import FirstPageImg from './FirstPage/FirstPageImg';
-import FirstPageText from './FirstPage/FirstPageText';
 import PromoWrapper from './PromoWrapper';
 import Study from './Study/Study';
-import TitleHuge from './TitleHuge/TitleHuge';
-import TitleH2 from './TitleH2/TitleH2';
-import TextAfterTitle from './TextAfterTitle/TextAfterTitle';
 import VideoBlock from './VideoBlock/VideoBlock';
 
 export default function Promo() {
@@ -23,24 +17,28 @@ export default function Promo() {
         <Header />
         <div className="promo_alignment">
           <div>
-            <TitleHuge text="Выучить английский - легко" />
-            <FirstPageText
-              text="Уникальное приложение для изучения английского.
+            <div className="huge_title">
+              Выучить английский - легко
+            </div>
+            <div className="main_page_text">
+              Уникальное приложение для изучения английского.
               Увлекательные игры для тренировки слов и метод интервального
-              повторения для запоминания слов навсегда."
-            />
+              повторения для запоминания слов навсегда.
+            </div>
           </div>
-          <FirstPageImg
+          <img
+            className="main_page_img"
             src="./assets/images/promo/img_main_page.svg"
             alt="big colored pic"
           />
         </div>
+        <h2 className="promo_title_mid">Что внутри?</h2>
         <VideoBlock />
         <div id="features" />
-        <TitleH2 text="Особенности" />
-        <TextAfterTitle text={'Что полезного вы найдете в нашем'
-        + ' приложении для себя и своей семьи'}
-        />
+        <h2 className="promo_title_mid">Особенности</h2>
+        <div className="text_after_title">
+          Что полезного вы найдете в нашем приложении для себя и своей семьи
+        </div>
         <Container fluid>
           <Row>
             <Col xs={12} md={6}>
@@ -88,12 +86,12 @@ export default function Promo() {
           </Row>
         </Container>
         <div id="games" />
-        <TitleH2 text="Игры" />
-        <TextAfterTitle text={'Английский можно учить интересно и '
-        + 'по-настоящему наслаждаться процессом'}
-        />
+        <h2 className="promo_title_mid">Игры</h2>
+        <div className="text_after_title">
+          Английский можно учить интересно и по-настоящему наслаждаться
+          процессом
+        </div>
         <div className="wrapper_game">
-
           <GameCard
             src="./assets/images/promo/game_1.svg"
             title="English Puzzle"
@@ -112,7 +110,8 @@ export default function Promo() {
             text="Улучшает восприятие английской речи на слух. "
           />
         </div>
-        <ImgFullWidth
+        <img
+          className="full_width"
           src="./assets/images/promo/full_width.svg"
           alt={'man on the table working with'
           + ' notebook'}
@@ -141,25 +140,25 @@ export default function Promo() {
           />
         </div>
         <div id="method" />
-        <TitleH2 text="Метод интервальных повторений" />
-        <TextAfterTitle text={' Метод интервальных повторений поможет'
-        + ' надолго запомнить новый'
-        + ' материал. Особенность метода заключается в том, что информацию, '
-        + ' которую мы запоминаем, необходимо со временем повторять, но ни'
-        + ' каждый день, ни через год, а через определенные,'
-        + ' увеличивающиеся со временем интервалы.'}
-        />
-        <ImgFullWidth
+        <h2 className="promo_title_mid">Метод интервальных повторений</h2>
+        <div className="text_after_title">
+          Метод интервальных повторений поможет надолго запомнить новый
+          материал. Особенность метода заключается в том, что информацию,
+          которую мы запоминаем, необходимо со временем повторять, но ни
+          каждый день, ни через год, а через определенные, увеличивающиеся со
+          временем интервалы.
+        </div>
+        <img
+          className="full_width"
           src="./assets/images/promo/graph.svg"
           alt="green graph waved"
         />
-        <TextAfterTitle
-          text={' Наше программное'
-          + ' обеспечение на основе метода интервального повторения все'
-          + ' сделает за вас. Вам лишь необходимо регулярно тренироваться.'
-          + ' При необходимости длительность интервалов можно изменить '
-          + ' в настройках.'}
-        />
+        <div className="text_after_title">
+          Наше программное обеспечение на основе метода интервального
+          повторения все сделает за вас. Вам лишь необходимо регулярно
+          тренироваться. При необходимости длительность интервалов можно
+          изменить в настройках.
+        </div>
         <IntervalInfo />
         <Study />
       </div>

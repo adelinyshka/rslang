@@ -7,8 +7,8 @@ const Study = () => (
     <h6>
       Учитесь эффективно
     </h6>
-    <Link to="login">
-      <button type="submit">Зарегистрироваться</button>
+    <Link style={{ textAlign: 'center' }} to="login">
+      <button className="btn_study" type="submit">Зарегистрироваться</button>
     </Link>
   </DivStyled>
 );
