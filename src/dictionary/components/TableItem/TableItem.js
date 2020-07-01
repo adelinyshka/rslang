@@ -5,14 +5,9 @@ import PropTypes from 'prop-types';
 
 import LearningSection from './LearningSection';
 import WordCard from '../WordCard/WordCard';
-import useAPI from '../../../common/utils';
 import Checkbox from '../Checkbox/Checkbox';
 import WordRemoval from '../WordRemoval/WordRemoval';
 import styles from './TableItem.module.css';
-
-const fetchOptions = {
-  method: 'GET',
-};
 
 const TableItem = ({ userWord, section }) => {
   const {
