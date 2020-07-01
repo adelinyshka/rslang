@@ -15,10 +15,11 @@ const fetchOptions = {
 };
 
 const TableItem = ({ userWord, section }) => {
-  const { _id, difficulty } = useMemo(() => userWord, [userWord]);
+  const {
+    _id, difficulty, audio, word, wordTranslate,
+  } = useMemo(() => userWord, [userWord]);
   const progressStatus = useMemo(() => 5, []); // получаем из userWord
 
-  const [wordInfo, setWordInfo] = useState({}); // из API
   const [isCardVisible, setIsCardsVisible] = useState(false);
 
   const content = useMemo(() => {
@@ -29,13 +30,6 @@ const TableItem = ({ userWord, section }) => {
         return null;
     }
   }, [progressStatus, section]);
-
-  const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
-
-  const wordUrl = useMemo(() => `words/${_id}`, [_id]);
-  const action = useCallback((data) => setWordInfo(data), [setWordInfo]);
-
-  useAPI(wordUrl, fetchOptions, action);
 
   const playAudio = useCallback(() => {
     new Audio('https://raw.githubusercontent.com/alekchaik/'
@@ -52,8 +46,6 @@ const TableItem = ({ userWord, section }) => {
     setIsCardsVisible(false);
   }, []);
 
-  if (!word) return null;
-
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word} onClick={handleCardClick}>
@@ -69,7 +61,7 @@ const TableItem = ({ userWord, section }) => {
       {isCardVisible
       && (
         <WordCard
-          wordInfo={wordInfo}
+          userWord={userWord}
           onHide={handleModal}
           playAudio={playAudio}
         />

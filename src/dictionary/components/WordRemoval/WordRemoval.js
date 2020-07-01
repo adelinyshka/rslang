@@ -40,7 +40,6 @@ const WordRemoval = ({ wordId, difficulty }) => {
   useEffect(() => {
     if ((isAllDeleted && selectedWords[wordId]) || deleted) {
       customFetch(url, fetchOptions);
-      console.log('123');
     }
   }, [isAllDeleted, deleted, fetchOptions, url, selectedWords, wordId]);
 
