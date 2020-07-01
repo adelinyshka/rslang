@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import WordCard from '../WordCard/WordCard';
 import useFetch from '../../../common/utils';
 import Checkbox from '../Checkbox/Checkbox';
+import WordRemoval from '../WordRemoval/WordRemoval';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import styles from './TableItem.module.css';
 
@@ -14,23 +15,23 @@ const fetchOptions = {
 };
 
 const TableItem = ({ userWord, section }) => {
-  const { wordId } = useMemo(() => userWord, [userWord]);
+  const { wordId, difficulty } = useMemo(() => userWord, [userWord]);
   const progressStatus = useMemo(() => 5, []); // получаем из userWord
   const [wordInfo, setWordInfo] = useState({}); // из API
   const [isCardVisible, setIsCardsVisible] = useState(false);
   const { audio, word, wordTranslate } = useMemo(() => wordInfo, [wordInfo]);
-
   const wordUrl = useMemo(() => `words/${wordId}`, [wordId]);
   const action = useCallback((data) => setWordInfo(data), [setWordInfo]);
   useFetch(wordUrl, fetchOptions, action);
-
   const playAudio = useCallback(() => {
     new Audio('https://raw.githubusercontent.com/alekchaik/'
     + `rslang-data/master/${audio}`).play();
   }, [audio]);
 
   const handleCardClick = useCallback((event) => {
-    if (event.target.tagName === 'IMG') return;
+    const { tagName } = event.target;
+    console.log(tagName);
+    if (tagName !== 'DIV') return;
     setIsCardsVisible(true);
   }, []);
 
@@ -60,12 +61,7 @@ const TableItem = ({ userWord, section }) => {
         5
       </div>
       <ProgressBar progressStatus={progressStatus} />
-      <div>
-        <img
-          src="./assets/images/dictionary/deleteIcon.svg"
-          alt="delete word"
-        />
-      </div>
+      <WordRemoval wordId={wordId} difficulty={difficulty} />
       {isCardVisible
       && (
         <WordCard

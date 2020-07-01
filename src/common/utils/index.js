@@ -38,4 +38,22 @@ const useAPI = (url, options = {}, action) => {
   return result;
 };
 
+export const customFetch = async (url, options) => {
+  const response = await fetch(
+    `https://afternoon-falls-25894.herokuapp.com/${url}`, {
+      ...options,
+      'withCredentials': true,
+      'headers': {
+        ...options.headers,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  const content = await response.json();
+
+  if (response.status !== 200) throw new Error('Request failed');
+  return content;
+};
+
 export default useAPI;

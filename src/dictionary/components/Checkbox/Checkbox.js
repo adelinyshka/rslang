@@ -23,7 +23,6 @@ const Checkbox = ({ wordId }) => {
 
   const handleChange = useCallback((event) => {
     setChecked(event.target.checked);
-    // dispatch(setAllSelected(false));
   }, [setChecked]);
 
   return (

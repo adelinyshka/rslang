@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import TableItem from '../TableItem/TableItem';
 import HeaderCheckbox from '../Checkbox/HeaderCheckbox';
+import AllWordsRemoval from '../WordRemoval/AllWordsRemoval';
 import styles from './Table.module.css';
 
 const headerInfo = [
@@ -37,12 +38,7 @@ const Table = ({ userWords }) => {
           />
         </div>
         {headerDivs}
-        <div>
-          <img
-            src="./assets/images/dictionary/deleteIcon.svg"
-            alt="delete word"
-          />
-        </div>
+        <AllWordsRemoval />
       </div>
       {tableItems}
     </div>

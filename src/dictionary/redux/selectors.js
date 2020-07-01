@@ -12,6 +12,11 @@ export const selectedWordsSelector = createSelector(
   ({ selectedWords }) => selectedWords,
 );
 
+export const isAllDeletedSelector = createSelector(
+  dictionarySelector,
+  ({ isAllDeleted }) => isAllDeleted,
+);
+
 export const isAllSelectedSelector = createSelector(
   dictionarySelector,
   ({ isAllSelected }) => isAllSelected,
