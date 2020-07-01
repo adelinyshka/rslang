@@ -3,18 +3,17 @@ import React, { useState, useEffect, useCallback } from 'react';
 function Timer({ setTimer, timerHandler }) {
   const [currentValue, setCurrent] = useState(setTimer);
   useEffect(() => {
-    const id = setTimeout(() => dec(), 1000);
+    const id = setTimeout(() => decrement(), 1000);
+    if (currentValue <= 0) {
+      clearTimeout(id);
+      timerHandler();
+    }
   });
-  const dec = useCallback(
+
+  const decrement = useCallback(
     () => {
-      if (currentValue <= 0) {
-        clearTimeout(this);
-        timerHandler();
-      } else {
-        setCurrent(currentValue - 1);
-      }
-    },
-    [currentValue],
+      setCurrent(currentValue - 1);
+    }, [currentValue],
   );
 
   return (

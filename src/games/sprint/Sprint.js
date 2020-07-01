@@ -2,13 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import StartScreen from './components/StartScreen/StartScreen';
 import Game from './components/Game/Game';
+import Timer from './components/Timer/Timer';
 
-import { statusGameSelector } from './redux/selectors';
+import { initGameSelector, startGameSelector } from './redux/selectors';
 
 function Sprint() {
-  const statusGame = useSelector(statusGameSelector);
+  const initGame = useSelector(initGameSelector);
+  const startGame = useSelector(startGameSelector);
   return (
-    statusGame ? <Game /> : <StartScreen />
+    initGame ? <Game /> : <StartScreen />
   );
 }
 

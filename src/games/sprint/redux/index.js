@@ -1,11 +1,11 @@
-// export const initGame = () => ({
-//   type: 'INIT_GAME',
-//   initGame: true,
-// });
+export const initGame = () => ({
+  type: 'INIT_GAME',
+  initGame: true,
+});
 
 export const startGame = () => ({
   type: 'START_GAME',
-  stateGame: true,
+  startGame: true,
 });
 
 export const setWords = (gettingWords) => ({
@@ -32,6 +32,7 @@ const sprintReducer = (state = INITIAL_STATE, action) => {
   } = action;
 
   switch (type) {
+    case 'INIT_GAME':
     case 'START_GAME':
     case 'SET_WORDS':
     case 'SET_LEVEL':

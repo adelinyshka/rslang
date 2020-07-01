@@ -13,8 +13,9 @@ function Game() {
   return (
     <StyleGame>
       <p>{words[count].word}</p>
-      <p>{words[count].wordTranslate}</p>
-      <button onClick={() => setCount(count + 1)}>Next word</button>
+      <p>{words[count].translate}</p>
+      <button onClick={() => setCount(count + 1)}>правильно</button>
+      <button onClick={() => setCount(count + 1)}>не првавильно</button>
     </StyleGame>
   );
 }

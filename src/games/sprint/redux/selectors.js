@@ -2,9 +2,14 @@ import { createSelector } from 'reselect';
 
 export const sprintSelector = (state) => state.sprint;
 
-export const statusGameSelector = createSelector(
+export const initGameSelector = createSelector(
   sprintSelector,
-  ({ statusGame }) => statusGame,
+  ({ initGame }) => initGame,
+);
+
+export const startGameSelector = createSelector(
+  sprintSelector,
+  ({ startGame }) => startGame,
 );
 
 export const wordsSelector = createSelector(
