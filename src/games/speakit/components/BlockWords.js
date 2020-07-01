@@ -18,7 +18,7 @@ import {
   StyleWordBlock,
 } from './style.BlockWords';
 
-const audioPath = 'https://raw.githubusercontent.com'
+const audioPath = 'https://raw.githubusercontent.com/'
   + 'alekchaik/rslang-data/master/';
 
 const BlockWords = () => {
@@ -57,7 +57,8 @@ const BlockWords = () => {
             ? activateWord(word, audio, image, wordTranslate)
             : false) }
           active={word === activeWord
-            || speechWords.find((element) => word === element)}
+            || speechWords.find((element) => word.toLocaleLowerCase()
+            === element.toLocaleLowerCase())}
           statusGame={statusGame}
         >
           <img

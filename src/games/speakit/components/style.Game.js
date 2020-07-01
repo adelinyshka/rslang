@@ -1,12 +1,13 @@
 import style from 'styled-components';
 
 export default style.div`
+  margin-left: 100px;
   padding: 2.5vw 5vw;
   text-align: center;
   background: #FAFAFA;
 
   .button__restart,
-  .button__results {
+  .button__show-results {
     border: 2px solid #6979F8;
     box-sizing: border-box;
     border-radius: 6px;
@@ -33,7 +34,7 @@ export default style.div`
   }
 
   .button__restart:hover,
-  .button__results:hover {
+  .button__show-results:hover {
     cursor: pointer;
     background: #6979F8;
   }
@@ -71,5 +72,31 @@ export default style.div`
     position: absolute;
     width: 20px;
     left: 2%;
+  }
+
+  .button__close-results {
+    border: 2px solid #6979F8;
+    box-sizing: border-box;
+    border-radius: 6px;
+    height: 5vh;
+    width: 15vw;
+    font-size: 17px;
+    outline: none;
+  }
+
+  .button__new-game {
+    border: 2px solid #6979F8;
+    box-sizing: border-box;
+    border-radius: 6px;
+    height: 5vh;
+    width: 15vw;
+    font-size: 17px;
+    outline: none;
+  }
+
+  .button__close-results:hover,
+  .button__new-game:hover {
+    cursor: pointer;
+    background: #6979F8;
   }
 `;

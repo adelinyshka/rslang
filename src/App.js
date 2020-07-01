@@ -12,6 +12,7 @@ import Menu from './layout/components/Menu/Menu';
 import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
+import Speakit from './games/speakit/components/Speakit';
 
 const authRoutes = [
   {
@@ -52,6 +53,7 @@ const privateRoutes = [
   {
     title: 'Игры',
     path: '/games',
+    component: <Speakit />,
   },
   {
     title: 'Карточки',

@@ -9,7 +9,7 @@ export const StyleWordsContainer = style.div`
 
 export const StyleWordBlock = style.div`
   display: flex;
-  width: 16vw;
+  width: 14vw;
   background: ${({ active }) => (active ? '#6979f8' : '#0AD1BD')};
   border-radius: 12px;
   justify-content: space-between;

@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import StyleStartScreen from './style.StartScreen';
+
 import {
   setWords,
   setStatusGame,
@@ -24,7 +26,7 @@ const StartScreen = () => {
   }, [dispatch, level]);
 
   return (
-    <div>
+    <StyleStartScreen>
       <h1>
         speakit
       </h1>
@@ -40,7 +42,7 @@ const StartScreen = () => {
       >
           Start
       </button>
-    </div>
+    </StyleStartScreen>
   );
 };
 

@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import SpeechRecognition from 'react-speech-recognition';
 import PropTypes from 'prop-types';
 
+import StyleGame from './style.Game';
+
 import LevelSwitcher from '../../../common/components/LevelSwitcher';
 import BlockWords from './BlockWords';
 import getWords from '../utils/index';
-import StyleGame from './style.Game';
+import Results from './Results';
 
 import {
   setWords,
@@ -64,6 +66,8 @@ const Game = ({
   const words = useSelector(wordsSelector);
   const activeWord = useSelector(activeWordSelector);
 
+  const [showResult, setShowResult] = useState(false);
+
   console.log(translateActiveWord);
 
   const changeActiveLevel = useCallback((levelProps) => {
@@ -77,6 +81,7 @@ const Game = ({
             dispatch(setImage('./assets/images/speakit/base-game-image.png'));
             dispatch(setTranslateActiveWord(''));
             dispatch(setSpeechActiveWord(''));
+            dispatch(setSpeechWords([]));
           });
         }
       });
@@ -92,6 +97,7 @@ const Game = ({
           dispatch(setImage('./assets/images/speakit/base-game-image.png'));
           dispatch(setTranslateActiveWord(''));
         });
+        setShowResult(false);
       }
     });
   }, [dispatch]);
@@ -121,7 +127,8 @@ const Game = ({
         let img = '';
         words.forEach(({ word, image: wordImage }) => {
           if (!trueSpeech) {
-            trueSpeech = word === transcript;
+            trueSpeech = word.toLocaleLowerCase()
+              === transcript.toLocaleLowerCase();
             console.log(word, transcript, trueSpeech, image);
             img = trueSpeech ? wordImage : '';
           }
@@ -130,8 +137,7 @@ const Game = ({
         if (trueSpeech) {
           const linkImage = `${'https://raw.githubusercontent.com/'
             + 'alekchaik/rslang-data/master/'}${img}`;
-          const trueSpeechWords = [...speechWords];
-          trueSpeechWords.push(transcript);
+          const trueSpeechWords = [...speechWords, transcript];
           batch(() => {
             dispatch(setSpeechActiveWord(transcript));
             dispatch(setSpeechWords(trueSpeechWords));
@@ -159,39 +165,66 @@ const Game = ({
   }
 
   return (
-    <StyleGame>
-      <LevelSwitcher
-        changeActiveLevel={changeActiveLevel}
-      />
-      <figure className="figure">
-        <img className="img" src={image} alt={translateActiveWord} />
-        <figcaption className="figcaption">
-          {statusGame === 'speach'
-            ? <img className="microphone" src={imgMicro} alt="Microphone" />
-            : false}
-          {statusGame === 'speach' ? speechActiveWord : translateActiveWord}
-        </figcaption>
-      </figure>
-      <div className="education__block-spoken-words" />
-      <BlockWords />
-      <div className="education__block-button">
+    showResult ? (
+      <StyleGame>
+        <Results />
         <button
           type="button"
-          className="button__restart"
+          className="button__close-results"
+          onClick={() => setShowResult(false)}
+        >
+          Return
+        </button>
+        <button
+          type="button"
+          className="button__new-game"
           onClick={() => getNewWords(activeLevel)}
         >
-          Restart
+          New game
         </button>
-        <button
-          type="button"
-          className="button__speak-please"
-          onClick={() => changeStatusGame()}
-        >
-          {statusGame === 'no-speach' ? 'Speak please' : 'Stop speak'}
-        </button>
-        <button type="button" className="button__results">Results</button>
-      </div>
-    </StyleGame>
+      </StyleGame>
+    )
+      : (
+        <StyleGame>
+          <LevelSwitcher
+            changeActiveLevel={changeActiveLevel}
+          />
+          <figure className="figure">
+            <img className="img" src={image} alt={translateActiveWord} />
+            <figcaption className="figcaption">
+              {statusGame === 'speach'
+                ? <img className="microphone" src={imgMicro} alt="Microphone" />
+                : false}
+              {statusGame === 'speach' ? speechActiveWord : translateActiveWord}
+            </figcaption>
+          </figure>
+          <div className="education__block-spoken-words" />
+          <BlockWords />
+          <div className="education__block-button">
+            <button
+              type="button"
+              className="button__restart"
+              onClick={() => dispatch(setSpeechWords([]))}
+            >
+              Restart
+            </button>
+            <button
+              type="button"
+              className="button__speak-please"
+              onClick={() => changeStatusGame()}
+            >
+              {statusGame === 'no-speach' ? 'Speak please' : 'Stop speak'}
+            </button>
+            <button
+              type="button"
+              className="button__show-results"
+              onClick={() => setShowResult(true)}
+            >
+              Results
+            </button>
+          </div>
+        </StyleGame>
+      )
   );
 };
 
