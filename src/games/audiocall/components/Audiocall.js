@@ -18,11 +18,32 @@ export default function Audiocall() {
           alt="xwhite"
         />
       </div>
+      <div className={styles.Hide}>
+        <img
+          src="./assets/images/audiocall/notHint.png"
+          alt="hint"
+        />
+        <p>
+          Выберите правильный ответ после проигранного аудио
+        </p>
+        <button className={styles.BtnNtfcation} type="button">
+          Понятно
+        </button>
+      </div>
       <div className={styles.GamePanel}>
         <img
           src="./assets/images/audiocall/volume.png"
           alt="sound"
         />
+        <div className={styles.Answer}>
+          <img
+            src="./assets/images/audiocall/volume.png"
+            alt="sound"
+          />
+          <p>
+            Word
+          </p>
+        </div>
         <div className={styles.Words}>
           <p>
                 1 слово

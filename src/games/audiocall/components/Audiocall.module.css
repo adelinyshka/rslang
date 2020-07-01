@@ -97,6 +97,63 @@
   padding-right: 40px;
 }
 
+.Notification {
+  display: block;
+  width: 300px;
+  height: 208px;
+  text-align: center;
+  padding-top: 20px;
+  background-color: #eedff2;
+  border-radius: 12px;
+  position: absolute;
+  right: 20px;
+  top: 85px;
+  transition: ease-out 0.3s;
+}
+
+.Hide {
+  display: none;
+}
+
+.Notification img {
+  display: block;
+  margin: -30px auto;
+  padding: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.BtnNtfcation {
+  width: 175px;
+  height: 48px;
+  background: #6979f8;
+  border-radius: 6px;
+  border: none;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 26px auto;
+}
+
+.BtnNtfcation:hover {
+  background-color: #6979f8;
+  opacity: 0.7;
+  transition: ease-out 0.1s;
+}
+
+.BtnNtfcation,
+.BtnNtfcation:active,
+.StarBtnNtfcation:focus {
+  cursor: pointer;
+  outline: none;
+}
+
 .GamePanel {
   margin-top: 170px;
 }
@@ -108,15 +165,38 @@
   height: 160px;
 }
 
+.Answer {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.Answer img {
+  width: 46px;
+  height: 46px;
+  margin: 0;
+}
+
+.Answer p {
+  margin: 12px 40px;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 22px;
+  color: white;
+}
+
 .Words {
   display: flex;
   justify-content: center;
   margin-top: 50px;
-  margin-bottom: 90px;
+  margin-bottom: 80px;
 }
 
 .Words p {
   margin: 0 40px;
+  padding: 10px 0;
   font-family: Exo;
   font-style: normal;
   font-weight: normal;
@@ -127,20 +207,22 @@
 
 .Words p:hover {
   cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 7px;
 }
 
 .Words p::first-letter {
   color: rgba(255, 255, 255, 0.54);
 }
 
-.AnswerBtn { 
+.AnswerBtn {
   width: 175px;
   height: 48px;
   position: relative;
   margin-top: 40px;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: rgba(255, 255, 255, 0.0);
+  background-color: rgba(255, 255, 255, 0);
   color: white;
   border: 2px solid white;
   border-radius: 7px;
@@ -165,6 +247,17 @@
   cursor: pointer;
   outline: none;
 }
+@media screen and (max-width: 1000px) {
+  .Words {
+    display: block;
+    text-align: center;
+    width: 200px;
+    margin: 0 auto;
+  }
+  .Words p {
+    text-align: left;
+  }
+}
 
 @media screen and (max-width: 767px) {
   .Startpage {
@@ -181,5 +274,19 @@
   }
   .Footer {
     justify-content: center;
+  }
+  .Header {
+    display: none;
+  }
+  .GamePanel {
+    margin: 0;
+  }
+  .GamePanel img {
+    width: 100px;
+    height: 100px;
+  }
+  .Answer img {
+    width: 46px;
+    height: 46px;
   }
 }
