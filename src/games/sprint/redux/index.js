@@ -1,3 +1,8 @@
+// export const initGame = () => ({
+//   type: 'INIT_GAME',
+//   initGame: true,
+// });
+
 export const startGame = () => ({
   type: 'START_GAME',
   stateGame: true,
@@ -13,22 +18,11 @@ export const setLevel = (level) => ({
   level,
 });
 
-export const setActiveWord = (activeWord) => ({
-  type: 'SET_ACTIVE_WORD',
-  activeWord,
-});
-
-export const setTranslateActiveWord = (translateActiveWord) => ({
-  type: 'SET_TRANSLATE_ACTIVE_WORD',
-  translateActiveWord,
-});
-
 const INITIAL_STATE = {
+  initGame: false,
   stateGame: false,
   words: {},
   level: 0,
-  activeWord: 'base_word',
-  translateActiveWord: ' ',
 };
 
 const sprintReducer = (state = INITIAL_STATE, action) => {
@@ -41,8 +35,6 @@ const sprintReducer = (state = INITIAL_STATE, action) => {
     case 'START_GAME':
     case 'SET_WORDS':
     case 'SET_LEVEL':
-    case 'SET_ACTIVE_WORD':
-    case 'SET_TRANSLATE_ACTIVE_WORD':
       return {
         ...state,
         ...payload,

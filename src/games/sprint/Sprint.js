@@ -3,12 +3,10 @@ import { useSelector } from 'react-redux';
 import StartScreen from './components/StartScreen/StartScreen';
 import Game from './components/Game/Game';
 
-// const audioPath = 'https://raw.githubusercontent.com'
-//   + '/irinainina/rslang-data/master/';
+import { statusGameSelector } from './redux/selectors';
 
 function Sprint() {
-  const statusGame = useSelector((state) => state.sprint.stateGame);
-
+  const statusGame = useSelector(statusGameSelector);
   return (
     statusGame ? <Game /> : <StartScreen />
   );

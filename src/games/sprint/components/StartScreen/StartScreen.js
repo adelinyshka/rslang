@@ -1,32 +1,45 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import PropTypes from 'prop-types';
+// import useAPI from '../../../../common/utils/index';
 import StyleStartScreen from './style.StartScreen';
 
 import SwitcherLevel from '../LvlSwitcher/LvlSwitcher';
 
+import Timer from '../Timer/Timer';
+
+import {
+  levelSelector,
+} from '../../redux/selectors';
+
 import {
   setWords,
   startGame,
+  setLevel,
 } from '../../redux/index';
 
-import {
-  getWords,
-} from '../../utils/index';
+import Sample from '../../Sample';
 
 const StartScreen = () => {
+  const activeLevel = useSelector(levelSelector);
   const dispatch = useDispatch();
-  const level = useSelector((state) => state.sprint.level);
+  // const level = useSelector((state) => state.sprint.level);
 
-  const onStartGame = useCallback(() => {
-    getWords(level).then((words) => {
-      dispatch(setWords(words));
-      dispatch(startGame());
-    });
-  }, [dispatch, level]);
+  const onStartGame = () => {
+    dispatch(setWords(Sample));
+    dispatch(startGame());
+  };
+
+  const changeActiveLevel = (activeLevelProps, levelProps) => {
+    if (activeLevelProps !== levelProps) {
+      dispatch(setLevel(levelProps));
+    }
+  };
 
   return (
     <StyleStartScreen>
+      <Timer setTimer={3} timerHandler={() => console.log('конечек')} />
       <h1>
         Спринт
       </h1>
@@ -37,7 +50,10 @@ const StartScreen = () => {
         <br />
       вы можете выбрать уровень сложности случайных слов.
       </p>
-      <SwitcherLevel />
+      <SwitcherLevel
+        handlerOnClick={changeActiveLevel}
+        activeLevel={activeLevel}
+      />
       <button
         type="button"
         onClick={onStartGame}
@@ -47,4 +63,10 @@ const StartScreen = () => {
     </StyleStartScreen>
   );
 };
+
+StartScreen.propTypes = {
+  activeLevel: PropTypes.number,
+  handlerOnClick: PropTypes.func,
+};
+
 export default StartScreen;

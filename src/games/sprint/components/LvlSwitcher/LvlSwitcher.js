@@ -29,8 +29,8 @@ const SwitcherLevel = ({ activeLevel, handlerOnClick }) => (
 );
 
 SwitcherLevel.propTypes = {
-  activeLevel: PropTypes.string.isRequired,
-  handlerOnClick: PropTypes.string.isRequired,
+  activeLevel: PropTypes.number.isRequired,
+  handlerOnClick: PropTypes.func.isRequired,
 };
 
 export default SwitcherLevel;
