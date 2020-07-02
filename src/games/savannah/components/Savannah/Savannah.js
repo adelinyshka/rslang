@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SavannahWrapper from './SavannahWrapper';
+import dictionary from '../Dictionary/Dictionary';
 
 export default function Savannah() {
+  const [word] = useState(dictionary[Math.floor(Math.random() * 10)].word);
+  const [translation1] = useState(dictionary[Math.floor(Math.random() * 10)]
+    .translate);
+  const [translation2] = useState(dictionary[Math.floor(Math.random() * 10)]
+    .translate);
+  const [translation3] = useState(dictionary[Math.floor(Math.random() * 10)]
+    .translate);
+  const [translation4] = useState(dictionary[Math.floor(Math.random() * 10)]
+    .translate);
+
+  useEffect(() => {
+
+  });
+
   return (
     <SavannahWrapper>
       <Link to="">
@@ -12,15 +27,37 @@ export default function Savannah() {
           alt="close"
         />
       </Link>
-      <h3 className="falling_word"> word </h3>
-
-      <ul className="listWords">
-        <li>перевод1</li>
-        <li>перевод2</li>
-        <li>перевод3</li>
-        <li>перевод4</li>
-      </ul>
-
+      <div className="wrapper_falling">
+        <h3 className="falling_word">
+          {(word)}
+        </h3>
+      </div>
+      <div className="listWords">
+        <button
+          onClick={() => {}}
+          type="button"
+        >
+          {(translation1)}
+        </button>
+        <button
+          onClick={() => {}}
+          type="button"
+        >
+          {(translation2)}
+        </button>
+        <button
+          onClick={() => {}}
+          type="button"
+        >
+          {(translation3)}
+        </button>
+        <button
+          onClick={() => {}}
+          type="button"
+        >
+          {(translation4)}
+        </button>
+      </div>
       <img
         className="crystall"
         src="./../assets/images/savannah/crystall_2.svg"

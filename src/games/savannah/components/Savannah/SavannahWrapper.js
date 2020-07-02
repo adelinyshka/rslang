@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const SavannahWrapper = styled.div`
   font-family: 'Exo',sans-serif;
   font-size: 25px;
-  position: relative;
   height: 100vh;
   margin-left: 50px;
   position: relative;
@@ -13,6 +12,7 @@ const SavannahWrapper = styled.div`
   
   @media (max-width: 768px) {
     height: calc(100vh - 50px);
+    margin-left: 0;
   }
   
   img.cross {
@@ -29,21 +29,53 @@ const SavannahWrapper = styled.div`
     }
   }
   
-  .falling_word {
-    text-align: center;
-    padding-top: 100px;
+  .wrapper_falling {
+    position: absolute;
+    margin: auto;
+    top: 10%;
+    right: 0;
+    left: 0;
+    width: 250px;
+    height: 50px;
+    animation: falling 6s;
   }
+  
+  .falling_word {
+    font-size: 35px;
+    text-align: center;
+  }
+  
+  @keyframes falling {
+  0% {
+    top: 10%;
+  }
+  100% {
+    top: 60%;
+  }
+}
+  
   .listWords {
     display: flex;
     justify-content: space-around;
     position: relative;
     top: 30%;
-    list-style-type: none;
     width: 80%;
     margin: 0 auto;
     
-    & li {
+    & button {
     margin: 20px;
+    background: transparent;
+    border: 0;
+    color: white;
+    outline: none;
+    
+    &:hover,
+    &:focus,
+    &:active {
+      border: 0;
+      color: white;
+      outline: none;
+    }
     }
   }
   
