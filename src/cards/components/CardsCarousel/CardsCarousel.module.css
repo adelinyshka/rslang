@@ -1,5 +1,5 @@
 .Carousel {
-  height: 80%;
+  min-height: 300px;
 }
 
 .Carousel > a {
@@ -39,6 +39,10 @@
 }
 
 @media (max-width: 767px) {
+  .Carousel {
+    margin-top: 30px;
+  }
+
   .RightArrow,
   .LeftArrow {
     margin: 15px;
@@ -46,6 +50,10 @@
 }
 
 @media (max-width: 576px) {
+  .Carousel {
+    margin-top: 5px;
+  }
+
   .RightArrow,
   .LeftArrow {
     display: none;

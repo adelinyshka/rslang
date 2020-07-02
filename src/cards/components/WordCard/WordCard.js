@@ -65,7 +65,6 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
     () => (isShowingAnswer || isPreviousCard || wasAnswered) && (
       <Card.Footer className={styles.Footer}>
         <p>
-          Перевод:
           {' '}
           <span className={styles.TranslatedWord}>{wordTranslate}</span>
         </p>

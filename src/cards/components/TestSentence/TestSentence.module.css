@@ -8,13 +8,14 @@
 
 .WrongAnswer {
   background-color: #D5F2EA;
-  border: 1px solid black;
+  padding: 2px 4px;
+  border-radius: 4px;
 }
 
 .SubmitBtn {
-  /*margin: 5px 0;*/
   background: #0AD1BD;
   border: #0AD1BD;
+  margin-bottom: 10px;
 }
 
 .SubmitBtn:hover,
@@ -23,4 +24,10 @@
   transform: scale(1.1);
   background: #0AD1BD;
   border: #0AD1BD;
+  outline: none;
+  box-shadow: none;
+}
+
+.sentenceRight {
+  padding-bottom: 10px !important;
 }

@@ -13,17 +13,18 @@
   justify-content: center;
   align-items: center;
   outline: none;
+  font-size: 14px;
 }
 
 .Description {
   position: absolute;
-  top: -38px;
+  top: -65px;
   display: none;
   flex-shrink: 0;
   width: 103px;
   height: 65px;
   text-align: center;
-  background-color: #6979F8;
+  background-color: #6979f8bf;
   color: white;
   mask: url('/assets/images/cards/descriptionMask.svg') top left / cover;
 }
@@ -35,5 +36,11 @@
 @media (max-width: 767px) {
   .Description {
     top: -30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .NavItem:hover .Description {
+    display: none;
   }
 }

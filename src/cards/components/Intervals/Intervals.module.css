@@ -1,11 +1,11 @@
 .Intervals {
   display: flex;
-  justify-content: center;
-  padding: 20px 0 0 0;
+  justify-content: space-around;
+  width: calc(80% + 20px);
 }
 
 .Intervals button {
-  margin: 10px;
+  margin: 20px 10px;
 }
 
 .interval_btn {
@@ -36,7 +36,33 @@
 
 @media (max-width: 767px) {
   .Intervals {
-    padding: 10px 0 0 0;
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 767px) {
+  .Intervals {
+    padding-top: 50px;
+    flex-wrap: wrap;
+    width: calc(80% + 20px);
+    justify-content: space-around;
+    margin: 0 auto;
+  }
+
+  .Intervals button, .interval_btn {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .Intervals {
+    flex-wrap: wrap;
+    width: calc(100% + 10px);
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .Intervals button, .interval_btn {
+    margin: 5px 5px;
   }
 }

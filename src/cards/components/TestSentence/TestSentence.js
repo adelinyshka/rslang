@@ -37,7 +37,7 @@ const TestSentence = ({
   const [value, setValue] = useState('');
   const [mistake, setMistake] = useState();
   const wrongAnswer = useMemo(() => mistake && (
-    <div>
+    <div className={styles.sentenceRight}>
       {testSentenceArr[0]}
       <span className={styles.WrongAnswer}>
         {mistakesInWord(mistake, word)}

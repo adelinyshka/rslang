@@ -6,7 +6,7 @@
   background: #D5F2EA;
   border-radius: 4px;
   border: transparent;
-  padding: 1px;
+  padding: 0 4px;
 }
 
 .Container {
@@ -14,15 +14,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
   width: 80%;
   margin: 0 auto;
+  overflow: visible;
 }
 
 .Card {
   border-radius: 12px;
   width: 80%;
-  height: 60%;
   border: transparent;
   box-shadow: 0 7px 64px rgba(0, 0, 0, 0.05);
 }
@@ -30,23 +29,22 @@
 .Header, .card-header {
   border-bottom: transparent;
   background: linear-gradient(195.78deg, #CDDDF4 3.26%, #CDBAFA 100%);
-  padding: 10px 16px 7px 0;
-  border-radius: 12px 12px 0px 0px;
+  padding: 7px 16px 7px 0;
+  border-radius: 12px 12px 0 0 !important;
 }
 
 .Body {
   overflow: scroll;
   background: linear-gradient(195.78deg, #CDDDF4 3.26%, #CDBAFA 100%);
   border-radius: 0;
+  padding: 10px 16px;
 }
 
 .Body p {
-  font-size: 22px;
+  font-size: 18px;
   font-family: Exo, sans-serif;
-  overflow-y: scroll;
-  height: 75px;
+  padding-bottom: 10px;
   margin: 0;
-  font-weight: bold;
 }
 
 .Body p input {
@@ -54,9 +52,9 @@
   border-radius: 4px;
   border: 0;
   outline: none;
-  font-size: 22px;
+  font-size: 18px;
   font-family: Exo, sans-serif;
-  padding: 1px;
+  padding: 0 0 0 4px;
 }
 
 .Body p input:hover {
@@ -73,31 +71,38 @@
 .Footer, .card-footer {
   background-color: white !important;
   border-radius: 0 0 12px 12px !important;
-  padding: 10px 20px 0;
+  padding: 10px 16px 10px;
+}
+
+.Footer p {
+  margin-bottom: 0;
 }
 
 .TranslatedWord {
-  font-size: 1.2rem;
-  color: black;
+  padding: 0;
+  font-size: 18px;
+  color: #000000c7;
 }
 
 .Interval_hr {
   border-top: 1px solid #784AC1;
+  padding: 0;
+  margin: 0;
 }
 
-.translated_sentence {
-  font-weight: normal !important;
+p.translated_sentence {
+  padding: 10px 0 0 0;
 }
 
 @media (max-width: 767px) {
   .Container {
     width: 100%;
+    margin-top: 50px;
   }
 
   .Body p {
     font-size: 18px;
     height: 70px;
-    font-weight: normal;
   }
 
   .Body p input {
@@ -106,6 +111,10 @@
 }
 
 @media (max-width: 576px) {
+  .Container {
+    margin-top: 50px;
+  }
+
   .Card {
     width: 95%;
   }
