@@ -8,7 +8,8 @@ function GameOver({ correctAnswers, incorrectAnswers }) {
       type={correctAnswers > incorrectAnswers ? 'success' : 'error'}
       iconSrc="../assets/images/memory/iconCheck.svg"
       content={`Процент правильных ответов: 
-        ${correctAnswers / (correctAnswers + incorrectAnswers)}`}
+        ${Math.floor(correctAnswers
+          / (correctAnswers + incorrectAnswers) * 100)}%`}
       footer="Попробуйте еще!"
     />
   );

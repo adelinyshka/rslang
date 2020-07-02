@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import style from './Lives.module.css';
 
 function Lives({ livesCount, leftLifesHandler, src }) {
-  if (livesCount <= 0) {
-    leftLifesHandler();
-  }
+  useEffect(() => {
+    if (livesCount <= 0) {
+      leftLifesHandler();
+    }
+  }, [leftLifesHandler, livesCount]);
 
   function drawLives() {
     const lives = [];

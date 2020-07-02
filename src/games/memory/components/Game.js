@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 // import SwitcherLevel from '../../../common/components/SwitcherLevel'
 import Card from './Card';
 import Timer from './Timer';
@@ -6,107 +6,107 @@ import Lives from './Lives';
 import GameOver from './GameOver';
 import style from './Game.module.css';
 
-function Game() {
-  const dictionary = [
-    {
-      word: 'game',
-      translate: 'игра',
-      id: 1,
-    },
-    {
-      word: 'car',
-      translate: 'машина',
-      id: 2,
-    },
-    {
-      word: 'dinosaur',
-      translate: 'динозавр',
-      id: 3,
-    },
-    {
-      word: 'planet',
-      translate: 'планета',
-      id: 4,
-    },
-    {
-      word: 'plant',
-      translate: 'растение',
-      id: 5,
-    },
-    {
-      word: 'keyboard',
-      translate: 'клавиатура',
-      id: 6,
-    },
-    {
-      word: 'harpsichord',
-      translate: 'клавесин',
-      id: 7,
-    },
-    {
-      word: 'sun',
-      translate: 'солнце',
-      id: 8,
-    },
-    {
-      word: 'evolution',
-      translate: 'эволюция',
-      id: 9,
-    },
-    {
-      word: 'information',
-      translate: 'информация',
-      id: 10,
-    },
-  ];
+const dictionary = [
+  {
+    word: 'game',
+    translate: 'игра',
+    id: 1,
+  },
+  {
+    word: 'car',
+    translate: 'машина',
+    id: 2,
+  },
+  {
+    word: 'dinosaur',
+    translate: 'динозавр',
+    id: 3,
+  },
+  {
+    word: 'planet',
+    translate: 'планета',
+    id: 4,
+  },
+  {
+    word: 'plant',
+    translate: 'растение',
+    id: 5,
+  },
+  {
+    word: 'keyboard',
+    translate: 'клавиатура',
+    id: 6,
+  },
+  {
+    word: 'harpsichord',
+    translate: 'клавесин',
+    id: 7,
+  },
+  {
+    word: 'sun',
+    translate: 'солнце',
+    id: 8,
+  },
+  {
+    word: 'evolution',
+    translate: 'эволюция',
+    id: 9,
+  },
+  {
+    word: 'information',
+    translate: 'информация',
+    id: 10,
+  },
+];
 
+function Game() {
   const level = 0;
 
-  const [russianWord, setRussianWord] = useState(null);
-  const [engleshWord, setEngleshWord] = useState(null);
-  const [isRight, setIsRight] = useState(null);
+  const [russianWord, setRussianWord] = useState();
+  const [englishWord, setEnglishWord] = useState();
+  const [isRight, setIsRight] = useState();
   const [livesCount, setLivesCount] = useState(5);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setInorrectAnswers] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
 
-  function russianCardHandler(cardId) {
+  const correct = useCallback(() => {
+    setIsRight(true);
+    setCorrectAnswers(correctAnswers + 1);
+  }, [correctAnswers]);
+
+  const incorrect = useCallback(() => {
+    setIsRight(false);
+    setLivesCount(livesCount - 1);
+  }, [livesCount]);
+
+  const russianCardHandler = useCallback((cardId) => {
     setRussianWord(cardId);
-    if (engleshWord) {
-      cardId === engleshWord ? correct() : incorrect();
+    if (englishWord) {
+      cardId === englishWord ? correct() : incorrect();
       checkResult();
     }
-  }
+  }, [correct, englishWord, incorrect]);
 
-  function engleshCardHandler(cardId) {
-    setEngleshWord(cardId);
+  const englishCardHandler = useCallback((cardId) => {
+    setEnglishWord(cardId);
     if (russianWord) {
       russianWord === cardId ? correct() : incorrect();
       checkResult();
     }
-  }
-
-  function correct() {
-    setIsRight(true);
-    setCorrectAnswers(correctAnswers + 1);
-  }
-
-  function incorrect() {
-    setIsRight(false);
-    setLivesCount(livesCount - 1);
-  }
+  }, [correct, russianWord, incorrect]);
 
   function checkResult() {
     setTimeout(() => {
       setIsRight(null);
       setRussianWord(null);
-      setEngleshWord(null);
+      setEnglishWord(null);
     }, 1000);
   }
 
-  function gameOverHandler() {
+  const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
-  }
+  }, []);
 
   return (
     <div className={style.GameWrapper}>
@@ -132,8 +132,8 @@ function Game() {
             dictionary.map(({ word, id }, index) => (
               <Card
                 key={index}
-                onCardClick={() => engleshCardHandler(id)}
-                isActive={engleshWord === id}
+                onCardClick={() => englishCardHandler(id)}
+                isActive={englishWord === id}
                 isRight={isRight}
               >
                 {word}
