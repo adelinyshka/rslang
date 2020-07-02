@@ -6,16 +6,19 @@ function Timer({ isActive, timeOutHandler, initialTime }) {
   const [timer, setTimer] = useState(initialTime);
 
   useEffect(() => {
-    const timerID = setTimeout(() => setTimer(timer - 1), 1000);
-    if (isActive) {
-      if (timer <= 0) {
-        clearTimeout(timerID);
-        timeOutHandler();
+    const timerID = setTimeout(() => {
+      if (timer > 0 && isActive) {
+        setTimer(timer - 1);
       }
-    } else {
-      clearTimeout(timerID);
+    }, 1000);
+    return () => clearTimeout(timerID);
+  }, [timer, isActive]);
+
+  useEffect(() => {
+    if (timer <= 0) {
+      timeOutHandler();
     }
-  }, [timer]);
+  }, [timeOutHandler, timer]);
 
   return (
     <div className={style.Timer}>
