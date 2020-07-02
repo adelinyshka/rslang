@@ -1,24 +1,25 @@
 import React, {
-  useCallback, useMemo, useState, useEffect,
+  useCallback, useMemo, useState,
 } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { customFetch } from '../../../common/utils';
+import useAPI from '../../../common/utils';
+
 import {
   isAllRecoveredSelector,
   selectedWordsSelector,
 } from '../../redux/selectors';
-import { userIdSelector, tokenSelector } from '../../../auth/redux/selectors';
+import { userIdSelector } from '../../../auth/redux/selectors';
+
 import styles from './WordRecovery.module.css';
 
 const WordRecovery = ({ wordId, difficulty, onRecovery }) => {
   const userId = useSelector(userIdSelector);
-  const token = useSelector(tokenSelector);
   const isAllRecovered = useSelector(isAllRecoveredSelector);
   const selectedWords = useSelector(selectedWordsSelector);
 
-  const [recovered, setRecovered] = useState();
+  const [recovered, setRecovered] = useState(false);
 
   const url = useMemo(
     () => `users/${userId}/words/${wordId}`, [userId, wordId],
@@ -26,9 +27,6 @@ const WordRecovery = ({ wordId, difficulty, onRecovery }) => {
 
   const fetchOptions = useMemo(() => ({
     method: 'PUT',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
     body: JSON.stringify({
       'difficulty': difficulty,
       'optional': {
@@ -36,21 +34,25 @@ const WordRecovery = ({ wordId, difficulty, onRecovery }) => {
         'learning': true,
       },
     }),
-  }), [difficulty, token]);
+  }), [difficulty]);
 
-  useEffect(() => {
-    if ((isAllRecovered && selectedWords[wordId]) || recovered) {
-      customFetch(url, fetchOptions);
-      onRecovery(true);
-    }
-  }, [
-    isAllRecovered, recovered, fetchOptions,
-    url, selectedWords, wordId, onRecovery,
-  ]);
+  // условие для отправки запроса
+  const condition = useMemo(
+    () => (isAllRecovered && selectedWords[wordId]) || recovered,
+    [isAllRecovered, recovered, selectedWords, wordId],
+  );
+
+  // действие после запроса, setTimeout для предотвращения утечки памяти
+  const action = useCallback(
+    () => setTimeout(() => onRecovery(true)), [onRecovery],
+  );
 
   const handleClick = useCallback((event) => {
     setRecovered(true);
   }, []);
+
+  // запрос, возвращающий слово в раздел "изучаемые"
+  useAPI(url, fetchOptions, action, condition);
 
   return (
     <div

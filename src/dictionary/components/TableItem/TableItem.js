@@ -69,11 +69,17 @@ const TableItem = ({ wordInfo, section }) => {
         )
       }
 
-      <WordRemoval
-        wordId={_id}
-        difficulty={userWord.difficulty}
-        onRemoval={setMarked}
-      />
+      {
+        section !== 'deleted'
+        && (
+          <WordRemoval
+            wordId={_id}
+            difficulty={userWord.difficulty}
+            onRemoval={setMarked}
+          />
+        )
+      }
+
       {isCardVisible
       && (
         <WordCard

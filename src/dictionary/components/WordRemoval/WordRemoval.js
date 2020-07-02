@@ -1,24 +1,25 @@
 import React, {
-  useCallback, useMemo, useState, useEffect,
+  useCallback, useMemo, useState,
 } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { customFetch } from '../../../common/utils';
+import useAPI from '../../../common/utils';
+
 import {
   isAllDeletedSelector,
   selectedWordsSelector,
 } from '../../redux/selectors';
-import { userIdSelector, tokenSelector } from '../../../auth/redux/selectors';
+import { userIdSelector } from '../../../auth/redux/selectors';
+
 import styles from './WordRemoval.module.css';
 
 const WordRemoval = ({ wordId, difficulty, onRemoval }) => {
   const userId = useSelector(userIdSelector);
-  const token = useSelector(tokenSelector);
   const isAllDeleted = useSelector(isAllDeletedSelector);
   const selectedWords = useSelector(selectedWordsSelector);
 
-  const [deleted, setDeleted] = useState();
+  const [deleted, setDeleted] = useState(false);
 
   const url = useMemo(
     () => `users/${userId}/words/${wordId}`, [userId, wordId],
@@ -26,37 +27,43 @@ const WordRemoval = ({ wordId, difficulty, onRemoval }) => {
 
   const fetchOptions = useMemo(() => ({
     method: 'PUT',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
     body: JSON.stringify({
       'difficulty': difficulty,
       'optional': {
+        'learning': false,
         'deleted': true,
+        'difficult': false,
       },
     }),
-  }), [difficulty, token]);
+  }), [difficulty]);
 
-  useEffect(() => {
-    if ((isAllDeleted && selectedWords[wordId]) || deleted) {
-      customFetch(url, fetchOptions);
-      onRemoval(true);
-    }
-  }, [
-    isAllDeleted, deleted, fetchOptions,
-    url, selectedWords, wordId, onRemoval,
-  ]);
+  // условие для отправки запроса
+  const condition = useMemo(
+    () => (isAllDeleted && selectedWords[wordId]) || deleted,
+    [isAllDeleted, deleted, selectedWords, wordId],
+  );
+
+  // действие после запроса, setTimeout для предотвращения утечки памяти
+  const action = useCallback(
+    () => setTimeout(() => onRemoval(true)), [onRemoval],
+  );
 
   const handleClick = useCallback((event) => {
     setDeleted(true);
   }, []);
 
+  // запрос, возвращающий слово в раздел "изучаемые"
+  useAPI(url, fetchOptions, action, condition);
+
   return (
     <div
-      className={styles.DeleteContainer}
+      className={styles.RecoveryContainer}
       onClick={handleClick}
     >
-      <img src="/assets/images/dictionary/deleteIcon.svg" alt="delete word" />
+      <img
+        src="/assets/images/dictionary/deleteIcon.svg"
+        alt="recover word"
+      />
     </div>
   );
 };

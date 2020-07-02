@@ -52,7 +52,7 @@ const Table = ({ section }) => {
         </div>
         {headerDivs}
         {section !== 'learning' && <AllWordsRecovery />}
-        <AllWordsRemoval />
+        {section !== 'deleted' && <AllWordsRemoval /> }
       </div>
       {tableItems.length
         ? tableItems
