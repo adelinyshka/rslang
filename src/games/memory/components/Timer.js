@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import GameOver from './GameOver';
 import style from './Timer.module.css';
 
-function Timer() {
-  const [timer, setTimer] = useState(5);
+function Timer({ isActive, timeOutHandler, initialTime }) {
+  const [timer, setTimer] = useState(initialTime);
 
   useEffect(() => {
     const timerID = setTimeout(() => setTimer(timer - 1), 1000);
-    if (timer <= 0) {
-      setTimeout(() => { clearInterval(timerID); }, 0);
-    }
-    return function cleanup() {
+    if (isActive) {
+      if (timer <= 0) {
+        clearTimeout(timerID);
+        timeOutHandler();
+      }
+    } else {
       clearTimeout(timerID);
-    };
+    }
   }, [timer]);
 
   return (
@@ -23,7 +24,6 @@ function Timer() {
           timer
         }
       </h1>
-      {timer === 0 ? <GameOver /> : ''}
     </div>
   );
 }

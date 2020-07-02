@@ -1,17 +1,16 @@
 import React from 'react';
-import style from './GameOver.module.css';
+import PopUp from './PopUp';
+// import style from './GameOver.module.css';
 
-function GameOver({ RightAnswer }) {
+function GameOver({ correctAnswers, incorrectAnswers }) {
   return (
-    <div className={style.BlackScreen}>
-      <div className={style.GameOver}>
-        <div className={style.Top}>
-          Количество верных ответов:
-          {RightAnswer}
-        </div>
-        <div className={style.Bottom}>Попробуйте еще :) </div>
-      </div>
-    </div>
+    <PopUp
+      type={correctAnswers > incorrectAnswers ? 'success' : 'error'}
+      iconSrc="../assets/images/memory/iconCheck.svg"
+      content={`Процент правильных ответов: 
+        ${correctAnswers / (correctAnswers + incorrectAnswers)}`}
+      footer="Попробуйте еще!"
+    />
   );
 }
 
