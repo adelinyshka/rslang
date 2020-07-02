@@ -1,22 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SavannahWrapper from './SavannahWrapper';
 import dictionary from '../Dictionary/Dictionary';
+import { getRandomNumber, shuffle } from '../Helpers/Helpers';
 
 export default function Savannah() {
-  const [word] = useState(dictionary[Math.floor(Math.random() * 10)].word);
-  const [translation1] = useState(dictionary[Math.floor(Math.random() * 10)]
-    .translate);
-  const [translation2] = useState(dictionary[Math.floor(Math.random() * 10)]
-    .translate);
-  const [translation3] = useState(dictionary[Math.floor(Math.random() * 10)]
-    .translate);
-  const [translation4] = useState(dictionary[Math.floor(Math.random() * 10)]
-    .translate);
+  const wordNum = getRandomNumber();
 
-  useEffect(() => {
+  const [word] = useState(dictionary[wordNum].word);
+  const [rightAnswer] = useState(dictionary[wordNum].translate);
 
-  });
+  const [translation1] = useState(dictionary[getRandomNumber()].translate);
+  const [translation2] = useState(dictionary[getRandomNumber()].translate);
+  const [translation3] = useState(dictionary[getRandomNumber()].translate);
+
+  const arrofNums = [rightAnswer, translation1, translation2, translation3];
+
+  shuffle(arrofNums);
+
+  function findMatches(translation, wordItem) {
+    dictionary.filter((item) => {
+      if (item.translate === translation && item.word === wordItem) {
+        console.log('right', item.translate, item.word);
+      }
+    });
+  }
+
+  findMatches(translation1);
 
   return (
     <SavannahWrapper>
@@ -34,28 +44,28 @@ export default function Savannah() {
       </div>
       <div className="listWords">
         <button
-          onClick={() => {}}
+          onClick={() => { findMatches(arrofNums[0], word); }}
           type="button"
         >
-          {(translation1)}
+          {(arrofNums[0])}
         </button>
         <button
-          onClick={() => {}}
+          onClick={() => { findMatches(arrofNums[1], word); }}
           type="button"
         >
-          {(translation2)}
+          {(arrofNums[1])}
         </button>
         <button
-          onClick={() => {}}
+          onClick={() => { findMatches(arrofNums[2], word); }}
           type="button"
         >
-          {(translation3)}
+          {(arrofNums[2])}
         </button>
         <button
-          onClick={() => {}}
+          onClick={() => { findMatches(arrofNums[3], word); }}
           type="button"
         >
-          {(translation4)}
+          {(arrofNums[3])}
         </button>
       </div>
       <img
