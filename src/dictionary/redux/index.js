@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   selectedWords: {},
   isAllSelected: false,
   isAllDeleted: false,
+  isAllRecovered: false,
 };
 
 export const setUserWords = (userWords) => ({
@@ -25,6 +26,11 @@ export const setAllDeleted = (isAllDeleted) => ({
   isAllDeleted,
 });
 
+export const setAllRecovered = (isAllRecovered) => ({
+  type: 'SET_ALL_RECOVERED',
+  isAllRecovered,
+});
+
 export const resetState = () => ({
   type: 'RESET_STATE',
   ...INITIAL_STATE,
@@ -44,6 +50,7 @@ export default (state = INITIAL_STATE, action) => {
     case 'SET_USER_WORDS':
     case 'SET_ALL_SELECTED':
     case 'SET_ALL_DELETED':
+    case 'SET_ALL_RECOVERED':
     case 'RESET_STATE':
       return {
         ...state,

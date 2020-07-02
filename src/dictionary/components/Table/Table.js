@@ -9,6 +9,7 @@ import { userWordsSelector } from '../../redux/selectors';
 import TableItem from '../TableItem/TableItem';
 import HeaderCheckbox from '../Checkbox/HeaderCheckbox';
 import AllWordsRemoval from '../WordRemoval/AllWordsRemoval';
+import AllWordsRecovery from '../WordRecovery/AllWordsRecovery';
 import styles from './Table.module.css';
 
 const headerInfo = [
@@ -22,10 +23,10 @@ const Table = ({ section }) => {
   const userWords = useSelector(userWordsSelector);
 
   const tableItems = useMemo(() => (
-    userWords.map((userWord) => (
+    userWords.map((wordInfo) => (
       <TableItem
-        userWord={userWord}
-        key={userWord._id}
+        wordInfo={wordInfo}
+        key={wordInfo._id}
         section={section}
       />
     ))), [userWords, section]);
@@ -50,9 +51,12 @@ const Table = ({ section }) => {
           />
         </div>
         {headerDivs}
+        {section !== 'learning' && <AllWordsRecovery />}
         <AllWordsRemoval />
       </div>
-      {tableItems}
+      {tableItems.length
+        ? tableItems
+        : <h1>Еще нет слов</h1>}
     </div>
   );
 };

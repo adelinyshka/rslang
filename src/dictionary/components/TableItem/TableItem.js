@@ -7,13 +7,16 @@ import LearningSection from './LearningSection';
 import WordCard from '../WordCard/WordCard';
 import Checkbox from '../Checkbox/Checkbox';
 import WordRemoval from '../WordRemoval/WordRemoval';
+import WordRecovery from '../WordRecovery/WordRecovery';
 import styles from './TableItem.module.css';
 
-const TableItem = ({ userWord, section }) => {
+const TableItem = ({ wordInfo, section }) => {
   const {
-    _id, difficulty, audio, word, wordTranslate,
-  } = useMemo(() => userWord, [userWord]);
-  const progressStatus = useMemo(() => 5, []); // получаем из userWord
+    _id, userWord, audio, word, wordTranslate,
+  } = useMemo(() => wordInfo, [wordInfo]);
+  const progressStatus = useMemo(() => 5, []); // получаем из wordInfo
+
+  const [marked, setMarked] = useState(false);
 
   const [isCardVisible, setIsCardsVisible] = useState(false);
 
@@ -41,6 +44,8 @@ const TableItem = ({ userWord, section }) => {
     setIsCardsVisible(false);
   }, []);
 
+  if (marked) return null;
+
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word} onClick={handleCardClick}>
@@ -52,11 +57,27 @@ const TableItem = ({ userWord, section }) => {
         <div>{wordTranslate}</div>
       </div>
       {content}
-      <WordRemoval wordId={_id} difficulty={difficulty} />
+
+      {
+        section !== 'learning'
+        && (
+          <WordRecovery
+            wordId={_id}
+            difficulty={userWord.difficulty}
+            onRecovery={setMarked}
+          />
+        )
+      }
+
+      <WordRemoval
+        wordId={_id}
+        difficulty={userWord.difficulty}
+        onRemoval={setMarked}
+      />
       {isCardVisible
       && (
         <WordCard
-          userWord={userWord}
+          wordInfo={wordInfo}
           onHide={handleModal}
           playAudio={playAudio}
         />
@@ -67,7 +88,7 @@ const TableItem = ({ userWord, section }) => {
 };
 
 TableItem.propTypes = {
-  userWord: PropTypes.object.isRequired,
+  wordInfo: PropTypes.object.isRequired,
   section: PropTypes.string.isRequired,
 };
 

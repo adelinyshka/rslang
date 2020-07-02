@@ -6,19 +6,19 @@ import PropTypes from 'prop-types';
 
 import { customFetch } from '../../../common/utils';
 import {
-  isAllDeletedSelector,
+  isAllRecoveredSelector,
   selectedWordsSelector,
 } from '../../redux/selectors';
 import { userIdSelector, tokenSelector } from '../../../auth/redux/selectors';
-import styles from './WordRemoval.module.css';
+import styles from './WordRecovery.module.css';
 
-const WordRemoval = ({ wordId, difficulty, onRemoval }) => {
+const WordRecovery = ({ wordId, difficulty, onRecovery }) => {
   const userId = useSelector(userIdSelector);
   const token = useSelector(tokenSelector);
-  const isAllDeleted = useSelector(isAllDeletedSelector);
+  const isAllRecovered = useSelector(isAllRecoveredSelector);
   const selectedWords = useSelector(selectedWordsSelector);
 
-  const [deleted, setDeleted] = useState();
+  const [recovered, setRecovered] = useState();
 
   const url = useMemo(
     () => `users/${userId}/words/${wordId}`, [userId, wordId],
@@ -32,39 +32,43 @@ const WordRemoval = ({ wordId, difficulty, onRemoval }) => {
     body: JSON.stringify({
       'difficulty': difficulty,
       'optional': {
-        'deleted': true,
+        'deleted': false,
+        'learning': true,
       },
     }),
   }), [difficulty, token]);
 
   useEffect(() => {
-    if ((isAllDeleted && selectedWords[wordId]) || deleted) {
+    if ((isAllRecovered && selectedWords[wordId]) || recovered) {
       customFetch(url, fetchOptions);
-      onRemoval(true);
+      onRecovery(true);
     }
   }, [
-    isAllDeleted, deleted, fetchOptions,
-    url, selectedWords, wordId, onRemoval,
+    isAllRecovered, recovered, fetchOptions,
+    url, selectedWords, wordId, onRecovery,
   ]);
 
   const handleClick = useCallback((event) => {
-    setDeleted(true);
+    setRecovered(true);
   }, []);
 
   return (
     <div
-      className={styles.DeleteContainer}
+      className={styles.RecoveryContainer}
       onClick={handleClick}
     >
-      <img src="/assets/images/dictionary/deleteIcon.svg" alt="delete word" />
+      <img
+        src="/assets/images/dictionary/recoveryIcon.svg"
+        alt="recover word"
+      />
     </div>
   );
 };
 
-WordRemoval.propTypes = {
+WordRecovery.propTypes = {
   wordId: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
-  onRemoval: PropTypes.func.isRequired,
+  onRecovery: PropTypes.func.isRequired,
 };
 
-export default WordRemoval;
+export default WordRecovery;

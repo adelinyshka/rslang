@@ -17,6 +17,11 @@ export const isAllDeletedSelector = createSelector(
   ({ isAllDeleted }) => isAllDeleted,
 );
 
+export const isAllRecoveredSelector = createSelector(
+  dictionarySelector,
+  ({ isAllRecovered }) => isAllRecovered,
+);
+
 export const isAllSelectedSelector = createSelector(
   dictionarySelector,
   ({ isAllSelected }) => isAllSelected,
