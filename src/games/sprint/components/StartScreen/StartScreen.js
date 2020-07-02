@@ -2,16 +2,15 @@ import React, { useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import PropTypes from 'prop-types';
-// import useAPI from '../../../../common/utils/index';
+import useAPI from '../../../../common/utils/index';
 import StyleStartScreen from './style.StartScreen';
 
 import SwitcherLevel from '../../../../common/components/LevelSwitcher';
 
 import Timer from '../Timer/Timer';
 
-import Sample from '../../Sample';
-
 import {
+  wordsSelector,
   levelSelector,
 } from '../../redux/selectors';
 
@@ -22,39 +21,36 @@ import {
   setLevel,
 } from '../../redux/index';
 
+const fetchOptions = {
+  method: 'GET',
+};
+
 const StartScreen = () => {
   const dispatch = useDispatch();
   const activeLevel = useSelector(levelSelector);
 
-  // const action = useCallback(
-  //   (data) => dispatch(setWords(data)), [dispatch],
-  // );
-  // const userWordsURL = useMemo(
-  //   () => `words?page=1&group=${activeLevel}`, [activeLevel],
-  // );
-
-  // const fetchOptions = {
-  //   method: 'GET',
-  // };
-  // useAPI(userWordsURL, fetchOptions, action);
-
-  // const level = useSelector((state) => state.sprint.level);
-
-  const onInitGame = () => {
-    dispatch(setWords(Sample));
-    dispatch(initGame());
-    console.log(activeLevel);
+  const changeActiveLevel = (levelProps) => {
+    dispatch(setLevel(levelProps));
+    console.log('вызов');
   };
 
-  const changeActiveLevel = (activeLevelProps, levelProps) => {
-    if (activeLevelProps !== levelProps) {
-      dispatch(setLevel(levelProps));
-    }
+  const action = useCallback(
+    (data) => dispatch(setWords(data)), [dispatch],
+  );
+
+  const userWordsURL = useMemo(
+    () => `words?page=1&group=${activeLevel}`, [activeLevel],
+  );
+
+  useAPI(userWordsURL, fetchOptions, action);
+
+  const onInitGame = () => {
+    dispatch(initGame());
   };
 
   return (
     <StyleStartScreen>
-      <Timer setTimer={3} timerHandler={() => console.log('конец')} />
+      {/* <Timer initialTime={3} timeOutHandler={() => console.log('конец')} /> */}
       <h1>
         Спринт
       </h1>

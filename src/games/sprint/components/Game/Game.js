@@ -10,6 +10,7 @@ import {
 function Game() {
   const words = useSelector(wordsSelector);
   const [count, setCount] = useState(0);
+  console.log(words);
   return (
     <StyleGame>
       <p>{words[count].word}</p>
