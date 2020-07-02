@@ -30,16 +30,17 @@ const StartScreen = () => {
   const activeLevel = useSelector(levelSelector);
 
   const changeActiveLevel = (levelProps) => {
-    dispatch(setLevel(levelProps));
-    console.log('вызов');
+    if (activeLevel !== levelProps) {
+      dispatch(setLevel(levelProps));
+    }
   };
 
   const action = useCallback(
     (data) => dispatch(setWords(data)), [dispatch],
   );
-
+  const page = 1;
   const userWordsURL = useMemo(
-    () => `words?page=1&group=${activeLevel}`, [activeLevel],
+    () => `words?page=${page}&group=${activeLevel}`, [activeLevel, page],
   );
 
   useAPI(userWordsURL, fetchOptions, action);

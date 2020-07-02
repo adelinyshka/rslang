@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import StyleTimer from './style.Timer';
 
 function Timer({ isActive, timeOutHandler, initialTime }) {
   const [timer, setTimer] = useState(initialTime);
@@ -17,13 +18,13 @@ function Timer({ isActive, timeOutHandler, initialTime }) {
   }, [timer]);
 
   return (
-    <div>
+    <StyleTimer>
       <h1>
         {
           timer
         }
       </h1>
-    </div>
+    </StyleTimer>
   );
 }
 
