@@ -11,11 +11,13 @@ function Lives({ livesCount, leftLifesHandler, src }) {
     const lives = [];
 
     for (let i = 0; i < livesCount; i += 1) {
-      lives.push(<img
-        src={src}
-        alt="lives"
-        key={i}
-      />);
+      lives.push(
+        <img
+          src={src}
+          alt="lives"
+          key={i}
+        />,
+      );
     }
 
     return lives;

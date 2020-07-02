@@ -2,6 +2,7 @@ import React from 'react';
 import style from './PopUp.module.css';
 
 function PopUp({
+  onClick,
   type,
   iconSrc,
   content,
@@ -13,7 +14,7 @@ function PopUp({
   ];
 
   return (
-    <div className={style.BlackScreen}>
+    <div className={style.BlackScreen} onClick={onClick}>
       <div className={style.PopUp}>
         <div className={cls.join(' ')}>
           <div className={style.icon}><img src={iconSrc} alt="icon" /></div>

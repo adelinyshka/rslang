@@ -36,7 +36,7 @@ Timer.propTypes = {
 };
 
 Timer.defaultProps = {
-  isActive: true,
+  isActive: '',
   timeOutHandler: () => {},
   initialTime: '',
 };
