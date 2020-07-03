@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import StartScreen from './components/StartScreen/StartScreen';
 import Game from './components/Game/Game';
 import Timer from './components/Timer/Timer';
+import Statistics from './components/Statistics/Statistics';
 
-import { initGameSelector, startGameSelector } from './redux/selectors';
+import {
+  initGameSelector,
+  startGameSelector,
+  overGameSelector,
+} from './redux/selectors';
 
 import {
   startGame,
@@ -12,21 +18,24 @@ import {
 
 function Sprint() {
   const dispatch = useDispatch();
-  const GameWasinit = useSelector(initGameSelector);
-  const GameWasstart = useSelector(startGameSelector);
+  const gameInited = useSelector(initGameSelector);
+  const gameStarted = useSelector(startGameSelector);
+  const gameOver = useSelector(overGameSelector);
 
-  const onStartGame = () => {
-    dispatch(startGame());
-  };
-
-  if (GameWasinit) {
-    if (GameWasstart) {
+  const onStartGame = useCallback(
+    () => dispatch(startGame()), [dispatch],
+  );
+  if (gameOver) {
+    return (<Statistics />);
+  }
+  if (gameInited) {
+    if (gameStarted) {
       return (<Game />);
     }
-    return (<Timer initialTime={5} timeOutHandler={onStartGame} />);
+    return (<Timer initialTime={2} timeOutHandler={onStartGame} />);
   }
 
-  return <StartScreen />;
+  return (<StartScreen />);
 }
 
 export default Sprint;

@@ -12,9 +12,19 @@ export const startGameSelector = createSelector(
   ({ startGame }) => startGame,
 );
 
+export const overGameSelector = createSelector(
+  sprintSelector,
+  ({ overGame }) => overGame,
+);
+
 export const wordsSelector = createSelector(
   sprintSelector,
   ({ words }) => words,
+);
+
+export const resultsSelector = createSelector(
+  sprintSelector,
+  ({ results }) => results,
 );
 
 export const levelSelector = createSelector(

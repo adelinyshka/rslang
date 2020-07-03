@@ -11,10 +11,11 @@ import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
 import About from './layout/components/About/About';
 import styles from './App.module.css';
+import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
 import Sprint from './games/sprint/Sprint';
 
-const authRoutes = [
+const publicRoutes = [
   {
     title: 'Страница авторизации',
     path: '/login',
@@ -25,9 +26,19 @@ const authRoutes = [
     path: '/signup',
     component: <Signup />,
   },
+  {
+    title: 'Промо',
+    path: '/',
+    component: <Promo />,
+  },
+  {
+    title: 'О команде',
+    path: '/about',
+    component: <About />,
+  },
 ];
 
-function createAuthRoutes({ title, path, component }) {
+function createPublicRoutes({ title, path, component }) {
   return (
     <Route key={title} exact path={path}>
       {component}
@@ -35,7 +46,7 @@ function createAuthRoutes({ title, path, component }) {
   );
 }
 
-createAuthRoutes.propTypes = {
+createPublicRoutes.propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   component: PropTypes.func.isRequired,
@@ -69,7 +80,7 @@ const privateRoutes = [
   },
   {
     title: 'Главная страница',
-    path: '/',
+    path: '/main',
     component: <Main />,
   },
   {
@@ -88,6 +99,7 @@ function createPrivateRoute({ title, path, component }, isLogged) {
   return (
     <Route key={title} exact path={path}>
       {!isLogged && <Redirect to="/login" />}
+      {isLogged && <Menu />}
       {component || (
         <div className={styles.PageName}>
           <h1>{title}</h1>
@@ -107,12 +119,12 @@ const App = () => {
   const isLogged = useSelector(isAuthenticatedSelector);
   return (
     <Router>
-      <Menu />
       <Switch>
-        {authRoutes.map(createAuthRoutes)}
+        {publicRoutes.map(createPublicRoutes)}
         {privateRoutes.map((el) => createPrivateRoute(el, isLogged))}
       </Switch>
     </Router>
   );
 };
+
 export default App;

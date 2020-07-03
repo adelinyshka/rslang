@@ -17,13 +17,15 @@ function Menu() {
   return (
     <>
       <ToolBar ClickHandler={() => toggle(!position)} />
-      <div className={classNames(classes.MenuContainer, { [classes.Active]: position })}>
+      <div className={classNames(classes.MenuContainer,
+        { [classes.Active]: position })}
+      >
         <p className={classes.LogoBlue}>Lang</p>
         <div className={classes.Menu}>
           <div className={classes.FlexContainer}>
             <div>
               <div className={classes.Header}>
-                <Link className={classes.Home} to="/">
+                <Link className={classes.Home} to="/main">
                   <p className={classes.Logo}>RS</p>
                   <p className={classes.LogoWhite}>Lang</p>
                 </Link>
@@ -50,7 +52,7 @@ function Menu() {
                 <NavItem
                   title="Выход"
                   icon="path.svg"
-                  link="/login"
+                  link="/"
                   clicked={() => dispatch(logout())}
                 />
               </ul>

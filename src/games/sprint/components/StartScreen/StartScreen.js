@@ -7,17 +7,13 @@ import StyleStartScreen from './style.StartScreen';
 
 import SwitcherLevel from '../../../../common/components/LevelSwitcher';
 
-import Timer from '../Timer/Timer';
-
 import {
-  wordsSelector,
   levelSelector,
 } from '../../redux/selectors';
 
 import {
   initGame,
   setWords,
-  startGame,
   setLevel,
 } from '../../redux/index';
 
@@ -25,33 +21,44 @@ const fetchOptions = {
   method: 'GET',
 };
 
+const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
+
 const StartScreen = () => {
   const dispatch = useDispatch();
   const activeLevel = useSelector(levelSelector);
 
-  const changeActiveLevel = (levelProps) => {
+  const changeActiveLevel = useCallback((levelProps) => {
     if (activeLevel !== levelProps) {
       dispatch(setLevel(levelProps));
     }
-  };
+  }, [dispatch]);
 
   const action = useCallback(
-    (data) => dispatch(setWords(data)), [dispatch],
+    (data) => {
+      data.forEach((el) => {
+        el.falsyTranslate = el.wordTranslate;
+      });
+      data.forEach((el) => {
+        el.falsyTranslate = getRandomInt(2)
+          ? data[getRandomInt(data.length - 1)].falsyTranslate
+          : el.falsyTranslate;
+        el.correctFlag = (el.falsyTranslate === el.wordTranslate);
+      });
+      (dispatch(setWords(data)));
+    }, [dispatch],
   );
-  const page = 1;
+
   const userWordsURL = useMemo(
-    () => `words?page=${page}&group=${activeLevel}`, [activeLevel, page],
+    () => `words?page=0&group=${activeLevel}
+    &wordsPerExampleSentenceLTE=1000&wordsPerPage=300`, [activeLevel],
   );
 
   useAPI(userWordsURL, fetchOptions, action);
 
-  const onInitGame = () => {
-    dispatch(initGame());
-  };
+  const onInitGame = () => dispatch(initGame());
 
   return (
     <StyleStartScreen>
-      {/* <Timer initialTime={3} timeOutHandler={() => console.log('конец')} /> */}
       <h1>
         Спринт
       </h1>
