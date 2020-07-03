@@ -1,6 +1,6 @@
-export const startGame = () => ({
-  type: 'START_GAME',
-  stateGame: true,
+export const setStatusGame = (statusGame) => ({
+  type: 'SET_STATUS_GAME',
+  statusGame,
 });
 
 export const setWords = (gettingWords) => ({
@@ -29,7 +29,7 @@ export const setImage = (image) => ({
 });
 
 const INITIAL_STATE = {
-  stateGame: false,
+  statusGame: '',
   words: {},
   level: 0,
   activeWord: 'base_word',
@@ -37,14 +37,14 @@ const INITIAL_STATE = {
   image: '',
 };
 
-export default (state = INITIAL_STATE, action) => {
+const memoryReducer = (state = INITIAL_STATE, action) => {
   const {
     type,
     ...payload
   } = action;
 
   switch (type) {
-    case 'START_GAME':
+    case 'SET_STATUS_GAME':
     case 'SET_WORDS':
     case 'SET_LEVEL':
     case 'SET_ACTIVE_WORD':
@@ -58,3 +58,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default memoryReducer;

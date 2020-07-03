@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import style from './Lives.module.css';
 
@@ -9,7 +9,7 @@ function Lives({ livesCount, leftLifesHandler, src }) {
     }
   }, [leftLifesHandler, livesCount]);
 
-  function drawLives() {
+  const drawLives = useCallback(() => {
     const lives = [];
 
     for (let i = 0; i < livesCount; i += 1) {
@@ -23,7 +23,7 @@ function Lives({ livesCount, leftLifesHandler, src }) {
     }
 
     return lives;
-  }
+  }, [livesCount, src]);
 
   return (
     <div className={style.Lives}>
@@ -41,7 +41,7 @@ Lives.propTypes = {
 };
 
 Lives.defaultProps = {
-  livesCount: '',
+  livesCount: 0,
   leftLifesHandler: () => {},
   src: '',
 };

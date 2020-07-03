@@ -80,28 +80,20 @@ function Game() {
     setLivesCount(livesCount - 1);
   }, [livesCount]);
 
-  const russianCardHandler = useCallback((cardId) => {
-    setRussianWord(cardId);
-    if (englishWord) {
-      cardId === englishWord ? correct() : incorrect();
+  const cardHandler = useCallback((cardId, word, setWord) => {
+    setWord(cardId);
+    if (word) {
+      cardId === word ? correct() : incorrect();
       checkResult();
     }
-  }, [correct, englishWord, incorrect]);
-
-  const englishCardHandler = useCallback((cardId) => {
-    setEnglishWord(cardId);
-    if (russianWord) {
-      russianWord === cardId ? correct() : incorrect();
-      checkResult();
-    }
-  }, [correct, russianWord, incorrect]);
+  }, [correct, incorrect]);
 
   function checkResult() {
     setTimeout(() => {
       setIsRight(null);
       setRussianWord(null);
       setEnglishWord(null);
-    }, 1000);
+    }, 500);
   }
 
   const gameOverHandler = useCallback(() => {
@@ -123,7 +115,7 @@ function Game() {
         <Timer
           timeOutHandler={gameOverHandler}
           isActive={!isGameOver}
-          initialTime={10}
+          initialTime={100}
         />
       </div>
       <div className={style.CardBlock}>
@@ -132,7 +124,7 @@ function Game() {
             dictionary.map(({ word, id }, index) => (
               <Card
                 key={index}
-                onCardClick={() => englishCardHandler(id)}
+                onCardClick={() => cardHandler(id, russianWord, setEnglishWord)}
                 isActive={englishWord === id}
                 isRight={isRight}
               >
@@ -147,7 +139,7 @@ function Game() {
             dictionary.map(({ translate, id }, index) => (
               <Card
                 key={index}
-                onCardClick={() => russianCardHandler(id)}
+                onCardClick={() => cardHandler(id, englishWord, setRussianWord)}
                 isActive={russianWord === id}
                 isRight={isRight}
               >
@@ -158,7 +150,9 @@ function Game() {
         </div>
       </div>
       {
-        isGameOver ? <GameOver correctAnswers={10} incorrectAnswers={5} /> : ''
+        isGameOver
+          ? <GameOver correctAnswers={correctAnswers} incorrectAnswers={10 - correctAnswers} />
+          : ''
       }
     </div>
   );

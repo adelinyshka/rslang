@@ -31,11 +31,10 @@
   margin: 0;
 }
 
-/* .Wrapper button {
+.Button {
   font-family: Exo, sans-serif;
   width: 175px;
   height: 48px;
-  background-color: #0AD1BD;;
   color: white;
   border: none;
   border-radius: 6px;
@@ -44,9 +43,14 @@
   font-size: 17px;
   line-height: 22px;
   margin-top: 45px;
+  background-color: #0AD1BD;
 }
 
-.Wrapper button:hover {
+.Button:hover {
   background: #08A999;
   cursor: pointer;
-} */
+}
+
+.Button:focus {
+  outline: none;
+}

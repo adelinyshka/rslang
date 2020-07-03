@@ -2,6 +2,11 @@ import { createSelector } from 'reselect';
 
 export const memorySelector = (state) => state.memory;
 
+export const statusGameSelector = createSelector(
+  memorySelector,
+  ({ statusGame }) => statusGame,
+);
+
 export const wordsSelector = createSelector(
   memorySelector,
   ({ words }) => words,
