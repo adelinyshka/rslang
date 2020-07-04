@@ -69,6 +69,14 @@ const SavannahWrapper = styled.div`
     color: white;
     outline: none;
     
+    &.hello {
+      color: green;
+    }
+    
+    &.wrong {
+      opacity: 0.5;
+    }
+    
     &:hover,
     &:focus,
     &:active {
@@ -84,6 +92,10 @@ const SavannahWrapper = styled.div`
     position: absolute;
     bottom: 10%;
     left: calc(50% - 96px/2);
+    
+    &.scale {
+      transform: scale(1.1);
+    }
   }
 `;
 

@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import PropTypes, { func } from 'prop-types';
 import SavannahWrapper from './SavannahWrapper';
 import dictionary from '../Dictionary/Dictionary';
 import { getRandomNumber, shuffle } from '../Helpers/Helpers';
+
+const classNames = require('classnames');
 
 export default function Savannah() {
   const wordNum = getRandomNumber();
@@ -14,19 +18,24 @@ export default function Savannah() {
   const [translation2] = useState(dictionary[getRandomNumber()].translate);
   const [translation3] = useState(dictionary[getRandomNumber()].translate);
 
+  const [answer, setAnswer] = useState(false);
+
+  const [color, setColor] = useState('white');
+
   const arrofNums = [rightAnswer, translation1, translation2, translation3];
 
-  shuffle(arrofNums);
+  const [arrOfWords] = useState(shuffle(arrofNums));
+
+  console.log(word, rightAnswer, arrofNums);
 
   function findMatches(translation, wordItem) {
     dictionary.filter((item) => {
       if (item.translate === translation && item.word === wordItem) {
+        setAnswer(true);
         console.log('right', item.translate, item.word);
       }
     });
   }
-
-  findMatches(translation1);
 
   return (
     <SavannahWrapper>
@@ -44,32 +53,55 @@ export default function Savannah() {
       </div>
       <div className="listWords">
         <button
-          onClick={() => { findMatches(arrofNums[0], word); }}
+          onClick={(e) => {
+            findMatches(arrOfWords[0], word);
+          }}
           type="button"
+          className={classNames({
+            'wrong': answer
+              && arrOfWords[0] !== rightAnswer,
+          })}
         >
-          {(arrofNums[0])}
+          {(arrOfWords[0])}
         </button>
         <button
-          onClick={() => { findMatches(arrofNums[1], word); }}
+          onClick={(e) => {
+            findMatches(arrOfWords[1], word);
+          }}
           type="button"
+          className={classNames({
+            'wrong': answer
+              && arrOfWords[1] !== rightAnswer,
+          })}
         >
-          {(arrofNums[1])}
+          {(arrOfWords[1])}
         </button>
         <button
-          onClick={() => { findMatches(arrofNums[2], word); }}
+          onClick={() => { findMatches(arrOfWords[2], word); }}
           type="button"
+          className={classNames({
+            'wrong': answer
+              && arrOfWords[3] !== rightAnswer,
+          })}
         >
-          {(arrofNums[2])}
+          {(arrOfWords[2])}
         </button>
         <button
-          onClick={() => { findMatches(arrofNums[3], word); }}
+          onClick={() => { findMatches(arrOfWords[3], word); }}
           type="button"
+          className={classNames({
+            'wrong': answer
+              && arrOfWords[3] !== rightAnswer,
+          })}
         >
-          {(arrofNums[3])}
+          {(arrOfWords[3])}
         </button>
       </div>
+
       <img
-        className="crystall"
+        className={classNames('crystall', {
+          'scale': answer,
+        })}
         src="./../assets/images/savannah/crystall_2.svg"
         alt="violet crystall"
       />
