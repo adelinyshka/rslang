@@ -1,0 +1,29 @@
+.AnsweredWord {
+  color: orange;
+}
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.Card {
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(195.78deg, #CDDDF4 3.26%, #CDBAFA 100%);
+  border-radius: 12px 12px 0px 0px;
+}
+
+.Body {
+  overflow: scroll;
+}
+
+.Speaker {
+  display: inline;
+  outline: none;
+}
