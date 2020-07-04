@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
 import Chart from '../Chart/Chart';
+import styles from './Statistics.module.css';
 
 const Statistics = () => {
   const passedCards = 54; // из api
@@ -13,7 +14,7 @@ const Statistics = () => {
   );
 
   return (
-    <div>
+    <div className={styles.StatisticsContainer}>
       <div>
         <h1>Сегодня</h1>
         <p>
