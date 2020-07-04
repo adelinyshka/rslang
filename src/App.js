@@ -26,14 +26,14 @@ const publicRoutes = [
     component: <Signup />,
   },
   {
-    title: 'Промо',
-    path: '/',
-    component: <Promo />,
-  },
-  {
     title: 'О команде',
     path: '/about',
     component: <About />,
+  },
+  {
+    title: 'Промо',
+    path: '/',
+    component: <Promo />,
   },
 ];
 
