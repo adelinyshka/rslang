@@ -40,7 +40,7 @@ export const setSpeechWords = (speechWords) => ({
 
 const INITIAL_STATE = {
   statusGame: '', // no-speach and speach and ''(startScreen)
-  words: {},
+  words: [],
   level: 0,
   activeWord: '',
   translateActiveWord: '',

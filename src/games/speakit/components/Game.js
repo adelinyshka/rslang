@@ -9,6 +9,8 @@ import LevelSwitcher from '../../../common/components/LevelSwitcher';
 import BlockWords from './BlockWords';
 import getWords from '../utils/index';
 import Results from './Results';
+import Rules from './Rules';
+import Exit from './Exit';
 
 import {
   setWords,
@@ -66,7 +68,9 @@ const Game = ({
   const words = useSelector(wordsSelector);
   const activeWord = useSelector(activeWordSelector);
 
-  const [showResult, setShowResult] = useState(false);
+  const [modalResult, setModalResult] = useState(false);
+  const [modalExit, setModalExit] = useState(false);
+  const [modalRules, setModalRules] = useState(false);
 
   console.log(translateActiveWord);
 
@@ -97,7 +101,7 @@ const Game = ({
           dispatch(setImage('./assets/images/speakit/base-game-image.png'));
           dispatch(setTranslateActiveWord(''));
         });
-        setShowResult(false);
+        setModalResult(false);
       }
     });
   }, [dispatch]);
@@ -118,6 +122,20 @@ const Game = ({
       });
     }
   }, [dispatch, statusGame]);
+
+  const exitGame = useCallback(() => {
+    setModalExit(false);
+    batch(() => {
+      dispatch(setStatusGame(''));
+      dispatch(setWords([]));
+      dispatch(setLevel(0));
+      dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+      dispatch(setTranslateActiveWord(''));
+      dispatch(setSpeechActiveWord(''));
+      dispatch(setSpeechWords([]));
+      dispatch(setActiveWord(''));
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     recognition.lang = 'en-US';
@@ -143,6 +161,7 @@ const Game = ({
             dispatch(setSpeechWords(trueSpeechWords));
             dispatch(setImage(linkImage));
           });
+          if (speechWords.lenght === 10) setModalResult(true);
         } else {
           dispatch(setSpeechActiveWord(transcript));
           dispatch(setImage('./assets/images/speakit/base-game-image.png'));
@@ -165,66 +184,82 @@ const Game = ({
   }
 
   return (
-    showResult ? (
-      <StyleGame>
-        <Results />
-        <button
-          type="button"
-          className="button__close-results"
-          onClick={() => setShowResult(false)}
-        >
-          Return
-        </button>
-        <button
-          type="button"
-          className="button__new-game"
-          onClick={() => getNewWords(activeLevel)}
-        >
-          New game
-        </button>
-      </StyleGame>
-    )
-      : (
-        <StyleGame>
-          <LevelSwitcher
-            changeActiveLevel={changeActiveLevel}
+    <StyleGame>
+      {modalResult
+        ? (
+          <Results
+            setModalResult={() => setModalResult(false)}
+            getNewWords={() => getNewWords(activeLevel)}
           />
-          <figure className="figure">
-            <img className="img" src={image} alt={translateActiveWord} />
-            <figcaption className="figcaption">
-              {statusGame === 'speach'
-                ? <img className="microphone" src={imgMicro} alt="Microphone" />
-                : false}
-              {statusGame === 'speach' ? speechActiveWord : translateActiveWord}
-            </figcaption>
-          </figure>
-          <div className="education__block-spoken-words" />
-          <BlockWords />
-          <div className="education__block-button">
-            <button
-              type="button"
-              className="button__restart"
-              onClick={() => dispatch(setSpeechWords([]))}
-            >
-              Restart
-            </button>
-            <button
-              type="button"
-              className="button__speak-please"
-              onClick={() => changeStatusGame()}
-            >
-              {statusGame === 'no-speach' ? 'Speak please' : 'Stop speak'}
-            </button>
-            <button
-              type="button"
-              className="button__show-results"
-              onClick={() => setShowResult(true)}
-            >
-              Results
-            </button>
-          </div>
-        </StyleGame>
-      )
+        )
+        : false}
+      {modalExit
+        ? (
+          <Exit
+            setModalExit={() => setModalExit(false)}
+            exitGame={exitGame}
+          />
+        )
+        : false}
+      {modalRules
+        ? (
+          <Rules
+            setModalRules={() => setModalRules(false)}
+          />
+        )
+        : false}
+      <LevelSwitcher
+        changeActiveLevel={changeActiveLevel}
+      />
+      <div
+        className="container__rules"
+        onClick={() => setModalRules(true)}
+      >
+        <img
+          src="./../assets/images/question.svg"
+          alt="question"
+        />
+      </div>
+      <div
+        className="container__exit"
+        onClick={() => setModalExit(true)}
+      >
+        <div className="cross" />
+      </div>
+      <figure className="figure">
+        <img className="img" src={image} alt={translateActiveWord} />
+        <figcaption className="figcaption">
+          {statusGame === 'speach'
+            ? <img className="microphone" src={imgMicro} alt="Microphone" />
+            : false}
+          {statusGame === 'speach' ? speechActiveWord : translateActiveWord}
+        </figcaption>
+      </figure>
+      <BlockWords />
+      <div>
+        <button
+          type="button"
+          className="button__restart"
+          onClick={() => dispatch(setSpeechWords([]))}
+        >
+          Restart
+        </button>
+        <button
+          type="button"
+          className="button__speak-please"
+          onClick={() => changeStatusGame()}
+        >
+          {statusGame === 'no-speach' ? 'Speak please' : 'Stop speak'}
+        </button>
+        <button
+          type="button"
+          className="button__show-results"
+          onClick={() => setModalResult(true)}
+        >
+          Results
+        </button>
+      </div>
+    </StyleGame>
   );
 };
 

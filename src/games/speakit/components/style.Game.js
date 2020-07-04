@@ -6,6 +6,56 @@ export default style.div`
   text-align: center;
   background: #FAFAFA;
 
+  .container__rules {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 3vw;
+    right: 10vw;
+    width: 39px;
+    height: 35px;
+    background: rgba(105, 121, 248, 0.4);
+    border-radius: 6px;
+  }
+
+  .container__rules img {
+    height: 17px;
+
+  }
+
+  .container__exit {
+    position: absolute;
+    top: 3vw;
+    right: 5vw;
+    width: 35px;
+    height: 35px;
+  }
+
+  .cross::after,
+  .cross::before {
+    content: "";
+    position: absolute;
+    top: 15.5px;
+    left: 5px;
+    border: 2px solid #25282B;
+    border-radius: 100px;
+    width: 25px;
+  }
+
+  .cross::after {
+    transform: rotate(45deg);
+  }
+
+  .cross::before {
+    transform: rotate(-45deg);
+  }
+
+  .container__rules: hover,
+  .container__exit: hover {
+    cursor: pointer;
+  }
+
   .button__restart,
   .button__show-results {
     border: 2px solid #6979F8;
@@ -45,7 +95,7 @@ export default style.div`
   }
 
   .figure {
-    width: 27vw;
+    width: 360px;
     margin-left: auto;
     margin-right: auto;
     background: white;
@@ -54,8 +104,8 @@ export default style.div`
   }
 
   .img {
-    width: 27vw;
-    height: 18vw;
+    width: 360px;
+    height: 240px;
   }
 
   .figcaption {

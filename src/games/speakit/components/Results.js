@@ -1,6 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 import StyleResults from './style.Results';
 
@@ -12,7 +13,7 @@ import {
 const audioPath = 'https://raw.githubusercontent.com/'
   + 'alekchaik/rslang-data/master/';
 
-export default () => {
+const Results = ({ setModalResult, getNewWords }) => {
   const words = useSelector(wordsSelector);
   const speechWords = useSelector(speechWordsSelector);
 
@@ -63,6 +64,27 @@ export default () => {
           })
         }
       </ul>
+      <button
+        type="button"
+        className="button__close-results"
+        onClick={() => setModalResult()}
+      >
+        Return
+      </button>
+      <button
+        type="button"
+        className="button__new-game"
+        onClick={() => getNewWords()}
+      >
+        New game
+      </button>
     </StyleResults>
   );
 };
+
+Results.propTypes = {
+  setModalResult: PropTypes.func.isRequired,
+  getNewWords: PropTypes.func.isRequired,
+};
+
+export default Results;
