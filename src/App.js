@@ -13,6 +13,7 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
+import Dictionary from './dictionary/components/Dictionary/Dictionary';
 
 const publicRoutes = [
   {
@@ -72,6 +73,7 @@ const privateRoutes = [
   {
     title: 'Словарь',
     path: '/dictionary',
+    component: <Dictionary />,
   },
   {
     title: 'Статистика',
@@ -85,9 +87,9 @@ const privateRoutes = [
 ];
 
 function createPrivateRoute({ title, path, component }, isLogged) {
+  if (!isLogged) return <Redirect to="/login" />;
   return (
     <Route key={title} exact path={path}>
-      {!isLogged && <Redirect to="/login" />}
       {component || (
         <div className={styles.PageName}>
           <h1>{title}</h1>

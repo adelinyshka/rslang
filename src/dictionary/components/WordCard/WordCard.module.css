@@ -1,0 +1,63 @@
+.Card {
+  text-align: center;
+}
+
+.Card > div {
+  width: 500px;
+}
+
+.Card > div >div {
+  border-radius: 30px;
+}
+
+.Card button {
+  position: absolute;
+    right: 5%;
+}
+
+.CardHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.CardHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.CardHeader > div,
+.CardHeader > p {
+  margin: 1rem 0 0 0;
+}
+
+.HeaderImg {
+  width: 30%;
+  margin-top: -50px;
+  border-radius: 10px;
+}
+
+.AudioContainer {
+  position: relative;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.AudioContainer p {
+  margin-bottom: 0;
+}
+
+
+.Card .AudioImg {
+  position: absolute;
+    right: 120%;
+    margin-top: -15px;
+    height: 30px;
+    top: 55%;
+}
+
