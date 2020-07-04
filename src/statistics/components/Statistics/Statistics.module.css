@@ -1,4 +1,36 @@
 .StatisticsContainer {
-  width: 80%;
+  width: 60%;
+  height: 100%;
   margin: 0 auto;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  grid-template-areas: 
+            "today chart"
+            "today chart"
+            "games chart"
+            "long long";
+            background-color: #FAFAFA;;
+}
+
+.StatisticsContainer > div {
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.Today {
+  grid-area: today;
+}
+
+.Long {
+  grid-area: long;
+}
+
+.Games {
+  grid-area: games;
+}
+
+.Chart {
+  grid-area: chart;
 }

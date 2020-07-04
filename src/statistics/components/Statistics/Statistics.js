@@ -15,8 +15,8 @@ const Statistics = () => {
 
   return (
     <div className={styles.StatisticsContainer}>
-      <div>
-        <h1>Сегодня</h1>
+      <div className={styles.Today}>
+        <h2>Сегодня</h2>
         <p>
           <span>Количество пройденных карточек</span>
           <span>{passedCards}</span>
@@ -34,7 +34,16 @@ const Statistics = () => {
           <span>{longestStreak}</span>
         </p>
       </div>
-      <Chart data={data} />
+      <div className={styles.Games}>
+        <h2>Статистика по мини-играм</h2>
+        <button type="button">Посмотреть</button>
+      </div>
+      <div className={styles.Chart}>
+        <Chart data={data} />
+      </div>
+      <div className={styles.Long}>
+        <h2>Долгосрочная</h2>
+      </div>
     </div>
   );
 };
