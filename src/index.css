@@ -1,7 +1,8 @@
+
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-SemiBoldItalic.ttf') format('truetype');
+  url('/assets/fonts/Exo-SemiBoldItalic.ttf') format('truetype');
   font-weight: 600;
   font-style: italic;
   font-display: swap;
@@ -10,7 +11,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-ThinItalic.ttf') format('truetype');
+  url('/assets/fonts/Exo-ThinItalic.ttf') format('truetype');
   font-weight: 100;
   font-style: italic;
   font-display: swap;
@@ -19,7 +20,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-Medium.ttf') format('truetype');
+  url('/assets/fonts/Exo-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -28,7 +29,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-Italic.ttf') format('truetype');
+  url('/assets/fonts/Exo-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -37,7 +38,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-Thin.ttf') format('truetype');
+  url('/assets/fonts/Exo-Thin.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -46,7 +47,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-LightItalic.ttf') format('truetype');
+  url('/assets/fonts/Exo-LightItalic.ttf') format('truetype');
   font-weight: 300;
   font-style: italic;
   font-display: swap;
@@ -55,7 +56,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-Regular.ttf') format('truetype');
+  url('/assets/fonts/Exo-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -64,7 +65,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-MediumItalic.ttf') format('truetype');
+  url('/assets/fonts/Exo-MediumItalic.ttf') format('truetype');
   font-weight: 500;
   font-style: italic;
   font-display: swap;
@@ -73,7 +74,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-BoldItalic.ttf') format('truetype');
+  url('/assets/fonts/Exo-BoldItalic.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
   font-display: swap;
@@ -82,7 +83,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-Black.ttf') format('truetype');
+  url('/assets/fonts/Exo-Black.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -91,7 +92,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-ExtraLightItalic.ttf') format('truetype');
+  url('/assets/fonts/Exo-ExtraLightItalic.ttf') format('truetype');
   font-weight: 200;
   font-style: italic;
   font-display: swap;
@@ -100,7 +101,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-ExtraLight.ttf') format('truetype');
+  url('/assets/fonts/Exo-ExtraLight.ttf') format('truetype');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
@@ -109,7 +110,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-SemiBold.ttf') format('truetype');
+  url('/assets/fonts/Exo-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -118,7 +119,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-Bold.ttf') format('truetype');
+  url('/assets/fonts/Exo-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -127,7 +128,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-ExtraBold.ttf') format('truetype');
+  url('/assets/fonts/Exo-ExtraBold.ttf') format('truetype');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -136,7 +137,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-ExtraBoldItalic.ttf') format('truetype');
+  url('/assets/fonts/Exo-ExtraBoldItalic.ttf') format('truetype');
   font-weight: 800;
   font-style: italic;
   font-display: swap;
@@ -145,7 +146,7 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-Light.ttf') format('truetype');
+  url('/assets/fonts/Exo-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -154,13 +155,11 @@
 @font-face {
   font-family: 'Exo';
   src:
-  url('/public/assets/fonts/Exo-BlackItalic.ttf') format('truetype');
+  url('/assets/fonts/Exo-BlackItalic.ttf') format('truetype');
   font-weight: 900;
   font-style: italic;
   font-display: swap;
 }
-
-
 
 body {
   margin: 0;
@@ -173,5 +172,5 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }

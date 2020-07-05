@@ -15,15 +15,19 @@ import styles from './Intervals.module.css';
 const intervalButtonsInfo = [
   {
     title: 'Повтор',
+    bg: '#6979F8',
   },
   {
     title: 'Легко',
+    bg: '#DB7CF5',
   },
   {
     title: 'Средне',
+    bg: '#AA5DDB',
   },
   {
     title: 'Сложно',
+    bg: '#7348BF',
   },
 ];
 
@@ -34,8 +38,15 @@ const Intervals = ({ isPreviousCard }) => {
   const wasAnswered = useSelector(wasAnsweredSelector);
 
   const intervalButtons = useCallback((clicked) => (
-    intervalButtonsInfo.map(({ title }) => (
-      <Button key={title} onClick={clicked}>{title}</Button>
+    intervalButtonsInfo.map(({ title, bg }) => (
+      <Button
+        className={styles.interval_btn}
+        style={{ background: bg, border: bg }}
+        key={title}
+        onClick={clicked}
+      >
+        {title}
+      </Button>
     ))
   ), []);
 
@@ -60,6 +71,7 @@ const Intervals = ({ isPreviousCard }) => {
           : (
             <Button
               type="Button"
+              className={styles.showAnswer}
               onClick={() => dispatch(setAnswered(true))}
             >
               Показать ответ

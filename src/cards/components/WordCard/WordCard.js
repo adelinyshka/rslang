@@ -39,13 +39,13 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
 
   const playAudio = useCallback(() => {
     new Audio('https://raw.githubusercontent.com/alekchaik/'
-    + `rslang-data/master/${audio}`).play();
+      + `rslang-data/master/${audio}`).play();
   }, [audio]);
 
   const cardText = useMemo(() => (
     isPreviousCard || wasAnswered
       ? (
-        <p>
+        <p className={styles.sentence}>
           {testSentenceArr[0]}
           <span className={styles.AnsweredWord}>{word}</span>
           {testSentenceArr[1]}
@@ -53,6 +53,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
       )
       : (
         <TestSentence
+          className={styles.sentence}
           testSentenceArr={testSentenceArr}
           word={word}
           playAudio={playAudio}
@@ -62,11 +63,10 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
 
   const cardFooter = useMemo(
     () => (isShowingAnswer || isPreviousCard || wasAnswered) && (
-      <Card.Footer>
+      <Card.Footer className={styles.Footer}>
         <p>
-        Перевод:
           {' '}
-          <span className={styles.AnsweredWord}>{wordTranslate}</span>
+          <span className={styles.TranslatedWord}>{wordTranslate}</span>
         </p>
       </Card.Footer>
     ), [wordTranslate, isShowingAnswer, isPreviousCard, wasAnswered],
@@ -76,7 +76,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
     <div className={styles.Container}>
       <Navigation isPreviousCard={isPreviousCard} />
       <Card className={styles.Card}>
-        <Card.Header>
+        <Card.Header className={styles.Header}>
           <div
             className={styles.Speaker}
             role="button"
@@ -92,8 +92,8 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
         </Card.Header>
         <Card.Body className={styles.Body}>
           {cardText}
-          <hr />
-          <p>{textExampleTranslate}</p>
+          <hr className={styles.Interval_hr} />
+          <p className={styles.translated_sentence}>{textExampleTranslate}</p>
         </Card.Body>
         {cardFooter}
       </Card>

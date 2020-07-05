@@ -36,12 +36,12 @@ const CardsCarousel = () => {
     >
       {previousCard
       && (
-        <Carousel.Item className={styles.CarouselItem}>
+        <Carousel.Item className={styles.CarouselItemPrev}>
           <WordCard cardInfo={previousCard} isPreviousCard />
         </Carousel.Item>
       )}
       {cardsArr.length && (
-        <Carousel.Item className={styles.CarouselItem}>
+        <Carousel.Item className={styles.CarouselItemNext}>
           <WordCard cardInfo={cardsArr[0]} isPreviousCard={false} />
         </Carousel.Item>
       )}
