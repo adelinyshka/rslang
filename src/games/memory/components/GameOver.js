@@ -8,9 +8,10 @@ function GameOver({ correctAnswers, incorrectAnswers }) {
     <PopUp
       type={correctAnswers > incorrectAnswers ? 'success' : 'error'}
       iconSrc="../assets/images/memory/iconCheck.svg"
-      content={`Процент правильных ответов: 
-        ${Math.floor(correctAnswers
-          / 10 * 100)}%`}
+      // content={`Процент правильных ответов:
+      //   ${Math.floor(correctAnswers
+      //     / 10 * 100)}%`}
+      content={`Правильный ответов: ${correctAnswers}` }
       footer="Попробуйте еще!"
     />
   );

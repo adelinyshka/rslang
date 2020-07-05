@@ -59,21 +59,33 @@ const dictionary = [
   },
 ];
 
+const shuffle = (array) => array.sort(() => Math.random - 0.5);
+
 function Game() {
   const level = 0;
 
   const [russianWord, setRussianWord] = useState();
   const [englishWord, setEnglishWord] = useState();
-  const [isRight, setIsRight] = useState();
+  const [isRight, setIsRight] = useState(null);
   const [livesCount, setLivesCount] = useState(5);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [incorrectAnswers, setInorrectAnswers] = useState(0);
+  const [countCorrectAnswers, setCountCorrectAnswers] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState([]);
+  // const [incorrectAnswers, setInorrectAnswers] = useState(0);
+
   const [isGameOver, setIsGameOver] = useState(false);
 
-  const correct = useCallback(() => {
+  // const dictionaryEng = shuffle(dictionary);
+  // const dictionaryRus = shuffle(dictionaryEng);
+  // console.dir(dictionary);
+  // console.dir(dictionaryRus);
+
+  const correct = useCallback((cardId) => {
+    const cAnswers = correctAnswers;
+    cAnswers.push(cardId);
+    setCorrectAnswers(cAnswers);
     setIsRight(true);
-    setCorrectAnswers(correctAnswers + 1);
-  }, [correctAnswers]);
+    setCountCorrectAnswers(countCorrectAnswers + 1);
+  }, [countCorrectAnswers, correctAnswers]);
 
   const incorrect = useCallback(() => {
     setIsRight(false);
@@ -81,10 +93,13 @@ function Game() {
   }, [livesCount]);
 
   const cardHandler = useCallback((cardId, word, setWord) => {
-    setWord(cardId);
-    if (word) {
-      cardId === word ? correct() : incorrect();
-      checkResult();
+    if (correctAnswers.indexOf(cardId) === -1) {
+      setWord(cardId);
+
+      if (word) {
+        cardId === word ? correct(cardId) : incorrect();
+        checkResult();
+      }
     }
   }, [correct, incorrect]);
 
@@ -127,6 +142,7 @@ function Game() {
                 onCardClick={() => cardHandler(id, russianWord, setEnglishWord)}
                 isActive={englishWord === id}
                 isRight={isRight}
+                isCorrect={correctAnswers.indexOf(id) !== -1}
               >
                 {word}
               </Card>
@@ -142,6 +158,8 @@ function Game() {
                 onCardClick={() => cardHandler(id, englishWord, setRussianWord)}
                 isActive={russianWord === id}
                 isRight={isRight}
+                isCorrect={correctAnswers.indexOf(id) !== -1}
+                disabled="true"
               >
                 {translate}
               </Card>
@@ -151,7 +169,8 @@ function Game() {
       </div>
       {
         isGameOver
-          ? <GameOver correctAnswers={correctAnswers} incorrectAnswers={10 - correctAnswers} />
+          // ? <GameOver countCorrectAnswers={countCorrectAnswers} incorrectAnswers={10 - countCorrectAnswers} />
+          ? <GameOver countCorrectAnswers={countCorrectAnswers} />
           : ''
       }
     </div>
