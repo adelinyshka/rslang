@@ -1,8 +1,11 @@
-export const login = ({ email, token, userId }) => ({
+export const login = ({
+  email, token, userId, refreshToken,
+}) => ({
   type: 'LOG_IN',
   user: {
     email,
     token,
+    refreshToken,
     userId,
   },
 });

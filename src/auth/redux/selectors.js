@@ -26,3 +26,8 @@ export const tokenSelector = createSelector(
   authStateSelector,
   ({ user }) => (user ? user.token : null),
 );
+
+export const refreshTokenSelector = createSelector(
+  authStateSelector,
+  ({ user }) => (user ? user.refreshToken : null),
+);

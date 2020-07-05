@@ -18,8 +18,10 @@ const Login = () => {
   const submitHandler = useCallback((event) => {
     event.preventDefault();
     loginUser({ 'email': email, 'password': password })
-      .then(({ userId, token }) => {
-        dispatch(login({ email, token, userId }));
+      .then(({ userId, token, refreshToken }) => {
+        dispatch(login({
+          email, token, userId, refreshToken,
+        }));
       })
       .catch((er) => console.log(er));
   }, [email, password, dispatch]);
