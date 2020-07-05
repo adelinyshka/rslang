@@ -13,7 +13,9 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Main from './layout/components/Main/Main';
 import Startpage from './games/audiocall/components/Startpage';
+import Game from './games/audiocall/components/Game';
 import Audiocall from './games/audiocall/components/Audiocall';
+import Warning from './games/audiocall/components/Warning';
 
 const authRoutes = [
   {
@@ -50,12 +52,12 @@ const privateRoutes = [
   {
     title: 'Настройки',
     path: '/settings',
-    component: <Audiocall />,
+    component: <Warning />,
   },
   {
     title: 'Игры',
     path: '/games',
-    component: <Startpage />,
+    component: <Audiocall />,
   },
   {
     title: 'Карточки',

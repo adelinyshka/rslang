@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Audiocall.module.css';
 
-export default function Startpage() {
+export default function Startpage({ callback }) {
   return (
     <div className={styles.Startpage}>
       <div className={styles.Header}>
@@ -17,7 +18,11 @@ export default function Startpage() {
       <p>
           Тренировка улучшает восприятие английской речи на слух.
       </p>
-      <button className={styles.StartBtn} type="button">
+      <button
+        onClick={ () => callback(true) }
+        className={styles.StartBtn}
+        type="button"
+      >
         Start
       </button>
       <div className={styles.Footer}>
@@ -30,3 +35,7 @@ export default function Startpage() {
     </div>
   );
 }
+
+Startpage.propTypes = {
+  callback: PropTypes.func.isRequired,
+};

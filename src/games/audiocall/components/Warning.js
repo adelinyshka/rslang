@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Audiocall.module.css';
 
-export default function StartPage() {
+export default function Warning() {
   return (
     <div className={styles.Shadow}>
       <div className={styles.Warning}>
