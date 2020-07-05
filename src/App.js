@@ -94,7 +94,7 @@ const privateRoutes = [
 ];
 
 function createPrivateRoute({ title, path, component }, isLogged) {
-  if (!isLogged) return <Redirect to="/login" />;
+  if (!isLogged) return <Redirect key={title} to="/login" />;
   return (
     <Route key={title} exact path={path}>
       {component || (
@@ -130,7 +130,8 @@ const App = () => {
       };
       const endpoint = `users/${userId}/tokens`;
       fetchJSON(endpoint, fetchOptions)
-        .then((data) => dispatch(setNewTokens(data)));
+        .then((data) => dispatch(setNewTokens(data)))
+        .catch((er) => console.log(er));
     }
   }, [isLogged, isTokenValid, refreshToken, userId, dispatch]);
 
