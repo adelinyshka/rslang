@@ -1,41 +1,92 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import PropTypes, { func } from 'prop-types';
-import SavannahWrapper from './SavannahWrapper';
-import dictionary from '../Dictionary/Dictionary';
 import { getRandomNumber, shuffle } from '../Helpers/Helpers';
+import dictionary from '../Dictionary/Dictionary';
+import SavannahWrapper from './SavannahWrapper';
 
 const classNames = require('classnames');
 
+const randomNumInit = getRandomNumber();
+const wordInit = dictionary[randomNumInit].word;
+const answerInit = dictionary[randomNumInit].translate;
+const arrOfTranslationsInit = [];
+
+arrOfTranslationsInit.push(answerInit);
+
+let counterInit = 0;
+while (counterInit < 3) {
+  const translationInit = dictionary[getRandomNumber()].translate;
+  arrOfTranslationsInit.push(translationInit);
+  counterInit += 1;
+}
+let counterScale = 1;
+const arrOfWordsShuffledInit = shuffle(arrOfTranslationsInit);
+
 export default function Savannah() {
-  const wordNum = getRandomNumber();
+  const [word, setWord] = useState(wordInit);
+  const [answer, setAnswer] = useState(answerInit);
+  const [isRight, setIsRight] = useState(false);
+  const [btnClicked, setBtnClicked] = useState(false);
 
-  const [word] = useState(dictionary[wordNum].word);
-  const [rightAnswer] = useState(dictionary[wordNum].translate);
+  const [scalex, setScalex] = useState(counterScale);
 
-  const [translation1] = useState(dictionary[getRandomNumber()].translate);
-  const [translation2] = useState(dictionary[getRandomNumber()].translate);
-  const [translation3] = useState(dictionary[getRandomNumber()].translate);
+  const [arrOfWords, setArrOfWords] = useState(arrOfWordsShuffledInit);
 
-  const [answer, setAnswer] = useState(false);
+  const getNewWords = useCallback(() => {
+    const randomNumber = getRandomNumber();
+    const newWord = dictionary[randomNumber].word;
+    const newAnswer = dictionary[randomNumber].translate;
+    setWord(newWord);
+    setAnswer(newAnswer);
+    const arrOfTranslations = [];
 
-  const [color, setColor] = useState('white');
+    arrOfTranslations.push(newAnswer);
 
-  const arrofNums = [rightAnswer, translation1, translation2, translation3];
+    let counter = 0;
+    while (counter < 3) {
+      const translation = dictionary[getRandomNumber()].translate;
+      arrOfTranslations.push(translation);
+      counter += 1;
+    }
 
-  const [arrOfWords] = useState(shuffle(arrofNums));
+    const shuffledTranslations = shuffle(arrOfTranslations);
 
-  console.log(word, rightAnswer, arrofNums);
+    setArrOfWords(shuffledTranslations);
+  }, [answer]);
 
-  function findMatches(translation, wordItem) {
-    dictionary.filter((item) => {
-      if (item.translate === translation && item.word === wordItem) {
-        setAnswer(true);
-        console.log('right', item.translate, item.word);
-      }
-    });
+  const refreshWordsOnClick = useCallback(() => {
+    setTimeout(() => {
+      getNewWords();
+      setBtnClicked(false);
+    }, 500);
+  }, [getNewWords]);
+
+  function checkAnswer(wordActive, answerActive) {
+    if (wordActive === answerActive) {
+      setBtnClicked(true);
+      setIsRight(true);
+      setScalex(counterScale += 1);
+      console.log(counterScale);
+      // добавить звук верного ответа
+      // увеличить кристалл
+    } else {
+      setBtnClicked(true);
+      // убрать 1 жизнь
+      // звук проигрыша
+    }
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      getNewWords();
+    }, 4700);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  });
 
   return (
     <SavannahWrapper>
@@ -46,7 +97,11 @@ export default function Savannah() {
           alt="close"
         />
       </Link>
-      <div className="wrapper_falling">
+      <div
+        className={classNames('wrapper_falling',
+          { 'animation': !btnClicked },
+          { 'no-animation': btnClicked })}
+      >
         <h3 className="falling_word">
           {(word)}
         </h3>
@@ -54,45 +109,53 @@ export default function Savannah() {
       <div className="listWords">
         <button
           onClick={(e) => {
-            findMatches(arrOfWords[0], word);
+            checkAnswer(arrOfWords[0], answer);
+            refreshWordsOnClick();
           }}
           type="button"
-          className={classNames({
-            'wrong': answer
-              && arrOfWords[0] !== rightAnswer,
-          })}
+          className={classNames(
+            { 'wrong': btnClicked && arrOfWords[0] !== answer },
+            { 'right': btnClicked && arrOfWords[0] === answer },
+          )}
         >
           {(arrOfWords[0])}
         </button>
         <button
           onClick={(e) => {
-            findMatches(arrOfWords[1], word);
+            checkAnswer(arrOfWords[1], answer);
+            refreshWordsOnClick();
           }}
           type="button"
-          className={classNames({
-            'wrong': answer
-              && arrOfWords[1] !== rightAnswer,
-          })}
+          className={classNames(
+            { 'wrong': btnClicked && arrOfWords[1] !== answer },
+            { 'right': btnClicked && arrOfWords[1] === answer },
+          )}
         >
           {(arrOfWords[1])}
         </button>
         <button
-          onClick={() => { findMatches(arrOfWords[2], word); }}
+          onClick={() => {
+            checkAnswer(arrOfWords[2], answer);
+            refreshWordsOnClick();
+          }}
           type="button"
-          className={classNames({
-            'wrong': answer
-              && arrOfWords[3] !== rightAnswer,
-          })}
+          className={classNames(
+            { 'wrong': btnClicked && arrOfWords[2] !== answer },
+            { 'right': btnClicked && arrOfWords[2] === answer },
+          )}
         >
           {(arrOfWords[2])}
         </button>
         <button
-          onClick={() => { findMatches(arrOfWords[3], word); }}
+          onClick={() => {
+            checkAnswer(arrOfWords[3], answer);
+            refreshWordsOnClick();
+          }}
           type="button"
-          className={classNames({
-            'wrong': answer
-              && arrOfWords[3] !== rightAnswer,
-          })}
+          className={classNames(
+            { 'wrong': btnClicked && arrOfWords[3] !== answer },
+            { 'right': btnClicked && arrOfWords[3] === answer },
+          )}
         >
           {(arrOfWords[3])}
         </button>
@@ -100,7 +163,6 @@ export default function Savannah() {
 
       <img
         className={classNames('crystall', {
-          'scale': answer,
         })}
         src="./../assets/images/savannah/crystall_2.svg"
         alt="violet crystall"
@@ -108,3 +170,16 @@ export default function Savannah() {
     </SavannahWrapper>
   );
 }
+
+// const Img = styled.img`
+//   img.crystall {
+//     display: block;
+//     position: absolute;
+//     bottom: 10%;
+//     left: calc(50% - 96px/2);
+//
+//     &.scale {
+//       transform: scale({scalex});
+//     }
+//   }
+// `;

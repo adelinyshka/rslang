@@ -37,7 +37,15 @@ const SavannahWrapper = styled.div`
     left: 0;
     width: 250px;
     height: 50px;
-    animation: falling 6s;
+    
+  }
+  
+  .animation {
+    animation: falling 5s infinite;
+  }
+  
+  .no-animation {
+    animation: unset;
   }
   
   .falling_word {
@@ -69,8 +77,8 @@ const SavannahWrapper = styled.div`
     color: white;
     outline: none;
     
-    &.hello {
-      color: green;
+    &.right {
+      background: green;
     }
     
     &.wrong {
