@@ -1,3 +1,7 @@
+const INITIAL_STATE = {
+  user: JSON.parse(localStorage.getItem('user')),
+};
+
 export const login = ({
   email, token, userId, refreshToken,
 }) => ({
@@ -15,9 +19,11 @@ export const logout = () => ({
   user: null,
 });
 
-const INITIAL_STATE = {
-  user: JSON.parse(localStorage.getItem('user')),
-};
+export const setNewTokens = ({ token, refreshToken }) => ({
+  type: 'SET_NEW_TOKENS',
+  token,
+  refreshToken,
+});
 
 const authReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
@@ -26,6 +32,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     ...payload,
   };
   switch (type) {
+    case 'SET_NEW_TOKENS':
     case 'LOG_IN':
       localStorage.setItem('user', JSON.stringify(newState.user));
       return newState;

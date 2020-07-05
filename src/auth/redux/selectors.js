@@ -31,3 +31,21 @@ export const refreshTokenSelector = createSelector(
   authStateSelector,
   ({ user }) => (user ? user.refreshToken : null),
 );
+
+const parseJwt = (token) => {
+  const [, base64Url] = token.split('.');
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(atob(base64).split('').map(
+    (c) => `%${(`00${c.charCodeAt(0).toString(16)}`).slice(-2)}`,
+  ).join(''));
+  const { exp } = JSON.parse(jsonPayload);
+
+  return exp;
+};
+
+export const isTokenValidSelector = createSelector(
+  tokenSelector,
+  (token) => (token
+    ? parseJwt(token) * 1000 > Date.now()
+    : false),
+);

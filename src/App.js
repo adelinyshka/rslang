@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Cards from './cards/components/Cards/Cards';
-import { isAuthenticatedSelector } from './auth/redux/selectors';
+import {
+  isAuthenticatedSelector, refreshTokenSelector,
+  isTokenValidSelector, userIdSelector,
+} from './auth/redux/selectors';
+import { setNewTokens } from './auth/redux';
+
+import { fetchJSON } from './common/utils';
+
 import Login from './auth/components/Login';
 import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
@@ -106,7 +113,27 @@ createPrivateRoute.propTypes = {
 };
 
 const App = () => {
+  const dispatch = useDispatch();
   const isLogged = useSelector(isAuthenticatedSelector);
+  const isTokenValid = useSelector(isTokenValidSelector);
+  const refreshToken = useSelector(refreshTokenSelector);
+  const userId = useSelector(userIdSelector);
+  useEffect(() => {
+    if (isLogged && !isTokenValid) {
+      const fetchOptions = {
+        method: 'GET',
+        withCredentials: true,
+        headers: {
+          'Authorization': `Bearer ${refreshToken}`,
+          'Accept': 'application/json',
+        },
+      };
+      const endpoint = `users/${userId}/tokens`;
+      fetchJSON(endpoint, fetchOptions)
+        .then((data) => dispatch(setNewTokens(data)));
+    }
+  }, [isLogged, isTokenValid, refreshToken, userId, dispatch]);
+
   return (
     <Router>
       <Switch>
