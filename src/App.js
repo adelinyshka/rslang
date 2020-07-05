@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router, Switch, Route, Redirect,
@@ -9,7 +9,7 @@ import {
   isAuthenticatedSelector, refreshTokenSelector,
   isTokenValidSelector, userIdSelector,
 } from './auth/redux/selectors';
-import { setNewTokens } from './auth/redux';
+import { login } from './auth/redux';
 
 import { fetchJSON } from './common/utils';
 
@@ -120,9 +120,11 @@ const App = () => {
   const isTokenValid = useSelector(isTokenValidSelector);
   const refreshToken = useSelector(refreshTokenSelector);
   const userId = useSelector(userIdSelector);
+  const [test, setTest] = useState(true);
   useEffect(() => {
     // если пользователь залогинен и токен помер - обновляем токен
     if (isLogged && !isTokenValid) {
+      setTest(false);
       const fetchOptions = {
         method: 'GET',
         withCredentials: true,
@@ -133,10 +135,10 @@ const App = () => {
       };
       const endpoint = `users/${userId}/tokens`;
       fetchJSON(endpoint, fetchOptions)
-        .then((data) => dispatch(setNewTokens(data)))
+        .then((data) => dispatch(login(data)))
         .catch((er) => console.log(er));
     }
-  }, [isLogged, isTokenValid, refreshToken, userId, dispatch]);
+  }, [isLogged, isTokenValid, refreshToken, userId, dispatch, test]);
 
   return (
     <Router>
