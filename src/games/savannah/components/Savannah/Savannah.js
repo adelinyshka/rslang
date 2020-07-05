@@ -1,7 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
 import { getRandomNumber, shuffle } from '../Helpers/Helpers';
 import dictionary from '../Dictionary/Dictionary';
 import SavannahWrapper from './SavannahWrapper';
@@ -21,13 +19,12 @@ while (counterInit < 3) {
   arrOfTranslationsInit.push(translationInit);
   counterInit += 1;
 }
-let counterScale = 1;
+let counterScale = 0.7;
 const arrOfWordsShuffledInit = shuffle(arrOfTranslationsInit);
 
 export default function Savannah() {
   const [word, setWord] = useState(wordInit);
   const [answer, setAnswer] = useState(answerInit);
-  const [isRight, setIsRight] = useState(false);
   const [btnClicked, setBtnClicked] = useState(false);
 
   const [scalex, setScalex] = useState(counterScale);
@@ -66,9 +63,7 @@ export default function Savannah() {
   function checkAnswer(wordActive, answerActive) {
     if (wordActive === answerActive) {
       setBtnClicked(true);
-      setIsRight(true);
-      setScalex(counterScale += 1);
-      console.log(counterScale);
+      setScalex(counterScale += 0.05);
       // добавить звук верного ответа
       // увеличить кристалл
     } else {
@@ -166,20 +161,8 @@ export default function Savannah() {
         })}
         src="./../assets/images/savannah/crystall_2.svg"
         alt="violet crystall"
+        style={{ transform: `scale(${scalex})` }}
       />
     </SavannahWrapper>
   );
 }
-
-// const Img = styled.img`
-//   img.crystall {
-//     display: block;
-//     position: absolute;
-//     bottom: 10%;
-//     left: calc(50% - 96px/2);
-//
-//     &.scale {
-//       transform: scale({scalex});
-//     }
-//   }
-// `;

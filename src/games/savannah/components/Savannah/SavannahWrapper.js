@@ -100,10 +100,7 @@ const SavannahWrapper = styled.div`
     position: absolute;
     bottom: 10%;
     left: calc(50% - 96px/2);
-    
-    &.scale {
-      transform: scale(1.1);
-    }
+    transform: scal
   }
 `;
 
