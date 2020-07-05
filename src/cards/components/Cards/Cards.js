@@ -35,16 +35,20 @@ const Cards = () => {
 
   if (!cardsArr || !cardsArr.length) {
     return (
-      <div className={styles.EmptyCards}>
-        <h1>Карточек не осталось</h1>
+      <div className={styles.bgColor}>
+        <div className={styles.EmptyCards}>
+          <h1>Карточек не осталось</h1>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className={styles.Container}>
-      <CardsCarousel />
-      <Progress cardsArr={cardsArr} newCardsAmount={20} />
+    <div className={styles.bgColor}>
+      <div className={styles.Container}>
+        <CardsCarousel />
+        <Progress cardsArr={cardsArr} newCardsAmount={20} />
+      </div>
     </div>
   );
 };

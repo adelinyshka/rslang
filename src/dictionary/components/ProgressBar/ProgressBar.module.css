@@ -1,0 +1,26 @@
+.ProgressBar div {
+  background:#D2E3DA;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.ProgressBar .Cyan {
+  background:#0AD1BD;
+}
+
+.ProgressBar .DarkGreen {
+  background:#528D84;
+}
+
+.ProgressBar .Green {
+  background: #5FA96F;
+}
+
+.ProgressBar .LightGreen {
+  background: #95CAA1;
+}
+
+.ProgressBar .Orange {
+  background: #F4B22F;
+}

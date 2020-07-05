@@ -1,0 +1,47 @@
+.Table {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.Header {
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+/* Каждая строка */
+
+.Table > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  margin: 15px 0;
+  border-bottom: 2px solid #ECEBED;
+}
+
+/* Каждый столбец */
+
+.Table > div > div {
+  display: flex;
+  justify-content: space-evenly;
+  width: 12%
+}
+
+/* Первый столбец в каждой строке (место нахождения слов и перевода) */
+
+.Table > div > div:nth-child(1) {
+  width: 40%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Table label {
+  display: flex;
+  height: 100%;
+  width: 10%;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}

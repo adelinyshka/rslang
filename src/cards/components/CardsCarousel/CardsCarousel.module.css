@@ -1,5 +1,5 @@
 .Carousel {
-  height: 80%;
+  min-height: 300px;
 }
 
 .Carousel > a {
@@ -12,7 +12,12 @@
   align-items: center;
 }
 
-.CarouselItem {
+.CarouselItemPrev {
+  margin: 0 auto;
+  height: 100%;
+}
+
+.CarouselItemNext {
   margin: 0 auto;
   height: 100%;
 }
@@ -31,4 +36,26 @@
   width: 24px;
   height: 44px;
   margin: 5px;
+}
+
+@media (max-width: 767px) {
+  .Carousel {
+    margin-top: 30px;
+  }
+
+  .RightArrow,
+  .LeftArrow {
+    margin: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .Carousel {
+    margin-top: 5px;
+  }
+
+  .RightArrow,
+  .LeftArrow {
+    display: none;
+  }
 }
