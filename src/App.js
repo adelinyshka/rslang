@@ -114,11 +114,14 @@ createPrivateRoute.propTypes = {
 
 const App = () => {
   const dispatch = useDispatch();
+  // есть ли у нас данные о пользователе
   const isLogged = useSelector(isAuthenticatedSelector);
+  // декодинг токена, сравнение его срока годности с датой
   const isTokenValid = useSelector(isTokenValidSelector);
   const refreshToken = useSelector(refreshTokenSelector);
   const userId = useSelector(userIdSelector);
   useEffect(() => {
+    // если пользователь залогинен и токен помер - обновляем токен
     if (isLogged && !isTokenValid) {
       const fetchOptions = {
         method: 'GET',
