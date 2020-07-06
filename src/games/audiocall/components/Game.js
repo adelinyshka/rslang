@@ -1,24 +1,37 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Audiocall.module.css';
 
 export default function Game({ callback }) {
   const [hint, setHint] = useState(true);
+  const [warn, setWarn] = useState(true);
   let className = '';
+  let warning = styles.ShadowHide;
+  const changeVisible = () => {
+    setWarn(!warn);
+  };
+
+  if (warn) {
+    warning = styles.ShadowHide;
+  } else {
+    warning = styles.Shadow;
+  }
+
   const changeStatus = () => {
     setHint(!hint);
-    if (!hint) {
-      className = styles.Notification;
-    } else {
-      className = styles.Hide;
-    }
   };
+
   if (!hint) {
     className = styles.Notification;
   } else {
     className = styles.Hide;
   }
   // console.log(className);
+  function leaveOut() {
+    changeVisible(false);
+  }
+
   function handleClick(e) {
     changeStatus(false);
     console.log(e.target);
@@ -39,7 +52,7 @@ export default function Game({ callback }) {
         <img
           src="./assets/images/audiocall/xwhite.png"
           alt="xwhite"
-          onClick={ () => callback(false) }
+          onClick={leaveOut}
         />
       </div>
       <div className={ className }>
@@ -92,6 +105,33 @@ export default function Game({ callback }) {
         <button className={styles.AnswerBtn} type="button">
             Не знаю
         </button>
+      </div>
+      <div className={ warning }>
+        <div className={styles.Warning}>
+          <img
+            src="./assets/images/audiocall/attention.png"
+            alt="attention"
+          />
+          <p>
+            Если вы выйдете во время игры, то прогресс не сохранится
+          </p>
+          <div className={styles.Butns}>
+            <button
+              type="button"
+              className={styles.Cancel}
+              onClick={leaveOut}
+            >
+                Отменить
+            </button>
+            <button
+              type="button"
+              className={styles.Exit}
+              onClick={ () => callback(false) }
+            >
+                Выйти
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

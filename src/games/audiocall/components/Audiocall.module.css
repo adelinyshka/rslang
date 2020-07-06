@@ -152,7 +152,7 @@
 
 .BtnNtfcation,
 .BtnNtfcation:active,
-.StarBtnNtfcation:focus {
+.BtnNtfcation:focus {
   cursor: pointer;
   outline: none;
 }
@@ -178,6 +178,10 @@
   width: 46px;
   height: 46px;
   margin: 0;
+}
+
+.Answer img:hover {
+  cursor: pointer;
 }
 
 .Answer p {
@@ -250,6 +254,113 @@
   cursor: pointer;
   outline: none;
 }
+
+.Shadow {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: #0008;
+}
+
+.ShadowHide {
+  display: none;
+}
+
+.Warning {
+  width: 700px;
+  height: 430px;
+  padding: 10px 10px;
+  background: linear-gradient(180deg, #FDAFBB 75%, #ffffff 25%);
+  border: 2px solid #d6564f;
+  border-radius: 5px;
+  text-align: left;
+  word-break: break-all;
+}
+
+.Warning img {
+  display: block;
+  margin: auto;
+  width: 150px;
+  height: 150px;
+}
+
+.Warning p {
+  display: block;
+  margin: auto;
+  width: 310px;
+  height: 80px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 40px;
+  text-align: center;
+  color: #000000;
+}
+
+.Butns {
+  display: flex;
+  width: 375px;
+  justify-content: space-between;
+  margin: 109px auto;
+}
+
+.Exit {
+  background: #6979f8;
+  width: 175px;
+  height: 48px;
+  border-radius: 6px;
+  color: white;
+  border: none;
+  outline: none;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 22px;
+}
+
+.Exit,
+.Exit:active,
+.Exit:focus,
+.Cancel,
+.Cancel:active,
+.Cancel:focus {
+  cursor: pointer;
+  outline: none;
+}
+
+.Cancel:hover {
+  opacity: 1;
+  transition: ease-out 0.1s;
+}
+
+.Exit:hover {
+  opacity: 0.7;
+  transition: ease-out 0.1s;
+}
+
+.Cancel {
+  width: 175px;
+  height: 48px;
+  background-color: rgba(255, 255, 255, 0);
+  color: #6979F8;
+  border: 2px solid #6979F8;
+  border-radius: 7px;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 22px;
+  opacity: 0.8;
+}
+
 @media screen and (max-width: 1000px) {
   .Words {
     display: block;
