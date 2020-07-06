@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import StartPageWrapper from './StartPageWrapper';
+import {
+  setStatusGame,
+} from '../../redux/index';
 
-export default function StartPage() {
+const StartPage = () => {
+  const dispatch = useDispatch();
+
+  const onStart = useCallback(() => {
+    dispatch(setStatusGame('play'));
+  }, [dispatch]);
+
   return (
     <StartPageWrapper>
       {/* временно на главную чтобы видно было переход */}
@@ -22,13 +32,14 @@ export default function StartPage() {
           перевод слова.
         </div>
         <Form>
-          <Link to="/games/savannah">
-            <Button
-              className="start_btn"
-            >
+          {/* <Link to="/games/savannah"> */}
+          <Button
+            className="start_btn"
+            onClick={onStart}
+          >
               Start
-            </Button>
-          </Link>
+          </Button>
+          {/* </Link> */}
         </Form>
       </div>
       <img
@@ -38,4 +49,6 @@ export default function StartPage() {
       />
     </StartPageWrapper>
   );
-}
+};
+
+export default StartPage;
