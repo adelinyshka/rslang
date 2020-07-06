@@ -37,7 +37,7 @@ const TestSentence = ({
   const [value, setValue] = useState('');
   const [mistake, setMistake] = useState();
   const wrongAnswer = useMemo(() => mistake && (
-    <div>
+    <div className={styles.sentenceRight}>
       {testSentenceArr[0]}
       <span className={styles.WrongAnswer}>
         {mistakesInWord(mistake, word)}
@@ -65,7 +65,7 @@ const TestSentence = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <p>
+      <p className={styles.sentence}>
         {testSentenceArr[0]}
         <input
           type="text"
