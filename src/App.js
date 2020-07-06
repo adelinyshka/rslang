@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Cards from './cards/components/Cards/Cards';
 import {
   isAuthenticatedSelector, refreshTokenSelector,
-  isTokenValidSelector, userIdSelector,
+  userIdSelector,
 } from './auth/redux/selectors';
 import { login } from './auth/redux';
 
@@ -117,26 +117,28 @@ const App = () => {
   // есть ли у нас данные о пользователе
   const isLogged = useSelector(isAuthenticatedSelector);
   // декодинг токена, сравнение его срока годности с датой
-  const isTokenValid = useSelector(isTokenValidSelector);
   const refreshToken = useSelector(refreshTokenSelector);
   const userId = useSelector(userIdSelector);
   useEffect(() => {
     // если пользователь залогинен и токен помер - обновляем токен
-    if (isLogged && !isTokenValid) {
-      const fetchOptions = {
-        method: 'GET',
-        withCredentials: true,
-        headers: {
-          'Authorization': `Bearer ${refreshToken}`,
-          'Accept': 'application/json',
-        },
-      };
-      const endpoint = `users/${userId}/tokens`;
-      fetchJSON(endpoint, fetchOptions)
-        .then((data) => dispatch(login(data)))
-        .catch((er) => console.log(er));
-    }
-  }, [isLogged, isTokenValid, refreshToken, userId, dispatch]);
+    const intervalId = setInterval(() => {
+      if (isLogged) {
+        const fetchOptions = {
+          method: 'GET',
+          withCredentials: true,
+          headers: {
+            'Authorization': `Bearer ${refreshToken}`,
+            'Accept': 'application/json',
+          },
+        };
+        const endpoint = `users/${userId}/tokens`;
+        fetchJSON(endpoint, fetchOptions)
+          .then((data) => dispatch(login(data)))
+          .catch((er) => console.log(er));
+      }
+    }, 600000);
+    return () => clearInterval(intervalId);
+  }, [isLogged, refreshToken, userId, dispatch]);
 
   return (
     <Router>
