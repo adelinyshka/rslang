@@ -75,6 +75,10 @@ export default function Game() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      if (isGameOver) {
+        console.log('finish');
+        return;
+      }
       getNewWords();
     }, 4700);
 
@@ -85,6 +89,7 @@ export default function Game() {
 
   const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
+    setWord(' ');
   }, []);
 
   return (
@@ -102,10 +107,16 @@ export default function Game() {
         leftLifesHandler={gameOverHandler}
         src="./../assets/images/savannah/heart_full.svg"
       />
+      {
+        isGameOver
+          ? <h2 style={{ textAlign: 'center', color: 'red' }}>Game Over</h2>
+          : ''
+      }
       <div
         className={classNames('wrapper_falling',
           { 'animation': !btnClicked },
-          { 'no-animation': btnClicked })}
+          { 'no-animation': btnClicked },
+          { 'no-animation': isGameOver })}
       >
         <h3 className="falling_word">
           {(word)}

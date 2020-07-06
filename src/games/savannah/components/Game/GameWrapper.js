@@ -39,14 +39,14 @@ const GameWrapper = styled.div`
     height: 50px;
   }
   
-  // .animation {
-  //   animation: falling 5s infinite;
-  // }
-  //
-  // .no-animation {
-  //   animation: unset;
-  // }
-  //
+  .animation {
+    animation: falling 5s infinite;
+  }
+
+  .no-animation {
+    animation: unset;
+  }
+
   .falling_word {
     font-size: 35px;
     text-align: center;
