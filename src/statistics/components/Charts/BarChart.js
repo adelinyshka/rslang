@@ -2,17 +2,28 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
 
-const options = { responsive: true };
+const options = { responsive: true, maintainAspectRatio: false };
 
 const BarChart = ({ data }) => {
-  console.log(data);
+  const labels = useMemo(() => data.map(({ t }) => (
+    t.toLocaleDateString({}, {
+      day: '2-digit', month: '2-digit', year: '2-digit',
+    })
+  )), [data]);
+
   const dataBar = useMemo(() => ({
+    labels,
     datasets: [
       {
+        label: 'Количество изученных карточек',
+        backgroundColor: '#567DF4',
+        borderColor: '#6979F8',
+        borderWidth: 1,
         data,
       },
     ],
-  }), [data]);
+  }), [data, labels]);
+
   return <Bar data={dataBar} options={options} />;
 };
 

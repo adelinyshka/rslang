@@ -14,7 +14,10 @@ const Statistics = () => {
     () => [passedCards, rightAnswers, newWords, longestStreak],
     [passedCards, rightAnswers, newWords, longestStreak],
   );
-  const barData = useMemo(() => Array(5).fill(null).map((el, i) => ({ x: i, y: doughnutData[i] })), [doughnutData]);
+  // заглушка, из api (t - не магическое число, так надо по документации графиков)
+  const barData = useMemo(
+    () => Array(20).fill(null).map((el, i) => ({ t: new Date(Date.UTC(2020, 7, i)), y: i * i })), [],
+  );
 
   const todayCardsInfo = useMemo(() => ([
     {
@@ -71,9 +74,8 @@ const Statistics = () => {
       <div className={styles.DoughnutChart}>
         <DoughnutChart data={doughnutData} />
       </div>
-      <div>
-        <h2>Долгосрочная</h2>
-        <BarChart data={barData} className={styles.BarChart} />
+      <div className={styles.BarChart}>
+        <BarChart data={barData} />
       </div>
     </div>
   );

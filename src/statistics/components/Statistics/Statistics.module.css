@@ -11,10 +11,13 @@
             "today chart"
             "today chart"
             "games chart"
+            "long long "
             "long long ";
+
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  background-color: #FAFAFA;;
+  grid-template-rows: repeat(5, 1fr);
+  background-color: #FAFAFA;
+  overflow: scroll;
 }
 
 .StatisticsContainer > div {
@@ -52,6 +55,8 @@
 
 .BarChart {
   width: 100%;
+  grid-area: long;
+  height: 100%;
 }
 
 .Games {
@@ -68,25 +73,27 @@
 .DoughnutChart {
   grid-area: chart;
   pointer-events: none;
+  height: 80%;
+
 }
 
 @media (max-width: 768px) {
   .StatisticsContainer {
+    margin-top:50px;
     width: 100%;
     margin: 0;
     align-items: center;
     justify-content: center;
+    gap: 20px;
     grid-template-areas: 
-                    "chart chart"
                     "chart chart"
                     "today today"
                     "games games"
                     "long long ";
+  grid-template-rows: repeat(4, 1fr);
+
   }
   .DoughnutChart{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
+    height: 100px;
   }
 }
