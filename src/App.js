@@ -14,6 +14,7 @@ import styles from './App.module.css';
 import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
+import Settings from './settings/components/Settings/Settings';
 
 const publicRoutes = [
   {
@@ -60,6 +61,7 @@ const privateRoutes = [
   {
     title: 'Настройки',
     path: '/settings',
+    component: <Settings />,
   },
   {
     title: 'Игры',
