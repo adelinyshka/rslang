@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
 export default styled.div`
+height: 100vh;
+width: 100%;
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-items: center;
-.taimerContainer{
-  height: 40px;
-  width: 40px;
-}
-`;
+background: #003906;
+align-items: center;`;

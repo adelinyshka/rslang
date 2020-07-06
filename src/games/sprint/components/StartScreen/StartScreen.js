@@ -1,8 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {
+  Button, Navbar, Form, Nav,
+} from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
-import useAPI from '../../../../common/utils/index';
 import StyleStartScreen from './style.StartScreen';
 
 import SwitcherLevel from '../../../../common/components/LevelSwitcher';
@@ -13,15 +15,8 @@ import {
 
 import {
   initGame,
-  setWords,
   setLevel,
 } from '../../redux/index';
-
-const fetchOptions = {
-  method: 'GET',
-};
-
-const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
 const StartScreen = () => {
   const dispatch = useDispatch();
@@ -33,51 +28,38 @@ const StartScreen = () => {
     }
   }, [dispatch]);
 
-  const action = useCallback(
-    (data) => {
-      data.forEach((el) => {
-        el.falsyTranslate = el.wordTranslate;
-      });
-      data.forEach((el) => {
-        el.falsyTranslate = getRandomInt(2)
-          ? data[getRandomInt(data.length - 1)].falsyTranslate
-          : el.falsyTranslate;
-        el.correctFlag = (el.falsyTranslate === el.wordTranslate);
-      });
-      (dispatch(setWords(data)));
-    }, [dispatch],
-  );
-
-  const userWordsURL = useMemo(
-    () => `words?page=0&group=${activeLevel}
-    &wordsPerExampleSentenceLTE=1000&wordsPerPage=300`, [activeLevel],
-  );
-
-  useAPI(userWordsURL, fetchOptions, action);
-
   const onInitGame = () => dispatch(initGame());
 
   return (
     <StyleStartScreen>
-      <h1>
+      <div>
+        <h1 className="gameName">
         Спринт
-      </h1>
-      <p>
+        </h1>
+      </div>
+      <div className="text">
+        <p>
       Учит быстро переводить с английского на ваш родной язык.
-        <br />
-      Для этой тренировки используются слова из вашего словаря или
-        <br />
-      вы можете выбрать уровень сложности случайных слов.
-      </p>
+          <br />
+      Для этой тренировки используются слова из вашего словаря и
+          <br />
+       случайные слова.
+        </p>
+      </div>
       <SwitcherLevel
         changeActiveLevel={changeActiveLevel}
       />
-      <button
-        type="button"
+      <Button
+        className="start_btn"
+        variant="outline-success"
         onClick={onInitGame}
       >
-          Start
-      </button>
+        Start
+      </Button>
+      <div className="imgCantainer">
+        <img src="/assets/images/sprint/sprint_startscreen.svg" />
+        <div />
+      </div>
     </StyleStartScreen>
   );
 };

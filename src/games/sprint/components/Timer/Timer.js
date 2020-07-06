@@ -19,11 +19,11 @@ function Timer({ isActive, timeOutHandler, initialTime }) {
 
   return (
     <StyleTimer>
-      <h1>
+      <p>
         {
           timer
         }
-      </h1>
+      </p>
     </StyleTimer>
   );
 }
