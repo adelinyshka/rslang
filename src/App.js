@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router, Switch, Route, Redirect,
@@ -120,11 +120,9 @@ const App = () => {
   const isTokenValid = useSelector(isTokenValidSelector);
   const refreshToken = useSelector(refreshTokenSelector);
   const userId = useSelector(userIdSelector);
-  const [test, setTest] = useState(true);
   useEffect(() => {
     // если пользователь залогинен и токен помер - обновляем токен
     if (isLogged && !isTokenValid) {
-      setTest(false);
       const fetchOptions = {
         method: 'GET',
         withCredentials: true,
@@ -138,7 +136,7 @@ const App = () => {
         .then((data) => dispatch(login(data)))
         .catch((er) => console.log(er));
     }
-  }, [isLogged, isTokenValid, refreshToken, userId, dispatch, test]);
+  }, [isLogged, isTokenValid, refreshToken, userId, dispatch]);
 
   return (
     <Router>
