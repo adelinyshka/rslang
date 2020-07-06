@@ -1,8 +1,68 @@
 .Intervals {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  width: calc(80% + 20px);
 }
 
 .Intervals button {
-  margin: 10px;
+  margin: 20px 10px;
+}
+
+.interval_btn {
+  font-size: 17px;
+  border-radius: 16px;
+  padding: 13px 15px;
+  width: 93px;
+}
+
+.interval_btn:hover,
+.interval_btn:focus,
+.interval_btn:active {
+  transform: scale(1.1);
+}
+
+.showAnswer {
+  background: #7348BF;
+  border: #7348BF;
+}
+
+.showAnswer:hover,
+.showAnswer:focus,
+.showAnswer:active {
+  transform: scale(1.1);
+  background: #7348BF;
+  border: #7348BF;
+}
+
+@media (max-width: 767px) {
+  .Intervals {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 767px) {
+  .Intervals {
+    padding-top: 50px;
+    flex-wrap: wrap;
+    width: calc(80% + 20px);
+    justify-content: space-around;
+    margin: 0 auto;
+  }
+
+  .Intervals button, .interval_btn {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .Intervals {
+    flex-wrap: wrap;
+    width: calc(100% + 10px);
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .Intervals button, .interval_btn {
+    margin: 5px 5px;
+  }
 }
