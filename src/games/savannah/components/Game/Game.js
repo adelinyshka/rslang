@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getRandomNumber, shuffle } from '../Helpers/Helpers';
 import dictionary from '../Dictionary/Dictionary';
 import GameWrapper from './GameWrapper';
+import Lives from '../Lives/Lives';
 
 const classNames = require('classnames');
 
@@ -28,6 +29,8 @@ export default function Game() {
   const [btnClicked, setBtnClicked] = useState(false);
   const [scalex, setScalex] = useState(counterScale);
   const [arrOfWords, setArrOfWords] = useState(arrOfWordsShuffledInit);
+  const [livesCount, setLivesCount] = useState(5);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const getNewWords = useCallback(() => {
     const randomNumber = getRandomNumber();
@@ -65,7 +68,7 @@ export default function Game() {
       // добавить звук верного ответа
     } else {
       setBtnClicked(true);
-      // убрать 1 жизнь
+      setLivesCount(livesCount - 1);
       // звук проигрыша
     }
   }
@@ -80,6 +83,10 @@ export default function Game() {
     };
   });
 
+  const gameOverHandler = useCallback(() => {
+    setIsGameOver(true);
+  }, []);
+
   return (
     <GameWrapper>
       <Link to="">
@@ -89,6 +96,12 @@ export default function Game() {
           alt="close"
         />
       </Link>
+
+      <Lives
+        livesCount={livesCount}
+        leftLifesHandler={gameOverHandler}
+        src="./../assets/images/savannah/heart_full.svg"
+      />
       <div
         className={classNames('wrapper_falling',
           { 'animation': !btnClicked },
