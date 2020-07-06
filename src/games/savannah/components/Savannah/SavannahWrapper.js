@@ -37,17 +37,16 @@ const SavannahWrapper = styled.div`
     left: 0;
     width: 250px;
     height: 50px;
-    
   }
   
-  .animation {
-    animation: falling 5s infinite;
-  }
-  
-  .no-animation {
-    animation: unset;
-  }
-  
+  // .animation {
+  //   animation: falling 5s infinite;
+  // }
+  //
+  // .no-animation {
+  //   animation: unset;
+  // }
+  //
   .falling_word {
     font-size: 35px;
     text-align: center;
@@ -78,7 +77,8 @@ const SavannahWrapper = styled.div`
     outline: none;
     
     &.right {
-      background: green;
+      background: rgba(125, 223, 195, 0.6);
+      border-radius: 8px;
     }
     
     &.wrong {
@@ -100,7 +100,6 @@ const SavannahWrapper = styled.div`
     position: absolute;
     bottom: 10%;
     left: calc(50% - 96px/2);
-    transform: scal
   }
 `;
 

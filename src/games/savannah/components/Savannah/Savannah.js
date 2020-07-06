@@ -26,9 +26,7 @@ export default function Savannah() {
   const [word, setWord] = useState(wordInit);
   const [answer, setAnswer] = useState(answerInit);
   const [btnClicked, setBtnClicked] = useState(false);
-
   const [scalex, setScalex] = useState(counterScale);
-
   const [arrOfWords, setArrOfWords] = useState(arrOfWordsShuffledInit);
 
   const getNewWords = useCallback(() => {
@@ -65,7 +63,6 @@ export default function Savannah() {
       setBtnClicked(true);
       setScalex(counterScale += 0.05);
       // добавить звук верного ответа
-      // увеличить кристалл
     } else {
       setBtnClicked(true);
       // убрать 1 жизнь
