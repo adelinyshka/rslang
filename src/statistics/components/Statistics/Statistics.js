@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
+import { Button } from 'react-bootstrap';
 
-import Chart from '../Chart/Chart';
+import DoughnutChart from '../Charts/DoughnutChart';
+import BarChart from '../Charts/BarChart';
 import styles from './Statistics.module.css';
 
 const Statistics = () => {
@@ -8,41 +10,70 @@ const Statistics = () => {
   const rightAnswers = 50; // из api
   const newWords = 30; // из api
   const longestStreak = 20; // из api
-  const data = useMemo(
+  const doughnutData = useMemo(
     () => [passedCards, rightAnswers, newWords, longestStreak],
     [passedCards, rightAnswers, newWords, longestStreak],
+  );
+  const barData = useMemo(() => Array(5).fill(null).map((el, i) => ({ x: i, y: doughnutData[i] })), [doughnutData]);
+
+  const todayCardsInfo = useMemo(() => ([
+    {
+      title: 'Количество пройденных карточек',
+      value: passedCards,
+      color: '#567DF4',
+    },
+    {
+      title: '% верных ответов',
+      value: rightAnswers,
+      color: '#784AC1',
+    },
+    {
+      title: 'Количество новых слов',
+      value: newWords,
+      color: '#DB7CF5',
+    },
+    {
+      title: 'Самая длинная серия верных ответов',
+      value: longestStreak,
+      color: '#4CE364',
+    },
+  ]), [passedCards, rightAnswers, newWords, longestStreak]);
+
+  const todayCards = useMemo(
+    () => todayCardsInfo.map(({ title, value, color }) => (
+      <p key={title}>
+        <span>
+          <span className={styles.Marker} style={{ backgroundColor: color }} />
+          {title}
+        </span>
+        <span style={{ color }}>{value}</span>
+      </p>
+    )), [todayCardsInfo],
   );
 
   return (
     <div className={styles.StatisticsContainer}>
       <div className={styles.Today}>
         <h2>Сегодня</h2>
-        <p>
-          <span>Количество пройденных карточек</span>
-          <span>{passedCards}</span>
-        </p>
-        <p>
-          <span>% верных ответов</span>
-          <span>{rightAnswers}</span>
-        </p>
-        <p>
-          <span>Количество новых слов</span>
-          <span>{newWords}</span>
-        </p>
-        <p>
-          <span>Самая длинная серия верных ответов</span>
-          <span>{longestStreak}</span>
-        </p>
+        <div className={styles.TodayContainer}>
+          {todayCards}
+        </div>
       </div>
       <div className={styles.Games}>
         <h2>Статистика по мини-играм</h2>
-        <button type="button">Посмотреть</button>
+        <Button
+          type="button"
+          style={{ backgroundColor: '#6979F8' }}
+        >
+          Посмотреть
+        </Button>
       </div>
-      <div className={styles.Chart}>
-        <Chart data={data} />
+      <div className={styles.DoughnutChart}>
+        <DoughnutChart data={doughnutData} />
       </div>
-      <div className={styles.Long}>
+      <div>
         <h2>Долгосрочная</h2>
+        <BarChart data={barData} className={styles.BarChart} />
       </div>
     </div>
   );
