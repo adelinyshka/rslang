@@ -8,6 +8,23 @@
   margin: 0 auto;
 }
 
+.cross {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+.rules {
+  position: absolute;
+  top: 20px;
+  right: 80px;
+}
+
+.cross:hover, 
+.rules:hover {
+  cursor: pointer;
+}
+
 .Level {
   height: 30px;
   margin: 20px;

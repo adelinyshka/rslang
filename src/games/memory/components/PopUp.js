@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import style from './PopUp.module.css';
 
 function PopUp({
@@ -25,5 +27,19 @@ function PopUp({
     </div>
   );
 }
+
+PopUp.propTypes = {
+  onClick: PropTypes.func,
+  iconSrc: PropTypes.string,
+  content: PropTypes.string,
+  type: PropTypes.string,
+};
+
+PopUp.defaultProps = {
+  onClick: () => {},
+  iconSrc: '',
+  content: '',
+  type: '',
+};
 
 export default PopUp;

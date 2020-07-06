@@ -46,4 +46,8 @@ export default style.div`
   .correct:hover {
     cursor: not-allowed;
   }
+
+  .hide {
+    display: none;
+  }
 `;

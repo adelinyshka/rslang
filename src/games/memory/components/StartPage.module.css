@@ -51,6 +51,16 @@
   cursor: pointer;
 }
 
+.Wrapper img {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+.cross:hover {
+  cursor: pointer;
+}
+
 .Button:focus {
   outline: none;
 }

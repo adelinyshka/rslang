@@ -1,10 +1,23 @@
-import React, { useState, useCallback, useEffect } from 'react';
-// import SwitcherLevel from '../../../common/components/SwitcherLevel'
+import React, {
+  useState, useCallback, useEffect, useMemo,
+} from 'react';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import SwitcherLevel from '../../../common/components/LevelSwitcher';
+// import useAPI from '../../../common/utils/index';
+// import fetchJSON from '../../../common/utils/index';
 import Card from './Card';
 import Timer from './Timer';
 import Lives from './Lives';
+import { Rules, Exit } from './Modal';
 import GameOver from './GameOver';
 import style from './Game.module.css';
+import {
+  // setWords,
+  setLevel,
+} from '../redux/index';
+import { levelSelector } from '../redux/selectors';
 
 const dictionary = [
   {
@@ -57,12 +70,62 @@ const dictionary = [
     translate: 'информация',
     id: 10,
   },
+  // {
+  //   word: 'game1',
+  //   translate: 'игра1',
+  //   id: 11,
+  // },
+  // {
+  //   word: 'car1',
+  //   translate: 'машина1',
+  //   id: 12,
+  // },
+  // {
+  //   word: 'dinosaur1',
+  //   translate: 'динозавр1',
+  //   id: 13,
+  // },
+  // {
+  //   word: 'planet1',
+  //   translate: 'планета1',
+  //   id: 14,
+  // },
+  // {
+  //   word: 'plant1',
+  //   translate: 'растение1',
+  //   id: 15,
+  // },
+  // {
+  //   word: 'keyboard1',
+  //   translate: 'клавиатура1',
+  //   id: 16,
+  // },
+  // {
+  //   word: 'harpsichord1',
+  //   translate: 'клавесин1',
+  //   id: 17,
+  // },
+  // {
+  //   word: 'sun1',
+  //   translate: 'солнце1',
+  //   id: 18,
+  // },
+  // {
+  //   word: 'evolution1',
+  //   translate: 'эволюция1',
+  //   id: 19,
+  // },
+  // {
+  //   word: 'information1',
+  //   translate: 'информация1',
+  //   id: 20,
+  // },
 ];
 
 const shuffle = (array) => array.sort(() => Math.random - 0.5);
 
 function Game() {
-  const level = 0;
+  // const level = 1;
 
   const [russianWord, setRussianWord] = useState();
   const [englishWord, setEnglishWord] = useState();
@@ -70,14 +133,47 @@ function Game() {
   const [livesCount, setLivesCount] = useState(5);
   const [countCorrectAnswers, setCountCorrectAnswers] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState([]);
-  // const [incorrectAnswers, setInorrectAnswers] = useState(0);
-
   const [isGameOver, setIsGameOver] = useState(false);
+  const [isRules, setIsRules] = useState(false);
+  const [isExit, setIsExit] = useState(false);
+  const [incorrectAnswers, setInorrectAnswers] = useState(0);
 
-  // const dictionaryEng = shuffle(dictionary);
-  // const dictionaryRus = shuffle(dictionaryEng);
-  // console.dir(dictionary);
-  // console.dir(dictionaryRus);
+  // const [words, setWords] = useState(null);
+  // const [getNewWords, setGetNewWords] = useState(true);
+
+  // const userWordsURL = useMemo(
+  //   () => 'words?page=2&group=0', [],
+  // );
+
+  // const wordsUseApi = useAPI(userWordsURL);
+  // useEffect(() => {
+  //   if (getNewWords) {
+  //     setGetNewWords(true);
+  //     setWords(wordsUseApi);
+  //   }
+  //   return () => {
+  //     setGetNewWords(false);
+  //   };
+  // }, [wordsUseApi, words, getNewWords]);
+
+  // const userWordsURL = useMemo(
+  //   () => 'words?page=2&group=0', [],
+  // );
+  // const fetchOptions = {
+  //   method: 'GET',
+  // };
+
+  // useEffect(() => {
+  //   const wordsUseApi = fetchJSON(userWordsURL, fetchOptions);
+  //   console.log(words);
+  //   if (getNewWords) {
+  //     setGetNewWords(true);
+  //     setWords(wordsUseApi);
+  //   }
+  //   return () => {
+  //     setGetNewWords(false);
+  //   };
+  // }, [fetchOptions, userWordsURL, getNewWords, words]);
 
   const correct = useCallback((cardId) => {
     const cAnswers = correctAnswers;
@@ -101,7 +197,7 @@ function Game() {
         checkResult();
       }
     }
-  }, [correct, incorrect]);
+  }, [correct, incorrect, correctAnswers]);
 
   function checkResult() {
     setTimeout(() => {
@@ -117,9 +213,37 @@ function Game() {
 
   return (
     <div className={style.GameWrapper}>
+      {isExit ? (
+        <Exit
+          onCansel={() => setIsExit(false)}
+          onExit={() => <Link to="./" /> }
+        />
+      ) : false}
+      <div
+        onClick={() => setIsExit(true)}
+      >
+        <img
+          src="../assets/images/memory/cross.svg"
+          alt="cross"
+          className={style.cross}
+        />
+      </div>
+      {isRules ? (
+        <Rules
+          onRules={() => setIsRules(false)}
+        />
+      ) : false}
+      <div
+        onClick={() => setIsRules(true)}
+      >
+        <img
+          src="../assets/images/memory/rules.svg"
+          alt="rules"
+          className={style.rules}
+        />
+      </div>
       <div className={style.Level}>
-        Блок с уровнем
-        {level}
+        <SwitcherLevel />
       </div>
       <div className={style.Lives}>
         <Lives

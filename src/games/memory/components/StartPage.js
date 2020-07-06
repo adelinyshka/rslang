@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import Game from './Game';
-// import Button from './Button';
+import { Link } from 'react-router-dom';
 import style from './StartPage.module.css';
 
 import {
@@ -21,6 +20,12 @@ const StartPage = () => {
 
   return (
     <div className={style.Wrapper}>
+      <Link to="./">
+        <img
+          src="../assets/images/memory/cross.svg"
+          alt="cross"
+        />
+      </Link>
       <h1>
           Мемори
       </h1>
