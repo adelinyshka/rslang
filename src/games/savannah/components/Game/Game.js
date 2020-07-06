@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getRandomNumber, shuffle } from '../Helpers/Helpers';
 import dictionary from '../Dictionary/Dictionary';
-import SavannahWrapper from './SavannahWrapper';
+import GameWrapper from './GameWrapper';
 
 const classNames = require('classnames');
 
@@ -81,7 +81,7 @@ export default function Game() {
   });
 
   return (
-    <SavannahWrapper>
+    <GameWrapper>
       <Link to="">
         <img
           className="cross"
@@ -160,6 +160,6 @@ export default function Game() {
         alt="violet crystall"
         style={{ transform: `scale(${scalex})` }}
       />
-    </SavannahWrapper>
+    </GameWrapper>
   );
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SavannahWrapper = styled.div`
+const GameWrapper = styled.div`
   font-family: 'Exo',sans-serif;
   font-size: 25px;
   height: 100vh;
@@ -103,4 +103,4 @@ const SavannahWrapper = styled.div`
   }
 `;
 
-export default SavannahWrapper;
+export default GameWrapper;
