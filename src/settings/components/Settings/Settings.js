@@ -139,7 +139,7 @@ const Settings = () => {
   const interactions = useMemo(() => (
     interactionsInfo.map(({ title, name }) => (
       <div className={styles.Interaction}>
-        {title}
+        <h2>{title}</h2>
         <label key={name} htmlFor={name} className={styles.Switch}>
           <input
             name={name}
