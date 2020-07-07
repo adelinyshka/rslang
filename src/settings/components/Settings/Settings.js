@@ -202,12 +202,14 @@ const Settings = () => {
         <Button
           variant="outline-primary"
           onClick={cancelSubmit}
+          className={styles.OutlineButton}
         >
           Отменить
         </Button>
         <Button
           variant="primary"
           type="submit"
+          className={styles.SubmitButton}
         >
           Сохранить
         </Button>

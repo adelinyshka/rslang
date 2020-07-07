@@ -1,15 +1,23 @@
 .Settings {
   display: flex;
   flex-direction: column;
-  margin: 3%;
+  height: 94%;
+  width: calc(94% - 99px);
+  margin: 3vh 3vw;
   padding: 3%;
   margin-left: calc(99px + 3%);
   border-radius: 30px;
   background-color: #ECE9F1;
+  overflow: scroll;
+}
+
+.Settings div {
+  margin: 10px 0;
 }
 
 .Settings h2 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -99,6 +107,7 @@
 .Intervals {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 10px 0;
 }
 
@@ -135,6 +144,10 @@
 }
 
 .CardsInteractions div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   width: 40%;
   margin: 10px;
 }
@@ -194,8 +207,78 @@ input:checked + .Slider:before {
   transform: translateX(26px);
 }
 
+.FormControls {
+  display: flex;
+  justify-content: center;
+}
+
+.SubmitButton {
+  background: #6979F8;
+  border: none;
+}
+
+.OutlineButton {
+  color: #6979F8;
+  border-color: #6979F8;
+  position: relative;
+}
+
+.FormControls button {
+  width: 20%;
+  height: 50px;
+  margin: 0 20px;
+}
+
+.FormControls button:hover,
+.FormControls button:active,
+.FormControls button:focus {
+  background-color: #7348BF !important;
+  border: none !important;
+  color: white;
+}
+
+
+
 @media (max-width: 768px) {
   .Settings {
-    margin: 10px;
+    width: 90%;
+    height: 100%;
+    margin: 5%;
+    padding: 10px;
+    font-size: 0.8rem;
+
+  }
+
+  .Settings  div {
+    margin: 20px 0;
+  }
+
+  .Settings h2 {
+    font-size: 1rem;
+  }
+
+  .Intervals div {
+    margin: 0 25px;
+  }
+
+  .CardsDisplaySettings {
+  grid-template: repeat(3, 1fr) / 1fr;
+  }
+
+  .FormControls button {
+    font-size: 0;
+  }
+
+  .SubmitButton:before {
+    content: '✓';
+    font-size: 1rem;
+  }
+
+  .OutlineButton:before {
+    content: '×';
+    position: absolute;
+    top: -3%;
+    left: 34%;
+    font-size: 2rem;
   }
 }
