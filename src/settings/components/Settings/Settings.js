@@ -62,7 +62,17 @@ const intervalsInfo = [
     title: 'Сложно',
     name: 'hardInterval',
   },
+];
 
+const interactionsInfo = [
+  {
+    title: 'Автоматическое воспроизведение звука',
+    name: 'autoSoundPlay',
+  },
+  {
+    title: 'Подсказки интерфейса',
+    name: 'interfaceHints',
+  },
 ];
 
 const Settings = () => {
@@ -92,7 +102,7 @@ const Settings = () => {
 
   const createCheckboxes = useCallback((cardsInfo) => (
     cardsInfo.map(({ title, name }) => (
-      <label key={name} htmlFor={name}>
+      <label key={name} htmlFor={name} className={styles.CheckboxContainer}>
         {title}
         <input
           name={name}
@@ -101,6 +111,7 @@ const Settings = () => {
           type="checkbox"
           onChange={handleChange}
         />
+        <span className={styles.Checkmark} />
       </label>
     ))), [handleChange, formSettings]);
 
@@ -117,6 +128,24 @@ const Settings = () => {
           min={1}
         />
       </label>
+    ))
+  ), [formSettings, handleChange]);
+
+  const interactions = useMemo(() => (
+    interactionsInfo.map(({ title, name }) => (
+      <div className={styles.Intercation}>
+        {title}
+        <label key={name} htmlFor={name} className={styles.Switch}>
+          <input
+            name={name}
+            id={name}
+            checked={formSettings[name]}
+            type="checkbox"
+            onChange={handleChange}
+          />
+          <span className={styles.Slider} />
+        </label>
+      </div>
     ))
   ), [formSettings, handleChange]);
 
@@ -161,9 +190,22 @@ const Settings = () => {
           {intervals}
         </div>
       </div>
+      <div className={styles.CardsInteractions}>
+        {interactions}
+      </div>
       <div className={styles.FormControls}>
-        <Button variant="outline-primary" onClick={cancelSubmit}>Отменить</Button>
-        <Button variant="primary" type="submit">Сохранить</Button>
+        <Button
+          variant="outline-primary"
+          onClick={cancelSubmit}
+        >
+          Отменить
+        </Button>
+        <Button
+          variant="primary"
+          type="submit"
+        >
+          Сохранить
+        </Button>
       </div>
     </form>
   );
