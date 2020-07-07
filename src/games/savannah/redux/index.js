@@ -1,3 +1,4 @@
+
 export const setStatusGame = (statusGame) => ({
   type: 'SET_STATUS_GAME',
   statusGame,

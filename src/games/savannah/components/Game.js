@@ -30,7 +30,7 @@ export default function Game() {
   const [scalex, setScalex] = useState(counterScale);
   const [arrOfWords, setArrOfWords] = useState(arrOfWordsShuffledInit);
   const [livesCount, setLivesCount] = useState(5);
-  const [wordCounter, setWordCounter] = useState(7);
+  const [wordCounter, setWordCounter] = useState(3);
   console.log(wordCounter);
   const [isGameOver, setIsGameOver] = useState(false);
 
@@ -60,20 +60,30 @@ export default function Game() {
     setTimeout(() => {
       getNewWords();
       setBtnClicked(false);
-    }, 500);
+    }, 1000);
   }, [getNewWords]);
+
+  const audioRight = new Audio('./../assets/audio/right.mp3');
+  const audioWrong = new Audio('./../assets/audio/wrong.mp3');
+
+  const playRight = () => {
+    audioRight.play();
+  };
+  const playWrong = () => {
+    audioWrong.play();
+  };
 
   function checkAnswer(wordActive, answerActive) {
     if (wordActive === answerActive) {
       setBtnClicked(true);
       setScalex(counterScale += 0.05);
       setWordCounter(wordCounter - 1);
-      // добавить звук верного ответа
+      playRight();
     } else {
       setBtnClicked(true);
       setLivesCount(livesCount - 1);
       setWordCounter(wordCounter - 1);
-      // звук проигрыша
+      playWrong();
     }
   }
 
@@ -94,7 +104,19 @@ export default function Game() {
   const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
     setWord(' ');
-  }, []);
+  }, [wordCounter]);
+
+  if (wordCounter <= 0) {
+    gameOverHandler();
+  }
+
+  function audioRightPlay() {
+    if (document.getElementById('right').play === true) {
+      audioRight.pause();
+    } else {
+      audioRight.play();
+    }
+  }
 
   return (
     <GameWrapper>
