@@ -37,15 +37,19 @@ const GameWrapper = styled.div`
     left: 0;
     width: 250px;
     height: 50px;
+    
+    @media(max-width: 786px) {
+      top: 12%;
+    }
   }
   
-  .animation {
-    animation: falling 5s infinite;
-  }
-
-  .no-animation {
-    animation: unset;
-  }
+  // .animation {
+  //   animation: falling 5s infinite;
+  // }
+  //
+  // .no-animation {
+  //   animation: unset;
+  // }
 
   .falling_word {
     font-size: 35px;
@@ -59,7 +63,7 @@ const GameWrapper = styled.div`
   100% {
     top: 60%;
   }
-}
+  }
   
   .listWords {
     display: flex;
@@ -68,6 +72,11 @@ const GameWrapper = styled.div`
     top: 30%;
     width: 80%;
     margin: 0 auto;
+    flex-wrap: wrap;
+    
+    @media(max-width: 786px) {
+      top: 25%;
+    }
     
     & button {
     margin: 20px;
@@ -75,6 +84,10 @@ const GameWrapper = styled.div`
     border: 0;
     color: white;
     outline: none;
+    
+    @media (max-width: 768px){
+      margin: 10px;
+    }
     
     &.right {
       background: rgba(125, 223, 195, 0.6);
@@ -91,7 +104,7 @@ const GameWrapper = styled.div`
       border: 0;
       color: white;
       outline: none;
-    }
+      }
     }
   }
   
@@ -100,6 +113,10 @@ const GameWrapper = styled.div`
     position: absolute;
     bottom: 10%;
     left: calc(50% - 96px/2);
+    
+    @media(max-width: 768px) {
+      bottom: 5%;
+    }
   }
 `;
 

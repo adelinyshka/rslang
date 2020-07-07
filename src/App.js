@@ -13,7 +13,7 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
-import StartPage from './games/savannah/components/Startpage/StartPage';
+import StartPage from './games/savannah/components/StartPage';
 import Savannah from './games/savannah/components/Savannah';
 
 const publicRoutes = [

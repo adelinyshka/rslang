@@ -1,16 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
-const LiveWrapper = styled.div`
-  width: 180px;
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  position: relative;
-  top: 50px;
-  right: 25px;
-`;
+import LiveWrapper from './LivesWrapper';
 
 function Lives({ livesCount, leftLifesHandler, src }) {
   useEffect(() => {
@@ -25,7 +15,6 @@ function Lives({ livesCount, leftLifesHandler, src }) {
     for (let i = 0; i < livesCount; i += 1) {
       lives.push(
         <img
-          style={{ transform: 'scale(0.8)' }}
           src={src}
           alt="lives"
           key={i}

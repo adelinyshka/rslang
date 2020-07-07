@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getRandomNumber, shuffle } from '../Helpers/Helpers';
-import dictionary from '../Dictionary/Dictionary';
+import { getRandomNumber, shuffle } from './Helpers';
+import dictionary from './Dictionary';
 import GameWrapper from './GameWrapper';
-import Lives from '../Lives/Lives';
+import Lives from './Lives';
 
 const classNames = require('classnames');
 
@@ -30,6 +30,8 @@ export default function Game() {
   const [scalex, setScalex] = useState(counterScale);
   const [arrOfWords, setArrOfWords] = useState(arrOfWordsShuffledInit);
   const [livesCount, setLivesCount] = useState(5);
+  const [wordCounter, setWordCounter] = useState(7);
+  console.log(wordCounter);
   const [isGameOver, setIsGameOver] = useState(false);
 
   const getNewWords = useCallback(() => {
@@ -65,10 +67,12 @@ export default function Game() {
     if (wordActive === answerActive) {
       setBtnClicked(true);
       setScalex(counterScale += 0.05);
+      setWordCounter(wordCounter - 1);
       // добавить звук верного ответа
     } else {
       setBtnClicked(true);
       setLivesCount(livesCount - 1);
+      setWordCounter(wordCounter - 1);
       // звук проигрыша
     }
   }
@@ -178,8 +182,7 @@ export default function Game() {
       </div>
 
       <img
-        className={classNames('crystall', {
-        })}
+        className={classNames('crystall', {})}
         src="./../assets/images/savannah/crystall_2.svg"
         alt="violet crystall"
         style={{ transform: `scale(${scalex})` }}

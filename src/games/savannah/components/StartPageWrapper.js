@@ -22,6 +22,10 @@ const StartPageWrapper = styled.div`
     &:hover {
       cursor: pointer;
     }
+    
+  @media(max-width: 767px) {
+    top: 2px;
+    }
   }
   
   h2.title_h2 {
@@ -33,7 +37,7 @@ const StartPageWrapper = styled.div`
     color: #6979f8;
   
   @media(max-width: 767px) {
-    padding-top: 0;
+    padding-top: 50px;
     }
   }
   
@@ -54,9 +58,13 @@ const StartPageWrapper = styled.div`
     height: 300px;
     weight: 300px;
     bottom: 16px;
-    right: 16px
+    right: 16px;
+    
+  @media (max-width: 768px) {
+    display: none;
+    }
   }
-  
+
   .center_alignment {
     width: 100%;
     height: 100%;
@@ -80,11 +88,13 @@ const StartPageWrapper = styled.div`
     margin: 0 auto;
     font-weight: bold;
     font-size: 17px;
+    outline: none;
     
     &:hover,
     &:focus,
     &:active {
       background: #08A999;
+      outline: none;
     }
   }
 `;

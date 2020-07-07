@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import StartPageWrapper from './StartPageWrapper';
 import {
   setStatusGame,
-} from '../../redux/index';
+} from '../redux';
 
 const StartPage = () => {
   const dispatch = useDispatch();
@@ -32,14 +32,14 @@ const StartPage = () => {
           перевод слова.
         </div>
         <Form>
-          {/* <Link to="/games/savannah"> */}
-          <Button
-            className="start_btn"
-            onClick={onStart}
-          >
+          <Link to="/games/savannah">
+            <Button
+              className="start_btn"
+              onClick={onStart}
+            >
               Start
-          </Button>
-          {/* </Link> */}
+            </Button>
+          </Link>
         </Form>
       </div>
       <img
