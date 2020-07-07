@@ -53,14 +53,17 @@ const intervalsInfo = [
   {
     title: 'Легко',
     name: 'easyInterval',
+    bgColor: '#DB7CF5',
   },
   {
     title: 'Средне',
     name: 'mediumInterval',
+    bgColor: '#AA5DDB',
   },
   {
     title: 'Сложно',
     name: 'hardInterval',
+    bgColor: '#7348BF',
   },
 ];
 
@@ -103,7 +106,6 @@ const Settings = () => {
   const createCheckboxes = useCallback((cardsInfo) => (
     cardsInfo.map(({ title, name }) => (
       <label key={name} htmlFor={name} className={styles.CheckboxContainer}>
-        {title}
         <input
           name={name}
           id={name}
@@ -112,13 +114,16 @@ const Settings = () => {
           onChange={handleChange}
         />
         <span className={styles.Checkmark} />
+        {title}
       </label>
     ))), [handleChange, formSettings]);
 
   const intervals = useMemo(() => (
-    intervalsInfo.map(({ title, name }) => (
-      <label key={name} htmlFor={name}>
-        <Button variant="primary">{title}</Button>
+    intervalsInfo.map(({ title, name, bgColor }) => (
+      <label key={name} htmlFor={name} className={styles.Intervals}>
+        <div style={{ backgroundColor: bgColor }}>
+          {title}
+        </div>
         <input
           name={name}
           id={name}
@@ -133,7 +138,7 @@ const Settings = () => {
 
   const interactions = useMemo(() => (
     interactionsInfo.map(({ title, name }) => (
-      <div className={styles.Intercation}>
+      <div className={styles.Interaction}>
         {title}
         <label key={name} htmlFor={name} className={styles.Switch}>
           <input
