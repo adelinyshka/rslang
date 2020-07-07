@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import style from './About.module.css';
+import Header from '../Promo/Header/Header';
 
 const teamMembers = [
   {
@@ -61,26 +62,29 @@ const teamMembers = [
 
 function About() {
   return (
-    <div className={style.Wrapper}>
-      <div className={style.AboutHeader}>
-        <h2 className={style.AboutTitle}>Наша команда</h2>
-        <p>Мы работали над проектом для вас!</p>
+    <>
+      <Header />
+      <div className={style.Wrapper}>
+        <div className={style.AboutHeader}>
+          <h2 className={style.AboutTitle}>Наша команда</h2>
+          <p>Мы работали над проектом для вас!</p>
+        </div>
+        <div className={style.Main}>
+          {teamMembers.map(({
+            name, description, github, photo, color,
+          }, id) => (
+            <Card
+              key={id}
+              name={name}
+              description={description}
+              github={github}
+              photo={photo}
+              bgColor={color}
+            />
+          ))}
+        </div>
       </div>
-      <div className={style.Main}>
-        {teamMembers.map(({
-          name, description, github, photo, color,
-        }, id) => (
-          <Card
-            key={id}
-            name={name}
-            description={description}
-            github={github}
-            photo={photo}
-            bgColor={color}
-          />
-        ))}
-      </div>
-    </div>
+    </>
   );
 }
 

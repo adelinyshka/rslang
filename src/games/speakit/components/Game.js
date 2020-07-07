@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react';
+
 import { useSelector, useDispatch, batch } from 'react-redux';
 import SpeechRecognition from 'react-speech-recognition';
 import PropTypes from 'prop-types';
@@ -7,10 +13,11 @@ import StyleGame from './style.Game';
 
 import LevelSwitcher from '../../../common/components/LevelSwitcher';
 import BlockWords from './BlockWords';
-import getWords from '../utils/index';
 import Results from './Results';
 import Rules from './Rules';
 import Exit from './Exit';
+
+import useAPI from '../../../common/utils/index';
 
 import {
   setWords,
@@ -26,7 +33,6 @@ import {
 import {
   statusGameSelector,
   wordsSelector,
-  activeWordSelector,
   imageSelector,
   translateActiveWordSelector,
   levelSelector,
@@ -50,6 +56,14 @@ const option = {
   continuous: false,
 };
 
+const fetchOptions = {
+  method: 'GET',
+};
+
+const pagesCount = 30;
+
+const randomPage = () => Math.ceil(pagesCount * Math.random());
+
 const Game = ({
   transcript,
   resetTranscript,
@@ -66,44 +80,32 @@ const Game = ({
   const speechWords = useSelector(speechWordsSelector);
   const statusGame = useSelector(statusGameSelector);
   const words = useSelector(wordsSelector);
-  const activeWord = useSelector(activeWordSelector);
 
   const [modalResult, setModalResult] = useState(false);
   const [modalExit, setModalExit] = useState(false);
   const [modalRules, setModalRules] = useState(false);
-
-  console.log(translateActiveWord);
+  const [wordsPage, setWordsPage] = useState(randomPage());
 
   const changeActiveLevel = useCallback((levelProps) => {
     if (activeLevel !== levelProps) {
-      getWords(levelProps).then((gettingWords) => {
-        if (gettingWords.length > 1) {
-          console.log(gettingWords);
-          batch(() => {
-            dispatch(setWords(gettingWords));
-            dispatch(setLevel(levelProps));
-            dispatch(setImage('./assets/images/speakit/base-game-image.png'));
-            dispatch(setTranslateActiveWord(''));
-            dispatch(setSpeechActiveWord(''));
-            dispatch(setSpeechWords([]));
-          });
-        }
+      setWordsPage(randomPage());
+      batch(() => {
+        dispatch(setLevel(levelProps));
+        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+        dispatch(setTranslateActiveWord(''));
+        dispatch(setSpeechActiveWord(''));
+        dispatch(setSpeechWords([]));
       });
     }
   }, [dispatch, activeLevel]);
 
   const getNewWords = useCallback((currentLevel) => {
-    getWords(currentLevel).then((gettingWords) => {
-      if (gettingWords.length > 1) {
-        console.log(gettingWords);
-        batch(() => {
-          dispatch(setWords(gettingWords));
-          dispatch(setImage('./assets/images/speakit/base-game-image.png'));
-          dispatch(setTranslateActiveWord(''));
-        });
-        setModalResult(false);
-      }
+    setWordsPage(randomPage());
+    batch(() => {
+      dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+      dispatch(setTranslateActiveWord(''));
     });
+    setModalResult(false);
   }, [dispatch]);
 
   const changeStatusGame = useCallback(() => {
@@ -147,10 +149,8 @@ const Game = ({
           if (!trueSpeech) {
             trueSpeech = word.toLocaleLowerCase()
               === transcript.toLocaleLowerCase();
-            console.log(word, transcript, trueSpeech, image);
             img = trueSpeech ? wordImage : '';
           }
-          console.log(img);
         });
         if (trueSpeech) {
           const linkImage = `${'https://raw.githubusercontent.com/'
@@ -178,6 +178,16 @@ const Game = ({
     image,
     speechWords,
     recognition.lang]);
+
+  const setGettingWords = useCallback((gettingWord) => {
+    dispatch(setWords(gettingWord));
+  }, [dispatch]);
+
+  const userWordsURL = useMemo(() => 'words?'
+    + `page=${wordsPage}&group=${activeLevel}&wordsPerExampleSentenceLTE=99`
+    + '&wordsPerPage=10', [activeLevel, wordsPage]);
+
+  useAPI(userWordsURL, fetchOptions, setGettingWords);
 
   if (!browserSupportsSpeechRecognition) {
     return null;

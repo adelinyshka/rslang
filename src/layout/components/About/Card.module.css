@@ -40,7 +40,7 @@
 }
 
 @media (max-width: 450px) {
-	.CardWrapper {
+  .CardWrapper {
     width: 300px;
     margin-right: 0;
   }

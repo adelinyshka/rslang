@@ -1,29 +1,18 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import StyleStartScreen from './style.StartScreen';
 
 import {
-  setWords,
   setStatusGame,
 } from '../redux';
 
-import {
-  levelSelector,
-} from '../redux/selectors';
-
-import getWords from '../utils';
-
 const StartScreen = () => {
   const dispatch = useDispatch();
-  const level = useSelector(levelSelector);
 
   const onStartGame = useCallback(() => {
-    getWords(level).then((words) => {
-      dispatch(setWords(words));
-      dispatch(setStatusGame('no-speach'));
-    });
-  }, [dispatch, level]);
+    dispatch(setStatusGame('no-speach'));
+  }, [dispatch]);
 
   return (
     <StyleStartScreen>

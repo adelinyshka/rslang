@@ -27,7 +27,6 @@ const BlockWords = () => {
   const words = useSelector(wordsSelector);
   const statusGame = useSelector(statusGameSelector);
   const speechWords = useSelector(speechWordsSelector);
-  console.log(words, 'blockword');
 
   const activateWord = useCallback((word, audio, image, wordTranslate) => {
     const link = `${'https://raw.githubusercontent.com/'
