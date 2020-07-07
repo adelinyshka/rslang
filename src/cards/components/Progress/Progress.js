@@ -17,6 +17,7 @@ const Progress = ({ cardsArr, newCardsAmount }) => {
       0
       <ProgressBar
         now={passedCards}
+        variant="success"
         className={styles.ProgressBar}
         min={0}
         max={newCardsAmount}

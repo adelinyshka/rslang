@@ -15,6 +15,7 @@ import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
 import StartPage from './games/savannah/components/StartPage';
 import Savannah from './games/savannah/components/Savannah';
+import Dictionary from './dictionary/components/Dictionary/Dictionary';
 
 const publicRoutes = [
   {
@@ -28,14 +29,14 @@ const publicRoutes = [
     component: <Signup />,
   },
   {
-    title: 'Промо',
-    path: '/',
-    component: <Promo />,
-  },
-  {
     title: 'О команде',
     path: '/about',
     component: <About />,
+  },
+  {
+    title: 'Промо',
+    path: '/',
+    component: <Promo />,
   },
 ];
 
@@ -80,6 +81,7 @@ const privateRoutes = [
   {
     title: 'Словарь',
     path: '/dictionary',
+    component: <Dictionary />,
   },
   {
     title: 'Статистика',
@@ -93,9 +95,9 @@ const privateRoutes = [
 ];
 
 function createPrivateRoute({ title, path, component }, isLogged) {
+  if (!isLogged) return <Redirect to="/login" />;
   return (
     <Route key={title} exact path={path}>
-      {!isLogged && <Redirect to="/login" />}
       {component || (
         <div className={styles.PageName}>
           <h1>{title}</h1>

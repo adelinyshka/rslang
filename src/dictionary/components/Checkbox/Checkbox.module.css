@@ -1,0 +1,32 @@
+.CheckboxContainer {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Убрать дефолтный инпут */
+.CheckboxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Создать кастомный чекбокс*/
+.Checkmark {
+  height: 20px;
+  width: 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #ECEBED;
+}
+
+/* При нажатии добавлять бэкграунд галочки*/
+.CheckboxContainer input:checked ~ .Checkmark {
+  background: url("/assets/images/dictionary/checkmark.svg") no-repeat center;
+}
