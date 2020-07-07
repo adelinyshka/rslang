@@ -14,23 +14,25 @@ const arrOfTranslationsInit = [];
 
 arrOfTranslationsInit.push(answerInit);
 
-let counterInit = 0;
-while (counterInit < 3) {
+let counterCrystalSize = 0.7;
+
+let counterTranslatedWords = 0;
+while (counterTranslatedWords < 3) {
   const translationInit = dictionary[getRandomNumber()].translate;
   arrOfTranslationsInit.push(translationInit);
-  counterInit += 1;
+  counterTranslatedWords += 1;
 }
-let counterScale = 0.7;
+
 const arrOfWordsShuffledInit = shuffle(arrOfTranslationsInit);
 
 export default function Game() {
   const [word, setWord] = useState(wordInit);
   const [answer, setAnswer] = useState(answerInit);
   const [btnClicked, setBtnClicked] = useState(false);
-  const [scalex, setScalex] = useState(counterScale);
+  const [scaleSize, setScaleSize] = useState(counterCrystalSize);
   const [arrOfWords, setArrOfWords] = useState(arrOfWordsShuffledInit);
   const [livesCount, setLivesCount] = useState(5);
-  const [wordCounter, setWordCounter] = useState(3);
+  const [wordCounter, setWordCounter] = useState(40);
   console.log(wordCounter);
   const [isGameOver, setIsGameOver] = useState(false);
 
@@ -57,6 +59,10 @@ export default function Game() {
   }, [answer]);
 
   const refreshWordsOnClick = useCallback(() => {
+    if (wordCounter <= 1) {
+      setIsGameOver(true);
+      setWord(' ');
+    }
     setTimeout(() => {
       getNewWords();
       setBtnClicked(false);
@@ -76,7 +82,7 @@ export default function Game() {
   function checkAnswer(wordActive, answerActive) {
     if (wordActive === answerActive) {
       setBtnClicked(true);
-      setScalex(counterScale += 0.05);
+      setScaleSize(counterCrystalSize += 0.05);
       setWordCounter(wordCounter - 1);
       playRight();
     } else {
@@ -104,19 +110,7 @@ export default function Game() {
   const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
     setWord(' ');
-  }, [wordCounter]);
-
-  if (wordCounter <= 0) {
-    gameOverHandler();
-  }
-
-  function audioRightPlay() {
-    if (document.getElementById('right').play === true) {
-      audioRight.pause();
-    } else {
-      audioRight.play();
-    }
-  }
+  }, []);
 
   return (
     <GameWrapper>
@@ -207,7 +201,7 @@ export default function Game() {
         className={classNames('crystall', {})}
         src="./../assets/images/savannah/crystall_2.svg"
         alt="violet crystall"
-        style={{ transform: `scale(${scalex})` }}
+        style={{ transform: `scale(${scaleSize})` }}
       />
     </GameWrapper>
   );
