@@ -8,7 +8,7 @@ import GamesStat from '../GamesStat/GamesStat';
 import styles from './Statistics.module.css';
 
 const Statistics = () => {
-  const [showGamesStat, setShowGamesStat] = useState(true);
+  const [showGamesStat, setShowGamesStat] = useState(false);
 
   const passedCards = 54; // из api
   const rightAnswers = 50; // из api
