@@ -237,8 +237,6 @@ input:checked + .Slider:before {
   color: white;
 }
 
-
-
 @media (max-width: 768px) {
   .Settings {
     width: 90%;
@@ -246,7 +244,6 @@ input:checked + .Slider:before {
     margin: 5%;
     padding: 10px;
     font-size: 0.8rem;
-
   }
 
   .Settings  div {
@@ -275,10 +272,7 @@ input:checked + .Slider:before {
   }
 
   .OutlineButton:before {
-    content: '×';
-    position: absolute;
-    top: -3%;
-    left: 34%;
-    font-size: 2rem;
+    content: 'X';
+    font-size: 1rem;
   }
 }
