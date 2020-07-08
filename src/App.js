@@ -93,11 +93,6 @@ const privateRoutes = [
     component: <Main />,
   },
   {
-    title: 'О команде',
-    path: '/about',
-    component: <About />,
-  },
-  {
     title: 'Спринт',
     path: '/games/sprint',
     component: <Sprint />,
