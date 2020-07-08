@@ -13,16 +13,67 @@ const GameWrapper = styled.div`
   @media (max-width: 768px) {
     height: calc(100vh - 50px);
     margin-left: 0;
+    overflow: hidden;
+  }
+  
+  @media (orientation: landscape) and (max-width: 768px) {
+    height: calc(100vh - 50px);
+    margin-left: 0;
+    overflow: scroll;
+  }
+  
+  img.sound {
+    position: absolute;
+    z-index: 2;
+    top: 9px;
+    right: 107px;
+    transform: scale(0.5);
+    width: 70px;
+    height: 70px;
+    
+    @media (max-width: 768px) {
+      right: 100px;
+      width: 60px;
+      top: -8px;
+    }
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  
+  img.question {
+    position: absolute;
+    z-index: 2;
+    top: 9px;
+    right: 56px;
+    transform: scale(0.5);
+    width: 70px;
+    height: 70px;
+    
+    @media (max-width: 768px) {
+      right: 45px;
+      top: -8px;
+    }
+    
+    &:hover {
+      cursor: pointer;
+    }
   }
   
   img.cross {
     position: absolute;
     z-index: 2;
     top: 9px;
-    right: 17px;
+    right: 7px;
     transform: scale(0.5);
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
+    
+    @media (max-width: 768px) {
+      right: -4px;
+      top: -8px;
+    }
     
     &:hover {
       cursor: pointer;
@@ -39,17 +90,21 @@ const GameWrapper = styled.div`
     height: 50px;
     
     @media(max-width: 786px) {
-      top: 12%;
+      top: 17%;
+    }
+    
+    @media (orientation: landscape) and (max-width: 768px) {
+     top: 18%;
     }
   }
   
-  // .animation {
-  //   animation: falling 5s infinite;
-  // }
-  //
-  // .no-animation {
-  //   animation: unset;
-  // }
+  .animation {
+    animation: falling 5s infinite;
+  }
+
+  .no-animation {
+    animation: unset;
+  }
 
   .falling_word {
     font-size: 35px;
@@ -76,6 +131,12 @@ const GameWrapper = styled.div`
     
     @media(max-width: 786px) {
       top: 25%;
+      width: 100%;
+    }
+    
+    @media (orientation: landscape) and (max-width: 768px) {
+      width: 100%;
+      justify-content: space-between;
     }
     
     & button {

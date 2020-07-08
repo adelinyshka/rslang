@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getRandomNumber, shuffle } from './Helpers';
 import dictionary from './Dictionary';
 import GameWrapper from './GameWrapper';
+import { getRandomNumber, shuffle } from './Helpers';
 import Lives from './Lives';
+import { Rules, Exit } from './Modal';
 
 const classNames = require('classnames');
 
@@ -35,6 +36,10 @@ export default function Game() {
   const [wordCounter, setWordCounter] = useState(40);
   console.log(wordCounter);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [isRules, setIsRules] = useState(false);
+  const [isExit, setIsExit] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
+  const [countLife, setCountLife] = useState(6);
 
   const getNewWords = useCallback(() => {
     const randomNumber = getRandomNumber();
@@ -82,7 +87,7 @@ export default function Game() {
   function checkAnswer(wordActive, answerActive) {
     if (wordActive === answerActive) {
       setBtnClicked(true);
-      setScaleSize(counterCrystalSize += 0.05);
+      setScaleSize(counterCrystalSize += 0.02);
       setWordCounter(wordCounter - 1);
       playRight();
     } else {
@@ -95,9 +100,9 @@ export default function Game() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (isGameOver) {
-        console.log('finish');
-        return;
+      if (livesCount) {
+        setAnswer(false);
+        setLivesCount(livesCount - 1);
       }
       getNewWords();
     }, 4700);
@@ -105,7 +110,7 @@ export default function Game() {
     return () => {
       clearTimeout(timer);
     };
-  });
+  }, [livesCount]);
 
   const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
@@ -114,13 +119,42 @@ export default function Game() {
 
   return (
     <GameWrapper>
-      <Link to="">
+      {isExit ? (
+        <Exit
+          onCancel={() => setIsExit(false)}
+          onExit={() => <Link to="./" /> }
+        />
+      ) : false}
+
+      {isRules ? (
+        <Rules
+          onRules={() => setIsRules(false)}
+        />
+      ) : false}
+
+      <img
+        className="sound"
+        src="./../assets/images/savannah/notification_on.svg"
+        alt="sound"
+      />
+      <div
+        onClick={() => setIsRules(true)}
+      >
+        <img
+          className="question"
+          src="./../assets/images/savannah/question.svg"
+          alt="question with info about game"
+        />
+      </div>
+      <div
+        onClick={() => setIsExit(true)}
+      >
         <img
           className="cross"
           src="./../assets/images/savannah/x_white.svg"
           alt="close"
         />
-      </Link>
+      </div>
 
       <Lives
         livesCount={livesCount}

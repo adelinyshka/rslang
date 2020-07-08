@@ -6,17 +6,21 @@ const LiveWrapper = styled.div`
   justify-content: flex-end;
   width: 100%;
   position: relative;
-  top: 50px;
-  right: 25px;
+  top: 68px;
+  right: 30px;
   
   @media(max-width: 768px) {
     justify-content: flex-start;
-    top: 17px;
-    left: 25px;
+    top: 11px;
+    left: 10px;
   }
   
   img {
-    transform: scale(0.8);
+    width: 26px;
+   
+  @media(max-width: 768px) {
+    width: 25px;
+    }
   }
 `;
 
