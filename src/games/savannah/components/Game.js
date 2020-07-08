@@ -100,9 +100,9 @@ export default function Game() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (livesCount) {
-        setAnswer(false);
-        setLivesCount(livesCount - 1);
+      if (isGameOver) {
+        console.log('finish');
+        return;
       }
       getNewWords();
     }, 4700);
@@ -110,13 +110,12 @@ export default function Game() {
     return () => {
       clearTimeout(timer);
     };
-  }, [livesCount]);
+  });
 
   const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
     setWord(' ');
   }, []);
-
   return (
     <GameWrapper>
       {isExit ? (
