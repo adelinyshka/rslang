@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Cards from './cards/components/Cards/Cards';
-import { isAuthenticatedSelector } from './auth/redux/selectors';
+import {
+  isAuthenticatedSelector, refreshTokenSelector,
+  userIdSelector,
+} from './auth/redux/selectors';
+import { login } from './auth/redux';
+
+import { fetchJSON } from './common/utils';
+
 import Login from './auth/components/Login';
 import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
@@ -89,7 +96,7 @@ const privateRoutes = [
 ];
 
 function createPrivateRoute({ title, path, component }, isLogged) {
-  if (!isLogged) return <Redirect to="/login" />;
+  if (!isLogged) return <Redirect key={title} to="/login" />;
   return (
     <Route key={title} exact path={path}>
       {component || (
@@ -108,7 +115,33 @@ createPrivateRoute.propTypes = {
 };
 
 const App = () => {
+  const dispatch = useDispatch();
+  // есть ли у нас данные о пользователе
   const isLogged = useSelector(isAuthenticatedSelector);
+  // декодинг токена, сравнение его срока годности с датой
+  const refreshToken = useSelector(refreshTokenSelector);
+  const userId = useSelector(userIdSelector);
+  useEffect(() => {
+    // если пользователь залогинен и токен помер - обновляем токен
+    const intervalId = setInterval(() => {
+      if (isLogged) {
+        const fetchOptions = {
+          method: 'GET',
+          withCredentials: true,
+          headers: {
+            'Authorization': `Bearer ${refreshToken}`,
+            'Accept': 'application/json',
+          },
+        };
+        const endpoint = `users/${userId}/tokens`;
+        fetchJSON(endpoint, fetchOptions)
+          .then((data) => dispatch(login(data)))
+          .catch((er) => console.log(er));
+      }
+    }, 600000);
+    return () => clearInterval(intervalId);
+  }, [isLogged, refreshToken, userId, dispatch]);
+
   return (
     <Router>
       <Switch>

@@ -1,10 +1,10 @@
-export const login = ({ email, token, userId }) => ({
+const INITIAL_STATE = {
+  user: JSON.parse(localStorage.getItem('user')),
+};
+
+export const login = (user) => ({
   type: 'LOG_IN',
-  user: {
-    email,
-    token,
-    userId,
-  },
+  user,
 });
 
 export const logout = () => ({
@@ -12,15 +12,14 @@ export const logout = () => ({
   user: null,
 });
 
-const INITIAL_STATE = {
-  user: JSON.parse(localStorage.getItem('user')),
-};
-
 const authReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
   const newState = {
     ...state,
-    ...payload,
+    user: {
+      ...state.user,
+      ...payload.user,
+    },
   };
   switch (type) {
     case 'LOG_IN':
@@ -28,7 +27,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return newState;
     case 'LOG_OUT':
       localStorage.setItem('user', null);
-      return newState;
+      return payload;
     default:
       return state;
   }
