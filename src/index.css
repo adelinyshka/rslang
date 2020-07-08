@@ -180,3 +180,8 @@ html, body, #root {
   width: 100%;
   overflow: scroll;
 }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}

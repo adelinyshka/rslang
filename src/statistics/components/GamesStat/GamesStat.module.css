@@ -1,0 +1,66 @@
+.Modal {
+  width: calc(100% - 99px);
+  margin-left: 99px;
+  height: 100%;
+  display: flex !important;
+  justify-content: center;
+}
+.Modal > div {
+  width: 80%;
+  max-width: none;
+}
+
+.Modal .Title {
+  width: 100%;
+  text-align: center;
+}
+
+.Modal table {
+  overflow: scroll;
+}
+
+.Modal thead {
+  background: rgba(181, 189, 252, 0.55);
+}
+
+.Modal thead th {
+  border: none;
+}
+
+.Modal tbody tr:nth-of-type(odd) {
+  border: none;
+  background-color: white;
+}
+
+.Modal tbody tr:not(:nth-of-type(odd)) {
+  border-bottom: 15px solid rgba(181, 189, 252, 0.55);
+}
+
+.Modal tbody tr:hover {
+  background-color: rgba(181, 189, 252, 0.2);
+}
+
+.Modal .CloseBtn {
+  background-color: #6979F8;
+}
+
+.Modal .CloseBtn:hover {
+  background-color: #7348BF;
+}
+
+.Table {
+  overflow: scroll;
+}
+
+@media (max-width: 768px) {
+  .Modal {
+    width: 100%;
+    height: calc(100% - 50px);
+    margin: 50px 0 0 0;
+  }
+  .Modal > div {
+    width: 90%;
+    margin: 50px auto;
+    margin-bottom: 0;
+  }
+}
