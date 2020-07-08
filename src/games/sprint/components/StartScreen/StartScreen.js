@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button, Navbar, Form, Nav,
+  Button,
 } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
@@ -32,12 +32,12 @@ const StartScreen = () => {
 
   return (
     <StyleStartScreen>
-      <div>
-        <h1 className="gameName">
+      <div className="GameNameContainer">
+        <h1 className="GameName">
         Спринт
         </h1>
       </div>
-      <div className="text">
+      <div className="Text">
         <p>
       Учит быстро переводить с английского на ваш родной язык.
           <br />
@@ -50,13 +50,13 @@ const StartScreen = () => {
         changeActiveLevel={changeActiveLevel}
       />
       <Button
-        className="start_btn"
-        variant="outline-success"
+        className="Start_btn"
+        variant="Outline-success"
         onClick={onInitGame}
       >
         Start
       </Button>
-      <div className="imgCantainer">
+      <div className="ImgCantainer">
         <img src="/assets/images/sprint/sprint_startscreen.svg" />
         <div />
       </div>

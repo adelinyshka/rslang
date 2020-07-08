@@ -12,12 +12,13 @@ justify-content: center;
 align-items: center;
 
 p{
-padding-top: 9px;
+padding: 16px 0px 0px 3px;
 font-family: 'Exo', sans-serif;
 font-style: normal;
 font-weight: normal;
-font-size: 45px;
+font-size: 40px;
 line-height: 40px;
 text-align: center;
+color: #FFF;
 }
 `;

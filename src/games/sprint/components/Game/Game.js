@@ -1,8 +1,10 @@
 import React, { useState, useCallback, useMemo } from 'react';
+import {
+  Button,
+} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Timer from '../Timer/Timer';
-import TimerWrapper from '../Timer/style.TimerWrapper';
 import useAPI from '../../../../common/utils/index';
 
 import StyleGame from './style.Game';
@@ -79,29 +81,74 @@ function Game() {
     () => dispatch(startGame()), [dispatch],
   );
 
-  const prononse = useCallback(
-    (count) => {
-      const pronounce = new Audio(`${audioPath}${words[count].audio}`);
-      pronounce.play();
-    }, [count],
-  );
+  const prononse = (n) => {
+    const pronounce = new Audio(`${audioPath}${words[n].audio}`);
+    pronounce.play();
+  };
 
   if (gameStarted) {
     return (
       <StyleGame>
-        <div className="taimerContainer">
-          <Timer initialTime={60} timeOutHandler={onOverGame} />
-        </div>
-        <p>{words[count].word}</p>
-        <p>{words[count].falsyTranslate}</p>
+        <div className="Main">
+          <div className="UpperContainer">
 
-        <button onClick={() => { setCount(count + 1); onAnswer(words[count], true); }}>верно</button>
-        <button onClick={() => { setCount(count + 1); onAnswer(words[count], false); }}>неверно</button>
-        <button onClick={() => { prononse(count); }}>звук</button>
+            <div className="TaimerContainer">
+              <Timer initialTime={300} timeOutHandler={onOverGame} />
+            </div>
+
+            <div className="ScoreContainer">
+              <p className="Score">100</p>
+            </div>
+
+            <div className="Toolbar">
+              <img className="Close" src="/assets/images/sprint/bell_on.svg" />
+              <label className="Notification_label">
+                <input onChange={() => console.log('it works')} className="Notification_input" type="checkbox" value="1" name="k" />
+                <span />
+              </label>
+            </div>
+          </div>
+          <div className="BlockWordContainer">
+            <div className="BlockWord">
+
+              <div className="Marks">
+                <img src="/assets/images/sprint/empty_mark.svg" />  {/* это переделаю, сейчас только для верстки */}
+                <img src="/assets/images/sprint/empty_mark.svg" />
+                <img src="/assets/images/sprint/empty_mark.svg" />
+              </div>
+
+              <div className="Targets">
+                <img src="/assets/images/sprint/empty_target.svg" />
+                <img src="/assets/images/sprint/empty_target.svg" />
+                <img src="/assets/images/sprint/empty_target.svg" />
+                <img src="/assets/images/sprint/empty_target.svg" />
+              </div>
+
+              <div className="Words">
+                <p className="EnWord">{words[count].word}</p>
+                <p className="RuWord">{words[count].falsyTranslate}</p>
+              </div>
+
+              <div className="Buttons">
+                <Button className="Btn False" onClick={() => { setCount(count + 1); onAnswer(words[count], false); }}>Не верно</Button>
+                <Button className="Btn True" onClick={() => { setCount(count + 1); onAnswer(words[count], true); }}>Верно</Button>
+              </div>
+
+              <div className="Arrows">
+                <img className="Left" src="/assets/images/sprint/left_arrow.svg" />
+                <img className="Right" src="/assets/images/sprint/right_arrow.svg" />
+              </div>
+
+              <div className="PrononseContainer">
+                <button className="Prononse" onClick={() => { prononse(count); }}>звук</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </StyleGame>
     );
   }
-  return (<TimerWrapper><Timer initialTime={5} timeOutHandler={onStartGame} /></TimerWrapper>);
+  return (<StyleGame><Timer initialTime={5} timeOutHandler={onStartGame} /></StyleGame>);
 }
 
 export default Game;
