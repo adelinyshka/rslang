@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import SwitcherLevel from '../../../common/components/LevelSwitcher';
-// import useAPI from '../../../common/utils/index';
 // import fetchJSON from '../../../common/utils/index';
 import Card from './Card';
 import Timer from './Timer';
@@ -18,115 +17,13 @@ import {
   setLevel,
 } from '../redux/index';
 import { levelSelector } from '../redux/selectors';
-
-const dictionary = [
-  {
-    word: 'game',
-    translate: 'игра',
-    id: 1,
-  },
-  {
-    word: 'car',
-    translate: 'машина',
-    id: 2,
-  },
-  {
-    word: 'dinosaur',
-    translate: 'динозавр',
-    id: 3,
-  },
-  {
-    word: 'planet',
-    translate: 'планета',
-    id: 4,
-  },
-  {
-    word: 'plant',
-    translate: 'растение',
-    id: 5,
-  },
-  {
-    word: 'keyboard',
-    translate: 'клавиатура',
-    id: 6,
-  },
-  {
-    word: 'harpsichord',
-    translate: 'клавесин',
-    id: 7,
-  },
-  {
-    word: 'sun',
-    translate: 'солнце',
-    id: 8,
-  },
-  {
-    word: 'evolution',
-    translate: 'эволюция',
-    id: 9,
-  },
-  {
-    word: 'information',
-    translate: 'информация',
-    id: 10,
-  },
-  // {
-  //   word: 'game1',
-  //   translate: 'игра1',
-  //   id: 11,
-  // },
-  // {
-  //   word: 'car1',
-  //   translate: 'машина1',
-  //   id: 12,
-  // },
-  // {
-  //   word: 'dinosaur1',
-  //   translate: 'динозавр1',
-  //   id: 13,
-  // },
-  // {
-  //   word: 'planet1',
-  //   translate: 'планета1',
-  //   id: 14,
-  // },
-  // {
-  //   word: 'plant1',
-  //   translate: 'растение1',
-  //   id: 15,
-  // },
-  // {
-  //   word: 'keyboard1',
-  //   translate: 'клавиатура1',
-  //   id: 16,
-  // },
-  // {
-  //   word: 'harpsichord1',
-  //   translate: 'клавесин1',
-  //   id: 17,
-  // },
-  // {
-  //   word: 'sun1',
-  //   translate: 'солнце1',
-  //   id: 18,
-  // },
-  // {
-  //   word: 'evolution1',
-  //   translate: 'эволюция1',
-  //   id: 19,
-  // },
-  // {
-  //   word: 'information1',
-  //   translate: 'информация1',
-  //   id: 20,
-  // },
-];
-
-const shuffle = (array) => array.sort(() => Math.random - 0.5);
+import Dictionary from './Dictionary';
 
 function Game() {
-  // const level = 1;
+  const dispatch = useDispatch();
+  const activeLevel = useSelector(levelSelector);
 
+  const [dictionary, setDictionary] = useState([]);
   const [russianWord, setRussianWord] = useState();
   const [englishWord, setEnglishWord] = useState();
   const [isRight, setIsRight] = useState(null);
@@ -136,44 +33,36 @@ function Game() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isRules, setIsRules] = useState(false);
   const [isExit, setIsExit] = useState(false);
-  const [incorrectAnswers, setInorrectAnswers] = useState(0);
+  const [isCansel, setIsCansel] = useState(false);
+  const [page, setPage] = useState(29);
+  const [initialTime, setInitialTime] = useState(60);
+  // const [incorrectAnswers, setInorrectAnswers] = useState(0);
 
-  // const [words, setWords] = useState(null);
-  // const [getNewWords, setGetNewWords] = useState(true);
+  // if (page + 1 > 29) {
+  //   level += 1;
+  //   setPage(0);
+  //   setInitialTime(60 - level * 5);
+  // }
 
-  // const userWordsURL = useMemo(
-  //   () => 'words?page=2&group=0', [],
-  // );
+  const changeActiveLevel = useCallback((levelProps) => {
+    if (activeLevel !== levelProps) {
+      dispatch(setLevel(levelProps));
+    }
+  }, [dispatch, activeLevel]);
 
-  // const wordsUseApi = useAPI(userWordsURL);
-  // useEffect(() => {
-  //   if (getNewWords) {
-  //     setGetNewWords(true);
-  //     setWords(wordsUseApi);
-  //   }
-  //   return () => {
-  //     setGetNewWords(false);
-  //   };
-  // }, [wordsUseApi, words, getNewWords]);
+  useEffect(() => {
+    if (countCorrectAnswers % 10 === 0) {
+      setDictionary([]);
 
-  // const userWordsURL = useMemo(
-  //   () => 'words?page=2&group=0', [],
-  // );
-  // const fetchOptions = {
-  //   method: 'GET',
-  // };
-
-  // useEffect(() => {
-  //   const wordsUseApi = fetchJSON(userWordsURL, fetchOptions);
-  //   console.log(words);
-  //   if (getNewWords) {
-  //     setGetNewWords(true);
-  //     setWords(wordsUseApi);
-  //   }
-  //   return () => {
-  //     setGetNewWords(false);
-  //   };
-  // }, [fetchOptions, userWordsURL, getNewWords, words]);
+      if (page === 29) {
+        setPage(0);
+        level += 1;
+        changeActiveLevel(level + 1);
+      } else {
+        setPage(page + 1);
+      }
+    }
+  }, [countCorrectAnswers]);
 
   const correct = useCallback((cardId) => {
     const cAnswers = correctAnswers;
@@ -181,12 +70,12 @@ function Game() {
     setCorrectAnswers(cAnswers);
     setIsRight(true);
     setCountCorrectAnswers(countCorrectAnswers + 1);
-  }, [countCorrectAnswers, correctAnswers]);
+  }, [countCorrectAnswers, correctAnswers, setCorrectAnswers, setIsRight, setCountCorrectAnswers]);
 
   const incorrect = useCallback(() => {
     setIsRight(false);
     setLivesCount(livesCount - 1);
-  }, [livesCount]);
+  }, [livesCount, setLivesCount, setIsRight]);
 
   const cardHandler = useCallback((cardId, word, setWord) => {
     if (correctAnswers.indexOf(cardId) === -1) {
@@ -197,7 +86,7 @@ function Game() {
         checkResult();
       }
     }
-  }, [correct, incorrect, correctAnswers]);
+  }, [correct, incorrect, correctAnswers, checkResult]);
 
   function checkResult() {
     setTimeout(() => {
@@ -215,8 +104,7 @@ function Game() {
     <div className={style.GameWrapper}>
       {isExit ? (
         <Exit
-          onCansel={() => setIsExit(false)}
-          onExit={() => <Link to="./" /> }
+          onCansel={() => setIsCansel(false)}
         />
       ) : false}
       <div
@@ -243,7 +131,7 @@ function Game() {
         />
       </div>
       <div className={style.Level}>
-        <SwitcherLevel />
+        <SwitcherLevel changeActiveLevel={changeActiveLevel} />
       </div>
       <div className={style.Lives}>
         <Lives
@@ -254,47 +142,54 @@ function Game() {
         <Timer
           timeOutHandler={gameOverHandler}
           isActive={!isGameOver}
-          initialTime={100}
+          initialTime={initialTime}
         />
       </div>
-      <div className={style.CardBlock}>
-        <div className={style.cardEng}>
-          {
-            dictionary.map(({ word, id }, index) => (
-              <Card
-                key={index}
-                onCardClick={() => cardHandler(id, russianWord, setEnglishWord)}
-                isActive={englishWord === id}
-                isRight={isRight}
-                isCorrect={correctAnswers.indexOf(id) !== -1}
-              >
-                {word}
-              </Card>
-            ))
-          }
-        </div>
+      {dictionary.length === 0 ? <Dictionary level={activeLevel} page={page} setDictionary={setDictionary} />
+        : (
+          <div className={style.CardBlock}>
+            <div className={style.cardEng}>
+              { dictionary
+                ? dictionary.map(({ word, id }, index) => (
+                  <Card
+                    key={id}
+                    onCardClick={() => cardHandler(id, russianWord, setEnglishWord)}
+                    isActive={englishWord === id}
+                    isRight={isRight}
+                    isCorrect={correctAnswers.indexOf(id) !== -1}
+                  >
+                    {word}
+                  </Card>
+                ))
+                : false}
+            </div>
 
-        <div className={style.cardRus}>
-          {
-            dictionary.map(({ translate, id }, index) => (
-              <Card
-                key={index}
-                onCardClick={() => cardHandler(id, englishWord, setRussianWord)}
-                isActive={russianWord === id}
-                isRight={isRight}
-                isCorrect={correctAnswers.indexOf(id) !== -1}
-                disabled="true"
-              >
-                {translate}
-              </Card>
-            ))
-          }
-        </div>
-      </div>
+            <div className={style.cardRus}>
+              { dictionary
+                ? dictionary.map(({ wordTranslate, id }, index) => (
+                  <Card
+                    key={index}
+                    onCardClick={() => cardHandler(id, englishWord, setRussianWord)}
+                    isActive={russianWord === id}
+                    isRight={isRight}
+                    isCorrect={correctAnswers.indexOf(id) !== -1}
+                    disabled="true"
+                  >
+                    {wordTranslate}
+                  </Card>
+                ))
+                : false}
+            </div>
+          </div>
+        )}
       {
         isGameOver
           // ? <GameOver countCorrectAnswers={countCorrectAnswers} incorrectAnswers={10 - countCorrectAnswers} />
-          ? <GameOver countCorrectAnswers={countCorrectAnswers} />
+          ? (
+            <GameOver
+              countCorrectAnswers={countCorrectAnswers}
+            />
+          )
           : ''
       }
     </div>

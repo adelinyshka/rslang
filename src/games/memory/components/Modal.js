@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import PopUp from './PopUp';
 import style from './Modal.module.css';
 
-const Rules = ({ onRules }) => (
+const Rules = ({ onRules, onCancel }) => (
   <div>
     <PopUp
       type="warning"
@@ -10,6 +12,7 @@ const Rules = ({ onRules }) => (
       content="Кликайте по словам, чтобы совместить слово и его перевод"
       footer={(
         <button
+          className={style.btnRules}
           onClick={onRules}
           type="button"
         >
@@ -38,17 +41,19 @@ const Exit = ({ onCancel, onExit }) => (
         <div>
           <button
             onClick={onCancel}
-            className={style.cancel}
+            className={classNames(style.btnCancel)}
             type="button"
           >
             Отменить
           </button>
-          <button
-            onClick={onExit}
-            type="button"
-          >
-            Выйти
-          </button>
+          <Link to="./">
+            <button
+              className={style.btnExit}
+              type="button"
+            >
+              Выйти
+            </button>
+          </Link>
         </div>
       )}
     />

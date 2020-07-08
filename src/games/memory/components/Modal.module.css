@@ -1,4 +1,4 @@
-button {
+.btnCancel, .btnRules, .btnExit {
     font-family: Exo, sans-serif;
     width: 175px;
     height: 48px;
@@ -13,12 +13,12 @@ button {
     background-color: #6979F8;
   }
   
-button:hover {
+  .btnRules:hover, .btnExit:hover {
   background: #5865CE;
   cursor: pointer;
 }
 
-.cancel {
+.btnCancel {
   box-sizing: border-box;
   background-color: #fff;
   border: 1px solid #6979F8;
@@ -26,7 +26,7 @@ button:hover {
   margin-right: 20px;
 }
 
-.cancel:hover {
+.btnCancel:hover {
   border: 1px solid #5865CE;
   background-color: #fff;
   color: #5865CE;
