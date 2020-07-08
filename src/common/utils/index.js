@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { userSelector } from '../../auth/redux/selectors';
 
-const fetchJSON = async (endpoint, fetchOptions) => {
+export const fetchJSON = async (endpoint, fetchOptions) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/${endpoint}`;
   const data = await fetch(url, fetchOptions);
   const json = await data.json();
