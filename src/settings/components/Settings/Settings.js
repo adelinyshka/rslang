@@ -1,9 +1,15 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, {
+  useState, useCallback, useMemo,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
+import useAPI from '../../../common/utils';
+
 import { setSettings } from '../../redux';
 import SettingsSelector from '../../redux/selectors';
+
+import { userIdSelector } from '../../../auth/redux/selectors';
 
 import styles from './Settings.module.css';
 
@@ -78,26 +84,67 @@ const interactionsInfo = [
   },
 ];
 
+const getFetchOptions = {
+  method: 'GET',
+};
+
 const Settings = () => {
   const dispatch = useDispatch();
   const settings = useSelector(SettingsSelector);
+  const userId = useSelector(userIdSelector);
   // так как изменения происходят при нажатии кнопки сохранить
   // - использую локальный стейт для изменения настроек
   const [formSettings, setFormSettings] = useState(settings);
+
+  const endpoint = useMemo(() => `users/${userId}/settings`, [userId]);
+
+  // Запрос, чтобы забрать существующие настройки
+  const [shouldFetch, setShouldFetch] = useState(true);
+
+  const getAction = useCallback((data) => {
+    const getSettings = { ...data };
+    // запрос почему-то возвращает поле id, когда по документации не должен
+    // если пытаться отправить такие же данные обратно - ошибка 422
+    delete getSettings.id;
+    dispatch(setSettings(getSettings));
+    setFormSettings(getSettings);
+    setShouldFetch(false);
+  }, [dispatch]);
+
+  useAPI(endpoint, getFetchOptions, getAction, shouldFetch);
+
+  // Запрос, чтобы поместить настройки
+  const [didSubmit, setDidSubmit] = useState(false);
+
+  const submitFetchOptions = useMemo(() => ({
+    method: 'PUT',
+    body: JSON.stringify(formSettings),
+  }), [formSettings]);
+
+  const submitAction = useCallback((data) => {
+    dispatch(setSettings(data));
+    setDidSubmit(false);
+  }, [dispatch]);
+
+  useAPI(endpoint, submitFetchOptions, submitAction, didSubmit);
 
   const handleChange = useCallback((event) => {
     const {
       name, type, checked, value,
     } = event.target;
     const newFormSettings = { ...formSettings };
-    newFormSettings[name] = type === 'checkbox' ? checked : value;
+    if (name === 'wordsPerDay') {
+      newFormSettings[name] = type === 'checkbox' ? checked : value;
+    } else {
+      newFormSettings.optional[name] = type === 'checkbox' ? checked : value;
+    }
     setFormSettings(newFormSettings);
   }, [formSettings, setFormSettings]);
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
-    dispatch(setSettings(formSettings));
-  }, [dispatch, formSettings]);
+    setDidSubmit(true);
+  }, [setDidSubmit]);
 
   const cancelSubmit = useCallback(() => {
     setFormSettings(settings);
@@ -109,7 +156,7 @@ const Settings = () => {
         <input
           name={name}
           id={name}
-          checked={formSettings[name]}
+          checked={formSettings.optional[name]}
           type="checkbox"
           onChange={handleChange}
         />
@@ -127,7 +174,7 @@ const Settings = () => {
         <input
           name={name}
           id={name}
-          value={formSettings[name]}
+          value={formSettings.optional[name]}
           type="number"
           onChange={handleChange}
           min={1}
@@ -144,7 +191,7 @@ const Settings = () => {
           <input
             name={name}
             id={name}
-            checked={formSettings[name]}
+            checked={formSettings.optional[name]}
             type="checkbox"
             onChange={handleChange}
           />
@@ -165,7 +212,7 @@ const Settings = () => {
               type="number"
               name="newCardsAmount"
               id="newCardsAmount"
-              value={formSettings.newCardsAmount}
+              value={formSettings.optional.newCardsAmount}
               onChange={handleChange}
             />
           </label>
@@ -173,9 +220,9 @@ const Settings = () => {
             Максимальное количество карточек в день
             <input
               type="number"
-              name="wholeCardsAmount"
-              id="wholeCardsAmount"
-              value={formSettings.wholeCardsAmount}
+              name="wordsPerDay"
+              id="wordsPerDay"
+              value={formSettings.wordsPerDay}
               onChange={handleChange}
             />
           </label>
