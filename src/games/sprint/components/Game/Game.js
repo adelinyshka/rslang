@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, {
+  useState, useCallback, useMemo, useEffect,
+} from 'react';
 import {
   Button,
 } from 'react-bootstrap';
@@ -15,6 +17,10 @@ import {
   startGameSelector,
   overGameSelector,
   levelSelector,
+  scoreSelector,
+  marksSelector,
+  targetsSelector,
+  rateSelector,
 } from '../../redux/selectors';
 
 import {
@@ -22,6 +28,10 @@ import {
   setResult,
   setWords,
   startGame,
+  setMarks,
+  setTargets,
+  setRate,
+  setScore,
 } from '../../redux';
 
 const gameResult = [];
@@ -33,6 +43,11 @@ const fetchOptions = {
   method: 'GET',
 };
 
+let marksCombo = 0;
+let targetsCombo = 0;
+let activeMarks;
+let activeTargets;
+
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
 function Game() {
@@ -40,6 +55,10 @@ function Game() {
   const gameStarted = useSelector(startGameSelector);
   const dispatch = useDispatch();
   const activeLevel = useSelector(levelSelector);
+  const score = useSelector(scoreSelector);
+  const marks = useSelector(marksSelector);
+  const targets = useSelector(targetsSelector);
+  const rate = useSelector(rateSelector);
 
   const [count, setCount] = useState(0);
 
@@ -69,12 +88,56 @@ function Game() {
 
   useAPI(userWordsURL, fetchOptions, action);
 
+  const changeScore = useCallback(
+    (bool) => {
+      if (bool) dispatch(setScore(score + (rate * 10)));
+    }, [dispatch, rate, score],
+  );
+
+  const changeTargets = useCallback(
+    (bool) => {
+      activeTargets = targets;
+      if (bool && targetsCombo < 3) {
+        activeTargets[targetsCombo] = 'hit';
+        targetsCombo += 1;
+        dispatch(setRate(rate + 1));
+      }
+      if (!bool) {
+        targetsCombo = 0;
+        activeTargets = ['empty', 'empty', 'empty'];
+        dispatch(setRate(1));
+      }
+      dispatch(setTargets([...activeTargets]));
+    }, [dispatch, targets],
+  );
+
+  const changeMark = useCallback(
+    (bool) => {
+      activeMarks = marks;
+      if (bool && marksCombo < 3) {
+        activeMarks[marksCombo] = 'hit';
+        marksCombo += 1;
+      } else if (bool && marksCombo >= 3) {
+        activeMarks = ['empty', 'empty', 'empty'];
+        marksCombo = 0;
+        changeTargets(true);
+      } else {
+        marksCombo = 0;
+        activeMarks = ['empty', 'empty', 'empty'];
+        changeTargets(false);
+      }
+      dispatch(setMarks([...activeMarks]));
+    }, [marks, dispatch, changeTargets],
+  );
+
   const onAnswer = useCallback(
     (word, answer) => {
       word.correctAnswer = (word.correctFlag === answer);
+      changeMark(word.correctAnswer);
+      changeScore(word.correctAnswer);
       gameResult.push(word);
       dispatch(setResult(gameResult));
-    }, [dispatch],
+    }, [dispatch, changeMark],
   );
 
   const onStartGame = useCallback(
@@ -97,7 +160,7 @@ function Game() {
             </div>
 
             <div className="ScoreContainer">
-              <p className="Score">100</p>
+              <p className="Score">{score}</p>
             </div>
 
             <div className="Toolbar">
@@ -112,18 +175,12 @@ function Game() {
             <div className="BlockWord">
 
               <div className="Marks">
-                <img src="/assets/images/sprint/empty_mark.svg" />
-                {' '}
-                {/* это переделаю, сейчас только для верстки */}
-                <img src="/assets/images/sprint/empty_mark.svg" />
-                <img src="/assets/images/sprint/empty_mark.svg" />
+                {marks.map((type, index) => <img key={index} src={`/assets/images/sprint/${type}_mark.svg`} />)}
               </div>
 
               <div className="Targets">
-                <img src="/assets/images/sprint/empty_target.svg" />
-                <img src="/assets/images/sprint/empty_target.svg" />
-                <img src="/assets/images/sprint/empty_target.svg" />
-                <img src="/assets/images/sprint/empty_target.svg" />
+                <img src="/assets/images/sprint/hit_target.svg" />
+                {targets.map((type, index) => <img key={index} src={`/assets/images/sprint/${type}_target.svg`} />)}
               </div>
 
               <div className="Words">

@@ -31,3 +31,22 @@ export const levelSelector = createSelector(
   sprintSelector,
   ({ level }) => level,
 );
+
+export const scoreSelector = createSelector(
+  sprintSelector,
+  ({ score }) => score,
+);
+export const marksSelector = createSelector(
+  sprintSelector,
+  ({ marks }) => marks,
+);
+
+export const targetsSelector = createSelector(
+  sprintSelector,
+  ({ targets }) => targets,
+);
+
+export const rateSelector = createSelector(
+  sprintSelector,
+  ({ rate }) => rate,
+);

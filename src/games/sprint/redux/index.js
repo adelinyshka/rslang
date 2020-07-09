@@ -28,13 +28,37 @@ export const setLevel = (level) => ({
   level,
 });
 
+export const setScore = (score) => ({
+  type: 'SET_SCORE',
+  score,
+});
+
+export const setMarks = (num) => ({
+  type: 'SET_MARKS',
+  marks: num,
+});
+
+export const setTargets = (num) => ({
+  type: 'SET_TARGETS',
+  targets: num,
+});
+
+export const setRate = (num) => ({
+  type: 'SET_RATE',
+  rate: num,
+});
+
 const INITIAL_STATE = {
   initGame: false,
   startGame: false,
   overGame: false,
+  score: 0,
   words: {},
   results: [],
   level: 0,
+  marks: ['empty', 'empty', 'empty'],
+  targets: ['empty', 'empty', 'empty'],
+  rate: 1,
 };
 
 const sprintReducer = (state = INITIAL_STATE, action) => {
@@ -50,6 +74,10 @@ const sprintReducer = (state = INITIAL_STATE, action) => {
     case 'OVER_GAME':
     case 'SET_WORDS':
     case 'SET_LEVEL':
+    case 'SET_SCORE':
+    case 'SET_MARKS':
+    case 'SET_TARGETS':
+    case 'SET_RATE':
       return {
         ...state,
         ...payload,
