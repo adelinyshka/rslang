@@ -31,7 +31,7 @@ const SwitcherLevel = ({ changeActiveLevel }) => {
                 className={classNames('li', { active: activeLevel === level })}
                 role="menuitem"
               >
-                {level}
+                <p>{level}</p>
               </li>
             ))
           }

@@ -15,12 +15,17 @@ export default styled.div`
   }
 
   .p {
-    margin-left: 10px;
+    margin: 0px 0px 0px 10px;
+    font: normal 'Exo',sans-serif;
+    font-size: 16px;
+    line-height: 13px;
+    color: #6979F8;
   }
 
   .ul {
     display: flex;
     padding-inline-start: 10px;
+    margin: 10px 0px 10px 0;
   }
 
   .li {
@@ -38,6 +43,14 @@ export default styled.div`
     :hover {
       cursor: pointer;
       background: #4FC8AB;
+    }
+    p {
+      margin:0;
+      font: normal 'Exo',sans-serif;
+      font-size: 12px;
+      line-height: 14px;
+      color: #ffffff;
+
     }
   }
 
