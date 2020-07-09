@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-
+import { Link } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
 import StyleStartScreen from './style.StartScreen';
 
 import {
@@ -16,21 +17,37 @@ const StartScreen = () => {
 
   return (
     <StyleStartScreen>
-      <h1>
-        speakit
-      </h1>
-      <p>
+      <Link to="main">
+        <img
+          className="cross"
+          src="./../assets/images/speakit/cross.svg"
+          alt="close"
+        />
+      </Link>
+      <div className="center_alignment">
+        <h1>
+        SpeakIt
+        </h1>
+        <p>
         Click on the words to hear them sound.
-        <br />
+          <br />
         Click on the button and speak the words into the microphone.
-      </p>
-      <button
-        type="button"
-        className="btn"
-        onClick={onStartGame}
-      >
+        </p>
+        <Form>
+          <Button
+            type="button"
+            className="start_btn"
+            onClick={onStartGame}
+          >
           Start
-      </button>
+          </Button>
+        </Form>
+      </div>
+      <img
+        className="decoration"
+        src="./../assets/images/speakit/start-screen-pic.svg"
+        alt="beauty flower"
+      />
     </StyleStartScreen>
   );
 };
