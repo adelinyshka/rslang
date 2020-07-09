@@ -10,6 +10,8 @@ const classNames = require('classnames');
 
 export default function Game() {
   let counterCrystalSize = 0.7;
+  const [gettingWords, setGettingWords] = useState(true);
+  const [livesCount, setLivesCount] = useState(5);
   const [word, setWord] = useState('');
   const [answer, setAnswer] = useState('');
   const [rightAnswer, setRightAnswer] = useState('');
@@ -17,14 +19,15 @@ export default function Game() {
   const [btnClicked, setBtnClicked] = useState(false);
   const [scaleSize, setScaleSize] = useState(counterCrystalSize);
   const [arrOfWords, setArrOfWords] = useState([]);
-  const [gettingWords, setGettingWords] = useState(true);
-  const [livesCount, setLivesCount] = useState(5);
+
   const [wordCounter, setWordCounter] = useState(40);
 
   const [isGameOver, setIsGameOver] = useState(false);
   const [isRules, setIsRules] = useState(false);
   const [isExit, setIsExit] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
+
+  const [timeFall, setTimeFall] = useState(true);
 
   useEffect(() => {
     if (gettingWords && livesCount) {
@@ -47,6 +50,7 @@ export default function Game() {
 
       setArrOfWords(shuffledTranslations);
       setGettingWords(false);
+      console.log('use effect 1 = refresh words');
     }
   }, [livesCount, gettingWords]);
 
@@ -84,7 +88,7 @@ export default function Game() {
       setGettingWords(true);
       setAnswer(false);
       setBtnClicked(false);
-    }, 2000);
+    }, 500);
   }, []);
 
   useEffect(() => {
@@ -93,7 +97,7 @@ export default function Game() {
         setGettingWords(true);
         setAnswer(false);
         setLivesCount(livesCount - 1);
-        console.log('-life in useEffect');
+        console.log('use effect 2 = -life in useEffect');
       }
     }, 4700);
 
