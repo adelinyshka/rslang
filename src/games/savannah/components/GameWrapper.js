@@ -9,18 +9,57 @@ const GameWrapper = styled.div`
   color: white;
   background: -o-linear-gradient(218.82deg, #9FAF92 -0.81%, #037264 96.43%);
   background: linear-gradient(231.18deg, #9FAF92 -0.81%, #037264 96.43%);
+  overflow: hidden;
   
-  @media (max-width: 768px) {
-    height: calc(100vh - 50px);
-    margin-left: 0;
-    overflow: hidden;
+  .tree-wave,
+  .tree-tall {
+    position: absolute;
+    opacity: 0.5;
   }
   
-  @media (orientation: landscape) and (max-width: 768px) {
-    height: calc(100vh - 50px);
-    margin-left: 0;
-    overflow: scroll;
+  .tree-wave {
+    bottom: -10px;
+    left:10px;
+    width: 180px;
+    
+    @media (max-width: 768px) {
+      left:-30px;
+      width: 20%;
+      }
+      
+    @media (max-width: 520px) {
+      left: -24px;
+      width: 25%;
+      }
   }
+  
+  .tree-tall {
+    bottom: -50px;
+    right: -50px;
+    
+    @media (max-width: 768px) {
+      bottom: -70px;
+      width: 30%;
+      }  
+    
+    @media (max-width: 520px) {
+      bottom: -30px;
+      width: 31%;
+      right: -14px;
+      }
+  }
+  
+    @media (max-width: 768px) {
+      height: calc(100vh - 50px);
+      margin-left: 0;
+      overflow: hidden;
+    }
+    
+    @media (orientation: landscape) and (max-width: 768px) {
+      height: calc(100vh - 50px);
+      margin-left: 0;
+      overflow: scroll;
+    }
   
   img.sound {
     position: absolute;
