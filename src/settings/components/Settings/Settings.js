@@ -84,10 +84,6 @@ const interactionsInfo = [
   },
 ];
 
-const getFetchOptions = {
-  method: 'GET',
-};
-
 const Settings = () => {
   const dispatch = useDispatch();
   const settings = useSelector(settingsSelector);
@@ -96,27 +92,15 @@ const Settings = () => {
   // - использую локальный стейт для изменения настроек
   const [formSettings, setFormSettings] = useState(settings);
   const [didSubmit, setDidSubmit] = useState(false);
-  const [shouldFetch, setShouldFetch] = useState(true);
 
   const endpoint = useMemo(() => `users/${userId}/settings`, [userId]);
-
-  // Запрос, чтобы забрать существующие настройки
-
-  const getAction = useCallback((data) => {
-    const { id, ...getSettings } = data;
-    dispatch(setSettings(getSettings));
-    setFormSettings(getSettings);
-    setShouldFetch(false);
-  }, [dispatch]);
-
-  useAPI(endpoint, getFetchOptions, getAction, shouldFetch);
-
-  // Запрос, чтобы поместить настройки
 
   const submitFetchOptions = useMemo(() => ({
     method: 'PUT',
     body: JSON.stringify(formSettings),
   }), [formSettings]);
+
+  // Запрос, чтобы поместить настройки
 
   const submitAction = useCallback((data) => {
     dispatch(setSettings(data));

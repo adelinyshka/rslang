@@ -17,7 +17,7 @@ const useAPI = (endpoint, fetchOptions = {}, action, shouldFetch = true) => {
   const [result, setResult] = useState();
   const [error, setError] = useState();
   const finalOptions = useMemo(() => ({
-    ...fetchOptions,
+    'method': 'GET',
     'withCredentials': true,
     'headers': {
       ...fetchOptions.headers,
@@ -25,6 +25,7 @@ const useAPI = (endpoint, fetchOptions = {}, action, shouldFetch = true) => {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
+    ...fetchOptions,
   }), [fetchOptions, token]);
 
   useEffect(() => {
