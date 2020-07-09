@@ -13,6 +13,11 @@ import {
 const audioPath = 'https://raw.githubusercontent.com/'
   + 'alekchaik/rslang-data/master/';
 
+const playAudio = (audio) => {
+  const pronounce = new Audio(`${audioPath}${audio}`);
+  pronounce.play();
+};
+
 const Results = ({ setModalResult, getNewWords }) => {
   const words = useSelector(wordsSelector);
   const speechWords = useSelector(speechWordsSelector);
@@ -26,11 +31,6 @@ const Results = ({ setModalResult, getNewWords }) => {
     const learnWord = speechWords.find((element) => word === element);
     return learnWord ? count : count + 1;
   }, 0), [speechWords, words]);
-
-  const playAudio = useCallback((audio) => {
-    const pronounce = new Audio(`${audioPath}${audio}`);
-    pronounce.play();
-  }, []);
 
   return (
     <StyleResults>

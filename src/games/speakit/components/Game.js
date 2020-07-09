@@ -141,33 +141,31 @@ const Game = ({
 
   useEffect(() => {
     recognition.lang = 'en-US';
-    if (statusGame === 'speach') {
-      if (!listening) {
-        let trueSpeech = false;
-        let img = '';
-        words.forEach(({ word, image: wordImage }) => {
-          if (!trueSpeech) {
-            trueSpeech = word.toLocaleLowerCase()
-              === transcript.toLocaleLowerCase();
-            img = trueSpeech ? wordImage : '';
-          }
-        });
-        if (trueSpeech) {
-          const linkImage = `${'https://raw.githubusercontent.com/'
-            + 'alekchaik/rslang-data/master/'}${img}`;
-          const trueSpeechWords = [...speechWords, transcript];
-          batch(() => {
-            dispatch(setSpeechActiveWord(transcript));
-            dispatch(setSpeechWords(trueSpeechWords));
-            dispatch(setImage(linkImage));
-          });
-          if (speechWords.lenght === 10) setModalResult(true);
-        } else {
-          dispatch(setSpeechActiveWord(transcript));
-          dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+    if (statusGame === 'speach' && !listening) {
+      let trueSpeech = false;
+      let img = '';
+      words.forEach(({ word, image: wordImage }) => {
+        if (!trueSpeech) {
+          trueSpeech = word.toLocaleLowerCase()
+            === transcript.toLocaleLowerCase();
+          img = trueSpeech ? wordImage : '';
         }
-        startListening();
+      });
+      if (trueSpeech) {
+        const linkImage = `${'https://raw.githubusercontent.com/'
+          + 'alekchaik/rslang-data/master/'}${img}`;
+        const trueSpeechWords = [...speechWords, transcript];
+        batch(() => {
+          dispatch(setSpeechActiveWord(transcript));
+          dispatch(setSpeechWords(trueSpeechWords));
+          dispatch(setImage(linkImage));
+        });
+        if (speechWords.lenght === 10) setModalResult(true);
+      } else {
+        dispatch(setSpeechActiveWord(transcript));
+        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
       }
+      startListening();
     }
   }, [dispatch,
     statusGame,
