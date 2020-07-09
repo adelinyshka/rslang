@@ -64,7 +64,7 @@ function Menu() {
                 <div className={classes.BlackThemeIcon}>
                   <img
                     className={classes.BlackThemeImg}
-                    src="./assets/images/moon.svg"
+                    src="/assets/images/moon.svg"
                     alt=""
                   />
                 </div>
