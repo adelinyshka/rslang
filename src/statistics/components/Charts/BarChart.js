@@ -5,14 +5,11 @@ import { Bar } from 'react-chartjs-2';
 const options = { responsive: true, maintainAspectRatio: false };
 
 const BarChart = ({ data }) => {
-  const labels = useMemo(() => data.map(({ t }) => (
-    t.toLocaleDateString({}, {
-      day: '2-digit', month: '2-digit', year: '2-digit',
-    })
-  )), [data]);
-
   const dataBar = useMemo(() => ({
-    labels,
+    labels: data.map(({ t }) => (
+      t.toLocaleDateString({}, {
+        day: '2-digit', month: '2-digit', year: '2-digit',
+      }))),
     datasets: [
       {
         label: 'Количество изученных карточек',
@@ -22,7 +19,7 @@ const BarChart = ({ data }) => {
         data,
       },
     ],
-  }), [data, labels]);
+  }), [data]);
 
   return <Bar data={dataBar} options={options} />;
 };

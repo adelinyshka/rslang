@@ -15,7 +15,7 @@ const fetchOptions = {
   method: 'GET',
 };
 
-const titles = {
+const games = {
   'puzzle': 'English Puzzle',
   'speakit': 'Speakit',
   'savannah': 'Саванна',
@@ -33,7 +33,12 @@ const GamesStat = ({ show, onHide }) => {
   const action = useCallback(({ optional }) => {
     setStatistics(optional);
   }, [setStatistics]);
+
   useAPI(endpoint, fetchOptions, action);
+
+  const tableHeader = useMemo(() => statistics
+  && Object.keys(statistics).map((key) => <th key={key}>{games[key]}</th>),
+  [statistics]);
 
   useEffect(() => {
     if (statistics) {
@@ -47,7 +52,7 @@ const GamesStat = ({ show, onHide }) => {
       for (let i = 0; i < maxIndex; i++) {
         const date = ['дата'];
         const res = ['результат'];
-        for (let j = 0; j < 6; j++) {
+        for (let j = 0; j < values.length; j++) {
           const keys = Object.keys(values[j]);
           date.push(keys[i]);
           res.push(values[j][keys[i]]);
@@ -61,9 +66,6 @@ const GamesStat = ({ show, onHide }) => {
       setTableBody(rowsJSX);
     }
   }, [statistics]);
-  const tableHeader = useMemo(() => statistics
-  && Object.keys(statistics).map((key) => <th key={key}>{titles[key]}</th>),
-  [statistics]);
 
   return (
     <Modal
