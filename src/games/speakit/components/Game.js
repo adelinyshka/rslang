@@ -235,7 +235,7 @@ const Game = ({
         <div className="cross" />
       </div>
       <figure className="figure">
-        <img className="img" src={image} alt={translateActiveWord} />
+        <img className="imgFigure" src={image} alt={translateActiveWord} />
         <figcaption className="figcaption">
           {statusGame === 'speach'
             ? <img className="microphone" src={imgMicro} alt="Microphone" />
@@ -244,7 +244,7 @@ const Game = ({
         </figcaption>
       </figure>
       <BlockWords />
-      <div>
+      <div className="wrapper-btn">
         <button
           type="button"
           className="button__restart"

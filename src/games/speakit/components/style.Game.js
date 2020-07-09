@@ -5,6 +5,11 @@ export default style.div`
   padding: 2.5vw 5vw;
   text-align: center;
   background: #FAFAFA;
+  
+  @media (max-width: 768px) {
+    margin-left: 0;
+    padding: 0;
+  }
 
   .container__rules {
     display: flex;
@@ -21,7 +26,6 @@ export default style.div`
 
   .container__rules img {
     height: 17px;
-
   }
 
   .container__exit {
@@ -38,7 +42,7 @@ export default style.div`
     position: absolute;
     top: 15.5px;
     left: 5px;
-    border: 2px solid #25282B;
+    border: 1px solid #25282B;
     border-radius: 100px;
     width: 25px;
   }
@@ -56,55 +60,19 @@ export default style.div`
     cursor: pointer;
   }
 
-  .button__restart,
-  .button__show-results {
-    border: 2px solid #6979F8;
-    box-sizing: border-box;
-    border-radius: 6px;
-    height: 5vh;
-    width: 15vw;
-    font-size: 17px;
-    outline: none;
-  }
-
-  .button__restart {
-    margin-right: 4vw;
-  }
-
-  .button__speak-please {
-    border: 2px solid #6979F8;
-    box-sizing: border-box;
-    border-radius: 6px;
-    background: #6979f8;
-    height: 5vh;
-    width: 15vw;
-    font-size: 17px;
-    margin-right: 4vw;
-    outline: none;
-  }
-
-  .button__restart:hover,
-  .button__show-results:hover {
-    cursor: pointer;
-    background: #6979F8;
-  }
-
-  .button__speak-please:hover {
-    cursor: pointer;
-    background: #FAFAFA;
-  }
-
   .figure {
-    width: 360px;
+    width: 320px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     background: white;
     border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.03);
   }
 
-  .img {
-    width: 360px;
+  .imgFigure {
+    width: 320px;
     height: 240px;
   }
 
@@ -114,8 +82,12 @@ export default style.div`
     justify-content: center;
     align-items: center;
     font-size: 17px;
-    margin-bottom: 1vh;
-    height: 5vh;
+    height: 54px;
+    font-family: 'Exo', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 22px;
+    color: #000000;
   }
 
   .figcaption .microphone {
@@ -123,30 +95,78 @@ export default style.div`
     width: 20px;
     left: 2%;
   }
-
+  
+  .wrapper-btn {
+    display: flex;
+    width: 60%;
+    min-width: 630px;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    padding-top: 20px;
+    flex-wrap: wrap;
+    
+    @media (max-width: 768px) {
+      justify-content: center;
+      min-width: unset;
+    }
+  }
+  
+  .button__restart,
+  .button__show-results,
+  .button__speak-please,
+  .button__new-game,
+  .button__close-results {
+    width: 178px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    font-family: 'Exo', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 22px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin: 5px;
+        
+    &:hover,
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+  
+  .button__restart,
+  .button__show-results,
   .button__close-results {
     border: 2px solid #6979F8;
+    background: transparent;
     box-sizing: border-box;
-    border-radius: 6px;
-    height: 5vh;
-    width: 15vw;
-    font-size: 17px;
-    outline: none;
+    color: #6979F8;
+    
+    &:hover,
+    &:focus,
+    &:active {
+      border: 2px solid #5865CE;
+      color: #5865CE;
+    }
   }
 
+  .button__speak-please,
   .button__new-game {
-    border: 2px solid #6979F8;
-    box-sizing: border-box;
-    border-radius: 6px;
-    height: 5vh;
-    width: 15vw;
-    font-size: 17px;
-    outline: none;
-  }
-
-  .button__close-results:hover,
-  .button__new-game:hover {
-    cursor: pointer;
     background: #6979F8;
+    border: 2px solid #6979F8;
+    color: #fff;
+    
+    &:hover,
+    &:focus,
+    &:active {
+      border: 2px solid #5865CE;
+      color: #fff;
+      background: #5865CE;
+    }
   }
 `;

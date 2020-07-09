@@ -34,9 +34,18 @@ const Results = ({ setModalResult, getNewWords }) => {
 
   return (
     <StyleResults>
-      {`falseWords = ${falseWords}`}
-      {`trueWords = ${trueWords}`}
-      <ul>
+      <div className="wrapper-icons">
+        <div className="left">
+          <img src="./assets/images/speakit/good-results.svg" alt="" />
+          <span className="results">{`${trueWords}`}</span>
+        </div>
+        <div className="right">
+          <img src="./assets/images/speakit/bad-results.svg" alt="" />
+          <span className="results">{`${falseWords}`}</span>
+
+        </div>
+      </div>
+      <ul className="listWords">
         {
           words.map(({
             word,
@@ -52,32 +61,37 @@ const Results = ({ setModalResult, getNewWords }) => {
               >
                 <p>
                   <img
+                    className="results-audio-icon"
                     src="./assets/images/speakit/audio-icon.svg"
                     alt="audio-icon.svg"
                     onClick={() => playAudio(audio)}
                     role="section"
                   />
-                  {`${word} ${transcription} ${wordTranslate}`}
+                  <p>{`${word}`}</p>
+                  <p>{`${transcription}`}</p>
+                  <p>{`${wordTranslate}`}</p>
                 </p>
               </li>
             );
           })
         }
       </ul>
-      <button
-        type="button"
-        className="button__close-results"
-        onClick={() => setModalResult()}
-      >
+      <div className="wrapper-btn ">
+        <button
+          type="button"
+          className="button__close-results"
+          onClick={() => setModalResult()}
+        >
         Return
-      </button>
-      <button
-        type="button"
-        className="button__new-game"
-        onClick={() => getNewWords()}
-      >
+        </button>
+        <button
+          type="button"
+          className="button__new-game"
+          onClick={() => getNewWords()}
+        >
         New game
-      </button>
+        </button>
+      </div>
     </StyleResults>
   );
 };
