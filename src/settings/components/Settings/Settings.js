@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 import useAPI from '../../../common/utils';
 
 import { setSettings } from '../../redux';
-import SettingsSelector from '../../redux/selectors';
+import settingsSelector from '../../redux/selectors';
 
 import { userIdSelector } from '../../../auth/redux/selectors';
 
@@ -90,22 +90,20 @@ const getFetchOptions = {
 
 const Settings = () => {
   const dispatch = useDispatch();
-  const settings = useSelector(SettingsSelector);
+  const settings = useSelector(settingsSelector);
   const userId = useSelector(userIdSelector);
   // так как изменения происходят при нажатии кнопки сохранить
   // - использую локальный стейт для изменения настроек
   const [formSettings, setFormSettings] = useState(settings);
+  const [didSubmit, setDidSubmit] = useState(false);
+  const [shouldFetch, setShouldFetch] = useState(true);
 
   const endpoint = useMemo(() => `users/${userId}/settings`, [userId]);
 
   // Запрос, чтобы забрать существующие настройки
-  const [shouldFetch, setShouldFetch] = useState(true);
 
   const getAction = useCallback((data) => {
-    const getSettings = { ...data };
-    // запрос почему-то возвращает поле id, когда по документации не должен
-    // если пытаться отправить такие же данные обратно - ошибка 422
-    delete getSettings.id;
+    const { id, ...getSettings } = data;
     dispatch(setSettings(getSettings));
     setFormSettings(getSettings);
     setShouldFetch(false);
@@ -114,7 +112,6 @@ const Settings = () => {
   useAPI(endpoint, getFetchOptions, getAction, shouldFetch);
 
   // Запрос, чтобы поместить настройки
-  const [didSubmit, setDidSubmit] = useState(false);
 
   const submitFetchOptions = useMemo(() => ({
     method: 'PUT',
@@ -165,42 +162,6 @@ const Settings = () => {
       </label>
     ))), [handleChange, formSettings]);
 
-  const intervals = useMemo(() => (
-    intervalsInfo.map(({ title, name, bgColor }) => (
-      <label key={name} htmlFor={name} className={styles.Intervals}>
-        <div style={{ backgroundColor: bgColor }}>
-          {title}
-        </div>
-        <input
-          name={name}
-          id={name}
-          value={formSettings.optional[name]}
-          type="number"
-          onChange={handleChange}
-          min={1}
-        />
-      </label>
-    ))
-  ), [formSettings, handleChange]);
-
-  const interactions = useMemo(() => (
-    interactionsInfo.map(({ title, name }) => (
-      <div className={styles.Interaction}>
-        <h2>{title}</h2>
-        <label key={name} htmlFor={name} className={styles.Switch}>
-          <input
-            name={name}
-            id={name}
-            checked={formSettings.optional[name]}
-            type="checkbox"
-            onChange={handleChange}
-          />
-          <span className={styles.Slider} />
-        </label>
-      </div>
-    ))
-  ), [formSettings, handleChange]);
-
   return (
     <form className={styles.Settings} onSubmit={handleSubmit}>
       <div className={styles.CardsAmount}>
@@ -239,11 +200,39 @@ const Settings = () => {
         </div>
         <div>
           <h2>Настроить интервалы повторения</h2>
-          {intervals}
+          {intervalsInfo.map(({ title, name, bgColor }) => (
+            <label key={name} htmlFor={name} className={styles.Intervals}>
+              <div style={{ backgroundColor: bgColor }}>
+                {title}
+              </div>
+              <input
+                name={name}
+                id={name}
+                value={formSettings.optional[name]}
+                type="number"
+                onChange={handleChange}
+                min={1}
+              />
+            </label>
+          ))}
         </div>
       </div>
       <div className={styles.CardsInteractions}>
-        {interactions}
+        {interactionsInfo.map(({ title, name }) => (
+          <div className={styles.Interaction}>
+            <h2>{title}</h2>
+            <label key={name} htmlFor={name} className={styles.Switch}>
+              <input
+                name={name}
+                id={name}
+                checked={formSettings.optional[name]}
+                type="checkbox"
+                onChange={handleChange}
+              />
+              <span className={styles.Slider} />
+            </label>
+          </div>
+        ))}
       </div>
       <div className={styles.FormControls}>
         <Button
