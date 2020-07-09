@@ -1,15 +1,15 @@
 import React, {
-  useState, useCallback, useMemo,
+  useState, useCallback, useMemo, useEffect,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
-import useAPI from '../../../common/utils';
+import { fetchJSON } from '../../../common/utils';
 
 import { setSettings } from '../../redux';
 import settingsSelector from '../../redux/selectors';
 
-import { userIdSelector } from '../../../auth/redux/selectors';
+import { userIdSelector, tokenSelector } from '../../../auth/redux/selectors';
 
 import styles from './Settings.module.css';
 
@@ -88,26 +88,28 @@ const Settings = () => {
   const dispatch = useDispatch();
   const settings = useSelector(settingsSelector);
   const userId = useSelector(userIdSelector);
+  const token = useSelector(tokenSelector);
   // так как изменения происходят при нажатии кнопки сохранить
   // - использую локальный стейт для изменения настроек
   const [formSettings, setFormSettings] = useState(settings);
-  const [didSubmit, setDidSubmit] = useState(false);
 
   const endpoint = useMemo(() => `users/${userId}/settings`, [userId]);
 
+  useEffect(() => {
+    setFormSettings(settings);
+  }, [settings]);
+
   const submitFetchOptions = useMemo(() => ({
     method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(formSettings),
-  }), [formSettings]);
+  }), [formSettings, token]);
 
   // Запрос, чтобы поместить настройки
-
-  const submitAction = useCallback((data) => {
-    dispatch(setSettings(data));
-    setDidSubmit(false);
-  }, [dispatch]);
-
-  useAPI(endpoint, submitFetchOptions, submitAction, didSubmit);
 
   const handleChange = useCallback((event) => {
     const {
@@ -124,8 +126,10 @@ const Settings = () => {
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
-    setDidSubmit(true);
-  }, [setDidSubmit]);
+    fetchJSON(endpoint, submitFetchOptions)
+      .then(({ id, ...data }) => dispatch(setSettings(data)))
+      .catch((er) => console.log(er));
+  }, [dispatch, endpoint, submitFetchOptions]);
 
   const cancelSubmit = useCallback(() => {
     setFormSettings(settings);

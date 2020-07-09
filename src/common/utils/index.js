@@ -5,6 +5,7 @@ import { userSelector } from '../../auth/redux/selectors';
 
 export const fetchJSON = async (endpoint, fetchOptions) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/${endpoint}`;
+  console.log(fetchOptions);
   const data = await fetch(url, fetchOptions);
   const json = await data.json();
   if (data.status !== 200) throw new Error(data.status);

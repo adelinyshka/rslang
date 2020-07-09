@@ -155,7 +155,7 @@ const App = () => {
         'Accept': 'application/json',
       },
     })
-      .then((data) => dispatch(setSettings(data)))
+      .then(({ id, ...data }) => dispatch(setSettings(data)))
       .catch((er) => console.log(er));
   }, [dispatch, token, userId]);
 
