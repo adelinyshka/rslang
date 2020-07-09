@@ -26,9 +26,9 @@ const StartScreen = () => {
     if (activeLevel !== levelProps) {
       dispatch(setLevel(levelProps));
     }
-  }, [dispatch]);
+  }, [dispatch, activeLevel]);
 
-  const onInitGame = () => dispatch(initGame());
+  const onInitGame = useCallback(() => dispatch(initGame()), [dispatch]);
 
   return (
     <StyleStartScreen>

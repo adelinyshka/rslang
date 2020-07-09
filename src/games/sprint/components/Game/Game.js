@@ -5,7 +5,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 
 import Timer from '../Timer/Timer';
-import useAPI from '../../../../common/utils/index';
+import useAPI from '../../../../common/utils';
 
 import StyleGame from './style.Game';
 
@@ -22,7 +22,7 @@ import {
   setResult,
   setWords,
   startGame,
-} from '../../redux/index';
+} from '../../redux';
 
 const gameResult = [];
 
@@ -32,6 +32,8 @@ const audioPath = 'https://raw.githubusercontent.com/'
 const fetchOptions = {
   method: 'GET',
 };
+
+const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
 function Game() {
   const words = useSelector(wordsSelector);
@@ -49,8 +51,6 @@ function Game() {
     () => `words?page=0&group=${activeLevel}
     &wordsPerExampleSentenceLTE=1000&wordsPerPage=300`, [activeLevel],
   );
-
-  const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
   const action = useCallback(
     (data) => {
@@ -81,10 +81,10 @@ function Game() {
     () => dispatch(startGame()), [dispatch],
   );
 
-  const prononse = (n) => {
+  const prononse = useCallback((n) => {
     const pronounce = new Audio(`${audioPath}${words[n].audio}`);
     pronounce.play();
-  };
+  }, [words]);
 
   if (gameStarted) {
     return (
@@ -112,7 +112,9 @@ function Game() {
             <div className="BlockWord">
 
               <div className="Marks">
-                <img src="/assets/images/sprint/empty_mark.svg" />  {/* это переделаю, сейчас только для верстки */}
+                <img src="/assets/images/sprint/empty_mark.svg" />
+                {' '}
+                {/* это переделаю, сейчас только для верстки */}
                 <img src="/assets/images/sprint/empty_mark.svg" />
                 <img src="/assets/images/sprint/empty_mark.svg" />
               </div>
