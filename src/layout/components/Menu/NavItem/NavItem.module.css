@@ -9,6 +9,7 @@
 }
 
 .Link:hover {
+  text-decoration : none;
   background-color: #6979F8;
   opacity         : 0.9;
 }
@@ -46,12 +47,14 @@
 
 
   .Link:active {
+    text-decoration : none;
     background-color: #6979F8;
     opacity         : 0.9;
     overflow        : hidden;
   }
 
   .Link:hover {
+    text-decoration : none;
     background-color: transparent;
     opacity         : 1;
   }
