@@ -22,6 +22,7 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
+import Statistics from './statistics/components/Statistics/Statistics';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
 import Settings from './settings/components/Settings/Settings';
 import GamesPage from './layout/components/GamesPage/GamesPage';
@@ -91,6 +92,7 @@ const privateRoutes = [
   {
     title: 'Статистика',
     path: '/statistics',
+    component: <Statistics />,
   },
   {
     title: 'Главная страница',
