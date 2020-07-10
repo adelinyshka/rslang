@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import dictionary from './Dictionary';
 import GameWrapper from './GameWrapper';
 import { getRandomNumber, shuffle } from './Helpers';
@@ -9,6 +10,8 @@ import { Rules, Exit } from './Modal';
 const classNames = require('classnames');
 
 export default function Game() {
+  const dispatch = useDispatch();
+
   let counterCrystalSize = 0.7;
   const [gettingWords, setGettingWords] = useState(true);
   const [livesCount, setLivesCount] = useState(5);

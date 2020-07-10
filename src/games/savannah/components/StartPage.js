@@ -17,8 +17,7 @@ const StartPage = () => {
 
   return (
     <StartPageWrapper>
-      {/* временно на главную чтобы видно было переход */}
-      <Link to="main">
+      <Link to="games">
         <img
           className="cross"
           src="./../assets/images/savannah/x.svg"
