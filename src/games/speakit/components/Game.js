@@ -137,6 +137,7 @@ const Game = ({
       dispatch(setSpeechWords([]));
       dispatch(setActiveWord(''));
     });
+    console.log('exit')
   }, [dispatch]);
 
   useEffect(() => {

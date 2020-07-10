@@ -17,7 +17,7 @@ const StartScreen = () => {
 
   return (
     <StyleStartScreen>
-      <Link to="main">
+      <Link to="/games">
         <img
           className="cross"
           src="./../assets/images/speakit/cross.svg"

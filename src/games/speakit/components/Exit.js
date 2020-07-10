@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
 import StyleExit from './style.Exit';
 
@@ -27,13 +28,15 @@ const Exit = ({ setModalExit, exitGame }) => (
           >
             Отменить
           </button>
-          <button
-            type="button"
-            onClick={exitGame}
-            className="exit"
-          >
-            Выйти
-          </button>
+          <Link to="/games">
+            <button
+              type="button"
+              onClick={exitGame}
+              className="exit"
+            >
+              Выйти
+            </button>
+          </Link>
         </section>
 
       </div>

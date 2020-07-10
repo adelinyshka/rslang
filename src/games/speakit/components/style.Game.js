@@ -1,6 +1,7 @@
 import style from 'styled-components';
 
 export default style.div`
+  position: relative;
   margin-left: 100px;
   padding: 2.5vw 5vw;
   text-align: center;
@@ -16,7 +17,7 @@ export default style.div`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 20px;
+    top: 30px;
     right: 70px;
     width: 39px;
     height: 35px;
@@ -24,7 +25,7 @@ export default style.div`
     border-radius: 6px;
     
     @media(max-width: 768px) {
-      top: 60px;
+      top: 5px;
     } 
     
     @media(max-width: 570px) {
@@ -38,13 +39,13 @@ export default style.div`
 
   .container__exit {
     position: absolute;
-    top: 20px;
+    top: 30px;
     right: 20px;
     width: 35px;
     height: 35px;
     
     @media(max-width: 768px) {
-      top: 60px;
+      top: 5px;
     } 
     
     @media(max-width: 570px) {
