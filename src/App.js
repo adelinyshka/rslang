@@ -24,6 +24,7 @@ import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
 import Settings from './settings/components/Settings/Settings';
+import GamesPage from './layout/components/GamesPage/GamesPage';
 
 const publicRoutes = [
   {
@@ -75,6 +76,7 @@ const privateRoutes = [
   {
     title: 'Игры',
     path: '/games',
+    component: <GamesPage />,
   },
   {
     title: 'Карточки',
