@@ -29,7 +29,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   );
 
   const speakerIcon = useMemo(() => (
-    isPreviousCard || wasAnswered ? 'speakerOnIcon.svg' : 'speakerOffIcon.svg'
+    isPreviousCard || wasAnswered ? '/common/speakerOnIcon.svg' : '/cards/speakerOffIcon.svg'
   ),
   [isPreviousCard, wasAnswered]);
 
@@ -83,7 +83,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
             style={headerStyling}
           >
             <img
-              src={`./assets/images/cards/${speakerIcon}`}
+              src={`./assets/images/${speakerIcon}`}
               alt="Прослушать слово"
             />
           </div>
