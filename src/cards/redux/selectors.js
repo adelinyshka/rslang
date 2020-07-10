@@ -32,6 +32,11 @@ const cardsModeSelector = createSelector(
   ({ cardsMode }) => cardsMode,
 );
 
+export const rightAnswersSelector = createSelector(
+  cardsSelector,
+  ({ rightAnswers }) => rightAnswers,
+);
+
 export {
   isShowingAnswerSelector, cardsArrSelector, lastCardSelector,
   wasAnsweredSelector, wasMistakenSelector, cardsModeSelector,

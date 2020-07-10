@@ -1,14 +1,16 @@
 import React, { useCallback } from 'react';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import {
   setCards, setLastCard, setAnswered, clearAnswer,
+  setRightAnswers,
 } from '../../redux';
 import {
   cardsArrSelector,
   wasMistakenSelector,
   wasAnsweredSelector,
+  rightAnswersSelector,
 } from '../../redux/selectors';
 import styles from './Intervals.module.css';
 
@@ -36,6 +38,7 @@ const Intervals = ({ isPreviousCard }) => {
   const cardsArr = useSelector(cardsArrSelector);
   const wasMistaken = useSelector(wasMistakenSelector);
   const wasAnswered = useSelector(wasAnsweredSelector);
+  const rightAnswers = useSelector(rightAnswersSelector);
 
   const intervalButtons = useCallback((clicked) => (
     intervalButtonsInfo.map(({ title, bg }) => (
@@ -56,10 +59,15 @@ const Intervals = ({ isPreviousCard }) => {
     if (wasMistaken || !wasAnswered) {
       newCards.push(lastCard);
     }
-    dispatch(setCards(newCards));
-    dispatch(setLastCard(lastCard));
-    dispatch(clearAnswer());
-  }, [cardsArr, dispatch, wasMistaken, wasAnswered]);
+    if (!wasMistaken && wasAnswered) {
+      dispatch(setRightAnswers(rightAnswers + 1));
+    }
+    batch(() => {
+      dispatch(setCards(newCards));
+      dispatch(setLastCard(lastCard));
+      dispatch(clearAnswer());
+    });
+  }, [cardsArr, dispatch, wasMistaken, wasAnswered, rightAnswers]);
 
   if (isPreviousCard) return null;
 
