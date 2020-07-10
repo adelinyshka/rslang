@@ -6,24 +6,33 @@ const isShowingAnswerSelector = createSelector(
   cardsSelector,
   ({ isShowingAnswer }) => isShowingAnswer,
 );
+
 const cardsArrSelector = createSelector(
   cardsSelector,
   ({ cardsArr }) => cardsArr,
 );
+
 const lastCardSelector = createSelector(
   cardsSelector,
   ({ previousCard }) => previousCard,
 );
+
 const wasAnsweredSelector = createSelector(
   cardsSelector,
   ({ wasAnswered }) => wasAnswered,
 );
+
 const wasMistakenSelector = createSelector(
   cardsSelector,
   ({ wasMistaken }) => wasMistaken,
 );
 
+const cardsModeSelector = createSelector(
+  cardsSelector,
+  ({ cardsMode }) => cardsMode,
+);
+
 export {
   isShowingAnswerSelector, cardsArrSelector, lastCardSelector,
-  wasAnsweredSelector, wasMistakenSelector,
+  wasAnsweredSelector, wasMistakenSelector, cardsModeSelector,
 };

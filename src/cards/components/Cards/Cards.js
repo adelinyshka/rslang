@@ -1,37 +1,52 @@
-import React, { useEffect } from 'react';
+/* eslint-disable max-len */
+import React, { useMemo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cardsArrSelector } from '../../redux/selectors';
-import { tokenSelector } from '../../../auth/redux/selectors';
+
 import { setCards } from '../../redux';
+import { cardsArrSelector, cardsModeSelector } from '../../redux/selectors';
+import {
+  wordsPerDaySelector,
+  newCardsAmountSelector,
+} from '../../../settings/redux/selectors';
+import { userIdSelector } from '../../../auth/redux/selectors';
+
+import useAPI from '../../../common/utils';
+
 import CardsCarousel from '../CardsCarousel/CardsCarousel';
 import Progress from '../Progress/Progress';
 import styles from './Cards.module.css';
 
-const getWords = async (token) => {
-  const rawResponse = await fetch(
-    'https://afternoon-falls-25894.herokuapp.com/words?group=1&page=1', {
-      method: 'GET',
-      withCredentials: true,
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json',
-      },
-    },
-  );
-  const content = await rawResponse.json();
-  return content;
-};
+const options = {};
 
 const Cards = () => {
   const dispatch = useDispatch();
-  const token = useSelector(tokenSelector);
   const cardsArr = useSelector(cardsArrSelector);
-  useEffect(() => {
-    if (cardsArr) return;
-    getWords(token)
-      .then((data) => dispatch(setCards(data)))
-      .catch((er) => console.log(er));
-  }, [token, dispatch, cardsArr]);
+  const cardsMode = useSelector(cardsModeSelector);
+  const wordsPerDay = useSelector(wordsPerDaySelector);
+  const newCardsAmount = useSelector(newCardsAmountSelector);
+  const userId = useSelector(userIdSelector);
+
+  const url = useMemo(() => {
+    let aggregatedUrl = `users/${userId}/aggregatedWords?`;
+    const date = new Date(Date.now());
+    const dateString = date.toLocaleDateString('en-US');
+    switch (cardsMode) {
+      case 'new':
+        aggregatedUrl += `wordsPerPage=${newCardsAmount}&filter={"userWord":null}`;
+        break;
+      case 'repeat':
+        aggregatedUrl += `wordsPerPage=${wordsPerDay}&filter={"userWord.optional.nextDate":"${dateString}"}`;
+        break;
+      default:
+        aggregatedUrl += `wordsPerPage=${wordsPerDay}&filter={"$or":[{"userWord.optional.nextDate":"${dateString}"},{"userWord":null}]}`;
+        break;
+    }
+    return newCardsAmount ? aggregatedUrl : null;
+  }, [userId, newCardsAmount, wordsPerDay, cardsMode]);
+
+  const action = useCallback((data) => dispatch(setCards(data[0].paginatedResults)), [dispatch]);
+
+  useAPI(url, options, action);
 
   if (!cardsArr || !cardsArr.length) {
     return (
