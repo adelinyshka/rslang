@@ -1,3 +1,41 @@
+const INITIAL_STATE = {
+  wasMistaken: true,
+  isShowingAnswer: false,
+  wasAnswered: false,
+  cardsArr: null,
+  previousCard: null,
+  cardsMode: 'new',
+  passedCards: 0,
+  rightAnswers: 0,
+  newWords: 0,
+  longestStreak: 0,
+};
+
+export const setLongestStreak = (longestStreak) => ({
+  type: 'SET_LONGEST_STREAK',
+  longestStreak,
+});
+
+export const setNewWords = (newWords) => ({
+  type: 'SET_NEW_WORDS',
+  newWords,
+});
+
+export const setRightAnswers = (rightAnswers) => ({
+  type: 'SET_RIGHT_ANSWERS',
+  rightAnswers,
+});
+
+export const setPassedCards = (passedCards) => ({
+  type: 'SET_PASSED_CARDS',
+  passedCards,
+});
+
+export const setCardsMode = (cardsMode) => ({
+  type: 'SET_CARDS_MODE',
+  cardsMode,
+});
+
 export const setCards = (cardsArr) => ({
   type: 'SET_CARDS',
   cardsArr,
@@ -30,14 +68,6 @@ export const clearAnswer = () => ({
   wasAnswered: false,
 });
 
-const INITIAL_STATE = {
-  wasMistaken: true,
-  isShowingAnswer: false,
-  wasAnswered: false,
-  cardsArr: null,
-  previousCard: null,
-};
-
 const cardsReducer = (state = INITIAL_STATE, action) => {
   const {
     type,
@@ -51,6 +81,11 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
     case 'SET_ANSWERED':
     case 'WAS_MISTAKEN':
     case 'CLEAR_ANSWER':
+    case 'SET_LONGEST_STREAK':
+    case 'SET_NEW_WORDS':
+    case 'SET_RIGHT_ANSWERS':
+    case 'SET_PASSED_CARDS':
+    case 'SET_CARDS_MODE':
       return {
         ...state,
         ...payload,

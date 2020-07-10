@@ -1,8 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styles from './Main.module.css';
 import Panel from './Panel';
+import { setCardsMode } from '../../../cards/redux';
 
 export default function Main() {
+  const dispatch = useDispatch();
   const values = [
     { value: 'new', label: 'Новые', defaultChecked: true },
     { value: 'repeat', label: 'Повтор' },
@@ -35,6 +38,7 @@ export default function Main() {
                     name="gameMode"
                     value={value}
                     defaultChecked={defaultChecked}
+                    onClick={() => dispatch(setCardsMode(value))}
                   />
                   {label}
                 </div>
