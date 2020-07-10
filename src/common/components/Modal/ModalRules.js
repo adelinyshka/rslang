@@ -9,12 +9,12 @@ const ModalRules = ({ setModalRules }) => (
       <div className="top warning">
         <div className="icon">
           <img
-            src="./../assets/images/speakit/quest.svg"
+            src="/assets/images/common/quest.svg"
             alt="question in round"
           />
         </div>
         <section className="content">
-          <p>Произносите слова правильно, чтобы победить</p>
+          <p>Правила игры</p>
         </section>
 
       </div>

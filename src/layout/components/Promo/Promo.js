@@ -10,6 +10,10 @@ import PromoWrapper from './PromoWrapper';
 import Study from './Study/Study';
 import VideoBlock from './VideoBlock/VideoBlock';
 
+import ModalRules from '../../../common/components/Modal/ModalRules';
+import ModalExit from '../../../common/components/Modal/ModalExit';
+import ModalStats from '../../../common/components/Modal/ModalStats';
+
 export default function Promo() {
   return (
     <PromoWrapper>

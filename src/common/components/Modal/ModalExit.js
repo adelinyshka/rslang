@@ -10,7 +10,7 @@ const ModalExit = ({ setModalExit, exitGame }) => (
       <div className="top exit-bg">
         <div className="icon">
           <img
-            src="./../assets/images/speakit/excl.svg"
+            src="/assets/images/common/excl.svg"
             alt="question in round"
           />
         </div>

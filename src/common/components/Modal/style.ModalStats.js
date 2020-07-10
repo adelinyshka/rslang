@@ -8,23 +8,23 @@ export default Style.div`
   left: 0;
   right: 0;
   bottom: 0;
-
-.pop-up {
-  z-index: 50;
-  width: 80%;
-  max-width: 745px;
-  height: 485px;
-  top: 50%;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin-left: 50px;
-  font-family: 'Exo', sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 40px;
-  box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.03);
+  
+  .pop-up {
+    z-index: 50;
+    width: 80%;
+    max-width: 745px;
+    height: 485px;
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 50px;
+    font-family: 'Exo', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 40px;
+    box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.03);
   
   @media (max-width: 768px) {
     width: 80%;
@@ -50,7 +50,7 @@ export default Style.div`
     font-size: 20px;
     line-height: 40px;
     text-align: center;
-    width: 50%;
+    width: 90%;
     margin: 0 auto;
     
     @media (max-width: 768px) {
@@ -59,9 +59,13 @@ export default Style.div`
     }
   }
 
-  img {
+  img.icon {
     width: 70px;
     margin: 30px;
+  }
+  
+  .round {
+  width: 20px;
   }
   
   .bottom {
@@ -74,6 +78,7 @@ export default Style.div`
     border-radius: 0 0 12px 12px;
     font-size: 24px;
     display: flex;
+    justify-content: center;
   }
   
   .btn-wrapper {
@@ -137,4 +142,68 @@ export default Style.div`
       outline: none;
     }
   }
+ 
+  .stats {
+    background: #7DDFC3;
+  }
+  
+  .congrats-text {
+    font-family: 'Exo', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #6979F8;
+  }
+  
+  .text-stats {
+    text-align: left;
+    align-self: center;
+    font-family: 'Exo', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 21px;
+    color: #22215B;
+    
+    @media (max-width: 630px) {
+      font-size: 16px;
+    }
+  }
+  
+  .text-green,
+  .text-dark-vio,
+  .text-vio,
+  .text-pink {
+    font-family: 'Exo', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 27px;
+    
+    @media (max-width: 630px) {
+      font-size: 16px;
+    }
+  }
+  
+  .text-green {
+    color: #fff;
+  }
+  
+  .text-dark-vio {
+    color: #567DF4;
+  }
+  
+  .text-vio {
+    color: #784AC1;
+    }
+    
+  .text-pink {
+    color: #DB7CF5;
+  }
+  
 `;
