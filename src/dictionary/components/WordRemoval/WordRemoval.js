@@ -14,7 +14,7 @@ import { userIdSelector } from '../../../auth/redux/selectors';
 
 import styles from './WordRemoval.module.css';
 
-const WordRemoval = ({ wordId, difficulty, onRemoval }) => {
+const WordRemoval = ({ wordId, userWord, onRemoval }) => {
   const userId = useSelector(userIdSelector);
   const isAllDeleted = useSelector(isAllDeletedSelector);
   const selectedWords = useSelector(selectedWordsSelector);
@@ -28,14 +28,13 @@ const WordRemoval = ({ wordId, difficulty, onRemoval }) => {
   const fetchOptions = useMemo(() => ({
     method: 'PUT',
     body: JSON.stringify({
-      'difficulty': difficulty,
+      ...userWord,
       'optional': {
-        'learning': false,
+        ...userWord.optional,
         'deleted': true,
-        'difficult': false,
       },
     }),
-  }), [difficulty]);
+  }), [userWord]);
 
   // условие для отправки запроса
   const condition = useMemo(
@@ -70,7 +69,7 @@ const WordRemoval = ({ wordId, difficulty, onRemoval }) => {
 
 WordRemoval.propTypes = {
   wordId: PropTypes.string.isRequired,
-  difficulty: PropTypes.string.isRequired,
+  userWord: PropTypes.object.isRequired,
   onRemoval: PropTypes.func.isRequired,
 };
 

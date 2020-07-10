@@ -32,7 +32,7 @@ const ProgressBar = ({ progressStatus }) => {
     new Array(5).fill(null).map((el, index) => (
       <div
         key={`progressPoint${index}`}
-        className={index <= progressStatus ? progressClass : null}
+        className={index < progressStatus ? progressClass : null}
       />
     ))
   ), [progressStatus, progressClass]);

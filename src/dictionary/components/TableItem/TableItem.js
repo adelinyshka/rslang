@@ -23,11 +23,11 @@ const TableItem = ({ wordInfo, section }) => {
   const content = useMemo(() => {
     switch (section) {
       case 'learning':
-        return <LearningSection progressStatus={progressStatus} />;
+        return <LearningSection userWord={userWord} />;
       default:
         return null;
     }
-  }, [progressStatus, section]);
+  }, [section, userWord]);
 
   const playAudio = useCallback(() => {
     new Audio('https://raw.githubusercontent.com/alekchaik/'
@@ -63,7 +63,7 @@ const TableItem = ({ wordInfo, section }) => {
         && (
           <WordRecovery
             wordId={_id}
-            difficulty={userWord.difficulty}
+            userWord={userWord}
             onRecovery={setMarked}
           />
         )
@@ -74,7 +74,7 @@ const TableItem = ({ wordInfo, section }) => {
         && (
           <WordRemoval
             wordId={_id}
-            difficulty={userWord.difficulty}
+            userWord={userWord}
             onRemoval={setMarked}
           />
         )
