@@ -7,22 +7,22 @@ export default function GamePage() {
     <GamePageWrapper>
       <h1 className="game-title">Выберите игру</h1>
       <section className="grid-container">
-        <Link className="audiocall" to="audiocall">
+        <Link className="audiocall" to="games/audiocall">
           <div className="game-name">Audiocall</div>
         </Link>
-        <Link className="memory" to="memory">
+        <Link className="memory" to="games/memory">
           <div className="game-name ">Memory</div>
         </Link>
-        <Link className="savannah" to="savannah">
+        <Link className="savannah" to="games/savannah">
           <div className="game-name ">Savannah</div>
         </Link>
-        <Link className="speakit" to="speakit">
+        <Link className="speakit" to="games/speakit">
           <div className="game-name ">Speakit</div>
         </Link>
-        <Link className="sprint" to="sprint">
+        <Link className="sprint" to="games/sprint">
           <div className="game-name ">Sprint</div>
         </Link>
-        <Link className="puzzle" to="puzzle">
+        <Link className="puzzle" to="games/puzzle">
           <div className="game-name ">Puzzle</div>
         </Link>
         <div className="center" />
