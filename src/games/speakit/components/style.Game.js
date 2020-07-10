@@ -16,12 +16,16 @@ export default style.div`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 3vw;
-    right: 10vw;
+    top: 20px;
+    right: 70px;
     width: 39px;
     height: 35px;
     background: rgba(105, 121, 248, 0.4);
     border-radius: 6px;
+    
+     @media(max-width: 768px) {
+      top: 70px;
+    } 
   }
 
   .container__rules img {
@@ -30,10 +34,14 @@ export default style.div`
 
   .container__exit {
     position: absolute;
-    top: 3vw;
-    right: 5vw;
+    top: 20px;
+    right: 20px;
     width: 35px;
     height: 35px;
+    
+    @media(max-width: 768px) {
+      top: 70px;
+    } 
   }
 
   .cross::after,

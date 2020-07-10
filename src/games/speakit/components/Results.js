@@ -59,7 +59,7 @@ const Results = ({ setModalResult, getNewWords }) => {
                 key={word}
                 className={classNames({ learnedWord })}
               >
-                <p>
+                <div>
                   <img
                     className="results-audio-icon"
                     src="./assets/images/speakit/audio-icon.svg"
@@ -70,7 +70,7 @@ const Results = ({ setModalResult, getNewWords }) => {
                   <p>{`${word}`}</p>
                   <p>{`${transcription}`}</p>
                   <p>{`${wordTranslate}`}</p>
-                </p>
+                </div>
               </li>
             );
           })
