@@ -8,7 +8,7 @@ export default function GamePage() {
       <h1 className="game-title">Выберите игру</h1>
       <section className="grid-container">
         <Link className="audiocall" to="games/audiocall">
-          <div className="game-name">Audiocall</div>
+          <div className="game-name">Audio Call</div>
         </Link>
         <Link className="memory" to="games/memory">
           <div className="game-name ">Memory</div>
@@ -17,13 +17,13 @@ export default function GamePage() {
           <div className="game-name ">Savannah</div>
         </Link>
         <Link className="speakit" to="games/speakit">
-          <div className="game-name ">Speakit</div>
+          <div className="game-name ">SpeakIt</div>
         </Link>
         <Link className="sprint" to="games/sprint">
           <div className="game-name ">Sprint</div>
         </Link>
         <Link className="puzzle" to="games/puzzle">
-          <div className="game-name ">Puzzle</div>
+          <div className="game-name ">English Puzzle</div>
         </Link>
         <div className="center" />
       </section>

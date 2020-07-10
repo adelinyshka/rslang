@@ -14,6 +14,10 @@ const GamePageWrapper = styled.div`
   @media (max-width: 768px) {
     margin-left: 0px;
     }
+    
+  @media (max-width: 485px) {
+    margin-top: 50px;
+    }
   }
   
   .game-title {
@@ -41,13 +45,17 @@ const GamePageWrapper = styled.div`
     justify-content: stretch; 
     align-content: stretch;
     background: #A7B0FB;
-  }
-  
-  .center {
-    grid-area: center;
-    background: url('./../assets/images/gamePage/center.png');
-    justify-self: stretch;
-    align-self: stretch;
+    margin-bottom: 20px;
+    
+    @media (max-width: 485px) {
+      grid-template-columns: 150px 150px;
+      grid-template-rows: 150px 150px 150px 150px;
+      grid-template-areas: 
+      "audiocall audiocall "
+      "savannah speakit"
+      "memory sprint"
+      "puzzle puzzle";
+    }
   }
   
   .audiocall,
@@ -65,7 +73,18 @@ const GamePageWrapper = styled.div`
     &:active {
       outline:none;
       text-decoration: none;
-      filter: saturate(5);
+      filter: saturate(2);
+    }
+  }
+  
+  .center {
+    grid-area: center;
+    background: url('./../assets/images/gamePage/center.png');
+    justify-self: stretch;
+    align-self: stretch;
+    
+    @media (max-width: 485px) {
+      display: none;
     }
   }
   
