@@ -7,9 +7,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import Cards from './cards/components/Cards/Cards';
 import {
   isAuthenticatedSelector, refreshTokenSelector,
-  userIdSelector,
+  userIdSelector, tokenSelector,
 } from './auth/redux/selectors';
 import { login } from './auth/redux';
+
+import { setSettings } from './settings/redux';
 
 import { fetchJSON } from './common/utils';
 
@@ -21,7 +23,10 @@ import styles from './App.module.css';
 import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
 import Sprint from './games/sprint/Sprint';
+import Statistics from './statistics/components/Statistics/Statistics';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
+import Settings from './settings/components/Settings/Settings';
+import GamesPage from './layout/components/GamesPage/GamesPage';
 
 const publicRoutes = [
   {
@@ -68,10 +73,12 @@ const privateRoutes = [
   {
     title: 'Настройки',
     path: '/settings',
+    component: <Settings />,
   },
   {
     title: 'Игры',
     path: '/games',
+    component: <GamesPage />,
   },
   {
     title: 'Карточки',
@@ -86,6 +93,7 @@ const privateRoutes = [
   {
     title: 'Статистика',
     path: '/statistics',
+    component: <Statistics />,
   },
   {
     title: 'Главная страница',
@@ -120,6 +128,7 @@ createPrivateRoute.propTypes = {
 
 const App = () => {
   const dispatch = useDispatch();
+  const token = useSelector(tokenSelector);
   // есть ли у нас данные о пользователе
   const isLogged = useSelector(isAuthenticatedSelector);
   // декодинг токена, сравнение его срока годности с датой
@@ -145,6 +154,20 @@ const App = () => {
     }, 600000);
     return () => clearInterval(intervalId);
   }, [isLogged, refreshToken, userId, dispatch]);
+
+  // запрос настроек
+  useEffect(() => {
+    const endpoint = `users/${userId}/settings`;
+    fetchJSON(endpoint, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+      },
+    })
+      .then(({ id, ...data }) => dispatch(setSettings(data)))
+      .catch((er) => console.log(er));
+  }, [dispatch, token, userId]);
 
   return (
     <Router>
