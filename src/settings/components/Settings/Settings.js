@@ -109,7 +109,8 @@ const Settings = () => {
   const endpoint = useMemo(() => `users/${userId}/settings`, [userId]);
 
   useEffect(() => {
-    setFormSettings(settings);
+    const newSettings = { ...settings, optional: { ...settings.optional } };
+    setFormSettings(newSettings);
   }, [settings]);
 
   const submitFetchOptions = useMemo(() => ({
@@ -123,17 +124,6 @@ const Settings = () => {
   }), [formSettings, token]);
 
   // Запрос, чтобы поместить настройки
-
-  const handleHintsChange = useCallback(({ target }) => {
-    const { name, checked } = target;
-    if (checkedHints <= 1 && !checked) {
-      console.log('отметить минимум 1 пункт');
-    } else {
-      const newFormSettings = { ...formSettings };
-      newFormSettings.optional[name] = checked;
-      setFormSettings(newFormSettings);
-    }
-  }, [checkedHints, formSettings]);
 
   const handleChange = useCallback(({ target }) => {
     const {
@@ -150,16 +140,19 @@ const Settings = () => {
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
-    fetchJSON(endpoint, submitFetchOptions)
-      .then(({ id, ...data }) => dispatch(setSettings(data)))
-      .catch((er) => console.log(er));
-  }, [dispatch, endpoint, submitFetchOptions]);
+    if (checkedHints) {
+      fetchJSON(endpoint, submitFetchOptions)
+        .then(({ id, ...data }) => dispatch(setSettings(data)))
+        .catch((er) => console.log(er));
+    }
+  }, [dispatch, endpoint, submitFetchOptions, checkedHints]);
 
   const cancelSubmit = useCallback(() => {
-    setFormSettings(settings);
+    const newSettings = { ...settings, optional: { ...settings.optional } };
+    setFormSettings(newSettings);
   }, [setFormSettings, settings]);
 
-  const createCheckboxes = useCallback((cardsInfo, onChange) => (
+  const createCheckboxes = useCallback((cardsInfo) => (
     cardsInfo.map(({ title, name }) => (
       <label key={name} htmlFor={name} className={styles.CheckboxContainer}>
         <input
@@ -167,7 +160,7 @@ const Settings = () => {
           id={name}
           checked={formSettings.optional[name]}
           type="checkbox"
-          onChange={onChange}
+          onChange={handleChange}
         />
         <span className={styles.Checkmark} />
         {title}
@@ -204,11 +197,16 @@ const Settings = () => {
       <div className={styles.CardsDisplaySettings}>
         <div>
           <h2>Информация на карточках</h2>
-          {createCheckboxes(cardsHintsInfo, handleHintsChange)}
+          {!checkedHints && (
+            <span style={{ color: 'red' }}>
+              Выберите хотя бы 1 пункт
+            </span>
+          )}
+          {createCheckboxes(cardsHintsInfo)}
         </div>
         <div>
           <h2>Добавить кнопки к карточкам</h2>
-          {createCheckboxes(cardsBtnsInfo, handleChange)}
+          {createCheckboxes(cardsBtnsInfo)}
         </div>
         <div>
           <h2>Настроить интервалы повторения</h2>
