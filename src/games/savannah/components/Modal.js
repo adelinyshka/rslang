@@ -31,7 +31,7 @@ const Exit = ({ onCancel, onExit }) => (
     <PopUp
       className="btnExit"
       type="error"
-      iconSrc="../assets/images/savannah/excl_mark.svg"
+      iconSrc="/assets/images/savannah/excl_mark.svg"
       content="Если вы выйдете во время игры,
             то прогресс не сохранится"
       footer={(

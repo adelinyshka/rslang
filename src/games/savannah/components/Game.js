@@ -30,8 +30,6 @@ export default function Game() {
   const [isExit, setIsExit] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
 
-  const [timeFall, setTimeFall] = useState(true);
-
   useEffect(() => {
     if (gettingWords && livesCount) {
       const randomNumber = getRandomNumber();
@@ -53,34 +51,34 @@ export default function Game() {
 
       setArrOfWords(shuffledTranslations);
       setGettingWords(false);
-      console.log('use effect 1 = refresh words');
     }
   }, [livesCount, gettingWords]);
 
-  const audioRight = new Audio('./../assets/audio/right.mp3');
-  const audioWrong = new Audio('./../assets/audio/wrong.mp3');
+  const audioRight = new Audio('/assets/audio/right.mp3');
+  const audioWrong = new Audio('/assets/audio/wrong.mp3');
 
   const playRight = () => {
-    audioRight.play();
+    if (soundOn) {
+      audioRight.play();
+    }
   };
   const playWrong = () => {
-    audioWrong.play();
+    if (soundOn) {
+      audioWrong.play();
+    }
   };
 
   function checkAnswer(wordActive, answerActive) {
     if (wordActive === answerActive) {
-      console.log('right');
       setAnswer(true);
       setBtnClicked(true);
       setScaleSize(counterCrystalSize += 0.02);
       setWordCounter(wordCounter - 1);
       playRight();
     } else {
-      console.log('wrong');
       setAnswer(false);
       setBtnClicked(true);
       setLivesCount(livesCount - 1);
-      console.log('-life in checkAnswer');
       setWordCounter(wordCounter - 1);
       playWrong();
     }
@@ -100,14 +98,14 @@ export default function Game() {
         setGettingWords(true);
         setAnswer(false);
         setLivesCount(livesCount - 1);
-        console.log('use effect 2 = -life in useEffect');
+        playWrong();
       }
-    }, 4700);
+    }, 4650);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [livesCount]);
+  }, [livesCount, answer]);
 
   const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
@@ -130,25 +128,45 @@ export default function Game() {
       ) : false}
       <img
         className="tree-wave"
-        src="./../assets/images/savannah/tree_waved.svg"
+        src="/assets/images/savannah/tree_waved.svg"
         alt="tree waved"
       />
       <img
         className="tree-tall"
-        src="./../assets/images/savannah/tree_tall.svg"
+        src="/assets/images/savannah/tree_tall.svg"
         alt="tree tall"
       />
-      <img
-        className="sound"
-        src="./../assets/images/savannah/notification_on.svg"
-        alt="sound"
-      />
+      {
+        soundOn
+          ? (
+            <div
+              onClick={() => setSoundOn(false)}
+            >
+              <img
+                className="sound"
+                src="/assets/images/savannah/notification_on.svg"
+                alt="sound"
+              />
+            </div>
+          )
+          : (
+            <div
+              onClick={() => setSoundOn(true)}
+            >
+              <img
+                className="sound"
+                src="/assets/images/savannah/notification_off.svg"
+                alt="sound"
+              />
+            </div>
+          )
+      }
       <div
         onClick={() => setIsRules(true)}
       >
         <img
           className="question"
-          src="./../assets/images/savannah/question.svg"
+          src="/assets/images/savannah/question.svg"
           alt="question with info about game"
         />
       </div>
@@ -157,7 +175,7 @@ export default function Game() {
       >
         <img
           className="cross"
-          src="./../assets/images/savannah/x_white.svg"
+          src="/assets/images/savannah/x_white.svg"
           alt="close"
         />
       </div>
@@ -165,7 +183,7 @@ export default function Game() {
       <Lives
         livesCount={livesCount}
         leftLifesHandler={gameOverHandler}
-        src="./../assets/images/savannah/heart_full.svg"
+        src="/assets/images/savannah/heart_full.svg"
       />
       {
         isGameOver
@@ -239,10 +257,14 @@ export default function Game() {
 
       <img
         className={classNames('crystall', {})}
-        src="./../assets/images/savannah/crystall_2.svg"
+        src="/assets/images/savannah/crystall_2.svg"
         alt="violet crystall"
         style={{ transform: `scale(${scaleSize})` }}
       />
     </GameWrapper>
   );
 }
+
+// todo
+// слово когда упало не исчезает, а обновляется и становится новым
+// не переходит со стартового экрана в игру по кнопке

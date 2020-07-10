@@ -9,7 +9,10 @@ function Savannah() {
   const statusGame = useSelector(statusGameSelector);
 
   return (
-    statusGame ? <Game /> : <StartPage />
+    <div>
+      <Game />
+      {/* {statusGame ? (<Game />) : (<StartPage />)} */}
+    </div>
   );
 }
 

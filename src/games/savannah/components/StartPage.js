@@ -20,7 +20,7 @@ const StartPage = () => {
       <Link to="games">
         <img
           className="cross"
-          src="./../assets/images/savannah/x.svg"
+          src="/assets/images/savannah/x.svg"
           alt="close"
         />
       </Link>
@@ -43,7 +43,7 @@ const StartPage = () => {
       </div>
       <img
         className="decoration"
-        src="./../assets/images/savannah/2_trees.svg"
+        src="/assets/images/savannah/2_trees.svg"
         alt="two trees"
       />
     </StartPageWrapper>
