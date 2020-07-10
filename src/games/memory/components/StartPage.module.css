@@ -64,3 +64,11 @@
 .Button:focus {
   outline: none;
 }
+
+@media (max-width: 768px) {
+  .Wrapper img {
+    top: 70px;
+    right: 30px;
+  }
+}
+

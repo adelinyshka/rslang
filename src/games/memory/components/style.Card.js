@@ -12,6 +12,36 @@ export default style.div`
     border: 1px solid #D0C9D6;
     box-sizing: border-box;
     border-radius: 8px;
+
+    @media (max-width: 1250px) {
+      width: 150px;
+      height: 80px;
+    }
+  
+    @media (max-width: 1150px) {
+      width: 130px;
+      height: 80px;
+    }
+
+    @media (max-width: 1115px) {
+      width: 110px;
+      height: 70px;
+      margin: 7px;
+    }
+
+    @media (max-width: 860px) {
+      width: 100px;
+      height: 60px;
+      margin: 5px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 800px) {
+      width: 85px;
+      height: 50px;
+      margin: 5px;
+      font-size: 12px;
+    }
   }
 
   .Card:hover {

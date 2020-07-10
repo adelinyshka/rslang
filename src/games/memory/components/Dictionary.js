@@ -5,7 +5,10 @@ import useAPI from '../../../common/utils/index';
 import style from './Dictionary.module.css';
 
 function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
+  array.sort(() => Math.random() - 0.5);
+
+  const shuffledArray = JSON.stringify(array);
+  return JSON.parse(shuffledArray);
 }
 
 const fetchOptions = {
@@ -16,15 +19,17 @@ const Dictionary = ({
   level,
   setDictionary,
   page,
+  setRussianWords,
+  setEnglishWords,
 }) => {
   const [words, setWords] = useState(null);
   const [getNewWords, setGetNewWords] = useState(true);
 
   const userWordsURL = useMemo(
-    () => `words?page=${page}&level=${level}`, [level],
+    () => `words?page=${page}&group=${level}`, [level],
   );
 
-  const action = useCallback((wordsFromApi) => setWords(wordsFromApi), [setWords]);
+  const action = useCallback((wordsFromApi) => setWords(wordsFromApi), []);
   const wordsUseApi = useAPI(userWordsURL, fetchOptions, action);
 
   useEffect(() => {
@@ -32,6 +37,8 @@ const Dictionary = ({
       shuffle(wordsUseApi);
       wordsUseApi.length = 10;
       setDictionary(wordsUseApi);
+      setEnglishWords(shuffle(wordsUseApi));
+      setRussianWords(shuffle(wordsUseApi));
       // setWords(wordsUseApi);
     }
     return () => {

@@ -1,21 +1,15 @@
-import React, {
-  useState, useCallback, useEffect, useMemo,
-} from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import SwitcherLevel from '../../../common/components/LevelSwitcher';
-// import fetchJSON from '../../../common/utils/index';
 import Card from './Card';
 import Timer from './Timer';
 import Lives from './Lives';
 import { Rules, Exit } from './Modal';
 import GameOver from './GameOver';
 import style from './Game.module.css';
-import {
-  // setWords,
-  setLevel,
-} from '../redux/index';
+import { setLevel } from '../redux/index';
 import { levelSelector } from '../redux/selectors';
 import Dictionary from './Dictionary';
 
@@ -24,6 +18,8 @@ function Game() {
   const activeLevel = useSelector(levelSelector);
 
   const [dictionary, setDictionary] = useState([]);
+  const [russianWords, setRussianWords] = useState();
+  const [englishWords, setEnglishWords] = useState();
   const [russianWord, setRussianWord] = useState();
   const [englishWord, setEnglishWord] = useState();
   const [isRight, setIsRight] = useState(null);
@@ -34,19 +30,17 @@ function Game() {
   const [isRules, setIsRules] = useState(false);
   const [isExit, setIsExit] = useState(false);
   const [isCansel, setIsCansel] = useState(false);
-  const [page, setPage] = useState(29);
-  const [initialTime, setInitialTime] = useState(60);
+  const [page, setPage] = useState(27);
+  const [startTime, setStartTime] = useState(60);
+  const [initialTime, setInitialTime] = useState(startTime);
   // const [incorrectAnswers, setInorrectAnswers] = useState(0);
-
-  // if (page + 1 > 29) {
-  //   level += 1;
-  //   setPage(0);
-  //   setInitialTime(60 - level * 5);
-  // }
 
   const changeActiveLevel = useCallback((levelProps) => {
     if (activeLevel !== levelProps) {
       dispatch(setLevel(levelProps));
+      setDictionary([]);
+      setStartTime(60 - (activeLevel + 1) * 2);
+      setPage(0);
     }
   }, [dispatch, activeLevel]);
 
@@ -55,14 +49,17 @@ function Game() {
       setDictionary([]);
 
       if (page === 29) {
-        setPage(0);
-        level += 1;
-        changeActiveLevel(level + 1);
+        changeActiveLevel(activeLevel + 1);
+        if (activeLevel === 6) {
+          changeActiveLevel(1);
+        }
       } else {
         setPage(page + 1);
       }
+
+      setInitialTime(startTime);
     }
-  }, [countCorrectAnswers]);
+  }, [countCorrectAnswers, startTime]);
 
   const correct = useCallback((cardId) => {
     const cAnswers = correctAnswers;
@@ -70,7 +67,8 @@ function Game() {
     setCorrectAnswers(cAnswers);
     setIsRight(true);
     setCountCorrectAnswers(countCorrectAnswers + 1);
-  }, [countCorrectAnswers, correctAnswers, setCorrectAnswers, setIsRight, setCountCorrectAnswers]);
+  }, [countCorrectAnswers, correctAnswers,
+    setCorrectAnswers, setIsRight, setCountCorrectAnswers]);
 
   const incorrect = useCallback(() => {
     setIsRight(false);
@@ -99,7 +97,6 @@ function Game() {
   const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
   }, []);
-
   return (
     <div className={style.GameWrapper}>
       {isExit ? (
@@ -131,7 +128,10 @@ function Game() {
         />
       </div>
       <div className={style.Level}>
-        <SwitcherLevel changeActiveLevel={changeActiveLevel} />
+        <SwitcherLevel
+          changeActiveLevel={changeActiveLevel}
+          currentLevel={activeLevel + 1}
+        />
       </div>
       <div className={style.Lives}>
         <Lives
@@ -145,43 +145,56 @@ function Game() {
           initialTime={initialTime}
         />
       </div>
-      {dictionary.length === 0 ? <Dictionary level={activeLevel} page={page} setDictionary={setDictionary} />
-        : (
-          <div className={style.CardBlock}>
-            <div className={style.cardEng}>
-              { dictionary
-                ? dictionary.map(({ word, id }, index) => (
-                  <Card
-                    key={id}
-                    onCardClick={() => cardHandler(id, russianWord, setEnglishWord)}
-                    isActive={englishWord === id}
-                    isRight={isRight}
-                    isCorrect={correctAnswers.indexOf(id) !== -1}
-                  >
-                    {word}
-                  </Card>
-                ))
-                : false}
-            </div>
+      {
+        dictionary.length === 0
+          ? (
+            <Dictionary
+              level={activeLevel}
+              page={page}
+              setDictionary={setDictionary}
+              setRussianWords={setRussianWords}
+              setEnglishWords={setEnglishWords}
+            />
+          )
+          : (
+            <div className={style.CardBlock}>
+              <div className={style.cardEng}>
+                { dictionary
+                  ? englishWords.map(({ word, id }, index) => (
+                    <Card
+                      key={id}
+                      onCardClick={() => cardHandler(id,
+                        russianWord, setEnglishWord)}
+                      isActive={englishWord === id}
+                      isRight={isRight}
+                      isCorrect={correctAnswers.indexOf(id) !== -1}
+                    >
+                      {word}
+                    </Card>
+                  ))
+                  : false}
+              </div>
 
-            <div className={style.cardRus}>
-              { dictionary
-                ? dictionary.map(({ wordTranslate, id }, index) => (
-                  <Card
-                    key={index}
-                    onCardClick={() => cardHandler(id, englishWord, setRussianWord)}
-                    isActive={russianWord === id}
-                    isRight={isRight}
-                    isCorrect={correctAnswers.indexOf(id) !== -1}
-                    disabled="true"
-                  >
-                    {wordTranslate}
-                  </Card>
-                ))
-                : false}
+              <div className={style.cardRus}>
+                { dictionary
+                  ? russianWords.map(({ wordTranslate, id }, index) => (
+                    <Card
+                      key={index}
+                      onCardClick={() => cardHandler(id,
+                        englishWord, setRussianWord)}
+                      isActive={russianWord === id}
+                      isRight={isRight}
+                      isCorrect={correctAnswers.indexOf(id) !== -1}
+                      disabled="true"
+                    >
+                      {wordTranslate}
+                    </Card>
+                  ))
+                  : false}
+              </div>
             </div>
-          </div>
-        )}
+          )
+      }
       {
         isGameOver
           // ? <GameOver countCorrectAnswers={countCorrectAnswers} incorrectAnswers={10 - countCorrectAnswers} />

@@ -20,14 +20,19 @@ function Timer({ isActive, timeOutHandler, initialTime }) {
     }
   }, [timeOutHandler, timer]);
 
+  useEffect(() => {
+    console.log(123);
+    setTimer(initialTime);
+  }, [initialTime]);
+
   return (
     <div className={style.Timer}>
-      <h1>
+      <h2>
         Осталось:
         {
           timer
         }
-      </h1>
+      </h2>
     </div>
   );
 }
