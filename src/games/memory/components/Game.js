@@ -33,6 +33,7 @@ function Game() {
   const [page, setPage] = useState(27);
   const [startTime, setStartTime] = useState(60);
   const [initialTime, setInitialTime] = useState(startTime);
+  const [isShouldRestart, setIsShouldRestart] = useState(false);
   // const [incorrectAnswers, setInorrectAnswers] = useState(0);
 
   const changeActiveLevel = useCallback((levelProps) => {
@@ -57,6 +58,7 @@ function Game() {
         setPage(page + 1);
       }
 
+      setIsShouldRestart(true);
       setInitialTime(startTime);
     }
   }, [countCorrectAnswers, startTime]);
@@ -67,6 +69,7 @@ function Game() {
     setCorrectAnswers(cAnswers);
     setIsRight(true);
     setCountCorrectAnswers(countCorrectAnswers + 1);
+    setIsShouldRestart(false);
   }, [countCorrectAnswers, correctAnswers,
     setCorrectAnswers, setIsRight, setCountCorrectAnswers]);
 
@@ -143,6 +146,7 @@ function Game() {
           timeOutHandler={gameOverHandler}
           isActive={!isGameOver}
           initialTime={initialTime}
+          isShouldRestart={isShouldRestart}
         />
       </div>
       {
