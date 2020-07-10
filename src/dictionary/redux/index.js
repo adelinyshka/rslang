@@ -36,7 +36,7 @@ export const resetState = () => ({
   ...INITIAL_STATE,
 });
 
-export default (state = INITIAL_STATE, action) => {
+const dictionaryReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
   switch (type) {
     case 'SELECT_WORDS':
@@ -60,3 +60,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default dictionaryReducer;
