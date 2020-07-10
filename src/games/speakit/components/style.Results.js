@@ -75,10 +75,11 @@ export default style.div`
     margin: 0 auto;
     padding: 20px;
     
-    @media (max-width: 520px) {
+    @media (max-width: 630px) {
       flex-wrap: wrap;
       min-width: unset;
       padding: 10px;
+      width: 100%;
     }
   }
 
@@ -96,16 +97,21 @@ export default style.div`
     background: #0AD1BD;
   }
 
-  p {
+  div {
     display: flex;
     justify-content: space-between;
     margin: 5px;
     padding: 0 10px;
     
     @media (max-width: 520px) {
-    font-size: 12px;
-    overflow-x: scroll;
+      font-size: 12px;
+      overflow-x: scroll;
     }
+  }
+  
+  p {
+    margin: 5px;
+    padding: 5px;
   }
   
   .results-audio-icon {

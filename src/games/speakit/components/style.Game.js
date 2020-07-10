@@ -23,8 +23,12 @@ export default style.div`
     background: rgba(105, 121, 248, 0.4);
     border-radius: 6px;
     
-     @media(max-width: 768px) {
-      top: 70px;
+    @media(max-width: 768px) {
+      top: 60px;
+    } 
+    
+    @media(max-width: 570px) {
+      display: none;
     } 
   }
 
@@ -40,7 +44,11 @@ export default style.div`
     height: 35px;
     
     @media(max-width: 768px) {
-      top: 70px;
+      top: 60px;
+    } 
+    
+    @media(max-width: 570px) {
+      display: none;
     } 
   }
 
