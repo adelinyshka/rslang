@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { userSelector } from '../../auth/redux/selectors';
 
-const fetchJSON = async (endpoint, fetchOptions) => {
+export const fetchJSON = async (endpoint, fetchOptions) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/${endpoint}`;
+  console.log(fetchOptions);
   const data = await fetch(url, fetchOptions);
   const json = await data.json();
   if (data.status !== 200) throw new Error(data.status);
@@ -17,7 +18,7 @@ const useAPI = (endpoint, fetchOptions = {}, action, shouldFetch = true) => {
   const [result, setResult] = useState();
   const [error, setError] = useState();
   const finalOptions = useMemo(() => ({
-    ...fetchOptions,
+    'method': 'GET',
     'withCredentials': true,
     'headers': {
       ...fetchOptions.headers,
@@ -25,6 +26,7 @@ const useAPI = (endpoint, fetchOptions = {}, action, shouldFetch = true) => {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
+    ...fetchOptions,
   }), [fetchOptions, token]);
 
   useEffect(() => {
