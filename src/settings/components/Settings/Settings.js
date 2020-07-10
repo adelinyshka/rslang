@@ -40,6 +40,15 @@ const cardsHintsInfo = [
   },
 ];
 
+const cardsHintsNames = [
+  'wordTranslate',
+  'exampleSentence',
+  'definition',
+  'sentenceTranslate',
+  'transcription',
+  'wordImage',
+];
+
 const cardsBtnsInfo = [
   {
     title: 'Удалить',
@@ -92,6 +101,10 @@ const Settings = () => {
   // так как изменения происходят при нажатии кнопки сохранить
   // - использую локальный стейт для изменения настроек
   const [formSettings, setFormSettings] = useState(settings);
+  const checkedHints = useMemo(() => cardsHintsNames.reduce(
+    (acc, state) => (formSettings.optional[state] ? acc + 1 : acc), 0,
+  ),
+  [formSettings]);
 
   const endpoint = useMemo(() => `users/${userId}/settings`, [userId]);
 
@@ -111,10 +124,21 @@ const Settings = () => {
 
   // Запрос, чтобы поместить настройки
 
-  const handleChange = useCallback((event) => {
+  const handleHintsChange = useCallback(({ target }) => {
+    const { name, checked } = target;
+    if (checkedHints <= 1 && !checked) {
+      console.log('отметить минимум 1 пункт');
+    } else {
+      const newFormSettings = { ...formSettings };
+      newFormSettings.optional[name] = checked;
+      setFormSettings(newFormSettings);
+    }
+  }, [checkedHints, formSettings]);
+
+  const handleChange = useCallback(({ target }) => {
     const {
       name, type, checked, value,
-    } = event.target;
+    } = target;
     const newFormSettings = { ...formSettings };
     if (name === 'wordsPerDay') {
       newFormSettings[name] = type === 'checkbox' ? checked : value;
@@ -135,7 +159,7 @@ const Settings = () => {
     setFormSettings(settings);
   }, [setFormSettings, settings]);
 
-  const createCheckboxes = useCallback((cardsInfo) => (
+  const createCheckboxes = useCallback((cardsInfo, onChange) => (
     cardsInfo.map(({ title, name }) => (
       <label key={name} htmlFor={name} className={styles.CheckboxContainer}>
         <input
@@ -143,7 +167,7 @@ const Settings = () => {
           id={name}
           checked={formSettings.optional[name]}
           type="checkbox"
-          onChange={handleChange}
+          onChange={onChange}
         />
         <span className={styles.Checkmark} />
         {title}
@@ -180,11 +204,11 @@ const Settings = () => {
       <div className={styles.CardsDisplaySettings}>
         <div>
           <h2>Информация на карточках</h2>
-          {createCheckboxes(cardsHintsInfo)}
+          {createCheckboxes(cardsHintsInfo, handleHintsChange)}
         </div>
         <div>
           <h2>Добавить кнопки к карточкам</h2>
-          {createCheckboxes(cardsBtnsInfo)}
+          {createCheckboxes(cardsBtnsInfo, handleChange)}
         </div>
         <div>
           <h2>Настроить интервалы повторения</h2>
