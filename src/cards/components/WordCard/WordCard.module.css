@@ -68,6 +68,10 @@
   text-align: right;
 }
 
+.Footer {
+  height: 45px;
+}
+
 .Footer, .card-footer {
   background-color: white !important;
   border-radius: 0 0 12px 12px !important;

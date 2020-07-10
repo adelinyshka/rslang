@@ -63,12 +63,10 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
 
   const cardFooter = useMemo(
     () => (isShowingAnswer || isPreviousCard || wasAnswered) && (
-      <Card.Footer className={styles.Footer}>
-        <p>
-          {' '}
-          <span className={styles.TranslatedWord}>{wordTranslate}</span>
-        </p>
-      </Card.Footer>
+      <p>
+        {' '}
+        <span className={styles.TranslatedWord}>{wordTranslate}</span>
+      </p>
     ), [wordTranslate, isShowingAnswer, isPreviousCard, wasAnswered],
   );
 
@@ -95,7 +93,9 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
           <hr className={styles.Interval_hr} />
           <p className={styles.translated_sentence}>{textExampleTranslate}</p>
         </Card.Body>
-        {cardFooter}
+        <Card.Footer className={styles.Footer}>
+          {cardFooter}
+        </Card.Footer>
       </Card>
       <Intervals isPreviousCard={isPreviousCard} />
     </div>
