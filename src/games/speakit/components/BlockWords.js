@@ -61,7 +61,7 @@ const BlockWords = () => {
           statusGame={statusGame}
         >
           <img
-            src="./assets/images/speakit/audio-icon.svg"
+            src="/assets/images/speakit/audio-icon.svg"
             alt="audio-icon.svg"
           />
           <div className="word_div">

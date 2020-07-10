@@ -40,7 +40,7 @@ import {
   speechWordsSelector,
 } from '../redux/selectors';
 
-const imgMicro = './assets/images/speakit/microphone.svg';
+const imgMicro = '/assets/images/speakit/microphone.svg';
 
 const propTypes = {
   // Props injected by SpeechRecognition
@@ -91,7 +91,7 @@ const Game = ({
       setWordsPage(randomPage());
       batch(() => {
         dispatch(setLevel(levelProps));
-        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+        dispatch(setImage('/assets/images/speakit/base-game-image.png'));
         dispatch(setTranslateActiveWord(''));
         dispatch(setSpeechActiveWord(''));
         dispatch(setSpeechWords([]));
@@ -102,7 +102,7 @@ const Game = ({
   const getNewWords = useCallback((currentLevel) => {
     setWordsPage(randomPage());
     batch(() => {
-      dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+      dispatch(setImage('/assets/images/speakit/base-game-image.png'));
       dispatch(setTranslateActiveWord(''));
     });
     setModalResult(false);
@@ -112,14 +112,14 @@ const Game = ({
     if (statusGame === 'no-speach') {
       batch(() => {
         dispatch(setStatusGame('speach'));
-        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+        dispatch(setImage('/assets/images/speakit/base-game-image.png'));
         dispatch(setTranslateActiveWord(''));
         dispatch(setActiveWord(''));
       });
     } else {
       batch(() => {
         dispatch(setStatusGame('no-speach'));
-        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+        dispatch(setImage('/assets/images/speakit/base-game-image.png'));
         dispatch(setTranslateActiveWord(''));
       });
     }
@@ -131,7 +131,7 @@ const Game = ({
       dispatch(setStatusGame(''));
       dispatch(setWords([]));
       dispatch(setLevel(0));
-      dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+      dispatch(setImage('/assets/images/speakit/base-game-image.png'));
       dispatch(setTranslateActiveWord(''));
       dispatch(setSpeechActiveWord(''));
       dispatch(setSpeechWords([]));
@@ -163,7 +163,7 @@ const Game = ({
         if (speechWords.lenght === 10) setModalResult(true);
       } else {
         dispatch(setSpeechActiveWord(transcript));
-        dispatch(setImage('./assets/images/speakit/base-game-image.png'));
+        dispatch(setImage('/assets/images/speakit/base-game-image.png'));
       }
       startListening();
     }

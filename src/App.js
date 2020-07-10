@@ -65,7 +65,6 @@ const privateRoutes = [
   {
     title: 'Игры',
     path: '/games',
-    component: <Speakit />,
   },
   {
     title: 'Карточки',

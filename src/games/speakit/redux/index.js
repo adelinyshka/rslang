@@ -45,7 +45,7 @@ const INITIAL_STATE = {
   activeWord: '',
   translateActiveWord: '',
   speechActiveWord: '',
-  image: './assets/images/speakit/base-game-image.png',
+  image: '/assets/images/speakit/base-game-image.png',
   speechWords: [],
 };
 

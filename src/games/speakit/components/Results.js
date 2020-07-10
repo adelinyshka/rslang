@@ -10,10 +10,9 @@ import {
   speechWordsSelector,
 } from '../redux/selectors';
 
-const audioPath = 'https://raw.githubusercontent.com/'
-  + 'alekchaik/rslang-data/master/';
-
 const playAudio = (audio) => {
+  const audioPath = 'https://raw.githubusercontent.com/'
+  + 'alekchaik/rslang-data/master/';
   const pronounce = new Audio(`${audioPath}${audio}`);
   pronounce.play();
 };
@@ -36,11 +35,11 @@ const Results = ({ setModalResult, getNewWords }) => {
     <StyleResults>
       <div className="wrapper-icons">
         <div className="left">
-          <img src="./assets/images/speakit/good-results.svg" alt="" />
+          <img src="/assets/images/speakit/good-results.svg" alt="" />
           <span className="results">{`${trueWords}`}</span>
         </div>
         <div className="right">
-          <img src="./assets/images/speakit/bad-results.svg" alt="" />
+          <img src="/assets/images/speakit/bad-results.svg" alt="" />
           <span className="results">{`${falseWords}`}</span>
 
         </div>
@@ -62,7 +61,7 @@ const Results = ({ setModalResult, getNewWords }) => {
                 <p>
                   <img
                     className="results-audio-icon"
-                    src="./assets/images/speakit/audio-icon.svg"
+                    src="/assets/images/speakit/audio-icon.svg"
                     alt="audio-icon.svg"
                     onClick={() => playAudio(audio)}
                     role="section"
