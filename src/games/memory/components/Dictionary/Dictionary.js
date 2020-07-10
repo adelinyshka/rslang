@@ -1,7 +1,8 @@
 import React, {
   useState, useCallback, useEffect, useMemo,
 } from 'react';
-import useAPI from '../../../common/utils/index';
+import PropTypes from 'prop-types';
+import useAPI from '../../../../common/utils';
 import style from './Dictionary.module.css';
 
 function shuffle(array) {
@@ -58,6 +59,22 @@ const Dictionary = ({
       <div />
     </div>
   );
+};
+
+Dictionary.propTypes = {
+  level: PropTypes.number,
+  page: PropTypes.number,
+  setDictionary: PropTypes.func,
+  setRussianWords: PropTypes.func,
+  setEnglishWords: PropTypes.func,
+};
+
+Dictionary.defaultProps = {
+  level: 0,
+  page: 0,
+  setDictionary: () => {},
+  setRussianWords: () => {},
+  setEnglishWords: () => {},
 };
 
 export default Dictionary;

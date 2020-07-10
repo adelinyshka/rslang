@@ -1,17 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import SwitcherLevel from '../../../common/components/LevelSwitcher';
-import Card from './Card';
-import Timer from './Timer';
-import Lives from './Lives';
-import { Rules, Exit } from './Modal';
-import GameOver from './GameOver';
+import SwitcherLevel from '../../../../common/components/LevelSwitcher';
+import Card from '../Card/Card';
+import Timer from '../Timer/Timer';
+import Lives from '../Lives/Lives';
+import { Rules, Exit, GameOver } from '../PopUp/Modal';
 import style from './Game.module.css';
-import { setLevel } from '../redux/index';
-import { levelSelector } from '../redux/selectors';
-import Dictionary from './Dictionary';
+import { setLevel } from '../../redux/index';
+import { levelSelector } from '../../redux/selectors';
+import Dictionary from '../Dictionary/Dictionary';
 
 function Game() {
   const dispatch = useDispatch();
@@ -205,6 +202,7 @@ function Game() {
           ? (
             <GameOver
               countCorrectAnswers={countCorrectAnswers}
+              onGameOver={() => setIsGameOver(true)}
             />
           )
           : ''

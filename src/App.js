@@ -13,7 +13,7 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
-import Memory from './games/memory/components/Memory';
+import Memory from './games/memory/components/Memory/Memory';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
 
 const publicRoutes = [

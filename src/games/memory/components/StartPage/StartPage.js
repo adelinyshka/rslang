@@ -5,11 +5,7 @@ import style from './StartPage.module.css';
 
 import {
   setStatusGame,
-} from '../redux';
-
-import {
-  levelSelector,
-} from '../redux/selectors';
+} from '../../redux/index';
 
 const StartPage = () => {
   const dispatch = useDispatch();
