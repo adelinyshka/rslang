@@ -5,21 +5,27 @@ import StyleRules from './style.Rules';
 
 const Rules = ({ setModalRules }) => (
   <StyleRules>
-    <div className="window">
-      <section className="text-section">
-        <div>
+    <div className="pop-up">
+      <div className="top warning">
+        <div className="icon">
           <img
-            src="./../assets/images/question.svg"
-            alt="question"
+            src="./../assets/images/speakit/quest.svg"
+            alt="question in round"
           />
         </div>
-        <p>Произносите слова правильно, чтобы победить</p>
-      </section>
-      <section className="button-section">
-        <button type="button" onClick={setModalRules}>
-          Понятно
-        </button>
-      </section>
+        <section className="content">
+          <p>Произносите слова правильно, чтобы победить</p>
+        </section>
+
+      </div>
+      <div className="bottom">
+        <section className="btn-wrapper">
+          <button className="exit" type="button" onClick={setModalRules}>
+            Понятно
+          </button>
+        </section>
+
+      </div>
     </div>
   </StyleRules>
 );

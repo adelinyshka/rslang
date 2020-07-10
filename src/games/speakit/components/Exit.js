@@ -5,30 +5,40 @@ import StyleExit from './style.Exit';
 
 const Exit = ({ setModalExit, exitGame }) => (
   <StyleExit>
-    <div className="window">
-      <section className="text-section">
-        <div>
-          <span />
+    <div className="pop-up">
+      <div className="top exit-bg">
+        <div className="icon">
+          <img
+            src="./../assets/images/speakit/excl.svg"
+            alt="question in round"
+          />
         </div>
-        <p>Если вы выйдете во время игры, то прогресс не сохранится</p>
-      </section>
-      <section className="button-section">
-        <button
-          type="button"
-          onClick={setModalExit}
-          className="button-cancel"
-        >
-          Отменить
-        </button>
-        <button
-          type="button"
-          onClick={exitGame}
-          className="button-exit"
-        >
-          Выйти
-        </button>
-      </section>
+        <section className="content">
+          <p>Если вы выйдете во время игры, то прогресс не сохранится</p>
+        </section>
+
+      </div>
+      <div className="bottom">
+        <section className="btn-wrapper">
+          <button
+            type="button"
+            onClick={setModalExit}
+            className="cancel"
+          >
+            Отменить
+          </button>
+          <button
+            type="button"
+            onClick={exitGame}
+            className="exit"
+          >
+            Выйти
+          </button>
+        </section>
+
+      </div>
     </div>
+
   </StyleExit>
 );
 

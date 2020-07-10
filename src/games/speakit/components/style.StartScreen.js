@@ -13,6 +13,11 @@ export default style.div`
      margin-left: 0;
   }
   
+  @media (orientation: landscape) and (max-width: 768px) {
+      height: auto;
+      padding: 30px;
+  }
+  
   img.cross {
     position: absolute;
     z-index: 2;
@@ -68,7 +73,13 @@ export default style.div`
     align-items: center;
     align-content: center; 
     justify-content: center; 
+    
+    @media (orientation: landscape) and (max-width: 768px) {
+      position: unset;
+    }
   }
+  
+   
   
   .start_btn {
     background: #0AD1BD;
