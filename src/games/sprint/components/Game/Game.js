@@ -156,7 +156,7 @@ function Game() {
           <div className="UpperContainer">
 
             <div className="TaimerContainer">
-              <Timer initialTime={300} timeOutHandler={onOverGame} />
+              <Timer initialTime={5} timeOutHandler={onOverGame} />
             </div>
 
             <div className="ScoreContainer">
