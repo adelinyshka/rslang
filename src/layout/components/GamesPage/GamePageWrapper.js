@@ -79,7 +79,7 @@ const GamePageWrapper = styled.div`
   
   .center {
     grid-area: center;
-    background: url('./../assets/images/gamePage/center.png');
+    background: url('/assets/images/gamePage/center.png');
     justify-self: stretch;
     align-self: stretch;
     
@@ -90,31 +90,31 @@ const GamePageWrapper = styled.div`
   
   .audiocall {
     grid-area: audiocall;
-    background: url('./../assets/images/gamePage/audio.png');
+    background: url('/assets/images/gamePage/audio.png');
   }
     
   .memory {
-    background: url('./../assets/images/gamePage/memory.png');
+    background: url('/assets/images/gamePage/memory.png');
     grid-area: memory;
   }
   
   .savannah {
-    background: url('./../assets/images/gamePage/savannah.png');
+    background: url('/assets/images/gamePage/savannah.png');
     grid-area: savannah;
     }
   
   .speakit {
-    background: url('./../assets/images/gamePage/speakit.png');
+    background: url('/assets/images/gamePage/speakit.png');
     grid-area: speakit;
     }
   
   .sprint {
-    background: url('./../assets/images/gamePage/sprint.png');
+    background: url('/assets/images/gamePage/sprint.png');
     grid-area: sprint;
     }
   
   .puzzle {
-    background: url('./../assets/images/gamePage/puzzle.png');
+    background: url('/assets/images/gamePage/puzzle.png');
     grid-area: puzzle;
     }
     
