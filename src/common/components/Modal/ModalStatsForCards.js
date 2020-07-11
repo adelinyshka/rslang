@@ -88,7 +88,7 @@ const ModalStatsForCards = ({
 
 ModalStatsForCards.propTypes = {
   allWords: PropTypes.string.isRequired,
-  rightPercent: PropTypes.func.isRequired,
+  rightPercent: PropTypes.string.isRequired,
   newWords: PropTypes.string.isRequired,
   rightSet: PropTypes.string.isRequired,
 };
