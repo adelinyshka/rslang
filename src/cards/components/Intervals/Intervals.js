@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import {
   setCards, setLastCard, setAnswered, clearAnswer,
-  setRightAnswers, pushMistakenWord,
+  setRightAnswers, pushMistakenWord, incrementPassedCards,
 } from '../../redux';
 import {
   cardsArrSelector,
@@ -36,7 +36,6 @@ const intervalButtonsInfo = [
 const Intervals = ({ wordId }) => {
   const dispatch = useDispatch();
   const cardsArr = useSelector(cardsArrSelector);
-  // const wasMistaken = useSelector(wasMistakenSelector);
   const wasAnswered = useSelector(wasAnsweredSelector);
   const rightAnswers = useSelector(rightAnswersSelector);
 
@@ -72,6 +71,7 @@ const Intervals = ({ wordId }) => {
     }
     if (!wasMistaken && wasAnswered) {
       dispatch(setRightAnswers(rightAnswers + 1));
+      dispatch(incrementPassedCards());
     }
     batch(() => {
       dispatch(setCards(newCards));

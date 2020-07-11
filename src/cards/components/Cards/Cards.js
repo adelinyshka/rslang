@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 import React, { useMemo, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, batch } from 'react-redux';
 
-import { setCards } from '../../redux';
+import { setCards, setCardsTotal } from '../../redux';
 import { cardsArrSelector, cardsModeSelector } from '../../redux/selectors';
 import {
   wordsPerDaySelector,
@@ -44,7 +44,13 @@ const Cards = () => {
     return newCardsAmount ? aggregatedUrl : null;
   }, [userId, newCardsAmount, wordsPerDay, cardsMode]);
 
-  const action = useCallback((data) => dispatch(setCards(data[0].paginatedResults)), [dispatch]);
+  const action = useCallback((data) => {
+    batch(() => {
+      const cards = data[0].paginatedResults;
+      dispatch(setCards(cards));
+      dispatch(setCardsTotal(cards.length));
+    });
+  }, [dispatch]);
 
   useAPI(url, options, action);
 

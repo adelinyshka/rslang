@@ -10,7 +10,13 @@ const INITIAL_STATE = {
   rightAnswers: 0,
   newWords: 0,
   longestStreak: 0,
+  cardsTotal: 0,
 };
+
+export const setCardsTotal = (cardsTotal) => ({
+  type: 'SET_CARDS_TOTAL',
+  cardsTotal,
+});
 
 export const pushMistakenWord = (mistakenWord) => ({
   type: 'PUSH_MISTAKEN_WORD',
@@ -30,11 +36,6 @@ export const setNewWords = (newWords) => ({
 export const setRightAnswers = (rightAnswers) => ({
   type: 'SET_RIGHT_ANSWERS',
   rightAnswers,
-});
-
-export const setPassedCards = (passedCards) => ({
-  type: 'SET_PASSED_CARDS',
-  passedCards,
 });
 
 export const incrementPassedCards = () => ({
@@ -66,11 +67,6 @@ export const setAnswered = (wasAnswered) => ({
   wasAnswered,
 });
 
-export const setWasMistaken = (wasMistaken) => ({
-  type: 'WAS_MISTAKEN',
-  wasMistaken,
-});
-
 export const clearAnswer = () => ({
   type: 'CLEAR_ANSWER',
   wasMistaken: true,
@@ -83,6 +79,7 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
     type,
     ...payload
   } = action;
+
   switch (type) {
     case 'PUSH_MISTAKEN_WORD':
       return {
@@ -92,21 +89,22 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
           ...payload.mistakenWord,
         },
       };
+
     case 'INC_PASSED_CARDS':
       return {
         ...state,
         passedCards: state.passedCards + 1,
       };
+
+    case 'SET_CARDS_TOTAL':
     case 'SET_CARDS':
     case 'SET_LAST_CARD':
     case 'SHOW_ANSWER':
     case 'SET_ANSWERED':
-    case 'WAS_MISTAKEN':
     case 'CLEAR_ANSWER':
     case 'SET_LONGEST_STREAK':
     case 'SET_NEW_WORDS':
     case 'SET_RIGHT_ANSWERS':
-    case 'SET_PASSED_CARDS':
     case 'SET_CARDS_MODE':
       return {
         ...state,

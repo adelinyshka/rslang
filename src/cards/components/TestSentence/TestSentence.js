@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
-  setAnswered, pushMistakenWord, incrementPassedCards,
+  setAnswered, pushMistakenWord,
 } from '../../redux';
 import styles from './TestSentence.module.css';
 
@@ -56,7 +56,7 @@ const TestSentence = ({
         const mistakenWord = {};
         mistakenWord[wordId] = true;
         dispatch(pushMistakenWord(mistakenWord));
-      } else dispatch(incrementPassedCards());
+      }
       playAudio();
       setMistake();
       dispatch(setAnswered(true));
