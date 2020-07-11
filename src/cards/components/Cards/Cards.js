@@ -3,7 +3,7 @@ import React, { useMemo, useCallback } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 
 import { setCards, setCardsTotal } from '../../redux';
-import { cardsArrSelector, cardsModeSelector } from '../../redux/selectors';
+import { cardsArrSelector, cardsModeSelector, gameEndedSelector } from '../../redux/selectors';
 import {
   wordsPerDaySelector,
   newCardsAmountSelector,
@@ -12,6 +12,7 @@ import { userIdSelector } from '../../../auth/redux/selectors';
 
 import useAPI from '../../../common/utils';
 
+import ModalStatsForCards from '../Modal/ModalStatsForCards';
 import CardsCarousel from '../CardsCarousel/CardsCarousel';
 import Progress from '../Progress/Progress';
 import styles from './Cards.module.css';
@@ -20,6 +21,7 @@ const options = {};
 
 const Cards = () => {
   const dispatch = useDispatch();
+  const gameEnded = useSelector(gameEndedSelector);
   const cardsArr = useSelector(cardsArrSelector);
   const cardsMode = useSelector(cardsModeSelector);
   const wordsPerDay = useSelector(wordsPerDaySelector);
@@ -54,7 +56,7 @@ const Cards = () => {
 
   useAPI(url, options, action);
 
-  if (!cardsArr || !cardsArr.length) {
+  if ((!cardsArr || !cardsArr.length) && !gameEnded) {
     return (
       <div className={styles.bgColor}>
         <div className={styles.EmptyCards}>
@@ -67,8 +69,14 @@ const Cards = () => {
   return (
     <div className={styles.bgColor}>
       <div className={styles.Container}>
-        <CardsCarousel />
-        <Progress cardsArr={cardsArr} newCardsAmount={20} />
+        {gameEnded
+          ? <ModalStatsForCards />
+          : (
+            <>
+              <CardsCarousel />
+              <Progress />
+            </>
+          )}
       </div>
     </div>
   );

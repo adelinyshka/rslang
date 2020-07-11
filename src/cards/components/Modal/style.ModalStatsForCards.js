@@ -2,7 +2,6 @@ import Style from 'styled-components';
 
 export default Style.div`
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   left: 0;
@@ -144,7 +143,7 @@ export default Style.div`
   }
  
   .stats {
-    background: #7DDFC3;
+    background: rgba(125, 223, 195, 0.6);
   }
   
   .congrats-text {
@@ -191,7 +190,7 @@ export default Style.div`
   }
   
   .text-green {
-    color: #fff;
+    color: #4CE364;
   }
   
   .text-dark-vio {

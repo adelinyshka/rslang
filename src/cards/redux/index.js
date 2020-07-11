@@ -7,11 +7,16 @@ const INITIAL_STATE = {
   previousCard: null,
   cardsMode: 'new',
   passedCards: 0,
-  rightAnswers: 0,
   newWords: 0,
   longestStreak: 0,
   cardsTotal: 0,
+  gameEnded: false,
 };
+
+export const setGameEnded = (gameEnded) => ({
+  type: 'SET_GAME_ENDED',
+  gameEnded,
+});
 
 export const setCardsTotal = (cardsTotal) => ({
   type: 'SET_CARDS_TOTAL',
@@ -28,8 +33,8 @@ export const setLongestStreak = (longestStreak) => ({
   longestStreak,
 });
 
-export const setNewWords = (newWords) => ({
-  type: 'SET_NEW_WORDS',
+export const incrementNewWords = (newWords) => ({
+  type: 'INC_NEW_WORDS',
   newWords,
 });
 
@@ -95,7 +100,12 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         passedCards: state.passedCards + 1,
       };
-
+    case 'INC_NEW_WORDS':
+      return {
+        ...state,
+        newWords: state.newWords + 1,
+      };
+    case 'SET_GAME_ENDED':
     case 'SET_CARDS_TOTAL':
     case 'SET_CARDS':
     case 'SET_LAST_CARD':

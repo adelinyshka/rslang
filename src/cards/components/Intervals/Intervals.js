@@ -6,6 +6,7 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import {
   setCards, setLastCard, setAnswered, clearAnswer,
   setRightAnswers, pushMistakenWord, incrementPassedCards,
+  setGameEnded, incrementNewWords,
 } from '../../redux';
 
 import {
@@ -137,26 +138,28 @@ const Intervals = ({ wordId, userWord }) => {
   const handleButton = useCallback(({ shouldRepeat, optional, difficulty }) => {
     const newCards = [...cardsArr];
     const lastCard = newCards.shift();
-    if (wasMistaken || !wasAnswered || shouldRepeat) {
-      newCards.push(lastCard);
-      batch(() => {
-        const newMistakenWord = {};
-        newMistakenWord[wordId] = false;
-        dispatch(setRightAnswers(rightAnswers - 1));
-        dispatch(pushMistakenWord(newMistakenWord));
-      });
-    }
-    if (!wasMistaken && wasAnswered && !shouldRepeat) {
-      dispatch(setRightAnswers(rightAnswers + 1));
-      dispatch(incrementPassedCards());
-      putWordsInDictionary(optional, difficulty);
-    }
     batch(() => {
+      if (wasMistaken || !wasAnswered || shouldRepeat) {
+        newCards.push(lastCard);
+        if (wasMistaken) {
+          const newMistakenWord = {};
+          newMistakenWord[wordId] = false;
+          dispatch(setRightAnswers(rightAnswers - 1));
+          dispatch(pushMistakenWord(newMistakenWord));
+        }
+      }
+      if (!wasMistaken && wasAnswered && !shouldRepeat) {
+        dispatch(setRightAnswers(rightAnswers + 1));
+        dispatch(incrementPassedCards());
+        if (!userWord.optional) dispatch(incrementNewWords());
+        putWordsInDictionary(optional, difficulty);
+      }
       dispatch(setCards(newCards));
       dispatch(setLastCard(lastCard));
       dispatch(clearAnswer());
+      if (!newCards.length) dispatch(setGameEnded(true));
     });
-  }, [cardsArr, dispatch, wasMistaken,
+  }, [cardsArr, dispatch, wasMistaken, userWord,
     wasAnswered, rightAnswers, wordId, putWordsInDictionary]);
 
   const intervalButtons = useCallback((clicked) => (
