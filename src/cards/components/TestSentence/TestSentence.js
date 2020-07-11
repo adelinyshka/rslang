@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
-  setAnswered, setWasMistaken,
+  setAnswered, pushMistakenWord, incrementPassedCards,
 } from '../../redux';
 import styles from './TestSentence.module.css';
 
@@ -31,7 +31,7 @@ const mistakesInWord = (wrongWord, word) => {
 };
 
 const TestSentence = ({
-  testSentenceArr, word, playAudio,
+  testSentenceArr, word, playAudio, wordId,
 }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
@@ -51,17 +51,20 @@ const TestSentence = ({
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
-    if (value.toLowerCase() === word) {
-      if (!mistake) dispatch(setWasMistaken(false));
+    if (value.toLowerCase() === word.toLowerCase()) {
+      if (mistake) {
+        const mistakenWord = {};
+        mistakenWord[wordId] = true;
+        dispatch(pushMistakenWord(mistakenWord));
+      } else dispatch(incrementPassedCards());
       playAudio();
       setMistake();
       dispatch(setAnswered(true));
     } else {
-      dispatch(setWasMistaken(true));
       setMistake(value);
     }
     setValue('');
-  }, [playAudio, value, word, setMistake, dispatch, mistake]);
+  }, [playAudio, value, word, setMistake, dispatch, mistake, wordId]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -87,6 +90,7 @@ TestSentence.propTypes = {
   testSentenceArr: PropTypes.array.isRequired,
   word: PropTypes.string.isRequired,
   playAudio: PropTypes.func.isRequired,
+  wordId: PropTypes.string.isRequired,
 };
 
 export default TestSentence;

@@ -58,9 +58,10 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
           testSentenceArr={testSentenceArr}
           word={word}
           playAudio={playAudio}
+          wordId={_id}
         />
       )
-  ), [playAudio, isPreviousCard, testSentenceArr, word, wasAnswered]);
+  ), [playAudio, isPreviousCard, testSentenceArr, word, wasAnswered, _id]);
 
   const cardFooter = useMemo(
     () => (isShowingAnswer || isPreviousCard || wasAnswered) && (

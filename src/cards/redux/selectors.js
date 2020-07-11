@@ -37,6 +37,11 @@ export const rightAnswersSelector = createSelector(
   ({ rightAnswers }) => rightAnswers,
 );
 
+export const mistakenWordsSelector = createSelector(
+  cardsSelector,
+  ({ mistakenWords }) => mistakenWords,
+);
+
 export {
   isShowingAnswerSelector, cardsArrSelector, lastCardSelector,
   wasAnsweredSelector, wasMistakenSelector, cardsModeSelector,

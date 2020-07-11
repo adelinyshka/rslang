@@ -1,16 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import {
   setCards, setLastCard, setAnswered, clearAnswer,
-  setRightAnswers,
+  setRightAnswers, pushMistakenWord,
 } from '../../redux';
 import {
   cardsArrSelector,
-  wasMistakenSelector,
   wasAnsweredSelector,
   rightAnswersSelector,
+  mistakenWordsSelector,
 } from '../../redux/selectors';
 import styles from './Intervals.module.css';
 
@@ -36,9 +36,14 @@ const intervalButtonsInfo = [
 const Intervals = ({ wordId }) => {
   const dispatch = useDispatch();
   const cardsArr = useSelector(cardsArrSelector);
-  const wasMistaken = useSelector(wasMistakenSelector);
+  // const wasMistaken = useSelector(wasMistakenSelector);
   const wasAnswered = useSelector(wasAnsweredSelector);
   const rightAnswers = useSelector(rightAnswersSelector);
+
+  const mistakenWords = useSelector(mistakenWordsSelector);
+  const wasMistaken = useMemo(
+    () => mistakenWords[wordId], [mistakenWords, wordId],
+  );
 
   const intervalButtons = useCallback((clicked) => (
     intervalButtonsInfo.map(({ title, bg }) => (
@@ -58,6 +63,12 @@ const Intervals = ({ wordId }) => {
     const lastCard = newCards.shift();
     if (wasMistaken || !wasAnswered) {
       newCards.push(lastCard);
+      batch(() => {
+        const newMistakenWord = {};
+        newMistakenWord[wordId] = false;
+        dispatch(setRightAnswers(rightAnswers - 1));
+        dispatch(pushMistakenWord(newMistakenWord));
+      });
     }
     if (!wasMistaken && wasAnswered) {
       dispatch(setRightAnswers(rightAnswers + 1));
@@ -67,7 +78,7 @@ const Intervals = ({ wordId }) => {
       dispatch(setLastCard(lastCard));
       dispatch(clearAnswer());
     });
-  }, [cardsArr, dispatch, wasMistaken, wasAnswered, rightAnswers]);
+  }, [cardsArr, dispatch, wasMistaken, wasAnswered, rightAnswers, wordId]);
 
   return (
     <div className={styles.Intervals}>
