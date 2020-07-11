@@ -6,11 +6,13 @@ import GameWrapper from './GameWrapper';
 import { getRandomNumber, shuffle } from './Helpers';
 import Lives from './Lives';
 import { Rules, Exit } from './Modal';
+import { SoundSwitcher, audioWrong, audioRight } from '../../../common/components/SoundSwitcher';
+import fetchJSON from '../../../common/utils/index';
 
 const classNames = require('classnames');
 
 export default function Game() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   let counterCrystalSize = 0.7;
   const [gettingWords, setGettingWords] = useState(true);
@@ -29,6 +31,13 @@ export default function Game() {
   const [isRules, setIsRules] = useState(false);
   const [isExit, setIsExit] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
+
+  const playSound = useCallback((isAnswerRight) => {
+    if (soundOn) {
+      if (isAnswerRight) audioRight.play();
+      else audioWrong.play();
+    }
+  }, [soundOn]);
 
   useEffect(() => {
     if (gettingWords && livesCount) {
@@ -54,33 +63,19 @@ export default function Game() {
     }
   }, [livesCount, gettingWords]);
 
-  const audioRight = new Audio('/assets/audio/right.mp3');
-  const audioWrong = new Audio('/assets/audio/wrong.mp3');
-
-  const playRight = () => {
-    if (soundOn) {
-      audioRight.play();
-    }
-  };
-  const playWrong = () => {
-    if (soundOn) {
-      audioWrong.play();
-    }
-  };
-
   function checkAnswer(wordActive, answerActive) {
     if (wordActive === answerActive) {
       setAnswer(true);
       setBtnClicked(true);
       setScaleSize(counterCrystalSize += 0.02);
       setWordCounter(wordCounter - 1);
-      playRight();
+      playSound(true);
     } else {
       setAnswer(false);
       setBtnClicked(true);
       setLivesCount(livesCount - 1);
       setWordCounter(wordCounter - 1);
-      playWrong();
+      playSound(false);
     }
   }
 
@@ -98,7 +93,7 @@ export default function Game() {
         setGettingWords(true);
         setAnswer(false);
         setLivesCount(livesCount - 1);
-        playWrong();
+        playSound(answer);
       }
     }, 4650);
 
@@ -136,31 +131,7 @@ export default function Game() {
         src="/assets/images/savannah/tree_tall.svg"
         alt="tree tall"
       />
-      {
-        soundOn
-          ? (
-            <div
-              onClick={() => setSoundOn(false)}
-            >
-              <img
-                className="sound"
-                src="/assets/images/savannah/notification_on.svg"
-                alt="sound"
-              />
-            </div>
-          )
-          : (
-            <div
-              onClick={() => setSoundOn(true)}
-            >
-              <img
-                className="sound"
-                src="/assets/images/savannah/notification_off.svg"
-                alt="sound"
-              />
-            </div>
-          )
-      }
+      <SoundSwitcher onClick={(soundOn) => setSoundOn(soundOn)} />
       <div
         onClick={() => setIsRules(true)}
       >
@@ -268,3 +239,5 @@ export default function Game() {
 // todo
 // слово когда упало не исчезает, а обновляется и становится новым
 // не переходит со стартового экрана в игру по кнопке
+// забирать статистику надо из выученных слов
+// вкл/выкл звук не работает
