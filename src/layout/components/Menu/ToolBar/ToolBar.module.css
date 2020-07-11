@@ -11,6 +11,7 @@
 }
 
 .Burger {
+  transform   : scale(0.65);
   width       : 45px;
   height      : 37px;
   position    : relative;
@@ -44,11 +45,11 @@
 }
 
 .Bar2 {
-  top: 13px;
+  top: 14px;
 }
 
 .Bar3 {
-  top: 25px;
+  top: 29px;
 }
 
 .Burger3 input:checked~label {
@@ -86,6 +87,7 @@
   }
 
   .MobileLogo {
+    margin     : 0;
     font-family: 'Exo', sans-serif;
     display    : flex;
     color      : #FFF;
