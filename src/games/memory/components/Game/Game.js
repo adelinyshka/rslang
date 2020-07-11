@@ -22,7 +22,6 @@ function Game() {
   const [isRight, setIsRight] = useState(null);
   const [livesCount, setLivesCount] = useState(5);
   const [countCorrectAnswers, setCountCorrectAnswers] = useState(0);
-  const [correctAnswers, setCorrectAnswers] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isRules, setIsRules] = useState(false);
   const [isExit, setIsExit] = useState(false);
@@ -31,7 +30,8 @@ function Game() {
   const [startTime, setStartTime] = useState(60);
   const [initialTime, setInitialTime] = useState(startTime);
   const [isShouldRestart, setIsShouldRestart] = useState(false);
-  // const [incorrectAnswers, setInorrectAnswers] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState([]);
+  const [statistics, setStatistics] = useState({ correct: [], incorrect: [] });
 
   const changeActiveLevel = useCallback((levelProps) => {
     if (activeLevel !== levelProps) {
@@ -60,19 +60,27 @@ function Game() {
     }
   }, [countCorrectAnswers, startTime]);
 
-  const correct = useCallback((cardId) => {
+  const correct = useCallback((cardId, words) => {
     const cAnswers = correctAnswers;
     cAnswers.push(cardId);
     setCorrectAnswers(cAnswers);
     setIsRight(true);
     setCountCorrectAnswers(countCorrectAnswers + 1);
     setIsShouldRestart(false);
+
+    const oldStatistics = statistics;
+    const newWord = words.filter((item) => item.id === cardId);
+    oldStatistics.correct.push(newWord[0].word);
   }, [countCorrectAnswers, correctAnswers,
     setCorrectAnswers, setIsRight, setCountCorrectAnswers]);
 
-  const incorrect = useCallback(() => {
+  const incorrect = useCallback((cardId, words) => {
     setIsRight(false);
     setLivesCount(livesCount - 1);
+
+    const oldStatistics = statistics;
+    const newWord = words.filter((item) => item.id === cardId);
+    oldStatistics.incorrect.push(newWord[0].word);
   }, [livesCount, setLivesCount, setIsRight]);
 
   const cardHandler = useCallback((cardId, word, setWord) => {
@@ -80,7 +88,7 @@ function Game() {
       setWord(cardId);
 
       if (word) {
-        cardId === word ? correct(cardId) : incorrect();
+        cardId === word ? correct(cardId, englishWords) : incorrect(cardId, englishWords);
         checkResult();
       }
     }
@@ -202,6 +210,7 @@ function Game() {
           ? (
             <GameOver
               countCorrectAnswers={countCorrectAnswers}
+              correctAnswers={correctAnswers}
               onGameOver={() => setIsGameOver(true)}
             />
           )

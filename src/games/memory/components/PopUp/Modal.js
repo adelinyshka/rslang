@@ -47,7 +47,7 @@ const Exit = ({ onCancel, onExit }) => (
           >
             Отменить
           </button>
-          <Link to="game/memory">
+          <Link to="./">
             <button
               className={style.btnExit}
               type="button"
@@ -61,7 +61,13 @@ const Exit = ({ onCancel, onExit }) => (
   </div>
 );
 
-function GameOver({ countCorrectAnswers, countIncorrectAnswers, onGameOver }) {
+function GameOver({
+  countCorrectAnswers,
+  countIncorrectAnswers,
+  correctAnswers,
+}) {
+  console.log('correctAnswers: ', correctAnswers);
+
   return (
     <PopUp
       type={countCorrectAnswers > countIncorrectAnswers ? 'success' : 'error'}
@@ -89,11 +95,13 @@ function GameOver({ countCorrectAnswers, countIncorrectAnswers, onGameOver }) {
 GameOver.propTypes = {
   countCorrectAnswers: PropTypes.number,
   countIncorrectAnswers: PropTypes.number,
+  correctAnswers: PropTypes.string,
 };
 
 GameOver.defaultProps = {
   countCorrectAnswers: 0,
   countIncorrectAnswers: 0,
+  correctAnswers: '',
 };
 
 Rules.propTypes = {
