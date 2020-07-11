@@ -73,19 +73,13 @@ export default function Game() {
   }, [livesCount, gettingWords, wordCounter]);
 
   function checkAnswer(wordActive, answerActive) {
-    if (wordActive === answerActive) {
-      setAnswer(true);
-      setBtnClicked(true);
-      setScaleSize(counterCrystalSize += 0.02);
-      setWordCounter(wordCounter - 1);
-      playSound(true);
-    } else {
-      setAnswer(false);
-      setBtnClicked(true);
-      setLivesCount(livesCount - 1);
-      setWordCounter(wordCounter - 1);
-      playSound(false);
-    }
+    const correct = wordActive === answerActive;
+    setAnswer(correct);
+    setBtnClicked(correct);
+    setWordCounter(wordCounter - 1);
+    playSound(correct);
+    if (correct) setScaleSize(counterCrystalSize += 0.02);
+    else setLivesCount(livesCount - 1);
   }
 
   const refreshWordsOnClick = useCallback(() => {
