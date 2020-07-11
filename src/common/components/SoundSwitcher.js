@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 const SoundSwitcher = ({ onClick }) => {
-  const [soundOn, setSoundOn] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
 
   const onMuteClickHandler = useCallback((mute) => {
     setSoundOn(!mute);
