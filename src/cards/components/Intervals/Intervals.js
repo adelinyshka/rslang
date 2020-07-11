@@ -33,7 +33,7 @@ const intervalButtonsInfo = [
   },
 ];
 
-const Intervals = ({ isPreviousCard }) => {
+const Intervals = ({ wordId }) => {
   const dispatch = useDispatch();
   const cardsArr = useSelector(cardsArrSelector);
   const wasMistaken = useSelector(wasMistakenSelector);
@@ -69,8 +69,6 @@ const Intervals = ({ isPreviousCard }) => {
     });
   }, [cardsArr, dispatch, wasMistaken, wasAnswered, rightAnswers]);
 
-  if (isPreviousCard) return null;
-
   return (
     <div className={styles.Intervals}>
       {
@@ -91,7 +89,7 @@ const Intervals = ({ isPreviousCard }) => {
 };
 
 Intervals.propTypes = {
-  isPreviousCard: PropTypes.bool.isRequired,
+  wordId: PropTypes.string.isRequired,
 };
 
 export default Intervals;

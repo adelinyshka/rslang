@@ -15,9 +15,8 @@ import Navigation from '../Navigation/Navigation';
 const WordCard = ({ cardInfo, isPreviousCard }) => {
   const isShowingAnswer = useSelector(isShowingAnswerSelector);
   const wasAnswered = useSelector(wasAnsweredSelector);
-
   const {
-    textExampleTranslate, wordTranslate, textExample, audio,
+    textExampleTranslate, wordTranslate, textExample, audio, _id,
   } = useMemo(() => cardInfo, [cardInfo]);
 
   const testSentenceArr = useMemo(
@@ -29,7 +28,9 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   );
 
   const speakerIcon = useMemo(() => (
-    isPreviousCard || wasAnswered ? '/common/speakerOnIcon.svg' : '/cards/speakerOffIcon.svg'
+    isPreviousCard || wasAnswered
+      ? '/common/speakerOnIcon.svg'
+      : '/cards/speakerOffIcon.svg'
   ),
   [isPreviousCard, wasAnswered]);
 
@@ -97,7 +98,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
           {cardFooter}
         </Card.Footer>
       </Card>
-      <Intervals isPreviousCard={isPreviousCard} />
+      {!isPreviousCard && <Intervals wordId={_id} />}
     </div>
   );
 };
