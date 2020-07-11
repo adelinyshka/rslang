@@ -6,7 +6,7 @@ import { getRandomNumber, shuffle } from './Helpers';
 import Lives from './Lives';
 import { Rules, Exit } from './Modal';
 import SoundSwitcher from '../../../common/components/SoundSwitcher';
-// import fetchJSON from '../../../common/utils/index';
+import fetchJSON from '../../../common/utils/index';
 
 const classNames = require('classnames');
 
@@ -28,6 +28,15 @@ export default function Game() {
   const [isRules, setIsRules] = useState(false);
   const [isExit, setIsExit] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
+  const [page, setPage] = useState(1);
+  const [group, setGroup] = useState(1);
+
+  useEffect(() => {
+    fetchJSON(`words?page=${page}&group=${group}`)
+      .then((data) => {
+        console.log(data);
+      });
+  }, [page, group]);
 
   const playSound = useCallback((isAnswerRight) => {
     if (soundOn) {
