@@ -20,13 +20,10 @@ export default function Game() {
   const [word, setWord] = useState('');
   const [answer, setAnswer] = useState('');
   const [rightAnswer, setRightAnswer] = useState('');
-
   const [btnClicked, setBtnClicked] = useState(false);
   const [scaleSize, setScaleSize] = useState(counterCrystalSize);
   const [arrOfWords, setArrOfWords] = useState([]);
-
   const [wordCounter, setWordCounter] = useState(40);
-
   const [isGameOver, setIsGameOver] = useState(false);
   const [isRules, setIsRules] = useState(false);
   const [isExit, setIsExit] = useState(false);
@@ -39,8 +36,16 @@ export default function Game() {
     }
   }, [soundOn]);
 
+  const gameOverHandler = useCallback(() => {
+    setIsGameOver(true);
+    setWord(' ');
+    setGettingWords(false);
+    setArrOfWords([]);
+    setLivesCount(0);
+  }, []);
+
   useEffect(() => {
-    if (gettingWords && livesCount) {
+    if (gettingWords && livesCount && wordCounter) {
       const randomNumber = getRandomNumber();
       const newWord = dictionary[randomNumber].word;
       const newAnswer = dictionary[randomNumber].translate;
@@ -61,7 +66,11 @@ export default function Game() {
       setArrOfWords(shuffledTranslations);
       setGettingWords(false);
     }
-  }, [livesCount, gettingWords]);
+
+    if (!wordCounter) {
+      gameOverHandler();
+    }
+  }, [livesCount, gettingWords, wordCounter]);
 
   function checkAnswer(wordActive, answerActive) {
     if (wordActive === answerActive) {
@@ -101,13 +110,6 @@ export default function Game() {
       clearTimeout(timer);
     };
   }, [livesCount, answer]);
-
-  const gameOverHandler = useCallback(() => {
-    setIsGameOver(true);
-    setWord(' ');
-    setGettingWords(false);
-    setArrOfWords([]);
-  }, []);
 
   return (
     <GameWrapper>

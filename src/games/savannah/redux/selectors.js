@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-export const savannahSelector = (state) => state.speakit;
+export const savannahSelector = (state) => state.savannah;
 
 export const statusGameSelector = createSelector(
   savannahSelector,
