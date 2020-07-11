@@ -205,5 +205,4 @@ export default Style.div`
   .text-pink {
     color: #DB7CF5;
   }
-  
 `;

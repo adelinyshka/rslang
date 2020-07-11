@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
+import StyleRules from './style.ModalStatsForCards';
 
-import StyleRules from './style.ModalStats';
-import ModalExit from './ModalExit';
-
-const ModalStats = ({
+const ModalStatsForCards = ({
   allWords, rightPercent, newWords, rightSet,
 }) => (
   <StyleRules>
@@ -60,7 +58,11 @@ const ModalStats = ({
             </Row>
             <Row>
               <Col xs={1}>
-                <img className="round" src="/assets/images/common/green.svg" alt="" />
+                <img
+                  className="round"
+                  src="/assets/images/common/green.svg"
+                  alt=""
+                />
               </Col>
               <Col
                 xs={9}
@@ -84,11 +86,11 @@ const ModalStats = ({
   </StyleRules>
 );
 
-ModalStats.propTypes = {
+ModalStatsForCards.propTypes = {
   allWords: PropTypes.string.isRequired,
   rightPercent: PropTypes.func.isRequired,
   newWords: PropTypes.string.isRequired,
   rightSet: PropTypes.string.isRequired,
 };
 
-export default ModalStats;
+export default ModalStatsForCards;

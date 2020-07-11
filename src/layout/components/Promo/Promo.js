@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-
 import FeatureCard from './FeatureCard/FeatureCard';
 import Footer from './Footer/Footer';
 import GameCard from './GameCard/GameCard';
@@ -9,10 +8,6 @@ import IntervalInfo from './IntervalInfo/IntervalInfo';
 import PromoWrapper from './PromoWrapper';
 import Study from './Study/Study';
 import VideoBlock from './VideoBlock/VideoBlock';
-
-import ModalRules from '../../../common/components/Modal/ModalRules';
-import ModalExit from '../../../common/components/Modal/ModalExit';
-import ModalStats from '../../../common/components/Modal/ModalStats';
 
 export default function Promo() {
   return (
