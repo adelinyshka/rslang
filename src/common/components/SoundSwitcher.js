@@ -1,46 +1,30 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-const audioRight = new Audio('/assets/audio/right.mp3');
-const audioWrong = new Audio('/assets/audio/wrong.mp3');
-
 const SoundSwitcher = ({ onClick }) => {
-  const [isMuted, setIsMuted] = useState(true);
+  const [soundOn, setSoundOn] = useState(true);
 
   const onMuteClickHandler = useCallback((mute) => {
-    setIsMuted(!mute);
+    setSoundOn(!mute);
     onClick(!mute);
   }, [onClick]);
 
-  return (
-    <>
-      {
-        isMuted
-          ? (
-            <div
-              onClick={() => onMuteClickHandler(isMuted)}
-            >
-              <img
-                className="sound"
-                src="/assets/images/common/notification_on.svg"
-                alt="sound"
-              />
-            </div>
-          )
-          : (
-            <div
-              onClick={() => onMuteClickHandler(isMuted)}
-            >
-              <img
-                className="sound"
-                src="/assets/images/common/notification_off.svg"
-                alt="sound"
-              />
-            </div>
-          )
-      }
+  const mutedIcon = (muted) => (
+    muted
+      ? '/assets/images/common/notification_on.svg'
+      : '/assets/images/common/notification_off.svg'
+  );
 
-    </>
+  return (
+    <div
+      onClick={() => onMuteClickHandler(soundOn)}
+    >
+      <img
+        className="sound"
+        src={mutedIcon(soundOn)}
+        alt="sound"
+      />
+    </div>
   );
 };
 
@@ -49,6 +33,4 @@ SoundSwitcher.propTypes = {
   onClick: propTypes.func.isRequired,
 };
 
-export {
-  SoundSwitcher, audioRight, audioWrong,
-};
+export default SoundSwitcher;

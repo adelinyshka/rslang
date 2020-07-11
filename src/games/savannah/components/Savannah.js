@@ -10,8 +10,8 @@ function Savannah() {
 
   return (
     <div>
-      <Game />
-      {/* {statusGame ? (<Game />) : (<StartPage />)} */}
+      {/* <Game /> */}
+      {statusGame ? (<Game />) : (<StartPage />)}
     </div>
   );
 }

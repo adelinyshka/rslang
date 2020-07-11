@@ -1,20 +1,20 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import dictionary from './Dictionary';
 import GameWrapper from './GameWrapper';
 import { getRandomNumber, shuffle } from './Helpers';
 import Lives from './Lives';
 import { Rules, Exit } from './Modal';
-import { SoundSwitcher, audioWrong, audioRight } from '../../../common/components/SoundSwitcher';
-import fetchJSON from '../../../common/utils/index';
+import SoundSwitcher from '../../../common/components/SoundSwitcher';
+// import fetchJSON from '../../../common/utils/index';
 
 const classNames = require('classnames');
 
-export default function Game() {
-  // const dispatch = useDispatch();
+let counterCrystalSize = 0.7;
+const audioRight = new Audio('/assets/audio/right.mp3');
+const audioWrong = new Audio('/assets/audio/wrong.mp3');
 
-  let counterCrystalSize = 0.7;
+export default function Game() {
   const [gettingWords, setGettingWords] = useState(true);
   const [livesCount, setLivesCount] = useState(5);
   const [word, setWord] = useState('');
@@ -93,7 +93,7 @@ export default function Game() {
         setGettingWords(true);
         setAnswer(false);
         setLivesCount(livesCount - 1);
-        playSound(answer);
+        playSound(false);
       }
     }, 4650);
 
@@ -105,6 +105,8 @@ export default function Game() {
   const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
     setWord(' ');
+    setGettingWords(false);
+    setArrOfWords([]);
   }, []);
 
   return (
@@ -131,7 +133,7 @@ export default function Game() {
         src="/assets/images/savannah/tree_tall.svg"
         alt="tree tall"
       />
-      <SoundSwitcher onClick={(soundOn) => setSoundOn(soundOn)} />
+      <SoundSwitcher onClick={() => setSoundOn()} />
       <div
         onClick={() => setIsRules(true)}
       >

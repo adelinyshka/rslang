@@ -12,7 +12,7 @@ const StartPage = () => {
   const dispatch = useDispatch();
 
   const onStart = useCallback(() => {
-    dispatch(setStatusGame('play'));
+    dispatch(setStatusGame(true));
   }, [dispatch]);
 
   return (
@@ -31,12 +31,14 @@ const StartPage = () => {
           перевод слова.
         </div>
         <Form>
+          {/* <Link to="savannah"> */}
           <Button
             className="start_btn"
             onClick={onStart}
           >
               Start
           </Button>
+          {/* </Link> */}
         </Form>
       </div>
       <img
