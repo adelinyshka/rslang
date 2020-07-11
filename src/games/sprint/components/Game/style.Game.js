@@ -49,10 +49,10 @@ background-size: contain;
     align-items: center;
     height:100px;
     width:100px;
-    margin-left: 100px;
+    margin-left: 178px;
 
     @media(max-width: 768px) {
-    margin-left: 0px;}
+    margin-left: 77px;}
 
     .Score{
       font-family: 'Exo', sans-serif;
@@ -180,8 +180,8 @@ background-size: contain;
 
 
       @media(max-width: 768px) {
-        height:45px;
-        width:45px;
+        height:55px;
+        width:55px;
       }
     }
 
@@ -237,12 +237,12 @@ background-size: contain;
       margin: 26px 0 7px 0;
     }
 
-    .Btn:hover,
+    /* .Btn:hover,
     .Btn:focus,
     .Btn:active {
       background: #08A999;
       border: #08A999;
-    }
+    } */
 
     .True{
       background-color: #0AD1BD;

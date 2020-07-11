@@ -35,7 +35,7 @@ export default styled.div`
     list-style: none;
     margin-right: 10px;
     background: #6979f8;
-    width: 30px;
+    width: 29px;
     height: 30px;
     border-radius: 100px;
     border: 3px solid white;

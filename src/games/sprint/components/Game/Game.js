@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useMemo, useEffect,
+  useState, useCallback, useMemo,
 } from 'react';
 import {
   Button,
@@ -12,15 +12,14 @@ import useAPI from '../../../../common/utils';
 import StyleGame from './style.Game';
 
 import {
-  resultsSelector,
   wordsSelector,
   startGameSelector,
-  overGameSelector,
   levelSelector,
   scoreSelector,
   marksSelector,
   targetsSelector,
   rateSelector,
+  soundStatusSelector,
 } from '../../redux/selectors';
 
 import {
@@ -32,6 +31,7 @@ import {
   setTargets,
   setRate,
   setScore,
+  setSoundStatus,
 } from '../../redux';
 
 const gameResult = [];
@@ -59,6 +59,7 @@ function Game() {
   const marks = useSelector(marksSelector);
   const targets = useSelector(targetsSelector);
   const rate = useSelector(rateSelector);
+  const soundStatus = useSelector(soundStatusSelector);
 
   const [count, setCount] = useState(0);
 
@@ -82,7 +83,7 @@ function Game() {
           : el.falsyTranslate;
         el.correctFlag = (el.falsyTranslate === el.wordTranslate);
       });
-      (dispatch(setWords(data)));
+      dispatch(setWords(data));
     }, [dispatch],
   );
 
@@ -108,7 +109,7 @@ function Game() {
         dispatch(setRate(1));
       }
       dispatch(setTargets([...activeTargets]));
-    }, [dispatch, targets],
+    }, [dispatch, targets, rate],
   );
 
   const changeMark = useCallback(
@@ -130,24 +131,36 @@ function Game() {
     }, [marks, dispatch, changeTargets],
   );
 
-  const onAnswer = useCallback(
-    (word, answer) => {
-      word.correctAnswer = (word.correctFlag === answer);
-      changeMark(word.correctAnswer);
-      changeScore(word.correctAnswer);
-      gameResult.push(word);
-      dispatch(setResult(gameResult));
-    }, [dispatch, changeMark],
-  );
+  const audioRight = useCallback(() => {
+    const Rightaudio = new Audio('/assets/audio/right.mp3');
+    Rightaudio.play();
+  }, []);
 
-  const onStartGame = useCallback(
-    () => dispatch(startGame()), [dispatch],
-  );
+  const audioWrong = useCallback(() => {
+    const Wrongaudio = new Audio('/assets/audio/wrong.mp3');
+    Wrongaudio.play();
+  }, []);
 
   const prononse = useCallback((n) => {
     const pronounce = new Audio(`${audioPath}${words[n].audio}`);
     pronounce.play();
   }, [words]);
+  const onAnswer = useCallback(
+    (word, answer) => {
+      word.correctAnswer = (word.correctFlag === answer);
+      if (soundStatus) {
+        word.correctAnswer ? audioRight() : audioWrong();
+      }
+      changeMark(word.correctAnswer);
+      changeScore(word.correctAnswer);
+      gameResult.push(word);
+      dispatch(setResult(gameResult));
+    }, [dispatch, changeMark, changeScore, soundStatus, audioRight, audioWrong],
+  );
+
+  const onStartGame = useCallback(
+    () => dispatch(startGame()), [dispatch],
+  );
 
   if (gameStarted) {
     return (
@@ -156,7 +169,7 @@ function Game() {
           <div className="UpperContainer">
 
             <div className="TaimerContainer">
-              <Timer initialTime={5} timeOutHandler={onOverGame} />
+              <Timer initialTime={900} timeOutHandler={onOverGame} />
             </div>
 
             <div className="ScoreContainer">
@@ -164,9 +177,23 @@ function Game() {
             </div>
 
             <div className="Toolbar">
-              <img className="Close" src="/assets/images/sprint/bell_on.svg" />
-              <label className="Notification_label">
-                <input onChange={() => console.log('it works')} className="Notification_input" type="checkbox" value="1" name="k" />
+              <img
+                className="Close"
+                src="/assets/images/sprint/cross.svg"
+                alt=""
+              />
+              <label
+                htmlFor="#sound"
+                className="Notification_label"
+              >
+                <input
+                  id="sound"
+                  onChange={() => dispatch(setSoundStatus(!soundStatus))}
+                  className="Notification_input"
+                  type="checkbox"
+                  value="1"
+                  name="k"
+                />
                 <span />
               </label>
             </div>
@@ -175,12 +202,24 @@ function Game() {
             <div className="BlockWord">
 
               <div className="Marks">
-                {marks.map((type, index) => <img key={index} src={`/assets/images/sprint/${type}_mark.svg`} />)}
+                {marks.map((type, index) => (
+                  <img
+                    key={index}
+                    src={`/assets/images/sprint/${type}_mark.svg`}
+                    alt=""
+                  />
+                ))}
               </div>
 
               <div className="Targets">
-                <img src="/assets/images/sprint/hit_target.svg" />
-                {targets.map((type, index) => <img key={index} src={`/assets/images/sprint/${type}_target.svg`} />)}
+                <img src="/assets/images/sprint/hit_target.svg" alt="" />
+                {targets.map((type, index) => (
+                  <img
+                    key={index}
+                    src={`/assets/images/sprint/${type}_target.svg`}
+                    alt=""
+                  />
+                ))}
               </div>
 
               <div className="Words">
@@ -189,13 +228,37 @@ function Game() {
               </div>
 
               <div className="Buttons">
-                <Button className="Btn False" onClick={() => { setCount(count + 1); onAnswer(words[count], false); }}>Не верно</Button>
-                <Button className="Btn True" onClick={() => { setCount(count + 1); onAnswer(words[count], true); }}>Верно</Button>
+                <Button
+                  className="Btn False"
+                  onClick={() => {
+                    setCount(count + 1);
+                    onAnswer(words[count], false);
+                  }}
+                >
+                Не верно
+                </Button>
+                <Button
+                  className="Btn True"
+                  onClick={() => {
+                    setCount(count + 1);
+                    onAnswer(words[count], true);
+                  }}
+                >
+                Верно
+                </Button>
               </div>
 
               <div className="Arrows">
-                <img className="Left" src="/assets/images/sprint/left_arrow.svg" />
-                <img className="Right" src="/assets/images/sprint/right_arrow.svg" />
+                <img
+                  className="Left"
+                  src="/assets/images/sprint/left_arrow.svg"
+                  alt="arrow left"
+                />
+                <img
+                  className="Right"
+                  src="/assets/images/sprint/right_arrow.svg"
+                  alt="arrow right"
+                />
               </div>
 
               <div className="PrononseContainer">
@@ -207,7 +270,14 @@ function Game() {
       </StyleGame>
     );
   }
-  return (<StyleGame><Timer initialTime={5} timeOutHandler={onStartGame} /></StyleGame>);
+  return (
+    <StyleGame>
+      <Timer
+        initialTime={5}
+        timeOutHandler={onStartGame}
+      />
+    </StyleGame>
+  );
 }
 
 export default Game;

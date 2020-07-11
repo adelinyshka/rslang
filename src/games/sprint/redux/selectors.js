@@ -50,3 +50,8 @@ export const rateSelector = createSelector(
   sprintSelector,
   ({ rate }) => rate,
 );
+
+export const soundStatusSelector = createSelector(
+  sprintSelector,
+  ({ soundStatus }) => soundStatus,
+);

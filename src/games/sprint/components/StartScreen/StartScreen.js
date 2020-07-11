@@ -54,7 +54,7 @@ const StartScreen = () => {
         variant="Outline-success"
         onClick={onInitGame}
       >
-        Start
+        Старт
       </Button>
       <div className="ImgCantainer">
         <img src="/assets/images/sprint/sprint_startscreen.svg" />

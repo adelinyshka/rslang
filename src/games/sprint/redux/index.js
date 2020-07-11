@@ -13,6 +13,11 @@ export const overGame = () => ({
   overGame: true,
 });
 
+export const setSoundStatus = (statusBool) => ({
+  type: 'SOUND_STATUS',
+  soundStatus: statusBool,
+});
+
 export const setWords = (gettingWords) => ({
   type: 'SET_WORDS',
   words: gettingWords,
@@ -52,6 +57,7 @@ const INITIAL_STATE = {
   initGame: false,
   startGame: false,
   overGame: false,
+  soundStatus: true,
   score: 0,
   words: {},
   results: [],
@@ -70,6 +76,7 @@ const sprintReducer = (state = INITIAL_STATE, action) => {
   switch (type) {
     case 'INIT_GAME':
     case 'START_GAME':
+    case 'SOUND_STATUS':
     case 'SET_RESULTS':
     case 'OVER_GAME':
     case 'SET_WORDS':

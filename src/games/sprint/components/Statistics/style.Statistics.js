@@ -1,6 +1,6 @@
-import style from 'styled-components';
+import styled from 'styled-components';
 
-export default style.div`
+export default styled.div`
   position: fixed;
   top: 0px;
   left: 0px;

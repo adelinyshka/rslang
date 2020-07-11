@@ -75,6 +75,10 @@
   text-decoration: none;
 }
 
+.Home:hover {
+  text-decoration: none;
+}
+
 .BlackTheme {
   display        : flex;
   align-items    : center;
