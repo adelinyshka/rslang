@@ -31,14 +31,12 @@ const StartPage = () => {
           перевод слова.
         </div>
         <Form>
-          {/* <Link to="savannah"> */}
           <Button
             className="start_btn"
             onClick={onStart}
           >
               Start
           </Button>
-          {/* </Link> */}
         </Form>
       </div>
       <img

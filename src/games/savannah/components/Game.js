@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import dictionary from './Dictionary';
 import GameWrapper from './GameWrapper';
 import { getRandomNumber, shuffle } from './Helpers';
@@ -7,6 +7,7 @@ import Lives from './Lives';
 import { Rules, Exit } from './Modal';
 import SoundSwitcher from '../../../common/components/SoundSwitcher';
 import fetchJSON from '../../../common/utils/index';
+import { setStatusGame } from '../redux';
 
 const classNames = require('classnames');
 
@@ -15,6 +16,7 @@ const audioRight = new Audio('/assets/audio/right.mp3');
 const audioWrong = new Audio('/assets/audio/wrong.mp3');
 
 export default function Game() {
+  const dispatch = useDispatch();
   const [gettingWords, setGettingWords] = useState(true);
   const [livesCount, setLivesCount] = useState(5);
   const [word, setWord] = useState('');
@@ -31,12 +33,12 @@ export default function Game() {
   const [page, setPage] = useState(1);
   const [group, setGroup] = useState(1);
 
-  useEffect(() => {
-    fetchJSON(`words?page=${page}&group=${group}`)
-      .then((data) => {
-        console.log(data);
-      });
-  }, [page, group]);
+  // useEffect(() => {
+  //   fetchJSON(`words?page=${page}&group=${group}`)
+  //     .then((data) => {
+  //       console.log(data);
+  //     });
+  // }, [page, group]);
 
   const playSound = useCallback((isAnswerRight) => {
     if (soundOn) {
@@ -44,6 +46,11 @@ export default function Game() {
       else audioWrong.play();
     }
   }, [soundOn]);
+
+  const onExit = useCallback(() => {
+    dispatch(setStatusGame(false));
+    setIsExit(false);
+  }, [dispatch]);
 
   const gameOverHandler = useCallback(() => {
     setIsGameOver(true);
@@ -119,10 +126,9 @@ export default function Game() {
       {isExit ? (
         <Exit
           onCancel={() => setIsExit(false)}
-          onExit={() => <Link to="./" /> }
+          onExit={onExit}
         />
       ) : false}
-
       {isRules ? (
         <Rules
           onRules={() => setIsRules(false)}
@@ -149,7 +155,7 @@ export default function Game() {
         />
       </div>
       <div
-        onClick={() => setIsExit(true)}
+        onClick={ () => setIsExit(true)}
       >
         <img
           className="cross"
