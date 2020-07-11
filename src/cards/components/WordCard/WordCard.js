@@ -16,7 +16,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   const isShowingAnswer = useSelector(isShowingAnswerSelector);
   const wasAnswered = useSelector(wasAnsweredSelector);
   const {
-    textExampleTranslate, wordTranslate, textExample, audio, _id,
+    textExampleTranslate, wordTranslate, textExample, audio, _id, userWord,
   } = useMemo(() => cardInfo, [cardInfo]);
 
   const testSentenceArr = useMemo(
@@ -99,7 +99,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
           {cardFooter}
         </Card.Footer>
       </Card>
-      {!isPreviousCard && <Intervals wordId={_id} />}
+      {!isPreviousCard && <Intervals wordId={_id} userWord={userWord} />}
     </div>
   );
 };

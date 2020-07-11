@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { ProgressBar } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import styles from './Progress.module.css';

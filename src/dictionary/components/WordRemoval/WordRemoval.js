@@ -32,6 +32,8 @@ const WordRemoval = ({ wordId, userWord, onRemoval }) => {
       'optional': {
         ...userWord.optional,
         'deleted': true,
+        'learning': false,
+        'difficult': false,
       },
     }),
   }), [userWord]);

@@ -12,4 +12,19 @@ export const newCardsAmountSelector = createSelector(
   ({ optional }) => optional.newCardsAmount,
 );
 
+export const easyIntervalSelector = createSelector(
+  settingsSelector,
+  ({ optional }) => optional.easyInterval,
+);
+
+export const mediumIntervalSelector = createSelector(
+  settingsSelector,
+  ({ optional }) => optional.mediumInterval,
+);
+
+export const hardIntervalSelector = createSelector(
+  settingsSelector,
+  ({ optional }) => optional.hardInterval,
+);
+
 export default settingsSelector;

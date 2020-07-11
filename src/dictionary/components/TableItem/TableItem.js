@@ -14,7 +14,6 @@ const TableItem = ({ wordInfo, section }) => {
   const {
     _id, userWord, audio, word, wordTranslate,
   } = useMemo(() => wordInfo, [wordInfo]);
-  const progressStatus = useMemo(() => 5, []); // получаем из wordInfo
 
   const [marked, setMarked] = useState(false);
 
