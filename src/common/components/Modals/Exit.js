@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
 import StyleExit from './style.ModalExit';
 
-const ModalExit = ({ setModalExit, exitGame }) => (
+const ModalExit = ({ setModalExit }) => (
   <StyleExit>
     <div className="pop-up">
       <div className="top exit-bg">
@@ -31,7 +30,7 @@ const ModalExit = ({ setModalExit, exitGame }) => (
           <Link to="/games">
             <button
               type="button"
-              onClick={exitGame}
+              // onClick={exitGame}
               className="exit"
             >
               Выйти
@@ -45,9 +44,34 @@ const ModalExit = ({ setModalExit, exitGame }) => (
   </StyleExit>
 );
 
-ModalExit.propTypes = {
-  setModalExit: PropTypes.func.isRequired,
-  exitGame: PropTypes.func.isRequired,
+const Exit = () => {
+  const [isExit, setIsExit] = useState(false);
+
+  const onExitClickHandler = useCallback((exit) => {
+    setIsExit(!exit);
+  }, []);
+
+  return (
+    <div
+      onClick={() => onExitClickHandler(isExit)}
+    >
+      {isExit ? (
+        <ModalExit
+          setModalExit={() => setIsExit(false)}
+        />
+      ) : false}
+      <img
+        style={{ cursor: 'pointer' }}
+        src="/assets/images/common/x.svg"
+        alt="cross"
+      />
+    </div>
+  );
 };
 
-export default ModalExit;
+ModalExit.propTypes = {
+  setModalExit: PropTypes.func.isRequired,
+};
+
+export default Exit;
+
