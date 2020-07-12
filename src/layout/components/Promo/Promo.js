@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-
 import FeatureCard from './FeatureCard/FeatureCard';
 import Footer from './Footer/Footer';
 import GameCard from './GameCard/GameCard';

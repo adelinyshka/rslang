@@ -1,23 +1,18 @@
+import { fetchJSON } from '../../common/utils';
+
 const loginUser = async (user) => {
-  const url = 'https://afternoon-falls-25894.herokuapp.com/signin';
-  const rawResponse = await fetch(url, {
+  const endpoint = 'signin';
+  const fetchOptions = {
     'method': 'POST',
     'headers': {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     'body': JSON.stringify(user),
-  });
+  };
+  const result = await fetchJSON(endpoint, fetchOptions);
 
-  if (rawResponse.status !== 200) {
-    throw new Error('Incorrect e-mail or password');
-  }
-  const {
-    token,
-    userId,
-  } = await rawResponse.json();
-
-  return { token, userId };
+  return result;
 };
 
 export default loginUser;
