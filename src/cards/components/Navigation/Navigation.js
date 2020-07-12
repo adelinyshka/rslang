@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 
 import { isShowingAnswerSelector } from '../../redux/selectors';
 import { showAnswer, setNavFetchOptions } from '../../redux';
-import { ButtonsSelector } from '../../../settings/redux/selectors';
+import {
+  ButtonsSelector,
+  interfaceHintsSelector,
+} from '../../../settings/redux/selectors';
 
 import NavItem from './NavItem';
 import styles from './Navigation.module.css';
@@ -12,6 +15,7 @@ import styles from './Navigation.module.css';
 const Navigation = ({ isPreviousCard }) => {
   const dispatch = useDispatch();
   const isShowingAnswer = useSelector(isShowingAnswerSelector);
+  const shouldDisplayHints = useSelector(interfaceHintsSelector);
 
   const {
     deleteBtn,
@@ -54,7 +58,15 @@ const Navigation = ({ isPreviousCard }) => {
   const navItems = useMemo(() => itemsInfo.map(({
     alt, icon, clicked, display,
   }) => (
-    display && <NavItem alt={alt} icon={icon} clicked={clicked} key={alt} />
+    display && (
+      <NavItem
+        alt={alt}
+        icon={icon}
+        clicked={clicked}
+        key={alt}
+        hintsDisplay={shouldDisplayHints}
+      />
+    )
   )), [itemsInfo]);
 
   return (

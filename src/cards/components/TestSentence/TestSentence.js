@@ -3,10 +3,11 @@ import React, {
 } from 'react';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setAnswered, pushMistakenWord,
 } from '../../redux';
+import { autoSoundPlaySelector } from '../../../settings/redux/selectors';
 import styles from './TestSentence.module.css';
 
 const mistakesInWord = (wrongWord, word) => {
@@ -34,6 +35,7 @@ const TestSentence = ({
   testSentenceArr, word, playAudio, wordId,
 }) => {
   const dispatch = useDispatch();
+  const shouldPlaySound = useSelector(autoSoundPlaySelector);
   const [value, setValue] = useState('');
   const [mistake, setMistake] = useState();
   const wrongAnswer = useMemo(() => mistake && (
@@ -57,14 +59,15 @@ const TestSentence = ({
         mistakenWord[wordId] = true;
         dispatch(pushMistakenWord(mistakenWord));
       }
-      playAudio();
+      if (shouldPlaySound) playAudio();
       setMistake();
       dispatch(setAnswered(true));
     } else {
       setMistake(value);
     }
     setValue('');
-  }, [playAudio, value, word, setMistake, dispatch, mistake, wordId]);
+  }, [playAudio, value, word, setMistake,
+    shouldPlaySound, dispatch, mistake, wordId]);
 
   return (
     <form onSubmit={handleSubmit}>
