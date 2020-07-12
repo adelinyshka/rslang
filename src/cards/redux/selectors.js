@@ -34,9 +34,9 @@ export const cardsModeSelector = createSelector(
 
 export const rightAnswersSelector = createSelector(
   cardsSelector,
-  ({ mistakenWords, passedCards }) => Math.floor(
-    100 - (Object.keys(mistakenWords).length / passedCards * 100),
-  ),
+  (
+    { mistakenWords, passedCards },
+  ) => passedCards - Object.keys(mistakenWords).length,
 );
 
 export const mistakenWordsSelector = createSelector(

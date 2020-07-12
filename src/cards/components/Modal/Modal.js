@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -26,6 +26,11 @@ const Modal = () => {
 
   const token = useSelector(tokenSelector);
   const userId = useSelector(userIdSelector);
+
+  const rightPercentage = useMemo(
+    () => Math.floor(rightAnswers * 100 / passedCards),
+    [passedCards, rightAnswers],
+  );
 
   const updateStatistics = useCallback(() => {
     const statisticsEndpoint = `users/${userId}/statistics`;
@@ -64,7 +69,7 @@ const Modal = () => {
         if (todayStats) {
           stats.optional.cards[dateString] = {
             passedCards: todayStats.passedCards + passedCards,
-            rightAnswers: (todayStats.rightAnswers + rightAnswers) / 2,
+            rightAnswers: todayStats.rightAnswers + rightAnswers,
             newWords: todayStats.newWords + newWords,
             longestStreak: longestStreak > todayStats.longestStreak
               ? longestStreak
@@ -147,7 +152,7 @@ const Modal = () => {
                   />
                 </Col>
                 <Col xs={9} className="text-stats">% верных ответов</Col>
-                <Col className="text-vio" xs={1}>{rightAnswers}</Col>
+                <Col className="text-vio" xs={1}>{rightPercentage}</Col>
               </Row>
               <Row>
                 <Col xs={1}>

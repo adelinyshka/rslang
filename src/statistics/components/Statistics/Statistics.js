@@ -64,7 +64,7 @@ const Statistics = () => {
     },
     {
       title: '% верных ответов',
-      value: rightAnswers,
+      value: Math.floor(rightAnswers * 100 / passedCards) || 0,
       color: '#784AC1',
     },
     {
