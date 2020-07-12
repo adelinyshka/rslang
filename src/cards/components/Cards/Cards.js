@@ -12,7 +12,7 @@ import { userIdSelector } from '../../../auth/redux/selectors';
 
 import useAPI from '../../../common/utils';
 
-import ModalStatsForCards from '../Modal/ModalStatsForCards';
+import Modal from '../Modal/Modal';
 import CardsCarousel from '../CardsCarousel/CardsCarousel';
 import Progress from '../Progress/Progress';
 import styles from './Cards.module.css';
@@ -70,7 +70,7 @@ const Cards = () => {
     <div className={styles.bgColor}>
       <div className={styles.Container}>
         {gameEnded
-          ? <ModalStatsForCards />
+          ? <Modal />
           : (
             <>
               <CardsCarousel />

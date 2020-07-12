@@ -9,7 +9,7 @@ import {
 import {
   setGameEnded,
 } from '../../redux';
-import StyleRules from './style.ModalStatsForCards';
+import StyleRules from './style.Modal';
 
 const ModalStatsForCards = () => {
   const dispatch = useDispatch();
