@@ -38,15 +38,21 @@ const GamesStat = ({ show, onHide }) => {
       for (let i = 0; i < maxIndex; i++) {
         const date = ['дата'];
         const res = ['результат'];
+        const timesPlayed = ['количество игр'];
         for (let j = 0; j < values.length; j++) {
           const keys = Object.keys(values[j]);
           date.push(keys[i]);
-          res.push(values[j][keys[i]]);
+          res.push(values[j][keys[i]].result);
+          timesPlayed.push(values[j][keys[i]].timesPlayed);
         }
         const jsxDate = date.map((el, index) => <td key={el + index}>{el}</td>);
         const jsxRes = res.map((el, index) => <td key={el + index}>{el}</td>);
+        const jsxTimesPlayed = timesPlayed.map(
+          (el, index) => <td key={el + index}>{el}</td>,
+        );
         rows.push(jsxDate);
         rows.push(jsxRes);
+        rows.push(jsxTimesPlayed);
       }
       const rowsJSX = rows.map((row, i) => <tr key={`row${i}`}>{row}</tr>);
       setTableBody(rowsJSX);

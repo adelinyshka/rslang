@@ -32,7 +32,7 @@
   background-color: white;
 }
 
-.Modal tbody tr:not(:nth-of-type(odd)) {
+.Modal tbody tr:nth-child(3n+3) {
   border-bottom: 15px solid rgba(181, 189, 252, 0.55);
 }
 
