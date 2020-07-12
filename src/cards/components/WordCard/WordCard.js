@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
@@ -10,8 +11,9 @@ import {
 import {
   wordTranslateSelector,
   transcriptionSelector,
-  exampleSentenceSelector,
+  sentenceTranslateSelector,
   definitionSelector,
+  wordImageSelector,
 } from '../../../settings/redux/selectors';
 
 import styles from './WordCard.module.css';
@@ -24,11 +26,12 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   const wasAnswered = useSelector(wasAnsweredSelector);
   const shouldDisplayTranslation = useSelector(wordTranslateSelector);
   const shouldDisplayTranscription = useSelector(transcriptionSelector);
-  const shouldDisplayExample = useSelector(exampleSentenceSelector);
+  const shouldDisplaySentence = useSelector(sentenceTranslateSelector);
   const shouldDisplayDefinition = useSelector(definitionSelector);
+  const shoudldDispayImage = useSelector(wordImageSelector);
   const {
     textExampleTranslate, wordTranslate, textExample, audio, _id, userWord,
-    transcription, textMeaning,
+    transcription, textMeaning, image,
   } = useMemo(() => cardInfo, [cardInfo]);
   const testSentenceArr = useMemo(
     () => textExample.split(/<b>[\w]{0,}<\/b>/), [textExample],
@@ -124,11 +127,18 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
               alt="Прослушать слово"
             />
           </div>
+          {shoudldDispayImage && (
+            <img
+              className={styles.HeaderImg}
+              src={`https://raw.githubusercontent.com/alekchaik/rslang-data/master/${image}`}
+              alt={word}
+            />
+          ) }
         </Card.Header>
         <Card.Body className={styles.Body}>
           {cardText}
           <hr className={styles.Interval_hr} />
-          {shouldDisplayExample
+          {shouldDisplaySentence
            && (
              <p className={styles.translated_sentence}>
                {textExampleTranslate}

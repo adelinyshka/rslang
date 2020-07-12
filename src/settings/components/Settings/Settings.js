@@ -23,10 +23,6 @@ const cardsHintsInfo = [
     name: 'definition',
   },
   {
-    title: 'Предложение с примером',
-    name: 'exampleSentence',
-  },
-  {
     title: 'Перевод предложений',
     name: 'sentenceTranslate',
   },
@@ -42,7 +38,6 @@ const cardsHintsInfo = [
 
 const cardsHintsNames = [
   'wordTranslate',
-  'exampleSentence',
   'definition',
   'sentenceTranslate',
   'transcription',

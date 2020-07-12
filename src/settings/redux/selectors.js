@@ -41,11 +41,6 @@ export const wordImageSelector = createSelector(
   ({ wordImageS }) => wordImageS,
 );
 
-export const exampleSentenceSelector = createSelector(
-  optionalSelector,
-  ({ exampleSentence }) => exampleSentence,
-);
-
 export const definitionSelector = createSelector(
   optionalSelector,
   ({ definition }) => definition,

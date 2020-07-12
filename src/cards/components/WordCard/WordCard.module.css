@@ -26,6 +26,12 @@
   box-shadow: 0 7px 64px rgba(0, 0, 0, 0.05);
 }
 
+.Header {
+  height: 50px;
+  text-align: center;
+  position: relative;
+}
+
 .Header, .card-header {
   border-bottom: transparent;
   background: linear-gradient(195.78deg, #CDDDF4 3.26%, #CDBAFA 100%);
@@ -104,6 +110,14 @@
 
 p.translated_sentence {
   padding: 10px 0 0 0;
+}
+
+.HeaderImg {
+  position: absolute;
+  width: 30%;
+  bottom: 0;
+  left: 35%;
+  border-radius: 10px;
 }
 
 @media (max-width: 767px) {
