@@ -7,6 +7,8 @@ import {
   wasAnsweredSelector,
 } from '../../redux/selectors';
 
+import { wordTranslateSelector } from '../../../settings/redux/selectors';
+
 import styles from './WordCard.module.css';
 import TestSentence from '../TestSentence/TestSentence';
 import Intervals from '../Intervals/Intervals';
@@ -15,6 +17,7 @@ import Navigation from '../Navigation/Navigation';
 const WordCard = ({ cardInfo, isPreviousCard }) => {
   const isShowingAnswer = useSelector(isShowingAnswerSelector);
   const wasAnswered = useSelector(wasAnsweredSelector);
+  const shouldTranslateWord = useSelector(wordTranslateSelector);
   const {
     textExampleTranslate, wordTranslate, textExample, audio, _id, userWord,
   } = useMemo(() => cardInfo, [cardInfo]);
@@ -64,12 +67,15 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   ), [playAudio, isPreviousCard, testSentenceArr, word, wasAnswered, _id]);
 
   const cardFooter = useMemo(
-    () => (isShowingAnswer || isPreviousCard || wasAnswered) && (
-      <p>
-        {' '}
-        <span className={styles.TranslatedWord}>{wordTranslate}</span>
-      </p>
-    ), [wordTranslate, isShowingAnswer, isPreviousCard, wasAnswered],
+    () => (
+      (isShowingAnswer || isPreviousCard || wasAnswered) && shouldTranslateWord)
+       && (
+         <p>
+           {' '}
+           <span className={styles.TranslatedWord}>{wordTranslate}</span>
+         </p>
+       ), [wordTranslate, isShowingAnswer, isPreviousCard,
+      wasAnswered, shouldTranslateWord],
   );
 
   return (
