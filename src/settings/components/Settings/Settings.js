@@ -20,11 +20,11 @@ const cardsHintsInfo = [
   },
   {
     title: 'Предложение с объяснением',
-    name: 'exampleSentence',
+    name: 'definition',
   },
   {
     title: 'Предложение с примером',
-    name: 'definition',
+    name: 'exampleSentence',
   },
   {
     title: 'Перевод предложений',

@@ -10,6 +10,7 @@ import {
 import {
   wordTranslateSelector,
   transcriptionSelector,
+  exampleSentenceSelector,
 } from '../../../settings/redux/selectors';
 
 import styles from './WordCard.module.css';
@@ -22,6 +23,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   const wasAnswered = useSelector(wasAnsweredSelector);
   const shouldDisplayTranslation = useSelector(wordTranslateSelector);
   const shouldDisplayTranscription = useSelector(transcriptionSelector);
+  const shouldDisplayExample = useSelector(exampleSentenceSelector);
   const {
     textExampleTranslate, wordTranslate, textExample, audio, _id, userWord,
     transcription,
@@ -110,7 +112,12 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
         <Card.Body className={styles.Body}>
           {cardText}
           <hr className={styles.Interval_hr} />
-          <p className={styles.translated_sentence}>{textExampleTranslate}</p>
+          {shouldDisplayExample
+           && (
+             <p className={styles.translated_sentence}>
+               {textExampleTranslate}
+             </p>
+           )}
         </Card.Body>
         <Card.Footer className={styles.Footer}>
           {cardFooter}
