@@ -231,9 +231,9 @@ const Settings = () => {
       </div>
       <div className={styles.CardsInteractions}>
         {interactionsInfo.map(({ title, name }) => (
-          <div className={styles.Interaction}>
+          <div className={styles.Interaction} key={name}>
             <h2>{title}</h2>
-            <label key={name} htmlFor={name} className={styles.Switch}>
+            <label htmlFor={name} className={styles.Switch}>
               <input
                 name={name}
                 id={name}

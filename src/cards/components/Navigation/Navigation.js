@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { isShowingAnswerSelector } from '../../redux/selectors';
 import { showAnswer, setNavFetchOptions } from '../../redux';
+import { ButtonsSelector } from '../../../settings/redux/selectors';
 
 import NavItem from './NavItem';
 import styles from './Navigation.module.css';
@@ -12,10 +13,16 @@ const Navigation = ({ isPreviousCard }) => {
   const dispatch = useDispatch();
   const isShowingAnswer = useSelector(isShowingAnswerSelector);
 
+  const {
+    deleteBtn,
+    difficultBtn, showAnswerBtn,
+  } = useSelector(ButtonsSelector);
+
   const itemsInfo = useMemo(() => [
     {
       alt: 'Удалить',
       icon: 'deleteIcon.svg',
+      display: deleteBtn,
       clicked: () => dispatch(setNavFetchOptions({
         deleted: true,
         learning: false,
@@ -26,6 +33,7 @@ const Navigation = ({ isPreviousCard }) => {
     {
       alt: 'Добавить в сложные',
       icon: 'addToDifficultIcon.svg',
+      display: difficultBtn,
       clicked: () => dispatch(setNavFetchOptions({
         deleted: false,
         difficult: true,
@@ -35,14 +43,18 @@ const Navigation = ({ isPreviousCard }) => {
     {
       alt: 'Показать перевод',
       icon: 'translationIcon.svg',
+      display: showAnswerBtn,
       clicked: () => (
         isPreviousCard ? null : dispatch(showAnswer(!isShowingAnswer))
       ),
     },
-  ], [dispatch, isPreviousCard, isShowingAnswer]);
+  ], [deleteBtn, difficultBtn, dispatch,
+    isPreviousCard, isShowingAnswer, showAnswerBtn]);
 
-  const navItems = useMemo(() => itemsInfo.map(({ alt, icon, clicked }) => (
-    <NavItem alt={alt} icon={icon} clicked={clicked} key={alt} />
+  const navItems = useMemo(() => itemsInfo.map(({
+    alt, icon, clicked, display,
+  }) => (
+    display && <NavItem alt={alt} icon={icon} clicked={clicked} key={alt} />
   )), [itemsInfo]);
 
   return (

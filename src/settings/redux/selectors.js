@@ -1,6 +1,10 @@
 import { createSelector } from 'reselect';
 
 const settingsSelector = (state) => state.settings;
+const optionalSelector = createSelector(
+  settingsSelector,
+  ({ optional }) => optional,
+);
 
 export const wordsPerDaySelector = createSelector(
   settingsSelector,
@@ -8,77 +12,69 @@ export const wordsPerDaySelector = createSelector(
 );
 
 export const newCardsAmountSelector = createSelector(
-  settingsSelector,
-  ({ optional }) => optional.newCardsAmount,
+  optionalSelector,
+  ({ newCardsAmount }) => newCardsAmount,
 );
 
 export const easyIntervalSelector = createSelector(
-  settingsSelector,
-  ({ optional }) => optional.easyInterval,
+  optionalSelector,
+  ({ easyInterval }) => easyInterval,
 );
 
 export const mediumIntervalSelector = createSelector(
-  settingsSelector,
-  ({ optional }) => optional.mediumInterval,
+  optionalSelector,
+  ({ mediumInterval }) => mediumInterval,
 );
 
 export const hardIntervalSelector = createSelector(
-  settingsSelector,
-  ({ optional }) => optional.hardInterval,
+  optionalSelector,
+  ({ hardInterval }) => hardInterval,
 );
 
 export const wordTranslateSelector = createSelector(
-  settingsSelector,
+  optionalSelector,
   ({ wordTranslate }) => wordTranslate,
 );
 
 export const wordImageSelector = createSelector(
-  settingsSelector,
+  optionalSelector,
   ({ wordImageS }) => wordImageS,
 );
 
 export const exampleSentenceSelector = createSelector(
-  settingsSelector,
+  optionalSelector,
   ({ exampleSentence }) => exampleSentence,
 );
 
 export const definitionSelector = createSelector(
-  settingsSelector,
+  optionalSelector,
   ({ definition }) => definition,
 );
 
 export const sentenceTranslateSelector = createSelector(
-  settingsSelector,
+  optionalSelector,
   ({ sentenceTranslate }) => sentenceTranslate,
 );
 
 export const transcriptionSelector = createSelector(
-  settingsSelector,
+  optionalSelector,
   ({ transcription }) => transcription,
 );
 
-export const deleteBtnSelector = createSelector(
-  settingsSelector,
-  ({ deleteBtn }) => deleteBtn,
-);
-
-export const difficultBtnSelector = createSelector(
-  settingsSelector,
-  ({ difficultBtn }) => difficultBtn,
-);
-
-export const showAnswerBtnSelector = createSelector(
-  settingsSelector,
-  ({ showAnswerBtn }) => showAnswerBtn,
+export const ButtonsSelector = createSelector(
+  optionalSelector,
+  ({ deleteBtn, difficultBtn, showAnswerBtn }) => (
+    { deleteBtn, difficultBtn, showAnswerBtn }
+  ),
 );
 
 export const autoSoundPlaySelector = createSelector(
-  settingsSelector,
+  optionalSelector,
   ({ autoSoundPlay }) => autoSoundPlay,
 );
 
 export const interfaceHintsSelector = createSelector(
-  settingsSelector,
+  optionalSelector,
   ({ interfaceHints }) => interfaceHints,
 );
 
