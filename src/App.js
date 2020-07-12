@@ -100,6 +100,11 @@ const privateRoutes = [
     path: '/main',
     component: <Main />,
   },
+  {
+    title: 'Audiocall',
+    path: '/games/audiocall',
+    component: <Audiocall />,
+  },
 ];
 
 function createPrivateRoute({ title, path, component }, isLogged) {

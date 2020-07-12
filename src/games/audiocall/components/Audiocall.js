@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import styles from './Audiocall.module.css';
 import Startpage from './Startpage';
 import Game from './Game';
+// import GamesPage from '../../../layout/components/GamesPage/GamesPage';
 
 // const getWords = async (page, group) => {
 //   const url = `${'https://afternoon-falls-25894.herokuapp.com/words?page='}

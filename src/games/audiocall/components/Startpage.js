@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Audiocall.module.css';
+import Exit from '../../../common/components/Modals/Exit';
 
 export default function Startpage({ callback }) {
   return (
     <div className={styles.Startpage}>
       <div className={styles.Header}>
-        <img
-          className={styles.XImage}
-          src="./assets/images/audiocall/x.png"
-          alt="x"
-        />
+        <Exit />
       </div>
       <h2>
           Аудиовызов
@@ -28,7 +25,7 @@ export default function Startpage({ callback }) {
       <div className={styles.Footer}>
         <img
           className={styles.WomanImage}
-          src="./assets/images/audiocall/woman.png"
+          src="/assets/images/audiocall/woman.png"
           alt="woman"
         />
       </div>

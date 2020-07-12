@@ -38,7 +38,7 @@
 .Header {
   display: flex;
   justify-content: flex-end;
-  padding-top: 34px;
+  padding-top: 35px;
 }
 
 .Footer {
@@ -86,17 +86,14 @@
 
 .Header img {
   padding: 0 8px;
-  /* width: 35px;
-  height: 35px;
-  padding-left: 20px; */
 }
 
 .Header img:hover {
   cursor: pointer;
 }
 
-.Header img:nth-child(3) {
-  padding-right: 40px;
+.Header img:nth-child(2) {
+  padding-right: 35px;
 }
 
 .Notification {
@@ -178,7 +175,6 @@
   background-color:rgba(255, 255, 255, 0.3);
 }
 
-
 .HidePicture {
   display: none !important;
 }
@@ -223,11 +219,12 @@
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  padding: 0px 90px 0 130px;
   margin-bottom: 80px;
 }
 
 .Words p {
-  max-width: 200px;
+  max-width: 320px;
   margin: 0 20px;
   padding: 10px 10px;
   font-family: Exo;
@@ -245,7 +242,7 @@
 }
 
 .Words p.WrongWords {
-  color: rgba(255, 255, 255, 0.54);
+  color: rgba(255, 255, 255, 0.1);
 }
 
 .Words p::first-letter {
@@ -391,12 +388,13 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1280px) {
   .Words {
     display: block;
     text-align: center;
-    width: 200px;
+    width: 300px;
     margin: 0 auto;
+    padding-left: 30px;
   }
   .Words p {
     text-align: left;

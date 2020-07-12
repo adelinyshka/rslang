@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, {
-  useState, useMemo, useCallback, useEffect,
+  useState, useCallback,
 } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import styles from './Audiocall.module.css';
 import useApi from '../../../common/utils';
 
@@ -23,36 +24,27 @@ let pronounce;
 
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
+const getEndpointUrl = (level, page) => `words?group=${level}&page=${page}`;
+
 export default function Game({ callback }) {
-  const [sound, setSound] = useState(true);
   const [hint, setHint] = useState(true);
   const [warn, setWarn] = useState(true);
   const [words, setWords] = useState(null);
   const [resultWord, setResultWord] = useState(null);
   const [shouldSoundBePlayed, setShouldSoundBePlayed] = useState(true);
-  const level = 2;
-  const page = 10;
   const [isWordChosen, setIsWordChosen] = useState(false);
+  const [endpointUrl, setEndpointUrl] = useState(getEndpointUrl(0, 1));
   const changeVisible = () => {
     setWarn(!warn);
   };
-
-  const userWords = useMemo(
-    () => `words?group=${level}&page=${page}`, [],
-  );
-
-  const playSoundAnswer = useCallback((isAnswerRight) => {
-    if (sound) {
-      if (isAnswerRight) audioRight.play();
-      else audioWrong.play();
-    }
-  }, [sound]);
-
+  const history = useHistory();
   const action = useCallback((result) => {
     const firstRandomWords = shuffle(result).slice(0, 5);
     const resultOneWord = firstRandomWords[getRandomInt(5)];
     setResultWord(resultOneWord);
     setWords(firstRandomWords);
+    setIsWordChosen(false);
+    setShouldSoundBePlayed(true);
   }, []);
 
   const playSound = useCallback(() => {
@@ -69,14 +61,13 @@ export default function Game({ callback }) {
     setShouldSoundBePlayed(false);
   }
 
-  useApi(userWords, fetchOptions, action);
+  useApi(endpointUrl, fetchOptions, action);
 
   const changeStatus = () => {
     setHint(!hint);
   };
 
   const chooseWord = (word) => {
-    console.log(word);
     if (word.id === resultWord.id) {
       audioRight.play();
     } else {
@@ -84,37 +75,24 @@ export default function Game({ callback }) {
     }
     setIsWordChosen(true);
   };
-  // useEffect(
-  //   () => {
-  //     const timer1 = setTimeout(() => setWords([
-  //       { id: 1, wordTranslate: 'urets' }, { id: 2, wordTranslate: 'nifiga' },
-  //       { id: 3, wordTranslate: 'ne' }, { id: 4, wordTranslate: 'razumets' },
-  //       { id: 5, wordTranslate: '.:)' },
-  //     ]), 5000);
-  //     return () => {
-  //       clearTimeout(timer1);
-  //     };
-  //   },
-  //   [],
-  // );
 
   return (
     <div className={styles.Game}>
       <div className={styles.Header}>
         <img
-          src="./assets/images/audiocall/Round Rec.png"
+          src="/assets/images/audiocall/Round Rec.png"
           alt="hint"
           onClick={() => changeStatus(false)}
         />
         <img
-          src="./assets/images/audiocall/xwhite.png"
+          src="/assets/images/audiocall/xwhite.png"
           alt="xwhite"
           onClick={() => changeVisible(false)}
         />
       </div>
       <div className={ hint ? styles.Hide : styles.Notification }>
         <img
-          src="./assets/images/audiocall/notHint.png"
+          src="/assets/images/audiocall/notHint.png"
           alt="hint"
         />
         <p>
@@ -131,20 +109,20 @@ export default function Game({ callback }) {
       <div className={styles.GamePanel}>
         <img
           onClick={() => playSound()}
-          className={styles.Volume}
-          src="./assets/images/audiocall/volume.png"
+          className={isWordChosen ? styles.HidePicture : styles.Volume}
+          src="/assets/images/audiocall/volume.png"
           alt="sound"
         />
         <img
+          className={isWordChosen ? '' : styles.HidePicture}
           src={srcImage}
           alt="imageAnswer"
-          className={ styles.HidePicture }
         />
-        <div className={styles.AnswerHide}>
+        <div className={isWordChosen ? styles.Answer : styles.AnswerHide}>
           <img
             onClick={() => playSound()}
             className={styles.Volume}
-            src="./assets/images/audiocall/volume.png"
+            src="/assets/images/audiocall/volume.png"
             alt="sound"
           />
           <p>
@@ -154,7 +132,10 @@ export default function Game({ callback }) {
         <div className={styles.Words}>
           {words && words.map((word, index) => (
             <p
-              className={word.id !== resultWord.id && isWordChosen ? styles.WrongWords : ''}
+              className={
+                word.id !== resultWord.id && isWordChosen
+                  ? styles.WrongWords : ''
+              }
               key={word.id}
               onClick={() => chooseWord(word)}
             >
@@ -164,14 +145,25 @@ export default function Game({ callback }) {
             </p>
           ))}
         </div>
-        <button className={styles.AnswerBtn} type="button">
-            Не знаю
+        <button
+          onClick={ () => {
+            if (isWordChosen) {
+              setEndpointUrl(getEndpointUrl(0, getRandomInt(30)));
+            } else {
+              audioWrong.play();
+              setIsWordChosen(true);
+            }
+          } }
+          className={styles.AnswerBtn}
+          type="button"
+        >
+          {isWordChosen ? 'Дальше' : 'Не знаю'}
         </button>
       </div>
       <div className={ warn ? styles.ShadowHide : styles.Shadow }>
         <div className={styles.Warning}>
           <img
-            src="./assets/images/audiocall/attention.png"
+            src="/assets/images/audiocall/attention.png"
             alt="attention"
           />
           <p>
@@ -188,9 +180,9 @@ export default function Game({ callback }) {
             <button
               type="button"
               className={styles.Exit}
-              onClick={ () => callback(false) }
+              onClick={() => history.push('/games')}
             >
-                Выйти
+              Выйти
             </button>
           </div>
         </div>
