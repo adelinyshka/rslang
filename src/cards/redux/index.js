@@ -43,11 +43,6 @@ export const incrementNewWords = (newWords) => ({
   newWords,
 });
 
-export const setRightAnswers = (rightAnswers) => ({
-  type: 'SET_RIGHT_ANSWERS',
-  rightAnswers,
-});
-
 export const incrementPassedCards = () => ({
   type: 'INC_PASSED_CARDS',
 });
@@ -131,7 +126,6 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
     case 'SET_ANSWERED':
     case 'CLEAR_ANSWER':
     case 'SET_NEW_WORDS':
-    case 'SET_RIGHT_ANSWERS':
     case 'SET_CARDS_MODE':
       return {
         ...state,

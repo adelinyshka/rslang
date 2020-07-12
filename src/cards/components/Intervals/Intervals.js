@@ -5,14 +5,14 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 
 import {
   setCards, setLastCard, setAnswered, clearAnswer,
-  setRightAnswers, pushMistakenWord, incrementPassedCards,
+  pushMistakenWord, incrementPassedCards,
   setGameEnded, incrementNewWords, incrementCurrentStreak, setLongestStreak,
 } from '../../redux';
 
 import {
-  cardsArrSelector,
-  wasAnsweredSelector,
-  rightAnswersSelector,
+  cardsArrSelector, passedCardsSelector,
+  wasAnsweredSelector, newWordsSelector,
+  rightAnswersSelector, longestStreakSelector,
   mistakenWordsSelector,
 } from '../../redux/selectors';
 
@@ -39,26 +39,91 @@ const addDays = (days) => {
 const Intervals = ({ wordId, userWord }) => {
   const dispatch = useDispatch();
   const cardsArr = useSelector(cardsArrSelector);
+  // была ли отвечена карточка
   const wasAnswered = useSelector(wasAnsweredSelector);
-  const rightAnswers = useSelector(rightAnswersSelector);
   const mistakenWords = useSelector(mistakenWordsSelector);
 
   const token = useSelector(tokenSelector);
   const userId = useSelector(userIdSelector);
 
+  // интервалы в изучении слов
   const easyInterval = useSelector(easyIntervalSelector);
   const mediumInterval = useSelector(mediumIntervalSelector);
   const hardInterval = useSelector(hardIntervalSelector);
 
+  // статистика
+  const passedCards = useSelector(passedCardsSelector);
+  const rightAnswers = useSelector(rightAnswersSelector);
+  const newWords = useSelector(newWordsSelector);
+  const longestStreak = useSelector(longestStreakSelector);
+
+  const updateStatistics = useCallback(() => {
+    const statisticsEndpoint = `/users/${userId}/statistics`;
+    const getFetchOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+    fetchJSON(statisticsEndpoint, getFetchOptions)
+      .then(({ id, ...data }) => {
+        const stats = { ...data };
+        const { learnedWords } = stats;
+        stats.learnedWords = learnedWords ? learnedWords + newWords : newWords;
+        // статистика по карточкам
+        const cardsStats = stats.optional.cards;
+        // сегодняшняя статистика по карточкам
+        const todayStats = cardsStats ? cardsStats[dateString] : null;
+        // если статистики по карточкам нет - создаем объект
+        if (!cardsStats) {
+          stats.optional.cards = {};
+        }
+        // если сегодняшней статистики нет -
+        // передаем в (созданный\сущестовавший) объект сегоднящние данные
+        if (!todayStats) {
+          stats.optional.cards[dateString] = {
+            passedCards,
+            rightAnswers,
+            newWords,
+            longestStreak,
+          };
+        }
+        // если сегодня данные по статистики есть - обновляем их
+        if (todayStats) {
+          stats.optional.cards[dateString] = {
+            passedCards: todayStats.passedCards + passedCards,
+            rightAnswers: (todayStats.rightAnswers + rightAnswers) / 2,
+            newWords: todayStats.newWords + newWords,
+            longestStreak: longestStreak > todayStats.longestStreak
+              ? longestStreak
+              : todayStats.longestStreak,
+          };
+        }
+
+        const putFetchOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(stats),
+        };
+        fetchJSON(statisticsEndpoint, putFetchOptions)
+          .catch((er) => console.log(er));
+      });
+  });
+
+  // было ли данное слово написано с ошибкой
   const wasMistaken = useMemo(
     () => mistakenWords[wordId], [mistakenWords, wordId],
   );
 
-  const endpoint = useMemo(
+  // wordEndpoint для обновления слова пользователя
+  const wordEndpoint = useMemo(
     () => `users/${userId}/words/${wordId}`, [userId, wordId],
   );
 
-  const fetchOptions = useCallback((optional, difficulty) => {
+  const wordFetchOptions = useCallback((optional, difficulty) => {
+    // существует ли слово в userwords
     const isUserWord = !!userWord.optional;
     const repeated = isUserWord
       ? userWord.optional.repeated + 1
@@ -91,8 +156,8 @@ const Intervals = ({ wordId, userWord }) => {
   }, [userWord, token]);
 
   const putWordsInDictionary = useCallback((optional, difficulty) => {
-    fetchJSON(endpoint, fetchOptions(optional, difficulty));
-  }, [endpoint, fetchOptions]);
+    fetchJSON(wordEndpoint, wordFetchOptions(optional, difficulty));
+  }, [wordEndpoint, wordFetchOptions]);
 
   const intervalButtonsInfo = useMemo(() => ([
     {
@@ -144,13 +209,11 @@ const Intervals = ({ wordId, userWord }) => {
         if (wasMistaken) {
           const newMistakenWord = {};
           newMistakenWord[wordId] = false;
-          dispatch(setRightAnswers(rightAnswers - 1));
           dispatch(pushMistakenWord(newMistakenWord));
           dispatch(setLongestStreak());
         }
       }
       if (!wasMistaken && wasAnswered && !shouldRepeat) {
-        dispatch(setRightAnswers(rightAnswers + 1));
         dispatch(incrementCurrentStreak());
         dispatch(incrementPassedCards());
         if (!userWord.optional) dispatch(incrementNewWords());
@@ -162,10 +225,11 @@ const Intervals = ({ wordId, userWord }) => {
       if (!newCards.length) {
         dispatch(setLongestStreak());
         dispatch(setGameEnded(true));
+        updateStatistics();
       }
     });
   }, [cardsArr, dispatch, wasMistaken, userWord,
-    wasAnswered, rightAnswers, wordId, putWordsInDictionary]);
+    wasAnswered, wordId, putWordsInDictionary]);
 
   const intervalButtons = useCallback((clicked) => (
     intervalButtonsInfo.map(({ title, bg, handleArgs }) => (
