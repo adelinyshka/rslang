@@ -23,6 +23,11 @@ export const incrementCurrentStreak = () => ({
   type: 'INC_CURRENT_STREAK',
 });
 
+export const clearCards = () => ({
+  type: 'CLEAR_CARDS',
+  ...INITIAL_STATE,
+});
+
 export const setGameEnded = (gameEnded) => ({
   type: 'SET_GAME_ENDED',
   gameEnded,
@@ -127,6 +132,7 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
     case 'CLEAR_ANSWER':
     case 'SET_NEW_WORDS':
     case 'SET_CARDS_MODE':
+    case 'CLEAR_CARDS':
       return {
         ...state,
         ...payload,

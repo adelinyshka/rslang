@@ -10,7 +10,7 @@ import {
   newWordsSelector, longestStreakSelector,
 } from '../../redux/selectors';
 import {
-  setGameEnded,
+  setGameEnded, clearCards,
 } from '../../redux';
 import StyleRules from './style.Modal';
 
@@ -100,17 +100,19 @@ const Modal = () => {
         };
         fetchJSON(statisticsEndpoint, putFetchOptions);
       });
-  }, [longestStreak, newWords, passedCards, rightAnswers, token, userId]);
+    dispatch(clearCards());
+  }, [longestStreak, newWords, passedCards,
+    rightAnswers, token, userId, dispatch]);
   return (
     <StyleRules>
-      <div
-        className="pop-up"
-        onClick={() => {
-          updateStatistics();
-          dispatch(setGameEnded(false));
-        }}
-      >
-        <div className="top stats">
+      <div className="pop-up">
+        <div
+          className="top stats"
+          onClick={() => {
+            updateStatistics();
+            dispatch(setGameEnded(false));
+          }}
+        >
           <div>
             <img
               className="icon"
