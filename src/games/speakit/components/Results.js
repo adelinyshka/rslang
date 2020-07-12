@@ -22,12 +22,14 @@ const Results = ({ setModalResult, getNewWords }) => {
   const speechWords = useSelector(speechWordsSelector);
 
   const trueWords = useMemo(() => words.reduce((count, { word }) => {
-    const learnWord = speechWords.find((element) => word === element);
+    const learnWord = speechWords.find((element) => word.toLocaleLowerCase()
+    === element.toLocaleLowerCase());
     return learnWord ? count + 1 : count;
   }, 0), [speechWords, words]);
 
   const falseWords = useMemo(() => words.reduce((count, { word }) => {
-    const learnWord = speechWords.find((element) => word === element);
+    const learnWord = speechWords.find((element) => word.toLocaleLowerCase()
+    === element.toLocaleLowerCase());
     return learnWord ? count : count + 1;
   }, 0), [speechWords, words]);
 
@@ -52,7 +54,9 @@ const Results = ({ setModalResult, getNewWords }) => {
             wordTranslate,
             audio,
           }) => {
-            const learnedWord = speechWords.find((element) => word === element);
+            const learnedWord = speechWords.find((element) => (
+              word.toLocaleLowerCase()
+              === element.toLocaleLowerCase()));
             return (
               <li
                 key={word}

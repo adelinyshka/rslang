@@ -7,7 +7,7 @@ import React, {
 
 import { useSelector, useDispatch, batch } from 'react-redux';
 import SpeechRecognition from 'react-speech-recognition';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 
 import StyleGame from './style.Game';
 
@@ -40,6 +40,28 @@ import {
   speechWordsSelector,
 } from '../redux/selectors';
 
+import { userIdSelector } from '../../../auth/redux/selectors';
+
+const baseStatistic = {
+  'learnedWords': 0,
+  'optional': {
+    'cards': {
+    },
+    'speakit': {
+    },
+    'audiocall': {
+    },
+    'memory': {
+    },
+    'savannah': {
+    },
+    'sprint': {
+    },
+    'puzzle': {
+    },
+  },
+};
+
 const imgMicro = '/assets/images/speakit/microphone.svg';
 
 const propTypes = {
@@ -56,7 +78,7 @@ const option = {
   continuous: false,
 };
 
-const fetchOptions = {
+const fetchOptionsGet = {
   method: 'GET',
 };
 
@@ -80,11 +102,16 @@ const Game = ({
   const speechWords = useSelector(speechWordsSelector);
   const statusGame = useSelector(statusGameSelector);
   const words = useSelector(wordsSelector);
+  const userId = useSelector(userIdSelector);
 
   const [modalResult, setModalResult] = useState(false);
   const [modalExit, setModalExit] = useState(false);
   const [modalRules, setModalRules] = useState(false);
   const [wordsPage, setWordsPage] = useState(randomPage());
+  const [statistics, setStatistics] = useState({});
+  const [urlSendStatistic, setUrlSendStatistic] = useState('');
+  const [urlGetStatistic, setUrlGetStatistic] = useState(`users/${userId}/statistics`);
+  const [sendFetchOption, setSendFetchOption] = useState('');
 
   const changeActiveLevel = useCallback((levelProps) => {
     if (activeLevel !== levelProps) {
@@ -104,6 +131,8 @@ const Game = ({
     batch(() => {
       dispatch(setImage('/assets/images/speakit/base-game-image.png'));
       dispatch(setTranslateActiveWord(''));
+      dispatch(setSpeechActiveWord(''));
+      dispatch(setSpeechWords([]));
     });
     setModalResult(false);
   }, [dispatch]);
@@ -115,12 +144,15 @@ const Game = ({
         dispatch(setImage('/assets/images/speakit/base-game-image.png'));
         dispatch(setTranslateActiveWord(''));
         dispatch(setActiveWord(''));
+        dispatch(setTranslateActiveWord(''));
+        dispatch(setSpeechActiveWord(''));
       });
     } else {
       batch(() => {
         dispatch(setStatusGame('no-speach'));
         dispatch(setImage('/assets/images/speakit/base-game-image.png'));
         dispatch(setTranslateActiveWord(''));
+        dispatch(setSpeechActiveWord(''));
       });
     }
   }, [dispatch, statusGame]);
@@ -137,8 +169,72 @@ const Game = ({
       dispatch(setSpeechWords([]));
       dispatch(setActiveWord(''));
     });
-    console.log('exit')
   }, [dispatch]);
+
+  const completeGame = useCallback(() => {
+    let currentStatistics = {};
+    let gameStatistics = {};
+    setModalResult(true);
+    setUrlGetStatistic('');
+    const date = new Date(Date.now());
+    const dateString = date.toLocaleDateString('en-Us');
+    const optionals = statistics.optional;
+
+    if (optionals && optionals.speakit) {
+      gameStatistics = {
+        ...statistics.optional.speakit,
+      };
+    } else {
+      gameStatistics[dateString] = {
+        'timesPlayed': 0,
+        'result': 0,
+      };
+    }
+
+    if (gameStatistics[dateString]) {
+      gameStatistics[dateString] = {
+        'timesPlayed': gameStatistics[dateString].timesPlayed + 1,
+        'result': gameStatistics[dateString].result + 10,
+      };
+    } else {
+      gameStatistics[dateString] = {
+        'timesPlayed': 1,
+        'result': 10,
+      };
+    }
+
+    if (optionals) {
+      currentStatistics = {
+        ...statistics,
+        optional: {
+          ...optionals,
+          speakit: {
+            ...gameStatistics,
+          },
+        },
+      };
+    } else {
+      currentStatistics = {
+        ...baseStatistic,
+        optional: {
+          ...baseStatistic.optional,
+          speakit: {
+            ...gameStatistics,
+          },
+        },
+      };
+    }
+
+    const sendOptions = {
+      method: 'PUT',
+      body: JSON.stringify(currentStatistics),
+    };
+
+    setSendFetchOption(sendOptions);
+    setUrlSendStatistic(`users/${userId}/statistics`);
+    setUrlGetStatistic(`users/${userId}/statistics`);
+    setUrlSendStatistic('');
+  }, [statistics, userId]);
 
   useEffect(() => {
     recognition.lang = 'en-US';
@@ -161,7 +257,8 @@ const Game = ({
           dispatch(setSpeechWords(trueSpeechWords));
           dispatch(setImage(linkImage));
         });
-        if (speechWords.lenght === 10) setModalResult(true);
+        console.log(speechWords.length);
+        if (speechWords.length === 0) completeGame();
       } else {
         dispatch(setSpeechActiveWord(transcript));
         dispatch(setImage('/assets/images/speakit/base-game-image.png'));
@@ -176,7 +273,8 @@ const Game = ({
     words,
     image,
     speechWords,
-    recognition.lang]);
+    recognition.lang,
+    completeGame]);
 
   const setGettingWords = useCallback((gettingWord) => {
     dispatch(setWords(gettingWord));
@@ -186,10 +284,22 @@ const Game = ({
     + `page=${wordsPage}&group=${activeLevel}&wordsPerExampleSentenceLTE=99`
     + '&wordsPerPage=10', [activeLevel, wordsPage]);
 
-  useAPI(userWordsURL, fetchOptions, setGettingWords);
+  const getStatisticURL = useMemo(() => urlGetStatistic, [urlGetStatistic]);
+  const sendStatisticURL = useMemo(() => urlSendStatistic, [urlSendStatistic]);
 
-  if (!browserSupportsSpeechRecognition) {
-    return null;
+  const setGettingStatistic = useCallback((gettingStatistic) => {
+    console.log(gettingStatistic);
+    setStatistics(gettingStatistic);
+  }, []);
+
+  console.log(statistics);
+
+  useAPI(userWordsURL, fetchOptionsGet, setGettingWords);
+  useAPI(getStatisticURL, fetchOptionsGet, setGettingStatistic);
+  useAPI(sendStatisticURL, sendFetchOption);
+
+  if (!browserSupportsSpeechRecognition && statusGame === 'speach') {
+    setStatusGame('no-speach');
   }
 
   return (

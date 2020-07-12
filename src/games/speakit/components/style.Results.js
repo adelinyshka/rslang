@@ -8,6 +8,7 @@ export default style.div`
   background: #fafafa;
   overflow-y: scroll;
   height: 100%;
+  z-index: 10;
   
   @media (max-width: 768px) {
      margin-left: 0;
