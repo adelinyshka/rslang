@@ -164,14 +164,39 @@
 .GamePanel img {
   display: block;
   margin: 0 auto;
-  width: 160px;
-  height: 160px;
+  width: 181px;
+  height: 167px;
+  border-radius: 6px;
+}
+
+.Volume:hover {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.Volume:active {
+  background-color:rgba(255, 255, 255, 0.3);
+}
+
+
+.HidePicture {
+  display: none !important;
 }
 
 .Answer {
   display: flex;
   justify-content: center;
   margin: 15px 0;
+}
+
+.AnswerHide {
+  opacity: 0;
+}
+
+.AnswerHide img {
+  width: 46px;
+  height: 46px;
+  margin: 0;
 }
 
 .Answer img {
@@ -202,13 +227,14 @@
 }
 
 .Words p {
-  margin: 0 40px;
-  padding: 10px 0;
+  max-width: 200px;
+  margin: 0 20px;
+  padding: 10px 10px;
   font-family: Exo;
   font-style: normal;
   font-weight: normal;
   font-size: 30px;
-  line-height: 22px;
+  line-height: 30px;
   color: white;
 }
 
@@ -216,6 +242,10 @@
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 7px;
+}
+
+.Words p.WrongWords {
+  color: rgba(255, 255, 255, 0.54);
 }
 
 .Words p::first-letter {
@@ -233,10 +263,10 @@
   color: white;
   border: 2px solid white;
   border-radius: 7px;
-  font-family: Exo;
+  /* font-family: Exo; */
   font-style: normal;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 22px;
   display: flex;
   align-items: center;
