@@ -5,6 +5,7 @@
   display: flex !important;
   justify-content: center;
 }
+
 .Modal > div {
   width: 80%;
   max-width: none;

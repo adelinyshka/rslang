@@ -21,7 +21,7 @@ const games = {
 const GamesStat = ({ show, onHide }) => {
   const [tableBody, setTableBody] = useState();
   const gamesStats = useSelector(gamesStatsSelector);
-
+  console.log(gamesStats);
   const tableHeader = useMemo(() => gamesStats
   && Object.keys(gamesStats).map((key) => <th key={key}>{games[key]}</th>),
   [gamesStats]);
@@ -69,7 +69,7 @@ const GamesStat = ({ show, onHide }) => {
         <Modal.Title className={styles.Title}>Мини-игры</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {gamesStats && (
+        {!!Object.keys(gamesStats).length && (
           <Table
             className={styles.Table}
             striped
@@ -88,7 +88,7 @@ const GamesStat = ({ show, onHide }) => {
             </tbody>
           </Table>
         )}
-        {!gamesStats && <h1>Нет Результатов</h1>}
+        {!Object.keys(gamesStats).length && <h2>Нет Результатов</h2>}
       </Modal.Body>
       <Modal.Footer>
         <Button
