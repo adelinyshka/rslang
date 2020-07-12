@@ -4,10 +4,7 @@ import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setStatistics } from '../../redux';
-import {
-  cardsStatsSelector,
-  gamesStatsSelector, todayCardsStats,
-} from '../../redux/selectors';
+import { cardsStatsSelector, todayCardsStats } from '../../redux/selectors';
 
 import { fetchJSON } from '../../../common/utils';
 
@@ -26,7 +23,6 @@ const Statistics = () => {
   const {
     passedCards, rightAnswers, newWords, longestStreak,
   } = useSelector(todayCardsStats);
-  const gamesStats = useSelector(gamesStatsSelector);
   const cardsStats = useSelector(cardsStatsSelector);
 
   const userId = useSelector(userIdSelector);

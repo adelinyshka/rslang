@@ -1,19 +1,13 @@
 import React, {
-  useMemo, useState, useCallback, useEffect,
+  useMemo, useState, useEffect,
 } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal, Button, Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import useAPI from '../../../common/utils';
-
-import { userIdSelector } from '../../../auth/redux/selectors';
+import { gamesStatsSelector } from '../../redux/selectors';
 
 import styles from './GamesStat.module.css';
-
-const fetchOptions = {
-  method: 'GET',
-};
 
 const games = {
   'puzzle': 'English Puzzle',
@@ -25,25 +19,17 @@ const games = {
 };
 
 const GamesStat = ({ show, onHide }) => {
-  const userId = useSelector(userIdSelector);
-  const [statistics, setStatistics] = useState();
   const [tableBody, setTableBody] = useState();
+  const gamesStats = useSelector(gamesStatsSelector);
 
-  const endpoint = useMemo(() => `users/${userId}/statistics`, [userId]);
-  const action = useCallback(({ optional }) => {
-    setStatistics(optional);
-  }, [setStatistics]);
-
-  useAPI(endpoint, fetchOptions, action);
-
-  const tableHeader = useMemo(() => statistics
-  && Object.keys(statistics).map((key) => <th key={key}>{games[key]}</th>),
-  [statistics]);
+  const tableHeader = useMemo(() => gamesStats
+  && Object.keys(gamesStats).map((key) => <th key={key}>{games[key]}</th>),
+  [gamesStats]);
 
   useEffect(() => {
-    if (statistics) {
+    if (gamesStats) {
       const rows = [];
-      const values = Object.values(statistics);
+      const values = Object.values(gamesStats);
       const maxIndex = values
         .reduce((acc, cur) => {
           const { length } = Object.keys(cur);
@@ -65,7 +51,7 @@ const GamesStat = ({ show, onHide }) => {
       const rowsJSX = rows.map((row, i) => <tr key={`row${i}`}>{row}</tr>);
       setTableBody(rowsJSX);
     }
-  }, [statistics]);
+  }, [gamesStats]);
 
   return (
     <Modal
@@ -77,7 +63,7 @@ const GamesStat = ({ show, onHide }) => {
         <Modal.Title className={styles.Title}>Мини-игры</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {statistics && (
+        {gamesStats && (
           <Table
             className={styles.Table}
             striped
@@ -96,7 +82,7 @@ const GamesStat = ({ show, onHide }) => {
             </tbody>
           </Table>
         )}
-        {!statistics && <h1>Нет Результатов</h1>}
+        {!gamesStats && <h1>Нет Результатов</h1>}
       </Modal.Body>
       <Modal.Footer>
         <Button
