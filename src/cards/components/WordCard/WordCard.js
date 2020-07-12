@@ -11,6 +11,7 @@ import {
   wordTranslateSelector,
   transcriptionSelector,
   exampleSentenceSelector,
+  definitionSelector,
 } from '../../../settings/redux/selectors';
 
 import styles from './WordCard.module.css';
@@ -24,9 +25,10 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   const shouldDisplayTranslation = useSelector(wordTranslateSelector);
   const shouldDisplayTranscription = useSelector(transcriptionSelector);
   const shouldDisplayExample = useSelector(exampleSentenceSelector);
+  const shouldDisplayDefinition = useSelector(definitionSelector);
   const {
     textExampleTranslate, wordTranslate, textExample, audio, _id, userWord,
-    transcription,
+    transcription, textMeaning,
   } = useMemo(() => cardInfo, [cardInfo]);
   const testSentenceArr = useMemo(
     () => textExample.split(/<b>[\w]{0,}<\/b>/), [textExample],
@@ -34,6 +36,14 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
 
   const word = useMemo(
     () => textExample.match(/<b>([\w]{0,})<\/b>/)[1], [textExample],
+  );
+
+  const meaningSentenceArr = useMemo(
+    () => textMeaning.split(/<i>[\w]{0,}<\/i>/), [textMeaning],
+  );
+
+  const meaningWord = useMemo(
+    () => textMeaning.match(/<i>([\w]{0,})<\/i>/)[1], [textMeaning],
   );
 
   const speakerIcon = useMemo(() => (
@@ -76,19 +86,25 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
     () => (
       (isShowingAnswer || isPreviousCard || wasAnswered)) && (
       <>
-        {
-          shouldDisplayTranslation
+        <div>
+          {
+            shouldDisplayTranslation
          && (
            <p>
              <span className={styles.TranslatedWord}>{wordTranslate}</span>
            </p>
          )
-        }
-        {shouldDisplayTranscription && <p>{transcription}</p>}
+          }
+          {shouldDisplayTranscription && <p>{transcription}</p>}
+        </div>
+        <p>
+          {shouldDisplayDefinition && meaningSentenceArr.join(meaningWord)}
+        </p>
       </>
 
     ), [isShowingAnswer, isPreviousCard, wasAnswered, shouldDisplayTranslation,
-      wordTranslate, shouldDisplayTranscription, transcription],
+      wordTranslate, shouldDisplayTranscription, transcription,
+      shouldDisplayDefinition, meaningSentenceArr, meaningWord],
   );
 
   return (
@@ -120,7 +136,9 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
            )}
         </Card.Body>
         <Card.Footer className={styles.Footer}>
+
           {cardFooter}
+
         </Card.Footer>
       </Card>
       {!isPreviousCard && <Intervals wordId={_id} userWord={userWord} />}

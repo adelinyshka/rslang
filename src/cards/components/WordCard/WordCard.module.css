@@ -69,7 +69,13 @@
 }
 
 .Footer {
-  height: 45px;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.Footer > div {
   display: flex;
   justify-content: space-between;
 }
