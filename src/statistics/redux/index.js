@@ -2,12 +2,6 @@ const INITIAL_STATE = {
   learnedWords: 0,
   optional: {
     cards: {
-      '2020-07-12': {
-        passedCards: 25,
-        newWords: 5,
-        rightAnswers: 10,
-        longestStreak: 7,
-      },
     },
     speakit: {
     },

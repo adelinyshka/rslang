@@ -9,10 +9,10 @@ import {
   setGameEnded, incrementNewWords, incrementCurrentStreak, setLongestStreak,
 } from '../../redux';
 
+import { fetchJSON } from '../../../common/utils';
+
 import {
-  cardsArrSelector, passedCardsSelector,
-  wasAnsweredSelector, newWordsSelector,
-  rightAnswersSelector, longestStreakSelector,
+  cardsArrSelector, wasAnsweredSelector,
   mistakenWordsSelector,
 } from '../../redux/selectors';
 
@@ -22,8 +22,6 @@ import {
   easyIntervalSelector,
   mediumIntervalSelector, hardIntervalSelector,
 } from '../../../settings/redux/selectors';
-
-import { fetchJSON } from '../../../common/utils';
 
 import styles from './Intervals.module.css';
 
@@ -50,67 +48,6 @@ const Intervals = ({ wordId, userWord }) => {
   const easyInterval = useSelector(easyIntervalSelector);
   const mediumInterval = useSelector(mediumIntervalSelector);
   const hardInterval = useSelector(hardIntervalSelector);
-
-  // статистика
-  const passedCards = useSelector(passedCardsSelector);
-  const rightAnswers = useSelector(rightAnswersSelector);
-  const newWords = useSelector(newWordsSelector);
-  const longestStreak = useSelector(longestStreakSelector);
-
-  const updateStatistics = useCallback(() => {
-    const statisticsEndpoint = `/users/${userId}/statistics`;
-    const getFetchOptions = {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    };
-    fetchJSON(statisticsEndpoint, getFetchOptions)
-      .then(({ id, ...data }) => {
-        const stats = { ...data };
-        const { learnedWords } = stats;
-        stats.learnedWords = learnedWords ? learnedWords + newWords : newWords;
-        // статистика по карточкам
-        const cardsStats = stats.optional.cards;
-        // сегодняшняя статистика по карточкам
-        const todayStats = cardsStats ? cardsStats[dateString] : null;
-        // если статистики по карточкам нет - создаем объект
-        if (!cardsStats) {
-          stats.optional.cards = {};
-        }
-        // если сегодняшней статистики нет -
-        // передаем в (созданный\сущестовавший) объект сегоднящние данные
-        if (!todayStats) {
-          stats.optional.cards[dateString] = {
-            passedCards,
-            rightAnswers,
-            newWords,
-            longestStreak,
-          };
-        }
-        // если сегодня данные по статистики есть - обновляем их
-        if (todayStats) {
-          stats.optional.cards[dateString] = {
-            passedCards: todayStats.passedCards + passedCards,
-            rightAnswers: (todayStats.rightAnswers + rightAnswers) / 2,
-            newWords: todayStats.newWords + newWords,
-            longestStreak: longestStreak > todayStats.longestStreak
-              ? longestStreak
-              : todayStats.longestStreak,
-          };
-        }
-
-        const putFetchOptions = {
-          ...getFetchOptions,
-          method: 'PUT',
-          body: JSON.stringify(stats),
-        };
-        fetchJSON(statisticsEndpoint, putFetchOptions)
-          .catch((er) => console.log(er));
-      });
-  });
 
   // было ли данное слово написано с ошибкой
   const wasMistaken = useMemo(
@@ -225,7 +162,6 @@ const Intervals = ({ wordId, userWord }) => {
       if (!newCards.length) {
         dispatch(setLongestStreak());
         dispatch(setGameEnded(true));
-        updateStatistics();
       }
     });
   }, [cardsArr, dispatch, wasMistaken, userWord,

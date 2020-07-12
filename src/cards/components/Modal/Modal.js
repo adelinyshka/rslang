@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+
+import { fetchJSON } from '../../../common/utils';
+import { userIdSelector, tokenSelector } from '../../../auth/redux/selectors';
 
 import {
   passedCardsSelector, rightAnswersSelector,
@@ -11,15 +14,102 @@ import {
 } from '../../redux';
 import StyleRules from './style.Modal';
 
-const ModalStatsForCards = () => {
+const date = new Date(Date.now());
+const dateString = date.toLocaleDateString('en-US');
+
+const Modal = () => {
   const dispatch = useDispatch();
   const passedCards = useSelector(passedCardsSelector);
   const rightAnswers = useSelector(rightAnswersSelector);
   const newWords = useSelector(newWordsSelector);
   const longestStreak = useSelector(longestStreakSelector);
+
+  const token = useSelector(tokenSelector);
+  const userId = useSelector(userIdSelector);
+
+  const updateStatistics = useCallback(() => {
+    const statisticsEndpoint = `users/${userId}/statistics`;
+    const getFetchOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+    fetchJSON(statisticsEndpoint, getFetchOptions)
+      .then(({ id, ...data }) => {
+        const stats = { ...data };
+        const { learnedWords } = stats;
+        stats.learnedWords = learnedWords ? learnedWords + newWords : newWords;
+        // статистика по карточкам
+        const cardsStats = stats.optional.cards;
+        // сегодняшняя статистика по карточкам
+        const todayStats = cardsStats ? cardsStats[dateString] : null;
+        // если статистики по карточкам нет - создаем объект
+        if (!cardsStats) {
+          stats.optional.cards = {};
+        }
+        // если сегодняшней статистики нет -
+        // передаем в (созданный\сущестовавший) объект сегоднящние данные
+        if (!todayStats) {
+          stats.optional.cards[dateString] = {
+            passedCards,
+            rightAnswers,
+            newWords,
+            longestStreak,
+          };
+        }
+        // если сегодня данные по статистики есть - обновляем их
+        if (todayStats) {
+          stats.optional.cards[dateString] = {
+            passedCards: todayStats.passedCards + passedCards,
+            rightAnswers: (todayStats.rightAnswers + rightAnswers) / 2,
+            newWords: todayStats.newWords + newWords,
+            longestStreak: longestStreak > todayStats.longestStreak
+              ? longestStreak
+              : todayStats.longestStreak,
+          };
+        }
+
+        const putFetchOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(stats),
+        };
+        fetchJSON(statisticsEndpoint, putFetchOptions)
+          .catch((er) => console.log(er));
+      })
+      .catch(() => {
+        const stats = {
+          learnedWords: newWords,
+          optional: {
+            cards: {},
+          },
+        };
+        stats.optional.cards[dateString] = {
+          passedCards,
+          rightAnswers,
+          newWords,
+          longestStreak,
+        };
+        const putFetchOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(stats),
+        };
+        fetchJSON(statisticsEndpoint, putFetchOptions);
+      });
+  }, [longestStreak, newWords, passedCards, rightAnswers, token, userId]);
   return (
     <StyleRules>
-      <div className="pop-up" onClick={() => dispatch(setGameEnded(false))}>
+      <div
+        className="pop-up"
+        onClick={() => {
+          updateStatistics();
+          dispatch(setGameEnded(false));
+        }}
+      >
         <div className="top stats">
           <div>
             <img
@@ -99,4 +189,4 @@ const ModalStatsForCards = () => {
   );
 };
 
-export default ModalStatsForCards;
+export default Modal;
