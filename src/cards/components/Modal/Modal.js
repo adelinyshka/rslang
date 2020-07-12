@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {
   passedCardsSelector, rightAnswersSelector,
-  newWordsSelector,
+  newWordsSelector, longestStreakSelector,
 } from '../../redux/selectors';
 import {
   setGameEnded,
@@ -16,6 +16,7 @@ const ModalStatsForCards = () => {
   const passedCards = useSelector(passedCardsSelector);
   const rightAnswers = useSelector(rightAnswersSelector);
   const newWords = useSelector(newWordsSelector);
+  const longestStreak = useSelector(longestStreakSelector);
   return (
     <StyleRules>
       <div className="pop-up" onClick={() => dispatch(setGameEnded(false))}>
@@ -81,7 +82,7 @@ const ModalStatsForCards = () => {
                 >
               Самая длинная серия верных ответов
                 </Col>
-                <Col xs={1} className="text-green">5</Col>
+                <Col xs={1} className="text-green">{longestStreak}</Col>
               </Row>
             </Container>
           </section>

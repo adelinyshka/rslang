@@ -64,3 +64,7 @@ export const newWordsSelector = createSelector(
   ({ newWords }) => newWords,
 );
 
+export const longestStreakSelector = createSelector(
+  cardsSelector,
+  ({ longestStreak }) => longestStreak,
+);

@@ -6,7 +6,7 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import {
   setCards, setLastCard, setAnswered, clearAnswer,
   setRightAnswers, pushMistakenWord, incrementPassedCards,
-  setGameEnded, incrementNewWords,
+  setGameEnded, incrementNewWords, incrementCurrentStreak, setLongestStreak,
 } from '../../redux';
 
 import {
@@ -146,10 +146,12 @@ const Intervals = ({ wordId, userWord }) => {
           newMistakenWord[wordId] = false;
           dispatch(setRightAnswers(rightAnswers - 1));
           dispatch(pushMistakenWord(newMistakenWord));
+          dispatch(setLongestStreak());
         }
       }
       if (!wasMistaken && wasAnswered && !shouldRepeat) {
         dispatch(setRightAnswers(rightAnswers + 1));
+        dispatch(incrementCurrentStreak());
         dispatch(incrementPassedCards());
         if (!userWord.optional) dispatch(incrementNewWords());
         putWordsInDictionary(optional, difficulty);
@@ -157,7 +159,10 @@ const Intervals = ({ wordId, userWord }) => {
       dispatch(setCards(newCards));
       dispatch(setLastCard(lastCard));
       dispatch(clearAnswer());
-      if (!newCards.length) dispatch(setGameEnded(true));
+      if (!newCards.length) {
+        dispatch(setLongestStreak());
+        dispatch(setGameEnded(true));
+      }
     });
   }, [cardsArr, dispatch, wasMistaken, userWord,
     wasAnswered, rightAnswers, wordId, putWordsInDictionary]);

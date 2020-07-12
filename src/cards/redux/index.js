@@ -10,8 +10,18 @@ const INITIAL_STATE = {
   newWords: 0,
   longestStreak: 0,
   cardsTotal: 0,
+  currentStreak: 0,
   gameEnded: false,
 };
+
+export const setLongestStreak = (longestStreak) => ({
+  type: 'SET_LONGEST_STREAK',
+  longestStreak,
+});
+
+export const incrementCurrentStreak = () => ({
+  type: 'INC_CURRENT_STREAK',
+});
 
 export const setGameEnded = (gameEnded) => ({
   type: 'SET_GAME_ENDED',
@@ -26,11 +36,6 @@ export const setCardsTotal = (cardsTotal) => ({
 export const pushMistakenWord = (mistakenWord) => ({
   type: 'PUSH_MISTAKEN_WORD',
   mistakenWord,
-});
-
-export const setLongestStreak = (longestStreak) => ({
-  type: 'SET_LONGEST_STREAK',
-  longestStreak,
 });
 
 export const incrementNewWords = (newWords) => ({
@@ -105,6 +110,19 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         newWords: state.newWords + 1,
       };
+    case 'INC_CURRENT_STREAK':
+      return {
+        ...state,
+        currentStreak: state.currentStreak + 1,
+      };
+    case 'SET_LONGEST_STREAK':
+      return {
+        ...state,
+        longestStreak: state.currentStreak > state.longestStreak
+          ? state.currentStreak
+          : state.longestStreak,
+        currentStreak: 0,
+      };
     case 'SET_GAME_ENDED':
     case 'SET_CARDS_TOTAL':
     case 'SET_CARDS':
@@ -112,7 +130,6 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
     case 'SHOW_ANSWER':
     case 'SET_ANSWERED':
     case 'CLEAR_ANSWER':
-    case 'SET_LONGEST_STREAK':
     case 'SET_NEW_WORDS':
     case 'SET_RIGHT_ANSWERS':
     case 'SET_CARDS_MODE':
