@@ -68,3 +68,8 @@ export const longestStreakSelector = createSelector(
   cardsSelector,
   ({ longestStreak }) => longestStreak,
 );
+
+export const navFetchOptionsSelector = createSelector(
+  cardsSelector,
+  ({ navFetchOptions }) => navFetchOptions,
+);

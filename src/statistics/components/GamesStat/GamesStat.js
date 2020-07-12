@@ -21,7 +21,7 @@ const games = {
 const GamesStat = ({ show, onHide }) => {
   const [tableBody, setTableBody] = useState();
   const gamesStats = useSelector(gamesStatsSelector);
-  console.log(gamesStats);
+
   const tableHeader = useMemo(() => gamesStats
   && Object.keys(gamesStats).map((key) => <th key={key}>{games[key]}</th>),
   [gamesStats]);

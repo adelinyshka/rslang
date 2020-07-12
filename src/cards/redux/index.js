@@ -12,7 +12,13 @@ const INITIAL_STATE = {
   cardsTotal: 0,
   currentStreak: 0,
   gameEnded: false,
+  navFetchOptions: {},
 };
+
+export const setNavFetchOptions = (navFetchOptions) => ({
+  type: 'SET_NAV_FETCH_OPTIONS',
+  navFetchOptions,
+});
 
 export const setLongestStreak = (longestStreak) => ({
   type: 'SET_LONGEST_STREAK',
@@ -133,6 +139,7 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
     case 'SET_NEW_WORDS':
     case 'SET_CARDS_MODE':
     case 'CLEAR_CARDS':
+    case 'SET_NAV_FETCH_OPTIONS':
       return {
         ...state,
         ...payload,

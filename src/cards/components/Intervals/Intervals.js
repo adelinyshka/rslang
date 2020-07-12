@@ -5,7 +5,7 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 
 import {
   setCards, setLastCard, setAnswered, clearAnswer,
-  pushMistakenWord, incrementPassedCards,
+  pushMistakenWord, incrementPassedCards, setNavFetchOptions,
   setGameEnded, incrementNewWords, incrementCurrentStreak, setLongestStreak,
 } from '../../redux';
 
@@ -13,7 +13,7 @@ import { fetchJSON } from '../../../common/utils';
 
 import {
   cardsArrSelector, wasAnsweredSelector,
-  mistakenWordsSelector,
+  mistakenWordsSelector, navFetchOptionsSelector,
 } from '../../redux/selectors';
 
 import { userIdSelector, tokenSelector } from '../../../auth/redux/selectors';
@@ -37,6 +37,7 @@ const addDays = (days) => {
 const Intervals = ({ wordId, userWord }) => {
   const dispatch = useDispatch();
   const cardsArr = useSelector(cardsArrSelector);
+  const navFetchOptions = useSelector(navFetchOptionsSelector);
   // была ли отвечена карточка
   const wasAnswered = useSelector(wasAnsweredSelector);
   const mistakenWords = useSelector(mistakenWordsSelector);
@@ -87,14 +88,16 @@ const Intervals = ({ wordId, userWord }) => {
           progressStatus,
           'deleted': false,
           'learning': true,
+          ...navFetchOptions,
         },
       }),
     };
-  }, [userWord, token]);
+  }, [userWord, token, navFetchOptions]);
 
   const putWordsInDictionary = useCallback((optional, difficulty) => {
     fetchJSON(wordEndpoint, wordFetchOptions(optional, difficulty));
-  }, [wordEndpoint, wordFetchOptions]);
+    dispatch(setNavFetchOptions({}));
+  }, [wordEndpoint, wordFetchOptions, dispatch]);
 
   const intervalButtonsInfo = useMemo(() => ([
     {
@@ -110,6 +113,8 @@ const Intervals = ({ wordId, userWord }) => {
         difficulty: 'easy',
         optional: {
           nextDate: addDays(easyInterval),
+          deleted: false,
+          learning: true,
         },
       },
     },
@@ -121,6 +126,8 @@ const Intervals = ({ wordId, userWord }) => {
         difficulty: 'medium',
         optional: {
           nextDate: addDays(mediumInterval),
+          deleted: false,
+          learning: true,
         },
       },
     },
@@ -132,6 +139,8 @@ const Intervals = ({ wordId, userWord }) => {
         difficulty: 'hard',
         optional: {
           nextDate: addDays(hardInterval),
+          deleted: false,
+          learning: true,
         },
       },
     },
