@@ -178,6 +178,7 @@ const Settings = () => {
               type="number"
               name="newCardsAmount"
               id="newCardsAmount"
+              min={1}
               value={formSettings.optional.newCardsAmount}
               onChange={handleChange}
             />
@@ -188,6 +189,7 @@ const Settings = () => {
               type="number"
               name="wordsPerDay"
               id="wordsPerDay"
+              min={1}
               value={formSettings.wordsPerDay}
               onChange={handleChange}
             />

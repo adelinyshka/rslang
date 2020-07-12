@@ -27,4 +27,59 @@ export const hardIntervalSelector = createSelector(
   ({ optional }) => optional.hardInterval,
 );
 
+export const wordTranslateSelector = createSelector(
+  settingsSelector,
+  ({ wordTranslate }) => wordTranslate,
+);
+
+export const wordImageSelector = createSelector(
+  settingsSelector,
+  ({ wordImageS }) => wordImageS,
+);
+
+export const exampleSentenceSelector = createSelector(
+  settingsSelector,
+  ({ exampleSentence }) => exampleSentence,
+);
+
+export const definitionSelector = createSelector(
+  settingsSelector,
+  ({ definition }) => definition,
+);
+
+export const sentenceTranslateSelector = createSelector(
+  settingsSelector,
+  ({ sentenceTranslate }) => sentenceTranslate,
+);
+
+export const transcriptionSelector = createSelector(
+  settingsSelector,
+  ({ transcription }) => transcription,
+);
+
+export const deleteBtnSelector = createSelector(
+  settingsSelector,
+  ({ deleteBtn }) => deleteBtn,
+);
+
+export const difficultBtnSelector = createSelector(
+  settingsSelector,
+  ({ difficultBtn }) => difficultBtn,
+);
+
+export const showAnswerBtnSelector = createSelector(
+  settingsSelector,
+  ({ showAnswerBtn }) => showAnswerBtn,
+);
+
+export const autoSoundPlaySelector = createSelector(
+  settingsSelector,
+  ({ autoSoundPlay }) => autoSoundPlay,
+);
+
+export const interfaceHintsSelector = createSelector(
+  settingsSelector,
+  ({ interfaceHints }) => interfaceHints,
+);
+
 export default settingsSelector;
