@@ -1,19 +1,27 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, {
+  useState, useCallback, useEffect, useMemo,
+} from 'react';
 import { useDispatch } from 'react-redux';
-import dictionary from './Dictionary';
 import GameWrapper from './GameWrapper';
 import { getRandomNumber, shuffle } from './Helpers';
 import Lives from './Lives';
 import { Rules, Exit } from './Modal';
 import SoundSwitcher from '../../../common/components/SoundSwitcher';
-import fetchJSON from '../../../common/utils/index';
+import useAPI from '../../../common/utils/index';
+
 import { setStatusGame } from '../redux';
 
 const classNames = require('classnames');
 
+const fetchOptions = {
+  method: 'GET',
+};
+
 let counterCrystalSize = 0.7;
 const audioRight = new Audio('/assets/audio/right.mp3');
 const audioWrong = new Audio('/assets/audio/wrong.mp3');
+
+let page = 1;
 
 export default function Game() {
   const dispatch = useDispatch();
@@ -25,20 +33,62 @@ export default function Game() {
   const [btnClicked, setBtnClicked] = useState(false);
   const [scaleSize, setScaleSize] = useState(counterCrystalSize);
   const [arrOfWords, setArrOfWords] = useState([]);
-  const [wordCounter, setWordCounter] = useState(40);
+  const [wordCounter, setWordCounter] = useState(29);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isRules, setIsRules] = useState(false);
   const [isExit, setIsExit] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
-  const [page, setPage] = useState(1);
   const [group, setGroup] = useState(1);
+  const [words, setWords] = useState([]);
 
-  // useEffect(() => {
-  //   fetchJSON(`words?page=${page}&group=${group}`)
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // }, [page, group]);
+  const userWordsURL = useMemo(
+    () => `words?page=${page}&group=${group}`, [page, group],
+  );
+
+  const action = useCallback((wordsFromApi) => setWords(wordsFromApi), []);
+  const wordsUseApi = useAPI(userWordsURL, fetchOptions, action);
+
+  const gameOverHandler = useCallback(() => {
+    setIsGameOver(true);
+    setWord(' ');
+    setGettingWords(false);
+    setArrOfWords([]);
+    setLivesCount(0);
+    page = 1;
+  }, []);
+
+  useEffect(() => {
+    if (gettingWords && livesCount && wordCounter && wordsUseApi) {
+      console.log(wordsUseApi);
+      wordsUseApi.length = 10;
+      const randomNumber = getRandomNumber();
+      const newWord = wordsUseApi[randomNumber].word;
+      const newAnswer = wordsUseApi[randomNumber].wordTranslate;
+      setWord(newWord);
+      setRightAnswer(newAnswer);
+      const arrOfTranslations = [];
+      arrOfTranslations.push(newAnswer);
+
+      while (arrOfTranslations.length < 4) {
+        const translation = wordsUseApi[getRandomNumber()].wordTranslate;
+        if (!arrOfTranslations.includes(translation)) {
+          arrOfTranslations.push(translation);
+        }
+      }
+
+      const shuffledTranslations = shuffle(arrOfTranslations);
+
+      setArrOfWords(shuffledTranslations);
+      setGettingWords(false);
+    }
+
+    if (!wordCounter) {
+      gameOverHandler();
+    }
+    return () => {
+      setGettingWords(false);
+    };
+  }, [wordsUseApi, gettingWords, livesCount, wordCounter]);
 
   const playSound = useCallback((isAnswerRight) => {
     if (soundOn) {
@@ -52,48 +102,14 @@ export default function Game() {
     setIsExit(false);
   }, [dispatch]);
 
-  const gameOverHandler = useCallback(() => {
-    setIsGameOver(true);
-    setWord(' ');
-    setGettingWords(false);
-    setArrOfWords([]);
-    setLivesCount(0);
-  }, []);
-
-  useEffect(() => {
-    if (gettingWords && livesCount && wordCounter) {
-      const randomNumber = getRandomNumber();
-      const newWord = dictionary[randomNumber].word;
-      const newAnswer = dictionary[randomNumber].translate;
-      setWord(newWord);
-      setRightAnswer(newAnswer);
-      const arrOfTranslations = [];
-      arrOfTranslations.push(newAnswer);
-
-      let counter = 0;
-      while (counter < 3) {
-        const translation = dictionary[getRandomNumber()].translate;
-        arrOfTranslations.push(translation);
-        counter += 1;
-      }
-
-      const shuffledTranslations = shuffle(arrOfTranslations);
-
-      setArrOfWords(shuffledTranslations);
-      setGettingWords(false);
-    }
-
-    if (!wordCounter) {
-      gameOverHandler();
-    }
-  }, [livesCount, gettingWords, wordCounter]);
-
   function checkAnswer(wordActive, answerActive) {
     const correct = wordActive === answerActive;
     setAnswer(correct);
     setBtnClicked(correct);
     setWordCounter(wordCounter - 1);
     playSound(correct);
+    page += 1;
+
     if (correct) setScaleSize(counterCrystalSize += 0.02);
     else setLivesCount(livesCount - 1);
   }
@@ -251,6 +267,4 @@ export default function Game() {
 
 // todo
 // слово когда упало не исчезает, а обновляется и становится новым
-// не переходит со стартового экрана в игру по кнопке
 // забирать статистику надо из выученных слов
-// вкл/выкл звук не работает
