@@ -59,7 +59,6 @@ export default function Game() {
 
   useEffect(() => {
     if (gettingWords && livesCount && wordCounter && wordsUseApi) {
-      console.log(wordsUseApi);
       wordsUseApi.length = 10;
       const randomNumber = getRandomNumber();
       const newWord = wordsUseApi[randomNumber].word;
