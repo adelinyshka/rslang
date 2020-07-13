@@ -49,10 +49,18 @@ const Signup = () => {
 
   return (
     <div className={styles.Auth}>
+      <Link to="/">
+        <div className={styles.close}>
+          <img
+            src="/assets/images/common/x.svg"
+            alt="вернуться на промо"
+          />
+        </div>
+      </Link>
       <form onSubmit={submitHandler} className={styles.Form}>
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Имя"
           value={name}
           pattern="[A-Za-z]{1,}"
           onChange={(event) => setName(event.target.value)}
@@ -60,14 +68,14 @@ const Signup = () => {
         />
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Электронная почта"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Пароль"
           value={password}
           // eslint-disable-next-line max-len
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[+\-_@$!%*?&#.,;:[\]{}])(?=.*[A-Z]).{8,}"
