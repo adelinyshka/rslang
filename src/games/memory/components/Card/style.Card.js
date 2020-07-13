@@ -26,20 +26,27 @@ export default style.div`
     @media (max-width: 1115px) {
       width: 110px;
       height: 70px;
-      margin: 7px;
+      margin: 3px;
     }
 
     @media (max-width: 860px) {
       width: 100px;
       height: 60px;
-      margin: 5px;
+      margin: 3px;
       font-size: 15px;
     }
 
     @media (max-width: 800px) {
       width: 85px;
       height: 50px;
-      margin: 5px;
+      margin: 3px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 800px) {
+      width: 95px;
+      height: 60px;
+      margin: 2px;
       font-size: 12px;
     }
   }

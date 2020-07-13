@@ -33,7 +33,7 @@
 
 .Lives {
   width: 100%;
-  margin: 20px;
+  /* margin: 20px; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,7 +45,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: cornsilk;
+  /* background-color: cornsilk; */
   margin-bottom: 50px;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./lesBack.jpg');
 }
@@ -121,17 +121,25 @@
   }
 }
 
-/* @media (orientation: portrait) and (max-width: 575px) {
-  .GameWrapper {
-    display: none;
-  } 
-} */
-
 @media (orientation: portrait) and (max-width: 575px) {
   .GameWrapper {
     /* display: block; */
     width: 100vw;
     height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./lesBack.jpg');
-  }  
+  } 
+
+  .CardBlock {
+    background-image: none;
+    flex: 4;
+  }
+
+  .Lives {
+    margin-top: 10px;
+    flex-direction: column;
+  }
+
+  .cardRus {
+    margin-top: 10px;
+  }
 }

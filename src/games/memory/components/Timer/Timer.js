@@ -24,7 +24,6 @@ function Timer({
 
   useEffect(() => {
     if (isShouldRestart === true) {
-      console.log(123);
       setTimer(initialTime);
     }
   }, [isShouldRestart]);

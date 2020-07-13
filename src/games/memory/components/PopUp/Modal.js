@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {
+  useState, useCallback, useEffect, useMemo,
+} from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import PopUp from './PopUp';
+import useAPI from '../../../../common/utils';
 import style from './Modal.module.css';
+
+import StyleGameOver from './style.GameOver';
+import Statistics from '../Statistics/Statistics';
 
 const Rules = ({ onRules, onCancel }) => (
   <div>
@@ -62,22 +68,52 @@ const Exit = ({ onCancel, onExit }) => (
 );
 
 function GameOver({
-  countCorrectAnswers,
-  countIncorrectAnswers,
-  correctAnswers,
+  statistics,
 }) {
-  console.log('correctAnswers: ', correctAnswers);
-
+  console.log('statisctics: ', statistics);
+  const [isStatisticsSend, setIsStatisticsSend] = useState(false);
   return (
-    <PopUp
-      type={countCorrectAnswers > countIncorrectAnswers ? 'success' : 'error'}
-      iconSrc="../assets/images/memory/iconCheck.svg"
-      // content={`Процент правильных ответов:
-      //   ${Math.floor(correctAnswers
-      //     / 10 * 100)}%`}
-      content={`Правильный ответов: ${countCorrectAnswers}` }
-      footer={(
-        <div>
+    <div>
+      {/* { isStatisticsSend ? ( */}
+      <StyleGameOver>
+        <ul className="listWords">
+          {
+            statistics.correct.map(({
+              word,
+              transcription,
+              wordTranslate,
+            }, index) => (
+              <li
+                key={index}
+                className="learnedWord"
+              >
+                <div>
+                  <p>{`${word}`}</p>
+                  <p>{`${transcription}`}</p>
+                  <p>{`${wordTranslate}`}</p>
+                </div>
+              </li>
+            ))
+          }
+          {
+            statistics.incorrect.map(({
+              word,
+              transcription,
+              wordTranslate,
+            }, index) => (
+              <li
+                key={index}
+              >
+                <div>
+                  <p>{`${word}`}</p>
+                  <p>{`${transcription}`}</p>
+                  <p>{`${wordTranslate}`}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+        <div className="wrapper-btn ">
           <Link to="./">
             <button
               className={style.btnExit}
@@ -87,21 +123,24 @@ function GameOver({
             </button>
           </Link>
         </div>
-      )}
-    />
+      </StyleGameOver>
+      {/* )
+        : (
+          <Statistics
+            setIsStatisticsSend={setIsStatisticsSend}
+            statistics={statistics}
+          />
+        )} */}
+    </div>
   );
 }
 
 GameOver.propTypes = {
-  countCorrectAnswers: PropTypes.number,
-  countIncorrectAnswers: PropTypes.number,
-  correctAnswers: PropTypes.string,
+  statistics: PropTypes.object,
 };
 
 GameOver.defaultProps = {
-  countCorrectAnswers: 0,
-  countIncorrectAnswers: 0,
-  correctAnswers: '',
+  statistics: {},
 };
 
 Rules.propTypes = {

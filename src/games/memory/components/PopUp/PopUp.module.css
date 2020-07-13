@@ -10,6 +10,7 @@
 
 .PopUp {
   z-index: 50;
+  width: 80%;
   width: 745px;
   height: 485px;
   top: 50%;
@@ -55,4 +56,24 @@
 
 .warning {
   background: #EEDFF2;
+}
+
+@media (max-width: 1100px) {
+  .PopUp {
+    width: 645px;
+    height: 485px;
+    margin-right: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .PopUp {
+    width: 80%;
+    min-width: 300px;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+  .Bottom {
+    font-size: 15px;
+  }
 }

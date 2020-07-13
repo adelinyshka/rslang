@@ -45,7 +45,12 @@ const Dictionary = ({
     return () => {
       setGetNewWords(false);
     };
-  }, [wordsUseApi, words, getNewWords]);
+  }, [wordsUseApi,
+    words,
+    getNewWords,
+    setEnglishWords,
+    setRussianWords,
+    setDictionary]);
 
   return (
     <div className={style.lds_roller}>
