@@ -21,8 +21,6 @@ let counterCrystalSize = 0.7;
 const audioRight = new Audio('/assets/audio/right.mp3');
 const audioWrong = new Audio('/assets/audio/wrong.mp3');
 
-let page = 1;
-
 export default function Game() {
   const dispatch = useDispatch();
   const [gettingWords, setGettingWords] = useState(true);
@@ -40,6 +38,7 @@ export default function Game() {
   const [soundOn, setSoundOn] = useState(true);
   const [group, setGroup] = useState(1);
   const [words, setWords] = useState([]);
+  const [page, setPage] = useState(1);
 
   const userWordsURL = useMemo(
     () => `words?page=${page}&group=${group}`, [page, group],
@@ -54,7 +53,6 @@ export default function Game() {
     setGettingWords(false);
     setArrOfWords([]);
     setLivesCount(0);
-    page = 1;
   }, []);
 
   useEffect(() => {
@@ -107,10 +105,11 @@ export default function Game() {
     setBtnClicked(correct);
     setWordCounter(wordCounter - 1);
     playSound(correct);
-    page += 1;
+    setPage(page + 1);
 
-    if (correct) setScaleSize(counterCrystalSize += 0.02);
-    else setLivesCount(livesCount - 1);
+    if (correct) {
+      setScaleSize(counterCrystalSize += 0.02);
+    } else setLivesCount(livesCount - 1);
   }
 
   const refreshWordsOnClick = useCallback(() => {
@@ -123,18 +122,19 @@ export default function Game() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (livesCount) {
+      if (livesCount && !btnClicked) {
         setGettingWords(true);
         setAnswer(false);
         setLivesCount(livesCount - 1);
         playSound(false);
+        setPage(page + 1);
       }
     }, 4650);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [livesCount, answer]);
+  }, [livesCount, answer, btnClicked]);
 
   return (
     <GameWrapper>
@@ -255,9 +255,9 @@ export default function Game() {
       </div>
 
       <img
-        className={classNames('crystall', {})}
-        src="/assets/images/savannah/crystall_2.svg"
-        alt="violet crystall"
+        className={classNames('crystal', {})}
+        src="/assets/images/savannah/crystal.svg"
+        alt="violet crystal"
         style={{ transform: `scale(${scaleSize})` }}
       />
     </GameWrapper>
@@ -265,5 +265,6 @@ export default function Game() {
 }
 
 // todo
-// слово когда упало не исчезает, а обновляется и становится новым
+// слово когда падает и неверно отвечаешь - не исчезает, а обновляется и
+// становится новым
 // забирать статистику надо из выученных слов

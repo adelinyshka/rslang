@@ -208,7 +208,7 @@ const GameWrapper = styled.div`
     }
   }
   
-  img.crystall {
+  img.crystal {
     display: block;
     position: absolute;
     bottom: 10%;
