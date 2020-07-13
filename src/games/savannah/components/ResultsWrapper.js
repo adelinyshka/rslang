@@ -59,10 +59,10 @@ const ResultsWrapper = styled.div`
   
   .results-words {
     padding-top: 110px;
+    padding-bottom: 100px;
     width: 80%;
     padding-left: 100px;
     margin: 0 auto;
-    padding-bottom: 50px;
     display: flex;
     align-items: stretch;
     flex-direction: column;
@@ -71,6 +71,7 @@ const ResultsWrapper = styled.div`
     
     @media (max-width: 768px) {
       padding-left: 0;
+      width: 95%;
     }
 
   }

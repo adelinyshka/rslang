@@ -51,6 +51,11 @@ const StartPageWrapper = styled.div`
     padding: 50px 0 30px;
     width: 60%;
     margin: 0 auto;
+    
+    @media (max-width: 768px) {
+      width: 90%;
+      line-height: 30px;
+    }
   }
   
   img.decoration {
@@ -77,6 +82,11 @@ const StartPageWrapper = styled.div`
     align-items: center;
     align-content: center; 
     justify-content: center; 
+    padding-left: 100px;
+    
+    @media (max-width: 768px) {
+    padding-left: 0;
+    }
   }
   
   .start_btn {

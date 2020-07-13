@@ -11,6 +11,13 @@ const GameWrapper = styled.div`
   background: linear-gradient(231.18deg, #9FAF92 -0.81%, #037264 96.43%);
   overflow: hidden;
   
+   @media (max-width: 768px) {
+      height: calc(100vh - 50px);
+      margin-left: 0;
+      overflow: hidden;
+    }
+   
+  
   .tree-wave,
   .tree-tall {
     position: absolute;
@@ -30,7 +37,7 @@ const GameWrapper = styled.div`
     @media (max-width: 520px) {
       left: -24px;
       width: 25%;
-      }
+    }
   }
   
   .tree-tall {
@@ -48,18 +55,7 @@ const GameWrapper = styled.div`
       right: -14px;
       }
   }
-  
-    @media (max-width: 768px) {
-      height: calc(100vh - 50px);
-      margin-left: 0;
-      overflow: hidden;
-    }
-    
-    @media (orientation: landscape) and (max-width: 768px) {
-      height: calc(100vh - 50px);
-      margin-left: 0;
-      overflow: scroll;
-    }
+ 
   
   img.sound {
     position: absolute;
@@ -100,18 +96,15 @@ const GameWrapper = styled.div`
     }
   }
   
-  img.cross {
+  .cross {
     position: absolute;
     z-index: 2;
-    top: 9px;
-    right: 7px;
-    transform: scale(0.5);
-    width: 70px;
-    height: 70px;
+    top: 23px;
+    right: 26px;
     
     @media (max-width: 768px) {
-      right: -4px;
-      top: -8px;
+      right: 13px;
+      top: 5px;
     }
     
     &:hover {
@@ -137,13 +130,13 @@ const GameWrapper = styled.div`
     }
   }
 
-  .animation {
-    animation: falling 5s infinite;
-  }
-
-  .no-animation {
-    animation: unset;
-  }
+  // .animation {
+  //   animation: falling 5s infinite;
+  // }
+  //
+  // .no-animation {
+  //   animation: unset;
+  // }
 
   .falling_word {
     font-size: 35px;

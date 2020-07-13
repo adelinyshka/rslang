@@ -5,11 +5,13 @@ import { useDispatch } from 'react-redux';
 import GameWrapper from './GameWrapper';
 import { getRandomNumber, shuffle } from './Helpers';
 import Lives from './Lives';
-import { Rules, Exit } from './Modal';
+// import { Rules, Exit } from './Modal';
 import SoundSwitcher from '../../../common/components/SoundSwitcher';
 import useAPI from '../../../common/utils/index';
 import Results from './Results';
 import { setStatusGame } from '../redux';
+import Rules from '../../../common/components/Modals/Rules';
+import Exit from '../../../common/components/Modals/Exit';
 
 const classNames = require('classnames');
 
@@ -157,7 +159,7 @@ export default function Game() {
         setPage(page + 1);
         updateArrayWordsForStatistics(false);
       }
-    }, 4650);
+    }, 465000);
 
     return () => {
       clearTimeout(timer);
@@ -175,17 +177,17 @@ export default function Game() {
         />
       )
         : false}
-      {isExit ? (
-        <Exit
-          onCancel={() => setIsExit(false)}
-          onExit={onExit}
-        />
-      ) : false}
-      {isRules ? (
-        <Rules
-          onRules={() => setIsRules(false)}
-        />
-      ) : false}
+      {/* {isExit ? ( */}
+      {/*  <Exit */}
+      {/*    onCancel={() => setIsExit(false)} */}
+      {/*    onExit={onExit} */}
+      {/*  /> */}
+      {/* ) : false} */}
+      {/* {isRules ? ( */}
+      {/*  <Rules */}
+      {/*    onRules={() => setIsRules(false)} */}
+      {/*  /> */}
+      {/* ) : false} */}
       <img
         className="tree-wave"
         src="/assets/images/savannah/tree_waved.svg"
@@ -197,25 +199,12 @@ export default function Game() {
         alt="tree tall"
       />
       <SoundSwitcher onClick={() => setSoundOn()} />
-      <div
-        onClick={() => setIsRules(true)}
-      >
-        <img
-          className="question"
-          src="/assets/images/savannah/question.svg"
-          alt="question with info about game"
-        />
+      <Rules rules="Выберите перевод из 4 вариантов до того
+                как падающее слово достигнет кристалла"
+      />
+      <div className="cross">
+        <Exit />
       </div>
-      <div
-        onClick={ () => setIsExit(true)}
-      >
-        <img
-          className="cross"
-          src="/assets/images/savannah/x_white.svg"
-          alt="close"
-        />
-      </div>
-
       <Lives
         livesCount={livesCount}
         leftLifesHandler={gameOverHandler}
@@ -303,8 +292,3 @@ export default function Game() {
     </GameWrapper>
   );
 }
-
-// todo
-// слово когда падает и неверно отвечаешь - не исчезает, а обновляется и
-// становится новым
-// забирать статистику надо из выученных слов
