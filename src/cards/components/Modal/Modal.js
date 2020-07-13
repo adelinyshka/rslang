@@ -83,6 +83,7 @@ const Modal = () => {
           method: 'PUT',
           body: JSON.stringify(stats),
         };
+
         fetchJSON(statisticsEndpoint, putFetchOptions)
           .catch((er) => console.log(er));
       })
@@ -115,7 +116,7 @@ const Modal = () => {
       <div className="pop-up">
         <div className="top stats">
           <div>
-            <Link to="/main" onClick={() => { updateStatistics(); }}>
+            <Link to="/main" onClick={updateStatistics}>
               <img
                 className="icon"
                 src="/assets/images/common/yes.svg"

@@ -31,7 +31,6 @@ export const incrementCurrentStreak = () => ({
 
 export const clearCards = () => ({
   type: 'CLEAR_CARDS',
-  ...INITIAL_STATE,
 });
 
 export const setGameEnded = (gameEnded) => ({
@@ -129,6 +128,8 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
           : state.longestStreak,
         currentStreak: 0,
       };
+    case 'CLEAR_CARDS':
+      return { ...INITIAL_STATE };
     case 'SET_GAME_ENDED':
     case 'SET_CARDS_TOTAL':
     case 'SET_CARDS':

@@ -152,12 +152,12 @@ const Intervals = ({ wordId, userWord }) => {
     batch(() => {
       if (wasMistaken || !wasAnswered || shouldRepeat) {
         newCards.push(lastCard);
-        if (wasMistaken) {
-          const newMistakenWord = {};
-          newMistakenWord[wordId] = false;
-          dispatch(pushMistakenWord(newMistakenWord));
-          dispatch(setLongestStreak());
-        }
+      }
+      if (wasMistaken) {
+        const newMistakenWord = {};
+        newMistakenWord[wordId] = false;
+        dispatch(pushMistakenWord(newMistakenWord));
+        dispatch(setLongestStreak());
       }
       if (!wasMistaken && wasAnswered && !shouldRepeat) {
         dispatch(incrementCurrentStreak());
