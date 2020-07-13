@@ -39,7 +39,6 @@ export default Style.div`
     color: #000;
     border-radius: 12px 12px 0 0;
     text-align: center;
-    cursor: pointer;
   }
 
   .content {
@@ -66,6 +65,7 @@ export default Style.div`
   
   .round {
   width: 20px;
+  cursor: pointer;
   }
 
   .pop-up a:hover {

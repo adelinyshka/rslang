@@ -113,82 +113,83 @@ const Modal = () => {
   return (
     <StyleRules>
       <div className="pop-up">
-        <Link to="/main" onClick={() => { updateStatistics(); }}>
-          <div className="top stats">
-            <div>
+        <div className="top stats">
+          <div>
+            <Link to="/main" onClick={() => { updateStatistics(); }}>
               <img
                 className="icon"
                 src="/assets/images/common/yes.svg"
                 alt="question in round"
               />
-            </div>
-            <section className="content">
-              <Container fuild>
-                <Row>
-                  <Col xs={1}>
-                    <img
-                      className="round"
-                      src="/assets/images/common/dark_vio.svg"
-                      alt=""
-                    />
-                  </Col>
-                  <Col
-                    xs={9}
-                    className="text-stats"
-                  >
+            </Link>
+
+          </div>
+          <section className="content">
+            <Container fuild>
+              <Row>
+                <Col xs={1}>
+                  <img
+                    className="round"
+                    src="/assets/images/common/dark_vio.svg"
+                    alt=""
+                  />
+                </Col>
+                <Col
+                  xs={9}
+                  className="text-stats"
+                >
                 Количество пройденных слов
-                  </Col>
-                  <Col className="text-dark-vio" xs={1}>{passedCards}</Col>
-                </Row>
-                <Row>
-                  <Col xs={1}>
-                    <img
-                      className="round"
-                      src="/assets/images/common/vio.svg"
-                      alt=""
-                    />
-                  </Col>
-                  <Col xs={9} className="text-stats">% верных ответов</Col>
-                  <Col className="text-vio" xs={1}>{rightPercentage}</Col>
-                </Row>
-                <Row>
-                  <Col xs={1}>
-                    <img
-                      className="round"
-                      src="/assets/images/common/pink.svg"
-                      alt=""
-                    />
-                  </Col>
-                  <Col xs={9} className="text-stats">Количество новых слов</Col>
-                  <Col xs={1} className="text-pink">{newWords}</Col>
-                </Row>
-                <Row>
-                  <Col xs={1}>
-                    <img
-                      className="round"
-                      src="/assets/images/common/green.svg"
-                      alt=""
-                    />
-                  </Col>
-                  <Col
-                    xs={9}
-                    className="text-stats"
-                  >
+                </Col>
+                <Col className="text-dark-vio" xs={1}>{passedCards}</Col>
+              </Row>
+              <Row>
+                <Col xs={1}>
+                  <img
+                    className="round"
+                    src="/assets/images/common/vio.svg"
+                    alt=""
+                  />
+                </Col>
+                <Col xs={9} className="text-stats">% верных ответов</Col>
+                <Col className="text-vio" xs={1}>{rightPercentage}</Col>
+              </Row>
+              <Row>
+                <Col xs={1}>
+                  <img
+                    className="round"
+                    src="/assets/images/common/pink.svg"
+                    alt=""
+                  />
+                </Col>
+                <Col xs={9} className="text-stats">Количество новых слов</Col>
+                <Col xs={1} className="text-pink">{newWords}</Col>
+              </Row>
+              <Row>
+                <Col xs={1}>
+                  <img
+                    className="round"
+                    src="/assets/images/common/green.svg"
+                    alt=""
+                  />
+                </Col>
+                <Col
+                  xs={9}
+                  className="text-stats"
+                >
               Самая длинная серия верных ответов
-                  </Col>
-                  <Col xs={1} className="text-green">{longestStreak}</Col>
-                </Row>
-              </Container>
-            </section>
+                </Col>
+                <Col xs={1} className="text-green">{longestStreak}</Col>
+              </Row>
+            </Container>
+          </section>
 
-          </div>
-          <div className="bottom">
-            <div className="congrats-text">
+        </div>
+        <div className="bottom">
+          <div className="congrats-text">
           Поздравляем!
-            </div>
-
           </div>
-        </Link>
+
+        </div>
       </div>
     </StyleRules>
   );
