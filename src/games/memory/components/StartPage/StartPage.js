@@ -16,7 +16,7 @@ const StartPage = () => {
 
   return (
     <div className={style.Wrapper}>
-      <Link to="./">
+      <Link to="../games">
         <img
           src="../assets/images/memory/cross.svg"
           alt="cross"

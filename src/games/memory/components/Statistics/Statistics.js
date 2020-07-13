@@ -2,14 +2,36 @@ import React, {
   useState, useCallback, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
-import useAPI from '../../../../common/utils';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchJSON } from '../../../../common/utils/index';
 
-const fetchOptions = {
-  method: 'GET',
+import {
+  userIdSelector,
+  tokenSelector,
+} from '../../../../auth/redux/selectors';
+
+const baseStatistic = {
+  'learnedWords': 0,
+  'optional': {
+    'cards': {
+    },
+    'speakit': {
+    },
+    'audiocall': {
+    },
+    'memory': {
+    },
+    'savannah': {
+    },
+    'sprint': {
+    },
+    'puzzle': {
+    },
+  },
 };
 
-const fetchOptionsUpdate = {
-  method: 'PUT',
+const fetchOptionsGet = {
+  method: 'GET',
 };
 
 function Statistics({
@@ -17,37 +39,88 @@ function Statistics({
   statistics,
 }) {
   const [req, setReq] = useState(null);
-  const userStatistics = useMemo(
-    () => 'users/5f0b3b6a086fce0017f35ea4/statistics', [],
+  const userId = useSelector(userIdSelector);
+  const token = useSelector(tokenSelector);
+
+  const completeGame = useCallback(() => {
+    // setModalResult(true);
+    const link = `users/${userId}/statistics`;
+    const date = new Date(Date.now());
+    const dateString = date.toLocaleDateString('en-Us');
+    const getFetchOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const promise = fetchJSON(link, getFetchOptions);
+    promise
+      .then(({ id, ...stats }) => {
+        let gameStatistics = {};
+        const optionals = stats.optional;
+
+        if (stats.optional.memory) {
+          gameStatistics = { ...stats.optional.memory };
+        }
+
+        if (gameStatistics[dateString]) {
+          gameStatistics[dateString] = {
+            'timesPlayed': gameStatistics[dateString].timesPlayed + 1,
+            'result': gameStatistics[dateString].result + 10,
+          };
+        } else {
+          gameStatistics[dateString] = {
+            'timesPlayed': 1,
+            'result': 10,
+          };
+        }
+
+        const currentStatistics = {
+          ...stats,
+          optional: {
+            ...optionals,
+            memory: {
+              ...gameStatistics,
+            },
+          },
+        };
+
+        return currentStatistics;
+      })
+      .then((currentStatistics) => {
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+        fetchJSON(link, sendOptions);
+      })
+      .catch(() => {
+        const currentStatistics = {
+          ...baseStatistic,
+        };
+
+        currentStatistics.optional.memory[dateString] = {
+          'timesPlayed': 1,
+          'result': 10,
+        };
+
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+
+        fetchJSON(link, sendOptions);
+      });
+  }, [token, userId]);
+
+  return (
+    <div>Hello</div>
   );
-
-  const action = useCallback((statist) => setReq(statist), []);
-  const getStatistics = useAPI(userStatistics, fetchOptions, action);
-  const response = fetchOptionsUpdate;
-
-  if (getStatistics) {
-    const date = new Date();
-    const day = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-
-    if (getStatistics.optional.memory[day]) {
-      getStatistics.optional.memory[day].timesPlayed += 1;
-      getStatistics.optional.memory[day].result += statistics.correct.length;
-    } else {
-      getStatistics.optional.memory[day] = {};
-      getStatistics.optional.memory[day].timesPlayed = 1;
-      getStatistics.optional.memory[day].result = statistics.correct.length;
-    }
-
-    response.body = JSON.stringify(getStatistics);
-  }
-
-  const result = useAPI(userStatistics, response, action);
-
-  if (result) {
-    setIsStatisticsSend(true);
-  }
-
-  return '';
 }
 
 Statistics.propTypes = {
