@@ -188,8 +188,8 @@ const Game = ({
         let gameStatistics = {};
         const optionals = stats.optional;
 
-        if (stats.optional.savannah) {
-          gameStatistics = { ...stats.optional.savannah };
+        if (stats.optional.speakit) {
+          gameStatistics = { ...stats.optional.speakit };
         }
 
         if (gameStatistics[dateString]) {
@@ -208,7 +208,7 @@ const Game = ({
           ...stats,
           optional: {
             ...optionals,
-            savannah: {
+            speakit: {
               ...gameStatistics,
             },
           },
