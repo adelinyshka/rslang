@@ -19,9 +19,6 @@ const audioWrong = new Audio('/assets/audio/wrong.mp3');
 
 const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
-let srcImage;
-let pronounce;
-
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
 const getEndpointUrl = (level, page) => `words?group=${level}&page=${page}`;
@@ -34,6 +31,7 @@ export default function Game({ callback }) {
   const [shouldSoundBePlayed, setShouldSoundBePlayed] = useState(true);
   const [isWordChosen, setIsWordChosen] = useState(false);
   const [endpointUrl, setEndpointUrl] = useState(getEndpointUrl(0, 1));
+  const [srcImage, setSrcImage] = useState('');
   const changeVisible = () => {
     setWarn(!warn);
   };
@@ -49,8 +47,8 @@ export default function Game({ callback }) {
 
   const playSound = useCallback(() => {
     if (resultWord) {
-      pronounce = new Audio(`${audioPath}${resultWord.audio}`);
-      srcImage = `${audioPath}${resultWord.image}`;
+      const pronounce = new Audio(`${audioPath}${resultWord.audio}`);
+      setSrcImage(`${audioPath}${resultWord.image}`);
       pronounce.volume = 0.05;
       pronounce.play();
     }
@@ -63,9 +61,9 @@ export default function Game({ callback }) {
 
   useApi(endpointUrl, fetchOptions, action);
 
-  const changeStatus = () => {
+  const changeStatus = useCallback(() => {
     setHint(!hint);
-  };
+  }, [hint]);
 
   const chooseWord = (word) => {
     if (word.id === resultWord.id) {
