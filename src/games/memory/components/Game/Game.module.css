@@ -64,6 +64,10 @@
   /* position: absolute; */
 }
 
+.info {
+  color: #fff;
+}
+
 .cardRus {
   margin-top: 20px;
 }
@@ -141,5 +145,33 @@
 
   .cardRus {
     margin-top: 10px;
+  }
+
+  .info {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    color: #fff;
+    background-color: #6979F8;
+    font-size: 20px;
+    margin: auto;
+    border-radius: 10px;
+    z-index: 100;
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+  }
+
+  .info > p {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+@media (orientation: landscape) and (max-width: 575px) {
+  .info {
+    display: none;
   }
 }

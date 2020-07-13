@@ -117,6 +117,9 @@ function Game() {
       {!isGameOver
         ? (
           <div className={style.GameWrapper}>
+            <div className={style.info}>
+              <p>Поверните устройство горизонтально</p>
+            </div>
             {isExit ? (
               <Exit
                 onCansel={() => setIsCansel(false)}

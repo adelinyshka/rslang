@@ -53,7 +53,7 @@ const Exit = ({ onCancel, onExit }) => (
           >
             Отменить
           </button>
-          <Link to="./">
+          <Link to="../games">
             <button
               className={style.btnExit}
               type="button"
@@ -74,63 +74,63 @@ function GameOver({
   const [isStatisticsSend, setIsStatisticsSend] = useState(false);
   return (
     <div>
-      {/* { isStatisticsSend ? ( */}
-      <StyleGameOver>
-        <ul className="listWords">
-          {
-            statistics.correct.map(({
-              word,
-              transcription,
-              wordTranslate,
-            }, index) => (
-              <li
-                key={index}
-                className="learnedWord"
+      { isStatisticsSend ? (
+        <StyleGameOver>
+          <ul className="listWords">
+            {
+              statistics.correct.map(({
+                word,
+                transcription,
+                wordTranslate,
+              }, index) => (
+                <li
+                  key={index}
+                  className="learnedWord"
+                >
+                  <div>
+                    <p>{`${word}`}</p>
+                    <p>{`${transcription}`}</p>
+                    <p>{`${wordTranslate}`}</p>
+                  </div>
+                </li>
+              ))
+            }
+            {
+              statistics.incorrect.map(({
+                word,
+                transcription,
+                wordTranslate,
+              }, index) => (
+                <li
+                  key={index}
+                >
+                  <div>
+                    <p>{`${word}`}</p>
+                    <p>{`${transcription}`}</p>
+                    <p>{`${wordTranslate}`}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+          <div className="wrapper-btn ">
+            <Link to="../games">
+              <button
+                className={style.btnExit}
+                type="button"
               >
-                <div>
-                  <p>{`${word}`}</p>
-                  <p>{`${transcription}`}</p>
-                  <p>{`${wordTranslate}`}</p>
-                </div>
-              </li>
-            ))
-          }
-          {
-            statistics.incorrect.map(({
-              word,
-              transcription,
-              wordTranslate,
-            }, index) => (
-              <li
-                key={index}
-              >
-                <div>
-                  <p>{`${word}`}</p>
-                  <p>{`${transcription}`}</p>
-                  <p>{`${wordTranslate}`}</p>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-        <div className="wrapper-btn ">
-          <Link to="./">
-            <button
-              className={style.btnExit}
-              type="button"
-            >
               Попробовать ещё!
-            </button>
-          </Link>
-        </div>
-      </StyleGameOver>
-      {/* )
+              </button>
+            </Link>
+          </div>
+        </StyleGameOver>
+      )
         : (
           <Statistics
             setIsStatisticsSend={setIsStatisticsSend}
             statistics={statistics}
           />
-        )} */}
+        )}
     </div>
   );
 }

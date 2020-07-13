@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useMemo,
+  useState, useCallback, useMemo, useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -30,15 +30,11 @@ const baseStatistic = {
   },
 };
 
-const fetchOptionsGet = {
-  method: 'GET',
-};
-
 function Statistics({
   setIsStatisticsSend,
   statistics,
 }) {
-  const [req, setReq] = useState(null);
+  // const [req, setReq] = useState(null);
   const userId = useSelector(userIdSelector);
   const token = useSelector(tokenSelector);
 
@@ -118,17 +114,25 @@ function Statistics({
       });
   }, [token, userId]);
 
+  useEffect(() => {
+    completeGame();
+
+    setIsStatisticsSend(true);
+  }, [completeGame]);
+
   return (
     <div>Hello</div>
   );
 }
 
 Statistics.propTypes = {
+  statistics: PropTypes.object,
   setIsStatisticsSend: PropTypes.func,
 };
 
 Statistics.defaultProps = {
-  statistics: () => {},
+  statistics: {},
+  setIsStatisticsSend: () => {},
 };
 
 export default Statistics;
