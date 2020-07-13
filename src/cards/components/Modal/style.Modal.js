@@ -7,7 +7,7 @@ export default Style.div`
   left: 0;
   right: 0;
   bottom: 0;
-  
+
   .pop-up {
     z-index: 50;
     width: 80%;
@@ -66,6 +66,10 @@ export default Style.div`
   
   .round {
   width: 20px;
+  }
+
+  .pop-up a:hover {
+    text-decoration: none;
   }
   
   .bottom {

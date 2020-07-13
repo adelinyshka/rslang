@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { fetchJSON } from '../../../common/utils';
 import { userIdSelector, tokenSelector } from '../../../auth/redux/selectors';
@@ -10,7 +11,7 @@ import {
   newWordsSelector, longestStreakSelector,
 } from '../../redux/selectors';
 import {
-  setGameEnded, clearCards,
+  clearCards,
 } from '../../redux';
 import StyleRules from './style.Modal';
 
@@ -108,89 +109,86 @@ const Modal = () => {
     dispatch(clearCards());
   }, [longestStreak, newWords, passedCards,
     rightAnswers, token, userId, dispatch]);
+
   return (
     <StyleRules>
       <div className="pop-up">
-        <div
-          className="top stats"
-          onClick={() => {
-            updateStatistics();
-            dispatch(setGameEnded(false));
-          }}
-        >
-          <div>
-            <img
-              className="icon"
-              src="/assets/images/common/yes.svg"
-              alt="question in round"
-            />
-          </div>
-          <section className="content">
-            <Container fuild>
-              <Row>
-                <Col xs={1}>
-                  <img
-                    className="round"
-                    src="/assets/images/common/dark_vio.svg"
-                    alt=""
-                  />
-                </Col>
-                <Col
-                  xs={9}
-                  className="text-stats"
-                >
+        <Link to="/main" onClick={() => { updateStatistics(); }}>
+          <div className="top stats">
+            <div>
+              <img
+                className="icon"
+                src="/assets/images/common/yes.svg"
+                alt="question in round"
+              />
+            </div>
+            <section className="content">
+              <Container fuild>
+                <Row>
+                  <Col xs={1}>
+                    <img
+                      className="round"
+                      src="/assets/images/common/dark_vio.svg"
+                      alt=""
+                    />
+                  </Col>
+                  <Col
+                    xs={9}
+                    className="text-stats"
+                  >
                 Количество пройденных слов
-                </Col>
-                <Col className="text-dark-vio" xs={1}>{passedCards}</Col>
-              </Row>
-              <Row>
-                <Col xs={1}>
-                  <img
-                    className="round"
-                    src="/assets/images/common/vio.svg"
-                    alt=""
-                  />
-                </Col>
-                <Col xs={9} className="text-stats">% верных ответов</Col>
-                <Col className="text-vio" xs={1}>{rightPercentage}</Col>
-              </Row>
-              <Row>
-                <Col xs={1}>
-                  <img
-                    className="round"
-                    src="/assets/images/common/pink.svg"
-                    alt=""
-                  />
-                </Col>
-                <Col xs={9} className="text-stats">Количество новых слов</Col>
-                <Col xs={1} className="text-pink">{newWords}</Col>
-              </Row>
-              <Row>
-                <Col xs={1}>
-                  <img
-                    className="round"
-                    src="/assets/images/common/green.svg"
-                    alt=""
-                  />
-                </Col>
-                <Col
-                  xs={9}
-                  className="text-stats"
-                >
+                  </Col>
+                  <Col className="text-dark-vio" xs={1}>{passedCards}</Col>
+                </Row>
+                <Row>
+                  <Col xs={1}>
+                    <img
+                      className="round"
+                      src="/assets/images/common/vio.svg"
+                      alt=""
+                    />
+                  </Col>
+                  <Col xs={9} className="text-stats">% верных ответов</Col>
+                  <Col className="text-vio" xs={1}>{rightPercentage}</Col>
+                </Row>
+                <Row>
+                  <Col xs={1}>
+                    <img
+                      className="round"
+                      src="/assets/images/common/pink.svg"
+                      alt=""
+                    />
+                  </Col>
+                  <Col xs={9} className="text-stats">Количество новых слов</Col>
+                  <Col xs={1} className="text-pink">{newWords}</Col>
+                </Row>
+                <Row>
+                  <Col xs={1}>
+                    <img
+                      className="round"
+                      src="/assets/images/common/green.svg"
+                      alt=""
+                    />
+                  </Col>
+                  <Col
+                    xs={9}
+                    className="text-stats"
+                  >
               Самая длинная серия верных ответов
-                </Col>
-                <Col xs={1} className="text-green">{longestStreak}</Col>
-              </Row>
-            </Container>
-          </section>
+                  </Col>
+                  <Col xs={1} className="text-green">{longestStreak}</Col>
+                </Row>
+              </Container>
+            </section>
 
-        </div>
-        <div className="bottom">
-          <div className="congrats-text">
-          Поздравляем!
           </div>
+          <div className="bottom">
+            <div className="congrats-text">
+          Поздравляем!
+            </div>
 
-        </div>
+          </div>
+        </Link>
       </div>
     </StyleRules>
   );
