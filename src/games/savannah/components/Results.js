@@ -25,7 +25,7 @@ const Results = ({
 
       </div>
     </div>
-    <ul className="listWords">
+    <ul className="results-words">
       {
         arrayWithStatistics.map(({
           id,
@@ -58,17 +58,17 @@ const Results = ({
     <div className="wrapper-btn ">
       <button
         type="button"
-        className="button__close-results"
+        className="btn-close"
         onClick={() => {}}
       >
-          Return
+          К списку игр
       </button>
       <button
         type="button"
-        className="button__new-game"
+        className="btn-new"
         onClick={() => {}}
       >
-          New game
+          Новая игра
       </button>
     </div>
   </ResultsWrapper>
