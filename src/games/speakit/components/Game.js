@@ -7,7 +7,7 @@ import React, {
 
 import { useSelector, useDispatch, batch } from 'react-redux';
 import SpeechRecognition from 'react-speech-recognition';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import StyleGame from './style.Game';
 
@@ -17,7 +17,7 @@ import Results from './Results';
 import Rules from './Rules';
 import Exit from './Exit';
 
-import useAPI from '../../../common/utils/index';
+import useAPI, { fetchJSON } from '../../../common/utils/index';
 
 import {
   setWords,
@@ -40,7 +40,7 @@ import {
   speechWordsSelector,
 } from '../redux/selectors';
 
-import { userIdSelector } from '../../../auth/redux/selectors';
+import { userIdSelector, tokenSelector } from '../../../auth/redux/selectors';
 
 const baseStatistic = {
   'learnedWords': 0,
@@ -103,15 +103,12 @@ const Game = ({
   const statusGame = useSelector(statusGameSelector);
   const words = useSelector(wordsSelector);
   const userId = useSelector(userIdSelector);
+  const token = useSelector(tokenSelector);
 
   const [modalResult, setModalResult] = useState(false);
   const [modalExit, setModalExit] = useState(false);
   const [modalRules, setModalRules] = useState(false);
   const [wordsPage, setWordsPage] = useState(randomPage());
-  const [statistics, setStatistics] = useState({});
-  const [urlSendStatistic, setUrlSendStatistic] = useState('');
-  const [urlGetStatistic, setUrlGetStatistic] = useState(`users/${userId}/statistics`);
-  const [sendFetchOption, setSendFetchOption] = useState('');
 
   const changeActiveLevel = useCallback((levelProps) => {
     if (activeLevel !== levelProps) {
@@ -172,69 +169,86 @@ const Game = ({
   }, [dispatch]);
 
   const completeGame = useCallback(() => {
-    let currentStatistics = {};
-    let gameStatistics = {};
     setModalResult(true);
-    setUrlGetStatistic('');
+    const link = `users/${userId}/statistics`;
     const date = new Date(Date.now());
     const dateString = date.toLocaleDateString('en-Us');
-    const optionals = statistics.optional;
-
-    if (optionals && optionals.speakit) {
-      gameStatistics = {
-        ...statistics.optional.speakit,
-      };
-    } else {
-      gameStatistics[dateString] = {
-        'timesPlayed': 0,
-        'result': 0,
-      };
-    }
-
-    if (gameStatistics[dateString]) {
-      gameStatistics[dateString] = {
-        'timesPlayed': gameStatistics[dateString].timesPlayed + 1,
-        'result': gameStatistics[dateString].result + 10,
-      };
-    } else {
-      gameStatistics[dateString] = {
-        'timesPlayed': 1,
-        'result': 10,
-      };
-    }
-
-    if (optionals) {
-      currentStatistics = {
-        ...statistics,
-        optional: {
-          ...optionals,
-          speakit: {
-            ...gameStatistics,
-          },
-        },
-      };
-    } else {
-      currentStatistics = {
-        ...baseStatistic,
-        optional: {
-          ...baseStatistic.optional,
-          speakit: {
-            ...gameStatistics,
-          },
-        },
-      };
-    }
-
-    const sendOptions = {
-      method: 'PUT',
-      body: JSON.stringify(currentStatistics),
+    const getFetchOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
     };
 
-    setSendFetchOption(sendOptions);
-    setUrlSendStatistic(`users/${userId}/statistics`);
-    setUrlGetStatistic(`users/${userId}/statistics`);
-    setUrlSendStatistic('');
-  }, [statistics, userId]);
+    const promise = fetchJSON(link, getFetchOptions);
+    promise
+      .then(({ id, ...stats }) => {
+        let gameStatistics = {};
+        const optionals = stats.optional;
+
+        if (stats.optional.savannah) {
+          gameStatistics = { ...stats.optional.savannah };
+        }
+
+        if (gameStatistics[dateString]) {
+          gameStatistics[dateString] = {
+            'timesPlayed': gameStatistics[dateString].timesPlayed + 1,
+            'result': gameStatistics[dateString].result + 10,
+          };
+        } else {
+          gameStatistics[dateString] = {
+            'timesPlayed': 1,
+            'result': 10,
+          };
+        }
+
+        const currentStatistics = {
+          ...stats,
+          optional: {
+            ...optionals,
+            savannah: {
+              ...gameStatistics,
+            },
+          },
+        };
+
+        return currentStatistics;
+      })
+      .then((currentStatistics) => {
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+        fetchJSON(link, sendOptions);
+      })
+      .catch(() => {
+        const currentStatistics = {
+          ...baseStatistic,
+        };
+
+        currentStatistics.optional.speakit[dateString] = {
+          'timesPlayed': 1,
+          'result': 10,
+        };
+
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+
+        fetchJSON(link, sendOptions);
+      });
+
+    batch(() => {
+      dispatch(setSpeechActiveWord(''));
+      dispatch(setSpeechWords([]));
+      dispatch(setActiveWord(''));
+    });
+  }, [dispatch, token, userId]);
 
   useEffect(() => {
     recognition.lang = 'en-US';
@@ -257,7 +271,6 @@ const Game = ({
           dispatch(setSpeechWords(trueSpeechWords));
           dispatch(setImage(linkImage));
         });
-        console.log(speechWords.length);
         if (speechWords.length === 0) completeGame();
       } else {
         dispatch(setSpeechActiveWord(transcript));
@@ -284,19 +297,7 @@ const Game = ({
     + `page=${wordsPage}&group=${activeLevel}&wordsPerExampleSentenceLTE=99`
     + '&wordsPerPage=10', [activeLevel, wordsPage]);
 
-  const getStatisticURL = useMemo(() => urlGetStatistic, [urlGetStatistic]);
-  const sendStatisticURL = useMemo(() => urlSendStatistic, [urlSendStatistic]);
-
-  const setGettingStatistic = useCallback((gettingStatistic) => {
-    console.log(gettingStatistic);
-    setStatistics(gettingStatistic);
-  }, []);
-
-  console.log(statistics);
-
   useAPI(userWordsURL, fetchOptionsGet, setGettingWords);
-  useAPI(getStatisticURL, fetchOptionsGet, setGettingStatistic);
-  useAPI(sendStatisticURL, sendFetchOption);
 
   if (!browserSupportsSpeechRecognition && statusGame === 'speach') {
     setStatusGame('no-speach');
