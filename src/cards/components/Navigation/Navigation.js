@@ -67,7 +67,7 @@ const Navigation = ({ isPreviousCard }) => {
         hintsDisplay={shouldDisplayHints}
       />
     )
-  )), [itemsInfo]);
+  )), [itemsInfo, shouldDisplayHints]);
 
   return (
     <div className={styles.Navigation}>
