@@ -37,8 +37,8 @@ const useAPI = (endpoint, fetchOptions = {}, action, shouldFetch = true) => {
           setResult(data);
           if (action) action(data);
         })
-        .catch((er) => setError(er));
-      dispatch(setShowSpinner(false));
+        .catch((er) => setError(er))
+        .finally(() => dispatch(setShowSpinner(false)));
     }
   }, [endpoint, finalOptions, action, dispatch, shouldFetch]);
 
