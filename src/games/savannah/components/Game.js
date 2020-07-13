@@ -129,7 +129,7 @@ export default function Game() {
         playSound(false);
         setPage(page + 1);
       }
-    }, 4650);
+    }, 4650000);
 
     return () => {
       clearTimeout(timer);
@@ -255,7 +255,10 @@ export default function Game() {
       </div>
 
       <img
-        className={classNames('crystal', {})}
+        className={classNames('crystal', {
+          'animation-for-crystal ': answer,
+          'animation-for-crystal-wrong': !answer,
+        })}
         src="/assets/images/savannah/crystal.svg"
         alt="violet crystal"
         style={{ transform: `scale(${scaleSize})` }}

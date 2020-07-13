@@ -136,14 +136,14 @@ const GameWrapper = styled.div`
      top: 18%;
     }
   }
-  
-  .animation {
-    animation: falling 5s infinite;
-  }
-
-  .no-animation {
-    animation: unset;
-  }
+  //
+  // .animation {
+  //   animation: falling 5s infinite;
+  // }
+  //
+  // .no-animation {
+  //   animation: unset;
+  // }
 
   .falling_word {
     font-size: 35px;
@@ -179,11 +179,11 @@ const GameWrapper = styled.div`
     }
     
     & button {
-    margin: 20px;
-    background: transparent;
-    border: 0;
-    color: white;
-    outline: none;
+      margin: 20px;
+      background: transparent;
+      border: 0;
+      color: white;
+      outline: none;
     
     @media (max-width: 768px){
       margin: 10px;
@@ -207,17 +207,42 @@ const GameWrapper = styled.div`
       }
     }
   }
-  
+   
   img.crystal {
     display: block;
     position: absolute;
     bottom: 10%;
     left: calc(50% - 96px/2);
-    
+    border-radius: 0;
+    border: none;
+    padding: 20px;
+    filter: unset;
+   
     @media(max-width: 768px) {
       bottom: 5%;
     }
   }
+  
+    img.animation-for-crystal {
+      animation: crystalAimation 2s infinite;
+    }
+    
+    img.animation-for-crystal-wrong {
+      animation: crystalAimationWrong 3s infinite;
+    }
+    
+    @keyframes crystalAimation {
+      50% {
+       filter: brightness(1.6);
+      }
+  }
+  
+   @keyframes crystalAimationWrong {
+      50% {
+        filter: brightness(0.9);
+      }
+  }
+  
 `;
 
 export default GameWrapper;
