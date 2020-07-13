@@ -49,8 +49,10 @@ const Statistics = () => {
   const barData = useMemo(
     () => {
       const data = [];
-      for (const [statKey, stat] of Object.entries(cardsStats)) {
-        data.push({ t: new Date(statKey), y: stat.passedCards });
+      if (cardsStats) {
+        for (const [statKey, stat] of Object.entries(cardsStats)) {
+          data.push({ t: new Date(statKey), y: stat.passedCards });
+        }
       }
       return data;
     }, [cardsStats],

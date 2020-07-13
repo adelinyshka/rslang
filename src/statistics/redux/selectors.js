@@ -12,13 +12,16 @@ export const todayCardsStats = createSelector(
   (cards) => {
     const date = new Date(Date.now());
     const dateString = date.toLocaleDateString('en-US');
+    if (!cards || !cards[dateString]) {
+      return {
+        passedCards: 0,
+        newWords: 0,
+        rightAnswers: 0,
+        longestStreak: 0,
+      };
+    }
     const todayStats = cards[dateString];
-    return todayStats || {
-      passedCards: 0,
-      newWords: 0,
-      rightAnswers: 0,
-      longestStreak: 0,
-    };
+    return todayStats;
   },
 );
 
