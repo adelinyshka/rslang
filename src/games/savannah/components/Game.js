@@ -8,6 +8,7 @@ import Lives from './Lives';
 import { Rules, Exit } from './Modal';
 import SoundSwitcher from '../../../common/components/SoundSwitcher';
 import useAPI from '../../../common/utils/index';
+import Results from './Results';
 
 import { setStatusGame } from '../redux';
 
@@ -25,9 +26,14 @@ export default function Game() {
   const dispatch = useDispatch();
   const [gettingWords, setGettingWords] = useState(true);
   const [livesCount, setLivesCount] = useState(5);
-  const [word, setWord] = useState('');
   const [answer, setAnswer] = useState('');
-  const [rightAnswer, setRightAnswer] = useState('');
+
+  const [word, setWord] = useState('');
+  const [wordTranslation, setWordTranslation] = useState('');
+  const [wordID, setWordID] = useState('');
+  const [wordAudio, setWordAudio] = useState('');
+  const [wordTranscription, setWordTranscription] = useState('');
+
   const [btnClicked, setBtnClicked] = useState(false);
   const [scaleSize, setScaleSize] = useState(counterCrystalSize);
   const [arrOfWords, setArrOfWords] = useState([]);
@@ -39,6 +45,13 @@ export default function Game() {
   const [group, setGroup] = useState(1);
   const [words, setWords] = useState([]);
   const [page, setPage] = useState(1);
+
+  const [arrayWordsWithStatistics, setArrayWordsWithStatistics] = useState([]);
+  const [numRightAnswers, setNumRightAnswers] = useState(0);
+  const [numWrongAnswers, setNumWrongAnswers] = useState(0);
+
+  // сделать объект со словами которые используются в игре
+  // вывести этот объект в конце игры
 
   const userWordsURL = useMemo(
     () => `words?page=${page}&group=${group}`, [page, group],
@@ -59,12 +72,16 @@ export default function Game() {
     if (gettingWords && livesCount && wordCounter && wordsUseApi) {
       wordsUseApi.length = 10;
       const randomNumber = getRandomNumber();
-      const newWord = wordsUseApi[randomNumber].word;
-      const newAnswer = wordsUseApi[randomNumber].wordTranslate;
-      setWord(newWord);
-      setRightAnswer(newAnswer);
+      const newWordTranslation = wordsUseApi[randomNumber].wordTranslate;
+
+      setWord(wordsUseApi[randomNumber].word);
+      setWordID(wordsUseApi[randomNumber].id);
+      setWordAudio(wordsUseApi[randomNumber].audio);
+      setWordTranscription(wordsUseApi[randomNumber].transcription);
+      setWordTranslation(newWordTranslation);
+
       const arrOfTranslations = [];
-      arrOfTranslations.push(newAnswer);
+      arrOfTranslations.push(newWordTranslation);
 
       while (arrOfTranslations.length < 4) {
         const translation = wordsUseApi[getRandomNumber()].wordTranslate;
@@ -99,8 +116,22 @@ export default function Game() {
     setIsExit(false);
   }, [dispatch]);
 
+  function updateArrayWordsForStatistics(isCorrect) {
+    const rerenderStats = arrayWordsWithStatistics;
+    rerenderStats.push({
+      'word': word,
+      'id': wordID,
+      'audio': wordAudio,
+      'transcription': wordTranscription,
+      'translation': wordTranslation,
+      'isCorrect': isCorrect,
+    });
+    setArrayWordsWithStatistics(rerenderStats);
+  }
+
   function checkAnswer(wordActive, answerActive) {
     const correct = wordActive === answerActive;
+    updateArrayWordsForStatistics(correct);
     setAnswer(correct);
     setBtnClicked(correct);
     setWordCounter(wordCounter - 1);
@@ -109,7 +140,11 @@ export default function Game() {
 
     if (correct) {
       setScaleSize(counterCrystalSize += 0.02);
-    } else setLivesCount(livesCount - 1);
+      setNumRightAnswers(numRightAnswers + 1);
+    } else {
+      setLivesCount(livesCount - 1);
+      setNumWrongAnswers(numWrongAnswers + 1);
+    }
   }
 
   const refreshWordsOnClick = useCallback(() => {
@@ -128,8 +163,9 @@ export default function Game() {
         setLivesCount(livesCount - 1);
         playSound(false);
         setPage(page + 1);
+        updateArrayWordsForStatistics(false);
       }
-    }, 4650000);
+    }, 4650);
 
     return () => {
       clearTimeout(timer);
@@ -138,6 +174,14 @@ export default function Game() {
 
   return (
     <GameWrapper>
+      {isGameOver ? (
+        <Results
+          arrayWithStatistics={arrayWordsWithStatistics}
+          numOfRightAnswers={numRightAnswers}
+          numOfWrongAnswers={numWrongAnswers}
+        />
+      )
+        : false}
       {isExit ? (
         <Exit
           onCancel={() => setIsExit(false)}
@@ -202,52 +246,52 @@ export default function Game() {
       <div className="listWords">
         <button
           onClick={(e) => {
-            checkAnswer(arrOfWords[0], rightAnswer);
+            checkAnswer(arrOfWords[0], wordTranslation);
             refreshWordsOnClick();
           }}
           type="button"
           className={classNames(
-            { 'wrong': btnClicked && arrOfWords[0] !== rightAnswer },
-            { 'right': btnClicked && arrOfWords[0] === rightAnswer },
+            { 'wrong': btnClicked && arrOfWords[0] !== wordTranslation },
+            { 'right': btnClicked && arrOfWords[0] === wordTranslation },
           )}
         >
           {(arrOfWords[0])}
         </button>
         <button
           onClick={(e) => {
-            checkAnswer(arrOfWords[1], rightAnswer);
+            checkAnswer(arrOfWords[1], wordTranslation);
             refreshWordsOnClick();
           }}
           type="button"
           className={classNames(
-            { 'wrong': btnClicked && arrOfWords[1] !== rightAnswer },
-            { 'right': btnClicked && arrOfWords[1] === rightAnswer },
+            { 'wrong': btnClicked && arrOfWords[1] !== wordTranslation },
+            { 'right': btnClicked && arrOfWords[1] === wordTranslation },
           )}
         >
           {(arrOfWords[1])}
         </button>
         <button
           onClick={() => {
-            checkAnswer(arrOfWords[2], rightAnswer);
+            checkAnswer(arrOfWords[2], wordTranslation);
             refreshWordsOnClick();
           }}
           type="button"
           className={classNames(
-            { 'wrong': btnClicked && arrOfWords[2] !== rightAnswer },
-            { 'right': btnClicked && arrOfWords[2] === rightAnswer },
+            { 'wrong': btnClicked && arrOfWords[2] !== wordTranslation },
+            { 'right': btnClicked && arrOfWords[2] === wordTranslation },
           )}
         >
           {(arrOfWords[2])}
         </button>
         <button
           onClick={() => {
-            checkAnswer(arrOfWords[3], rightAnswer);
+            checkAnswer(arrOfWords[3], wordTranslation);
             refreshWordsOnClick();
           }}
           type="button"
           className={classNames(
-            { 'wrong': btnClicked && arrOfWords[3] !== rightAnswer },
-            { 'right': btnClicked && arrOfWords[3] === rightAnswer },
+            { 'wrong': btnClicked && arrOfWords[3] !== wordTranslation },
+            { 'right': btnClicked && arrOfWords[3] === wordTranslation },
           )}
         >
           {(arrOfWords[3])}

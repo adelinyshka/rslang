@@ -136,14 +136,14 @@ const GameWrapper = styled.div`
      top: 18%;
     }
   }
-  //
-  // .animation {
-  //   animation: falling 5s infinite;
-  // }
-  //
-  // .no-animation {
-  //   animation: unset;
-  // }
+
+  .animation {
+    animation: falling 5s infinite;
+  }
+
+  .no-animation {
+    animation: unset;
+  }
 
   .falling_word {
     font-size: 35px;
@@ -224,20 +224,20 @@ const GameWrapper = styled.div`
   }
   
     img.animation-for-crystal {
-      animation: crystalAimation 2s infinite;
+      animation: crystalAnimation 2s infinite;
     }
     
     img.animation-for-crystal-wrong {
-      animation: crystalAimationWrong 3s infinite;
+      animation: crystalAnimationWrong 3s infinite;
     }
     
-    @keyframes crystalAimation {
+    @keyframes crystalAnimation {
       50% {
        filter: brightness(1.6);
       }
   }
   
-   @keyframes crystalAimationWrong {
+   @keyframes crystalAnimationWrong {
       50% {
         filter: brightness(0.9);
       }
