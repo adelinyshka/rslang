@@ -9,7 +9,6 @@ import { Rules, Exit } from './Modal';
 import SoundSwitcher from '../../../common/components/SoundSwitcher';
 import useAPI from '../../../common/utils/index';
 import Results from './Results';
-
 import { setStatusGame } from '../redux';
 
 const classNames = require('classnames');
@@ -24,118 +23,28 @@ const audioWrong = new Audio('/assets/audio/wrong.mp3');
 
 export default function Game() {
   const dispatch = useDispatch();
-  const [gettingWords, setGettingWords] = useState(true);
-  const [livesCount, setLivesCount] = useState(5);
   const [answer, setAnswer] = useState('');
-
+  const [arrayWordsWithStatistics, setArrayWordsWithStatistics] = useState([]);
+  const [arrOfWords, setArrOfWords] = useState([]);
+  const [btnClicked, setBtnClicked] = useState(false);
+  const [gettingWords, setGettingWords] = useState(true);
+  const [group, setGroup] = useState(1);
+  const [isExit, setIsExit] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [isRules, setIsRules] = useState(false);
+  const [livesCount, setLivesCount] = useState(5);
+  const [numRightAnswers, setNumRightAnswers] = useState(0);
+  const [numWrongAnswers, setNumWrongAnswers] = useState(0);
+  const [page, setPage] = useState(1);
+  const [scaleSize, setScaleSize] = useState(counterCrystalSize);
+  const [soundOn, setSoundOn] = useState(true);
   const [word, setWord] = useState('');
   const [wordTranslation, setWordTranslation] = useState('');
   const [wordID, setWordID] = useState('');
   const [wordAudio, setWordAudio] = useState('');
   const [wordTranscription, setWordTranscription] = useState('');
-
-  const [btnClicked, setBtnClicked] = useState(false);
-  const [scaleSize, setScaleSize] = useState(counterCrystalSize);
-  const [arrOfWords, setArrOfWords] = useState([]);
   const [wordCounter, setWordCounter] = useState(29);
-  const [isGameOver, setIsGameOver] = useState(false);
-  const [isRules, setIsRules] = useState(false);
-  const [isExit, setIsExit] = useState(false);
-  const [soundOn, setSoundOn] = useState(true);
-  const [group, setGroup] = useState(1);
   const [words, setWords] = useState([]);
-  const [page, setPage] = useState(1);
-
-  const [arrayWordsWithStatistics, setArrayWordsWithStatistics] = useState([]);
-  const [numRightAnswers, setNumRightAnswers] = useState(0);
-  const [numWrongAnswers, setNumWrongAnswers] = useState(0);
-
-  // сделать объект со словами которые используются в игре
-  // вывести этот объект в конце игры
-
-  // болванка для статы
-  const x = [
-    {
-      'word': 'sfaSF',
-      'id': 'SADFAS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-    {
-      'word': 'sfaSF',
-      'id': 'SADxvcFAS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-    {
-      'word': 'sfaSF',
-      'id': 'SADFxcvAS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-    {
-      'word': 'sfaSF',
-      'id': 'SADFAxcvS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-    {
-      'word': 'sfaSF',
-      'id': 'SAxvDFAS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-    {
-      'word': 'sfaSF',
-      'id': 'SADxcvzFAS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-    {
-      'word': 'sfaSF',
-      'id': 'SADxcvxFAS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-    {
-      'word': 'sfaSF',
-      'id': 'SADFxcvxcvAS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-    {
-      'word': 'sfaSF',
-      'id': 'SAxcvxDFAS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-    {
-      'word': 'sfaSF',
-      'id': 'SADFxvcvAS',
-      'audio': 'sdfas',
-      'transcription': 'sdfa',
-      'translation': 'asdf',
-      'isCorrect': 'asdf',
-    },
-  ];
 
   const userWordsURL = useMemo(
     () => `words?page=${page}&group=${group}`, [page, group],
@@ -175,7 +84,6 @@ export default function Game() {
       }
 
       const shuffledTranslations = shuffle(arrOfTranslations);
-
       setArrOfWords(shuffledTranslations);
       setGettingWords(false);
     }
@@ -258,14 +166,15 @@ export default function Game() {
 
   return (
     <GameWrapper>
-      {/* {isGameOver ? ( */}
-      <Results
-        arrayWithStatistics={x}
-        numOfRightAnswers={12}
-        numOfWrongAnswers={33}
-      />
-      {/* ) */}
-      {/*  : false} */}
+      {isGameOver ? (
+        <Results
+          arrayWithStatistics={arrayWordsWithStatistics}
+          numOfRightAnswers={numRightAnswers}
+          numOfWrongAnswers={numWrongAnswers}
+          toNewGame={onExit}
+        />
+      )
+        : false}
       {isExit ? (
         <Exit
           onCancel={() => setIsExit(false)}

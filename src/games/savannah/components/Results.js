@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ResultsWrapper from './ResultsWrapper';
 
 const playAudio = (audio) => {
@@ -11,7 +12,7 @@ const playAudio = (audio) => {
 };
 
 const Results = ({
-  arrayWithStatistics, numOfRightAnswers, numOfWrongAnswers,
+  arrayWithStatistics, numOfRightAnswers, numOfWrongAnswers, toNewGame,
 }) => (
   <ResultsWrapper>
     <div className="wrapper-icons">
@@ -56,17 +57,18 @@ const Results = ({
       }
     </ul>
     <div className="wrapper-btn ">
-      <button
-        type="button"
-        className="btn-close"
-        onClick={() => {}}
-      >
+      <Link to="../games">
+        <button
+          type="button"
+          className="btn-close"
+        >
           К списку игр
-      </button>
+        </button>
+      </Link>
       <button
         type="button"
         className="btn-new"
-        onClick={() => {}}
+        onClick={toNewGame}
       >
           Новая игра
       </button>
@@ -78,6 +80,7 @@ Results.propTypes = {
   arrayWithStatistics: PropTypes.array.isRequired,
   numOfRightAnswers: PropTypes.number.isRequired,
   numOfWrongAnswers: PropTypes.number.isRequired,
+  toNewGame: PropTypes.func.isRequired,
 };
 
 export default Results;
