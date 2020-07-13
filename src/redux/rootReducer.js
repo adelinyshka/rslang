@@ -10,6 +10,7 @@ import speakitReducer from '../games/speakit/redux';
 import sprintReducer from '../games/sprint/redux';
 import statisticsReducer from '../statistics/redux';
 import cardsReducer from '../cards/redux';
+import commonReducer from '../common/redux';
 
 export default combineReducers({
   auth: authReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   sprint: sprintReducer,
   statistics: statisticsReducer,
   cards: cardsReducer,
+  common: commonReducer,
 });
