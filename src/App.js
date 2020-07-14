@@ -27,6 +27,7 @@ import Dictionary from './dictionary/components/Dictionary/Dictionary';
 import Settings from './settings/components/Settings/Settings';
 import GamesPage from './layout/components/GamesPage/GamesPage';
 import Audiocall from './games/audiocall/components/Audiocall';
+import Speakit from './games/speakit/components/Speakit';
 
 const publicRoutes = [
   {
@@ -79,6 +80,11 @@ const privateRoutes = [
     title: 'Игры',
     path: '/games',
     component: <GamesPage />,
+  },
+  {
+    title: 'Speakit',
+    path: '/games/speakit',
+    component: <Speakit />,
   },
   {
     title: 'Карточки',
