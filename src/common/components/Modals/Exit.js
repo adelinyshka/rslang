@@ -58,7 +58,7 @@ const Exit = ({ onExit }) => {
       {isExit ? (
         <ModalExit
           setModalExit={() => setIsExit(false)}
-          setReduxStatus={() => onExit}
+          setReduxStatus={onExit}
         />
       ) : false}
       <img
@@ -80,10 +80,3 @@ Exit.propTypes = {
 };
 
 export default Exit;
-
-// import { useDispatch } from 'react-redux';
-
-// const dispatch = useDispatch();
-// const onExit = useCallback(() => {
-//   dispatch(setStatusGame(false));
-// }, [dispatch]);
