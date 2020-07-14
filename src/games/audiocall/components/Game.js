@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import styles from './Audiocall.module.css';
 import useApi from '../../../common/utils';
-import Results from '../../../games/sprint/components/Results';
+import Results from './Results';
 
 const fetchOptions = {
   method: 'GET',
@@ -25,6 +25,7 @@ let sumOfWords = 10;
 const getEndpointUrl = (level, page) => `words?group=${level}&page=${page}`;
 
 export default function Game({ callback }) {
+  const [activeLevel, setActiveLevel] = useState(0);
   const [IsGameOver, setGameOver] = useState(false);
   const [hint, setHint] = useState(true);
   const [warn, setWarn] = useState(true);
@@ -32,7 +33,9 @@ export default function Game({ callback }) {
   const [resultWord, setResultWord] = useState(null);
   const [shouldSoundBePlayed, setShouldSoundBePlayed] = useState(true);
   const [isWordChosen, setIsWordChosen] = useState(false);
-  const [endpointUrl, setEndpointUrl] = useState(getEndpointUrl(0, 1));
+  const [endpointUrl, setEndpointUrl] = useState(
+    getEndpointUrl(activeLevel, 1),
+  );
   const [srcImage, setSrcImage] = useState('');
   const changeVisible = () => {
     setWarn(!warn);
@@ -78,7 +81,7 @@ export default function Game({ callback }) {
   };
 
   return (
-    !IsGameOver ? (
+    IsGameOver ? <Results /> : (
       <div className={styles.Game}>
         <div className={styles.Header}>
           <img
@@ -150,13 +153,13 @@ export default function Game({ callback }) {
           <button
             onClick={ () => {
               if (isWordChosen) {
-                setEndpointUrl(getEndpointUrl(0, getRandomInt(30)));
+                setEndpointUrl(getEndpointUrl(activeLevel, getRandomInt(30)));
               } else {
                 audioWrong.play();
                 setIsWordChosen(true);
                 sumOfWords -= 1;
               }
-              !sumOfWords ? callback(false) : console.log(sumOfWords);
+              !sumOfWords ? setGameOver(true) : console.log(sumOfWords);
             } }
             className={styles.AnswerBtn}
             type="button"
@@ -192,7 +195,7 @@ export default function Game({ callback }) {
           </div>
         </div>
       </div>
-    ) : <Results />
+    )
   );
 }
 
