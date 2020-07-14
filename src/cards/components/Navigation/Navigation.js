@@ -19,7 +19,8 @@ const Navigation = ({ isPreviousCard }) => {
 
   const {
     deleteBtn,
-    difficultBtn, showAnswerBtn,
+    difficultBtn,
+    showAnswerBtn,
   } = useSelector(ButtonsSelector);
 
   const itemsInfo = useMemo(() => [

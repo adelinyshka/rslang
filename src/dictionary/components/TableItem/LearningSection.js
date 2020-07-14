@@ -14,7 +14,10 @@ const LearningSection = ({
   userWord,
 }) => {
   const {
-    progressStatus, prevDate, nextDate, repeated,
+    progressStatus,
+    prevDate,
+    nextDate,
+    repeated,
   } = useMemo(() => userWord.optional, [userWord]);
 
   return (

@@ -12,7 +12,10 @@ import styles from './TableItem.module.css';
 
 const TableItem = ({ wordInfo, section }) => {
   const {
-    userWord, audio, word, wordTranslate,
+    userWord,
+    audio,
+    word,
+    wordTranslate,
   } = useMemo(() => wordInfo, [wordInfo]);
 
   // eslint-disable-next-line no-underscore-dangle

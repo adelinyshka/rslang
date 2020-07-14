@@ -29,9 +29,16 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   const shouldDisplaySentence = useSelector(sentenceTranslateSelector);
   const shouldDisplayDefinition = useSelector(definitionSelector);
   const shoudldDispayImage = useSelector(wordImageSelector);
+
   const {
-    textExampleTranslate, wordTranslate, textExample, audio, userWord,
-    transcription, textMeaning, image,
+    textExampleTranslate,
+    wordTranslate,
+    textExample,
+    audio,
+    userWord,
+    transcription,
+    textMeaning,
+    image,
   } = useMemo(() => cardInfo, [cardInfo]);
 
   // eslint-disable-next-line no-underscore-dangle
