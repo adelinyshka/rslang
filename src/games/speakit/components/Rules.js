@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import StyleRules from './style.ModalRules';
+import StyleRules from './style.Rules';
 
-const ModalRules = ({ setModalRules }) => (
+const Rules = ({ setModalRules }) => (
   <StyleRules>
     <div className="pop-up">
       <div className="top warning">
         <div className="icon">
           <img
-            src="/assets/images/common/quest.svg"
+            src="./../assets/images/speakit/quest.svg"
             alt="question in round"
           />
         </div>
         <section className="content">
-          <p>Правила игры</p>
+          <p>Произносите слова правильно, чтобы победить</p>
         </section>
 
       </div>
@@ -30,8 +30,8 @@ const ModalRules = ({ setModalRules }) => (
   </StyleRules>
 );
 
-ModalRules.propTypes = {
+Rules.propTypes = {
   setModalRules: PropTypes.func.isRequired,
 };
 
-export default ModalRules;
+export default Rules;

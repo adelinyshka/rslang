@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import StyleExit from './style.ModalExit';
+import StyleExit from './style.Exit';
 
-const ModalExit = ({ setModalExit, exitGame }) => (
+const Exit = ({ setModalExit, exitGame }) => (
   <StyleExit>
     <div className="pop-up">
       <div className="top exit-bg">
         <div className="icon">
           <img
-            src="/assets/images/common/excl.svg"
+            src="./../assets/images/speakit/excl.svg"
             alt="question in round"
           />
         </div>
@@ -45,9 +45,9 @@ const ModalExit = ({ setModalExit, exitGame }) => (
   </StyleExit>
 );
 
-ModalExit.propTypes = {
+Exit.propTypes = {
   setModalExit: PropTypes.func.isRequired,
   exitGame: PropTypes.func.isRequired,
 };
 
-export default ModalExit;
+export default Exit;

@@ -24,7 +24,6 @@ export default Style.div`
   font-size: 20px;
   line-height: 40px;
   box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.03);
-  max-width: 745px;
   
   @media (max-width: 768px) {
     width: 80%;
@@ -33,7 +32,7 @@ export default Style.div`
     margin-top: 20px;
     }
   }
-  
+
   .top {
     width: 100%;
     height: 350px;
@@ -41,7 +40,7 @@ export default Style.div`
     border-radius: 12px 12px 0 0;
     text-align: center;
   }
-  
+
   .content {
     min-height: 300px;
     font-family: 'Exo',sans-serif;
@@ -56,12 +55,11 @@ export default Style.div`
     @media (max-width: 768px) {
       width: 90%;
       margin: 0 auto;
-      }
+    }
   }
-  
+
   img {
-    width: 70px;
-    margin: 30px;
+    width: 110px;
   }
   
   .bottom {
@@ -74,7 +72,6 @@ export default Style.div`
     border-radius: 0 0 12px 12px;
     font-size: 24px;
     display: flex;
-
   }
   
   .btn-wrapper {
@@ -83,8 +80,32 @@ export default Style.div`
     margin: 0 auto;
   }
   
-  .warning {
-    background: #EEDFF2;
+  .exit-bg {
+    background: #FDAFBB;
+  }
+  
+  .cancel {
+    font-family: 'Exo', sans-serif;
+    width: 175px;
+    height: 48px;
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 22px;
+    box-sizing: border-box;
+    margin: 10px;
+    text-align: center;
+    outline: none;
+    background-color: #fff;
+    border: 1px solid #6979F8;
+    color: #6979F8;
+  }
+  
+  .cancel:hover {
+    border: 1px solid #5865CE;
+    background-color: #fff;
+    color: #5865CE;
   }
   
   .exit {
@@ -107,7 +128,7 @@ export default Style.div`
     &:hover,
     &:focus,
     &:active {
-     border: 1px solid #5865CE;
+      border: 1px solid #5865CE;
       background-color: #5865CE;
       color: #fff;
       cursor: pointer;
