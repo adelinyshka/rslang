@@ -2,7 +2,6 @@ import React, {
   useState, useCallback, useEffect, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import GameWrapper from './GameWrapper';
 import { getRandomNumber, shuffle } from './Helpers';
 import Lives from './Lives';
@@ -116,7 +115,6 @@ export default function Game() {
             },
           },
         };
-        console.log(currentStatistics);
         return currentStatistics;
       })
       .then((currentStatistics) => {
@@ -275,11 +273,10 @@ export default function Game() {
       <Rules rules="Выберите перевод из 4 вариантов до того
                 как падающее слово достигнет кристалла"
       />
-
       <div
         className="cross"
       >
-        <Exit />
+        <Exit onExit={onExit} />
       </div>
 
       <Lives
