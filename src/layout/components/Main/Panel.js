@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import styles from './Main.module.css';
 
 export default function Panel({
@@ -15,13 +17,15 @@ export default function Panel({
       <p className={ myStyle }>
         { description }
       </p>
-      <button
-        className={styles.Btn}
-        type="button"
-        disableelevation="true"
-      >
-        {actionName}
-      </button>
+      <Link to={alt}>
+        <button
+          className={styles.Btn}
+          type="button"
+          disableelevation="true"
+        >
+          {actionName}
+        </button>
+      </Link>
       {children}
     </div>
   );

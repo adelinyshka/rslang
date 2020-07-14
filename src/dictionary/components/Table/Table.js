@@ -1,10 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { userWordsSelector } from '../../redux/selectors';
+import { userWordsSelector, wordsAmountSelector } from '../../redux/selectors';
+import { updateWordsAmount } from '../../redux';
 
 import TableItem from '../TableItem/TableItem';
 import HeaderCheckbox from '../Checkbox/HeaderCheckbox';
@@ -20,16 +22,18 @@ const headerInfo = [
 ];
 
 const Table = ({ section }) => {
+  const dispatch = useDispatch();
   const userWords = useSelector(userWordsSelector);
+  const wordsAmount = useSelector(wordsAmountSelector);
 
   const tableItems = useMemo(() => (
-    userWords.map((wordInfo) => (
+    userWords.slice(0, wordsAmount).map((wordInfo) => (
       <TableItem
         wordInfo={wordInfo}
         key={wordInfo._id}
         section={section}
       />
-    ))), [userWords, section]);
+    ))), [userWords, section, wordsAmount]);
 
   const userWordsIds = useMemo(
     () => userWords.map(({ wordId }) => wordId), [userWords],
@@ -57,6 +61,15 @@ const Table = ({ section }) => {
       {tableItems.length
         ? tableItems
         : <h1>Еще нет слов</h1>}
+      {wordsAmount < userWords.length
+      && (
+        <Button
+          className={styles.ShowWordsButton}
+          onClick={() => dispatch(updateWordsAmount())}
+        >
+          Показать еще слова
+        </Button>
+      )}
     </div>
   );
 };

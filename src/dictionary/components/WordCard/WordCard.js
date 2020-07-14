@@ -7,7 +7,12 @@ import styles from './WordCard.module.css';
 
 const WordCard = ({ wordInfo, onHide, playAudio }) => {
   const {
-    word, wordTranslate, image, transcription, textMeaningTranslate, textExample,
+    word,
+    wordTranslate,
+    image,
+    transcription,
+    textMeaningTranslate,
+    textExample,
   } = useMemo(() => wordInfo, [wordInfo]);
 
   const exampleWord = useMemo(
