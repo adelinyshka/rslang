@@ -19,6 +19,7 @@ import { setSettings } from './settings/redux';
 
 import { fetchJSON } from './common/utils';
 
+import Toast from './common/components/Toast/Toast';
 import Login from './auth/components/Login';
 import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
@@ -179,6 +180,7 @@ const App = () => {
 
   return (
     <Router>
+      <Toast />
       <Switch>
         {publicRoutes.map(createPublicRoutes)}
         <Route>
