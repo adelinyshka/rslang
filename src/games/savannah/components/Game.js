@@ -192,6 +192,10 @@ export default function Game() {
     setIsExit(false);
   }, [dispatch]);
 
+  const onExit2 = useCallback(() => {
+    dispatch(setStatusGame(false));
+  }, [dispatch]);
+
   function updateArrayWordsForStatistics(isCorrect) {
     const rerenderStats = arrayWordsWithStatistics;
     rerenderStats.push({
@@ -276,7 +280,7 @@ export default function Game() {
       <div
         className="cross"
       >
-        <Exit onExit={onExit} />
+        <Exit onExit={onExit} isWhite />
       </div>
 
       <Lives
@@ -300,58 +304,24 @@ export default function Game() {
         </h3>
       </div>
       <div className="listWords">
-        <button
-          onClick={(e) => {
-            checkAnswer(arrOfWords[0], wordTranslation);
-            refreshWordsOnClick();
-          }}
-          type="button"
-          className={classNames(
-            { 'wrong': btnClicked && arrOfWords[0] !== wordTranslation },
-            { 'right': btnClicked && arrOfWords[0] === wordTranslation },
-          )}
-        >
-          {(arrOfWords[0])}
-        </button>
-        <button
-          onClick={(e) => {
-            checkAnswer(arrOfWords[1], wordTranslation);
-            refreshWordsOnClick();
-          }}
-          type="button"
-          className={classNames(
-            { 'wrong': btnClicked && arrOfWords[1] !== wordTranslation },
-            { 'right': btnClicked && arrOfWords[1] === wordTranslation },
-          )}
-        >
-          {(arrOfWords[1])}
-        </button>
-        <button
-          onClick={() => {
-            checkAnswer(arrOfWords[2], wordTranslation);
-            refreshWordsOnClick();
-          }}
-          type="button"
-          className={classNames(
-            { 'wrong': btnClicked && arrOfWords[2] !== wordTranslation },
-            { 'right': btnClicked && arrOfWords[2] === wordTranslation },
-          )}
-        >
-          {(arrOfWords[2])}
-        </button>
-        <button
-          onClick={() => {
-            checkAnswer(arrOfWords[3], wordTranslation);
-            refreshWordsOnClick();
-          }}
-          type="button"
-          className={classNames(
-            { 'wrong': btnClicked && arrOfWords[3] !== wordTranslation },
-            { 'right': btnClicked && arrOfWords[3] === wordTranslation },
-          )}
-        >
-          {(arrOfWords[3])}
-        </button>
+        {
+          arrOfWords.map((itemWord) => (
+            <button
+              key={itemWord}
+              onClick={(e) => {
+                checkAnswer(itemWord, wordTranslation);
+                refreshWordsOnClick();
+              }}
+              type="button"
+              className={classNames(
+                { 'wrong': btnClicked && itemWord !== wordTranslation },
+                { 'right': btnClicked && itemWord === wordTranslation },
+              )}
+            >
+              {(itemWord)}
+            </button>
+          ))
+        }
       </div>
 
       <img
