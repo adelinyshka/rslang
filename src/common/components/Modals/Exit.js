@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import StyleExit from './style.ModalExit';
 
@@ -25,7 +25,7 @@ const ModalExit = ({ setModalExit, setReduxStatus }) => (
             onClick={setModalExit}
             className="cancel"
           >
-              Отменить
+            Отменить
           </button>
           <Link to="../games">
             <button
@@ -33,7 +33,7 @@ const ModalExit = ({ setModalExit, setReduxStatus }) => (
               onClick={setReduxStatus}
               className="exit"
             >
-                Выйти
+              Выйти
             </button>
           </Link>
         </section>
@@ -44,8 +44,14 @@ const ModalExit = ({ setModalExit, setReduxStatus }) => (
   </StyleExit>
 );
 
-const Exit = ({ onExit }) => {
+const Exit = ({ onExit, isWhite = false }) => {
   const [isExit, setIsExit] = useState(false);
+
+  const iconCross = (white) => (
+    white
+      ? '/assets/images/common/x_white.svg'
+      : '/assets/images/common/x.svg'
+  );
 
   const onExitClickHandler = useCallback((exit) => {
     setIsExit(!exit);
@@ -63,7 +69,7 @@ const Exit = ({ onExit }) => {
       ) : false}
       <img
         style={{ cursor: 'pointer' }}
-        src="/assets/images/common/x.svg"
+        src={iconCross(isWhite)}
         alt="cross"
       />
     </div>
@@ -77,6 +83,7 @@ ModalExit.propTypes = {
 
 Exit.propTypes = {
   onExit: PropTypes.func.isRequired,
+  isWhite: PropTypes.func.isRequired,
 };
 
 export default Exit;
