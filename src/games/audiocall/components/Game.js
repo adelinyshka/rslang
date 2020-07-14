@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, {
-  useState, useCallback,
+  useState,
+  useCallback,
+  useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
@@ -104,6 +106,7 @@ export default function Game({ callback }) {
     const promise = fetchJSON(link, getFetchOptions);
     promise
       .then(({ id, ...stats }) => {
+        console.log(stats);
         let gameStatistics = {};
         const optionals = stats.optional;
 
@@ -192,11 +195,11 @@ export default function Game({ callback }) {
     setIsWordChosen(true);
   };
 
-  useCallback(() => {
+  useEffect(() => {
     if (IsGameOver) {
       gameOverHandler();
     }
-  }, [sumOfWords]);
+  }, [IsGameOver, gameOverHandler]);
 
   return (
 
