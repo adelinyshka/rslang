@@ -3,6 +3,9 @@ module.exports = {
   plugins: ['classes', 'react', 'import', 'jsx-a11y', 'flowtype', 'react-hooks'],
   parser: 'babel-eslint',
   rules: {
+    "linebreak-style": 0,
+    "global-require": 0,
+    'eslint linebreak-style': [0, 'error', 'windows'],
     'no-unresolved': 0,
     'quote-props': [2, 'consistent'],
     'comma-dangle': ['error', 'always-multiline'],
