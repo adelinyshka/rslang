@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import StyleExit from './style.ModalExit';
 
-const ModalExit = ({ setModalExit }) => (
+const ModalExit = ({ setModalExit, setReduxStatus }) => (
   <StyleExit>
     <div className="pop-up">
       <div className="top exit-bg">
@@ -25,15 +25,15 @@ const ModalExit = ({ setModalExit }) => (
             onClick={setModalExit}
             className="cancel"
           >
-            Отменить
+              Отменить
           </button>
-          <Link to="/games">
+          <Link to="../games">
             <button
               type="button"
-              // onClick={exitGame}
+              onClick={setReduxStatus}
               className="exit"
             >
-              Выйти
+                Выйти
             </button>
           </Link>
         </section>
@@ -44,7 +44,7 @@ const ModalExit = ({ setModalExit }) => (
   </StyleExit>
 );
 
-const Exit = () => {
+const Exit = ({ onExit }) => {
   const [isExit, setIsExit] = useState(false);
 
   const onExitClickHandler = useCallback((exit) => {
@@ -58,6 +58,7 @@ const Exit = () => {
       {isExit ? (
         <ModalExit
           setModalExit={() => setIsExit(false)}
+          setReduxStatus={() => onExit}
         />
       ) : false}
       <img
@@ -71,7 +72,18 @@ const Exit = () => {
 
 ModalExit.propTypes = {
   setModalExit: PropTypes.func.isRequired,
+  setReduxStatus: PropTypes.func.isRequired,
+};
+
+Exit.propTypes = {
+  onExit: PropTypes.func.isRequired,
 };
 
 export default Exit;
 
+// import { useDispatch } from 'react-redux';
+
+// const dispatch = useDispatch();
+// const onExit = useCallback(() => {
+//   dispatch(setStatusGame(false));
+// }, [dispatch]);
