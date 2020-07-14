@@ -89,7 +89,7 @@ export default function Game({ callback }) {
 
   const gameOverHandler = useCallback(() => {
     setGameOver(true);
-    setResultWord(null);
+    // setResultWord(null);
 
     const link = `users/${userId}/statistics`;
     const date = new Date(Date.now());
@@ -196,7 +196,7 @@ export default function Game({ callback }) {
   };
 
   useEffect(() => {
-    if (IsGameOver) {
+    if (sumOfWords === 0) {
       gameOverHandler();
     }
   }, [IsGameOver, gameOverHandler]);
@@ -210,6 +210,7 @@ export default function Game({ callback }) {
             arrayWithStatistics={arrayWordsWithStatistics}
             numOfRightAnswers={numRightAnswers}
             numOfWrongAnswers={numWrongAnswers}
+            toNewGame={() => {}}
           />
         )
         : false}
