@@ -12,8 +12,11 @@ import styles from './TableItem.module.css';
 
 const TableItem = ({ wordInfo, section }) => {
   const {
-    _id, userWord, audio, word, wordTranslate,
+    userWord, audio, word, wordTranslate,
   } = useMemo(() => wordInfo, [wordInfo]);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const id = useMemo(() => wordInfo._id, [wordInfo]);
 
   const [marked, setMarked] = useState(false);
 
@@ -48,7 +51,7 @@ const TableItem = ({ wordInfo, section }) => {
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word} onClick={handleCardClick}>
-        <Checkbox wordId={_id} />
+        <Checkbox wordId={id} />
         <div onClick={playAudio}>
           <img src="/assets/images/common/speakerOnIcon.svg" alt="play word" />
         </div>
@@ -61,7 +64,7 @@ const TableItem = ({ wordInfo, section }) => {
         section !== 'learning'
         && (
           <WordRecovery
-            wordId={_id}
+            wordId={id}
             userWord={userWord}
             onRecovery={setMarked}
           />
@@ -72,7 +75,7 @@ const TableItem = ({ wordInfo, section }) => {
         section !== 'deleted'
         && (
           <WordRemoval
-            wordId={_id}
+            wordId={id}
             userWord={userWord}
             onRemoval={setMarked}
           />

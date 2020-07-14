@@ -30,9 +30,13 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
   const shouldDisplayDefinition = useSelector(definitionSelector);
   const shoudldDispayImage = useSelector(wordImageSelector);
   const {
-    textExampleTranslate, wordTranslate, textExample, audio, _id, userWord,
+    textExampleTranslate, wordTranslate, textExample, audio, userWord,
     transcription, textMeaning, image,
   } = useMemo(() => cardInfo, [cardInfo]);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const id = useMemo(() => cardInfo._id, [cardInfo]);
+
   const testSentenceArr = useMemo(
     () => textExample.split(/<b>[\w]{0,}<\/b>/), [textExample],
   );
@@ -80,10 +84,10 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
           testSentenceArr={testSentenceArr}
           word={word}
           playAudio={playAudio}
-          wordId={_id}
+          wordId={id}
         />
       )
-  ), [playAudio, isPreviousCard, testSentenceArr, word, wasAnswered, _id]);
+  ), [playAudio, isPreviousCard, testSentenceArr, word, wasAnswered, id]);
 
   const cardFooter = useMemo(
     () => (
@@ -151,7 +155,7 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
 
         </Card.Footer>
       </Card>
-      {!isPreviousCard && <Intervals wordId={_id} userWord={userWord} />}
+      {!isPreviousCard && <Intervals wordId={id} userWord={userWord} />}
     </div>
   );
 };
