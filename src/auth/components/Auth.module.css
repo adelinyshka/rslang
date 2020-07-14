@@ -6,64 +6,53 @@
   align-items: center;
   justify-content: center;
   color: white;
+  position: relative;
+  margin: 0 auto;
 }
 
-.Auth h1 {
+.close {
   position: absolute;
-  top: 0;
-  left: 2vh;
-  font-family: 'Exo';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 8vh;
-  line-height: 4vh;
-  text-align: center;
-  color: #FFFFFF;
+  top: 20px;
+  right: 20px;
+  transform: scale(0.7);
 }
 
-.header-blue {
-  color: #6979F8;
-}
-
-.line {
-  background: linear-gradient(187.9deg, #BD7AE3 0%, #8461C9 100%);
-  width: 12vh;
-  height: 100vh;
-  position: absolute;
-  display: block;
-  left: 0px;
+.close:hover {
+  cursor: pointer;
 }
 
 .Form {
   display: flex;
   flex-direction: column;
-  width: 35vh;
 }
 
 .Button {
-  width: 100%;
+  width: 240px;
+  height: 48px;
   background: #6979F8;
   border-radius: 6px;
-  height: 6vh;
-  text-transform: uppercase;
   color: #fff;
   border: none;
-  font-family: 'Exo';
+  font-family: 'Exo', sans-serif;
   margin-top: 3vh;
+  outline: none;
 }
 
 .Button:hover {
   background: #5761ce;
   cursor: pointer;
+  outline: none;
 }
 
 .Form input {
-  height: 1vh;
-  margin-bottom: 3vh;
-  padding: 2vh;
-  border-radius: 6px;
+  width: 240px;
+  height: 48px;
+  margin-bottom: 15px;
+  padding: 10px;
   border: none;
-  font-family: 'Exo';
+  font-family: 'Exo', sans-serif;
+  box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
 }
 
 .Form input:nth-last-of-type(1) {
@@ -74,20 +63,37 @@
   color: #6979F8;
   text-decoration: none;
   text-align: center;
-  margin-top: 1vh;
+  margin-top: 10px;
+}
+
+.Link:hover {
+  color: #5761ce;
+  text-decoration: none;
 }
 
 .PasswordInfo {
   color: black;
   font-size: 0.5rem;
   text-align: center;
-  margin-top: 1vh;
-  margin-bottom: -2vh;
+  margin-top: 10px;
+  margin-bottom: -10px;
+  width: 240px;
 }
 
 .Form_link {
   color: #6979F8;
   text-decoration: none;
   text-align: center;
-  margin-top: 1vh;
+  margin-top: 10px;
+  width: 240px;
+  height: 48px;
+}
+
+@media (max-width: 630px) {
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transform: scale(0.7);
+  }
 }
