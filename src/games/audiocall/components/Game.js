@@ -4,8 +4,10 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styles from './Audiocall.module.css';
 import useApi from '../../../common/utils';
+import { setStatusGame } from '../redux';
 import Results from './Results';
 
 const fetchOptions = {
@@ -25,6 +27,11 @@ let sumOfWords = 10;
 const getEndpointUrl = (level, page) => `words?group=${level}&page=${page}`;
 
 export default function Game({ callback }) {
+  const dispatch = useDispatch();
+  const [arrayWordsWithStatistics, setArrayWordsWithStatistics] = useState([]);
+  const [numRightAnswers, setNumRightAnswers] = useState(0);
+  const [numWrongAnswers, setNumWrongAnswers] = useState(0);
+
   const [activeLevel, setActiveLevel] = useState(0);
   const [IsGameOver, setGameOver] = useState(false);
   const [hint, setHint] = useState(true);
@@ -40,7 +47,9 @@ export default function Game({ callback }) {
   const changeVisible = () => {
     setWarn(!warn);
   };
+
   const history = useHistory();
+
   const action = useCallback((result) => {
     const firstRandomWords = shuffle(result).slice(0, 5);
     const resultOneWord = firstRandomWords[getRandomInt(5)];
@@ -70,136 +79,164 @@ export default function Game({ callback }) {
     setHint(!hint);
   }, [hint]);
 
+  const updateStats = useCallback((isCorrect) => {
+    setArrayWordsWithStatistics([...arrayWordsWithStatistics, {
+      'word': resultWord.word,
+      'id': resultWord.id,
+      'audio': resultWord.audio,
+      'transcription': resultWord.transcription,
+      'translation': resultWord.wordTranslate,
+      'isCorrect': isCorrect,
+    }]);
+  }, [arrayWordsWithStatistics, resultWord]);
+
   const chooseWord = (word) => {
     if (word.id === resultWord.id) {
       audioRight.play();
+      updateStats(true);
+      setNumRightAnswers(numRightAnswers + 1);
     } else {
       audioWrong.play();
+      updateStats(false);
+      setNumWrongAnswers(numWrongAnswers + 1);
     }
     sumOfWords -= 1;
     setIsWordChosen(true);
   };
 
+  const onExit = useCallback(() => {
+    dispatch(setStatusGame(false));
+  }, [dispatch]);
+
   return (
-    IsGameOver ? <Results /> : (
-      <div className={styles.Game}>
-        <div className={styles.Header}>
-          <img
-            src="/assets/images/audiocall/Round Rec.png"
-            alt="hint"
-            onClick={() => changeStatus(false)}
+
+    <div className={styles.Game}>
+      {IsGameOver
+        ? (
+          <Results
+            arrayWithStatistics={arrayWordsWithStatistics}
+            numOfRightAnswers={numRightAnswers}
+            numOfWrongAnswers={numWrongAnswers}
+            toNewGame={onExit}
           />
-          <img
-            src="/assets/images/audiocall/xwhite.png"
-            alt="xwhite"
-            onClick={() => changeVisible(false)}
-          />
-        </div>
-        <div className={ hint ? styles.Hide : styles.Notification }>
-          <img
-            src="/assets/images/audiocall/notHint.png"
-            alt="hint"
-          />
-          <p>
+        )
+        : false}
+      <div className={styles.Header}>
+        <img
+          src="/assets/images/audiocall/Round Rec.png"
+          alt="hint"
+          onClick={() => changeStatus(false)}
+        />
+        <img
+          src="/assets/images/audiocall/xwhite.png"
+          alt="xwhite"
+          onClick={() => changeVisible(false)}
+        />
+      </div>
+      <div className={ hint ? styles.Hide : styles.Notification }>
+        <img
+          src="/assets/images/audiocall/notHint.png"
+          alt="hint"
+        />
+        <p>
           Выберите правильный ответ после проигранного аудио
-          </p>
-          <button
-            onClick={() => changeStatus(true)}
-            className={styles.BtnNtfcation}
-            type="button"
-          >
+        </p>
+        <button
+          onClick={() => changeStatus(true)}
+          className={styles.BtnNtfcation}
+          type="button"
+        >
           Понятно
-          </button>
-        </div>
-        <div className={styles.GamePanel}>
+        </button>
+      </div>
+      <div className={styles.GamePanel}>
+        <img
+          onClick={() => playSound()}
+          className={isWordChosen ? styles.HidePicture : styles.Volume}
+          src="/assets/images/audiocall/volume.png"
+          alt="sound"
+        />
+        <img
+          className={isWordChosen ? '' : styles.HidePicture}
+          src={srcImage}
+          alt="imageAnswer"
+        />
+        <div className={isWordChosen ? styles.Answer : styles.AnswerHide}>
           <img
             onClick={() => playSound()}
-            className={isWordChosen ? styles.HidePicture : styles.Volume}
+            className={styles.Volume}
             src="/assets/images/audiocall/volume.png"
             alt="sound"
           />
-          <img
-            className={isWordChosen ? '' : styles.HidePicture}
-            src={srcImage}
-            alt="imageAnswer"
-          />
-          <div className={isWordChosen ? styles.Answer : styles.AnswerHide}>
-            <img
-              onClick={() => playSound()}
-              className={styles.Volume}
-              src="/assets/images/audiocall/volume.png"
-              alt="sound"
-            />
-            <p>
-              {resultWord && resultWord.word}
-            </p>
-          </div>
-          <div className={styles.Words}>
-            {words && words.map((word, index) => (
-              <p
-                className={
-                  word.id !== resultWord.id && isWordChosen
-                    ? styles.WrongWords : ''
-                }
-                key={word.id}
-                onClick={() => chooseWord(word)}
-              >
-                {index + 1}
-                {' '}
-                {word.wordTranslate}
-              </p>
-            ))}
-          </div>
-          <button
-            onClick={ () => {
-              if (isWordChosen) {
-                setEndpointUrl(getEndpointUrl(activeLevel, getRandomInt(30)));
-              } else {
-                audioWrong.play();
-                setIsWordChosen(true);
-                sumOfWords -= 1;
-              }
-              !sumOfWords ? setGameOver(true) : console.log(sumOfWords);
-            } }
-            className={styles.AnswerBtn}
-            type="button"
-          >
-            {isWordChosen ? 'Дальше' : 'Не знаю'}
-          </button>
+          <p>
+            {resultWord && resultWord.word}
+          </p>
         </div>
-        <div className={ warn ? styles.ShadowHide : styles.Shadow }>
-          <div className={styles.Warning}>
-            <img
-              src="/assets/images/audiocall/attention.png"
-              alt="attention"
-            />
-            <p>
-            Если вы выйдете во время игры, то прогресс не сохранится
+        <div className={styles.Words}>
+          {words && words.map((word, index) => (
+            <p
+              className={
+                word.id !== resultWord.id && isWordChosen
+                  ? styles.WrongWords : ''
+              }
+              key={word.id}
+              onClick={() => chooseWord(word)}
+            >
+              {index + 1}
+              {' '}
+              {word.wordTranslate}
             </p>
-            <div className={styles.Butns}>
-              <button
-                type="button"
-                className={styles.Cancel}
-                onClick={() => changeVisible(false)}
-              >
-                Отменить
-              </button>
-              <button
-                type="button"
-                className={styles.Exit}
-                onClick={() => history.push('/games')}
-              >
+          ))}
+        </div>
+        <button
+          onClick={ () => {
+            if (isWordChosen) {
+              setEndpointUrl(getEndpointUrl(activeLevel, getRandomInt(30)));
+            } else {
+              audioWrong.play();
+              setIsWordChosen(true);
+              sumOfWords -= 1;
+            }
+            !sumOfWords ? setGameOver(true) : console.log(sumOfWords);
+          } }
+          className={styles.AnswerBtn}
+          type="button"
+        >
+          {isWordChosen ? 'Дальше' : 'Не знаю'}
+        </button>
+      </div>
+      <div className={ warn ? styles.ShadowHide : styles.Shadow }>
+        <div className={styles.Warning}>
+          <img
+            src="/assets/images/audiocall/attention.png"
+            alt="attention"
+          />
+          <p>
+            Если вы выйдете во время игры, то прогресс не сохранится
+          </p>
+          <div className={styles.Butns}>
+            <button
+              type="button"
+              className={styles.Cancel}
+              onClick={() => changeVisible(false)}
+            >
+              Отменить
+            </button>
+            <button
+              type="button"
+              className={styles.Exit}
+              onClick={() => history.push('/games')}
+            >
               Выйти
-              </button>
-            </div>
+            </button>
           </div>
         </div>
       </div>
-    )
+    </div>
+
   );
 }
 
 Game.propTypes = {
   callback: PropTypes.func.isRequired,
 };
-
