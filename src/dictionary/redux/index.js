@@ -1,10 +1,15 @@
 const INITIAL_STATE = {
   userWords: null,
   selectedWords: {},
+  wordsAmount: 30,
   isAllSelected: false,
   isAllDeleted: false,
   isAllRecovered: false,
 };
+
+export const updateWordsAmount = () => ({
+  type: 'UPDATE_WORDS_AMOUNT',
+});
 
 export const setUserWords = (userWords) => ({
   type: 'SET_USER_WORDS',
@@ -33,12 +38,20 @@ export const setAllRecovered = (isAllRecovered) => ({
 
 export const resetState = () => ({
   type: 'RESET_STATE',
-  ...INITIAL_STATE,
 });
 
 const dictionaryReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
   switch (type) {
+    case 'RESET_STATE':
+      return {
+        ...INITIAL_STATE,
+      };
+    case 'UPDATE_WORDS_AMOUNT':
+      return {
+        ...state,
+        wordsAmount: state.wordsAmount + 30,
+      };
     case 'SELECT_WORDS':
       return {
         ...state,
@@ -51,7 +64,6 @@ const dictionaryReducer = (state = INITIAL_STATE, action) => {
     case 'SET_ALL_SELECTED':
     case 'SET_ALL_DELETED':
     case 'SET_ALL_RECOVERED':
-    case 'RESET_STATE':
       return {
         ...state,
         ...payload,
