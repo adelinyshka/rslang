@@ -16,10 +16,8 @@ const TableItem = ({ wordInfo, section }) => {
     audio,
     word,
     wordTranslate,
+    _id: id,
   } = useMemo(() => wordInfo, [wordInfo]);
-
-  // eslint-disable-next-line no-underscore-dangle
-  const id = useMemo(() => wordInfo._id, [wordInfo]);
 
   const [marked, setMarked] = useState(false);
 

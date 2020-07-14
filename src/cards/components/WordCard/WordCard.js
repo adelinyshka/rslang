@@ -39,10 +39,8 @@ const WordCard = ({ cardInfo, isPreviousCard }) => {
     transcription,
     textMeaning,
     image,
+    _id: id,
   } = useMemo(() => cardInfo, [cardInfo]);
-
-  // eslint-disable-next-line no-underscore-dangle
-  const id = useMemo(() => cardInfo._id, [cardInfo]);
 
   const testSentenceArr = useMemo(
     () => textExample.split(/<b>[\w]{0,}<\/b>/), [textExample],
