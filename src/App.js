@@ -7,9 +7,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import Cards from './cards/components/Cards/Cards';
 import {
   isAuthenticatedSelector, refreshTokenSelector,
-  userIdSelector, tokenSelector,
+  userIdSelector, tokenSelector, isTokenValidSelector,
 } from './auth/redux/selectors';
-import { login } from './auth/redux';
+import { login, logout } from './auth/redux';
 
 import { setSettings } from './settings/redux';
 
@@ -125,9 +125,14 @@ const App = () => {
   const token = useSelector(tokenSelector);
   // есть ли у нас данные о пользователе
   const isLogged = useSelector(isAuthenticatedSelector);
-  // декодинг токена, сравнение его срока годности с датой
+  const isTokenValid = useSelector(isTokenValidSelector);
   const refreshToken = useSelector(refreshTokenSelector);
   const userId = useSelector(userIdSelector);
+
+  useEffect(() => {
+    if (!isTokenValid) dispatch(logout());
+  });
+
   useEffect(() => {
     // если пользователь залогинен и токен помер - обновляем токен
     const intervalId = setInterval(() => {
