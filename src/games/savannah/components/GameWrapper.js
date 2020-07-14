@@ -130,13 +130,13 @@ const GameWrapper = styled.div`
     }
   }
 
-  // .animation {
-  //   animation: falling 5s infinite;
-  // }
-  //
-  // .no-animation {
-  //   animation: unset;
-  // }
+  .animation {
+    animation: falling 5s infinite;
+  }
+
+  .no-animation {
+    animation: unset;
+  }
 
   .falling_word {
     font-size: 35px;

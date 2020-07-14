@@ -1,22 +1,31 @@
 import React, {
   useState, useCallback, useEffect, useMemo,
 } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import GameWrapper from './GameWrapper';
 import { getRandomNumber, shuffle } from './Helpers';
 import Lives from './Lives';
 // import { Rules, Exit } from './Modal';
 import SoundSwitcher from '../../../common/components/SoundSwitcher';
-import useAPI from '../../../common/utils/index';
+import useAPI, { fetchJSON } from '../../../common/utils/index';
 import Results from './Results';
 import { setStatusGame } from '../redux';
 import Rules from '../../../common/components/Modals/Rules';
 import Exit from '../../../common/components/Modals/Exit';
+import { tokenSelector, userIdSelector } from '../../../auth/redux/selectors';
 
 const classNames = require('classnames');
 
 const fetchOptions = {
   method: 'GET',
+};
+
+const baseStatistic = {
+  'learnedWords': 0,
+  'optional': {
+    'savannah': {
+    },
+  },
 };
 
 let counterCrystalSize = 0.7;
@@ -25,6 +34,9 @@ const audioWrong = new Audio('/assets/audio/wrong.mp3');
 
 export default function Game() {
   const dispatch = useDispatch();
+  const userId = useSelector(userIdSelector);
+  const token = useSelector(tokenSelector);
+
   const [answer, setAnswer] = useState('');
   const [arrayWordsWithStatistics, setArrayWordsWithStatistics] = useState([]);
   const [arrOfWords, setArrOfWords] = useState([]);
@@ -61,7 +73,80 @@ export default function Game() {
     setGettingWords(false);
     setArrOfWords([]);
     setLivesCount(0);
-  }, []);
+
+    const link = `users/${userId}/statistics`;
+    const date = new Date(Date.now());
+    const dateString = date.toLocaleDateString('en-Us');
+    const getFetchOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const promise = fetchJSON(link, getFetchOptions);
+    promise
+      .then(({ id, ...stats }) => {
+        let gameStatistics = {};
+        const optionals = stats.optional;
+
+        if (stats.optional.savannah) {
+          gameStatistics = { ...stats.optional.savannah };
+        }
+
+        if (gameStatistics[dateString]) {
+          gameStatistics[dateString] = {
+            'timesPlayed': gameStatistics[dateString].timesPlayed + 1,
+            'result': gameStatistics[dateString].result + numRightAnswers,
+          };
+        } else {
+          gameStatistics[dateString] = {
+            'timesPlayed': 1,
+            'result': numRightAnswers,
+          };
+        }
+
+        const currentStatistics = {
+          ...stats,
+          optional: {
+            ...optionals,
+            savannah: {
+              ...gameStatistics,
+            },
+          },
+        };
+        console.log(currentStatistics);
+        return currentStatistics;
+      })
+      .then((currentStatistics) => {
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+        fetchJSON(link, sendOptions);
+      })
+      .catch(() => {
+        const currentStatistics = {
+          ...baseStatistic,
+        };
+
+        currentStatistics.optional.savannah[dateString] = {
+          'timesPlayed': 1,
+          'result': numRightAnswers,
+        };
+
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+
+        fetchJSON(link, sendOptions);
+      });
+  }, [numRightAnswers, token, userId]);
 
   useEffect(() => {
     if (gettingWords && livesCount && wordCounter && wordsUseApi) {
@@ -159,7 +244,7 @@ export default function Game() {
         setPage(page + 1);
         updateArrayWordsForStatistics(false);
       }
-    }, 465000);
+    }, 4650);
 
     return () => {
       clearTimeout(timer);
