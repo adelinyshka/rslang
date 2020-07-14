@@ -34,12 +34,10 @@ function Statistics({
   setIsStatisticsSend,
   statistics,
 }) {
-  // const [req, setReq] = useState(null);
   const userId = useSelector(userIdSelector);
   const token = useSelector(tokenSelector);
 
   const completeGame = useCallback(() => {
-    // setModalResult(true);
     const link = `users/${userId}/statistics`;
     const date = new Date(Date.now());
     const dateString = date.toLocaleDateString('en-Us');

@@ -70,7 +70,6 @@ const Exit = ({ onCancel, onExit }) => (
 function GameOver({
   statistics,
 }) {
-  console.log('statisctics: ', statistics);
   const [isStatisticsSend, setIsStatisticsSend] = useState(false);
   return (
     <div>
