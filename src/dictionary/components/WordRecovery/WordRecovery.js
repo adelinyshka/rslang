@@ -14,6 +14,9 @@ import { userIdSelector } from '../../../auth/redux/selectors';
 
 import styles from './WordRecovery.module.css';
 
+const date = new Date(Date.now());
+const nextDate = date.toLocaleDateString('en-US');
+
 const WordRecovery = ({ wordId, userWord, onRecovery }) => {
   const userId = useSelector(userIdSelector);
   const isAllRecovered = useSelector(isAllRecoveredSelector);
@@ -34,6 +37,7 @@ const WordRecovery = ({ wordId, userWord, onRecovery }) => {
         'deleted': false,
         'difficult': false,
         'learning': true,
+        'nextDate': nextDate,
       },
     }),
   }), [userWord]);

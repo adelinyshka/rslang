@@ -32,15 +32,16 @@ const Cards = () => {
     let aggregatedUrl = `users/${userId}/aggregatedWords?`;
     const date = new Date(Date.now());
     const dateString = date.toLocaleDateString('en-US');
+    const userWordsQuery = `{"$and":[{"userWord.optional.nextDate":"${dateString}", "userWord.optional.learning":${true}}]}`;
     switch (cardsMode) {
       case 'new':
         aggregatedUrl += `wordsPerPage=${newCardsAmount}&filter={"userWord":null}`;
         break;
       case 'repeat':
-        aggregatedUrl += `wordsPerPage=${wordsPerDay}&filter={"userWord.optional.nextDate":"${dateString}"}`;
+        aggregatedUrl += `wordsPerPage=${wordsPerDay}&filter=${userWordsQuery}`;
         break;
       default:
-        aggregatedUrl += `wordsPerPage=${wordsPerDay}&filter={"$or":[{"userWord.optional.nextDate":"${dateString}"},{"userWord":null}]}`;
+        aggregatedUrl += `wordsPerPage=${wordsPerDay}&filter={"$or":[${userWordsQuery},{"userWord":null}]}`;
         break;
     }
     return newCardsAmount ? aggregatedUrl : null;

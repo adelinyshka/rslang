@@ -139,7 +139,6 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
     case 'CLEAR_ANSWER':
     case 'SET_NEW_WORDS':
     case 'SET_CARDS_MODE':
-    case 'CLEAR_CARDS':
     case 'SET_NAV_FETCH_OPTIONS':
       return {
         ...state,
