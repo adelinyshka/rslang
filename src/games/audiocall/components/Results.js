@@ -21,7 +21,7 @@ const Results = ({
         <span className="results">{`${numOfRightAnswers}`}</span>
       </div>
       <div className="right">
-        <img src="/assets/images/audiocall/wrong.svg" alt="" />
+        <img src="/assets/images/audiocall/bad-results.svg" alt="" />
         <span className="results">{`${numOfWrongAnswers}`}</span>
 
       </div>
@@ -65,13 +65,13 @@ const Results = ({
           К списку игр
         </button>
       </Link>
-      <button
-        type="button"
-        className="btn-new"
-        onClick={toNewGame}
-      >
-        Новая игра
-      </button>
+      {/* <button */}
+      {/*  type="button" */}
+      {/*  className="btn-new" */}
+      {/*  onClick={toNewGame} */}
+      {/* > */}
+      {/*  Новая игра */}
+      {/* </button> */}
     </div>
   </ResultsWrapper>
 );

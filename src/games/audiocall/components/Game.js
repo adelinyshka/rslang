@@ -4,11 +4,11 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Audiocall.module.css';
-import useApi from '../../../common/utils';
-import { setStatusGame } from '../redux';
+import useApi, { fetchJSON } from '../../../common/utils';
 import Results from './Results';
+import { tokenSelector, userIdSelector } from '../../../auth/redux/selectors';
 
 const fetchOptions = {
   method: 'GET',
@@ -23,14 +23,24 @@ const audioWrong = new Audio('/assets/audio/wrong.mp3');
 const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
-let sumOfWords = 10;
+
 const getEndpointUrl = (level, page) => `words?group=${level}&page=${page}`;
 
+const baseStatistic = {
+  'learnedWords': 0,
+  'optional': {
+    'audiocall': {
+    },
+  },
+};
+
 export default function Game({ callback }) {
-  const dispatch = useDispatch();
+  const userId = useSelector(userIdSelector);
+  const token = useSelector(tokenSelector);
   const [arrayWordsWithStatistics, setArrayWordsWithStatistics] = useState([]);
   const [numRightAnswers, setNumRightAnswers] = useState(0);
   const [numWrongAnswers, setNumWrongAnswers] = useState(0);
+  const [sumOfWords, setSumOfWords] = useState(10);
 
   const [activeLevel, setActiveLevel] = useState(0);
   const [IsGameOver, setGameOver] = useState(false);
@@ -75,6 +85,84 @@ export default function Game({ callback }) {
 
   useApi(endpointUrl, fetchOptions, action);
 
+  const gameOverHandler = useCallback(() => {
+    setGameOver(true);
+    setResultWord(null);
+
+    const link = `users/${userId}/statistics`;
+    const date = new Date(Date.now());
+    const dateString = date.toLocaleDateString('en-Us');
+    const getFetchOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const promise = fetchJSON(link, getFetchOptions);
+    promise
+      .then(({ id, ...stats }) => {
+        let gameStatistics = {};
+        const optionals = stats.optional;
+
+        if (stats.optional.audiocall) {
+          gameStatistics = { ...stats.optional.audiocall };
+        }
+
+        if (gameStatistics[dateString]) {
+          gameStatistics[dateString] = {
+            'timesPlayed': gameStatistics[dateString].timesPlayed + 1,
+            'result': gameStatistics[dateString].result + numRightAnswers,
+          };
+        } else {
+          gameStatistics[dateString] = {
+            'timesPlayed': 1,
+            'result': numRightAnswers,
+          };
+        }
+
+        const currentStatistics = {
+          ...stats,
+          optional: {
+            ...optionals,
+            audiocall: {
+              ...gameStatistics,
+            },
+          },
+        };
+        console.log(currentStatistics);
+        return currentStatistics;
+      })
+      .then((currentStatistics) => {
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+        fetchJSON(link, sendOptions);
+      })
+      .catch(() => {
+        const currentStatistics = {
+          ...baseStatistic,
+        };
+
+        currentStatistics.optional.audiocall[dateString] = {
+          'timesPlayed': 1,
+          'result': numRightAnswers,
+        };
+
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+
+        fetchJSON(link, sendOptions);
+      });
+  }, [numRightAnswers, token, userId]);
+
   const changeStatus = useCallback(() => {
     setHint(!hint);
   }, [hint]);
@@ -100,13 +188,15 @@ export default function Game({ callback }) {
       updateStats(false);
       setNumWrongAnswers(numWrongAnswers + 1);
     }
-    sumOfWords -= 1;
+    setSumOfWords(sumOfWords - 1);
     setIsWordChosen(true);
   };
 
-  const onExit = useCallback(() => {
-    dispatch(setStatusGame(false));
-  }, [dispatch]);
+  useCallback(() => {
+    if (IsGameOver) {
+      gameOverHandler();
+    }
+  }, [sumOfWords]);
 
   return (
 
@@ -117,7 +207,6 @@ export default function Game({ callback }) {
             arrayWithStatistics={arrayWordsWithStatistics}
             numOfRightAnswers={numRightAnswers}
             numOfWrongAnswers={numWrongAnswers}
-            toNewGame={onExit}
           />
         )
         : false}
@@ -195,7 +284,7 @@ export default function Game({ callback }) {
             } else {
               audioWrong.play();
               setIsWordChosen(true);
-              sumOfWords -= 1;
+              setSumOfWords(sumOfWords - 1);
             }
             !sumOfWords ? setGameOver(true) : console.log(sumOfWords);
           } }
