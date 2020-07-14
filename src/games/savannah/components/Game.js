@@ -115,6 +115,7 @@ export default function Game() {
             },
           },
         };
+        console.log(currentStatistics);
         return currentStatistics;
       })
       .then((currentStatistics) => {
@@ -192,26 +193,20 @@ export default function Game() {
     setIsExit(false);
   }, [dispatch]);
 
-  const onExit2 = useCallback(() => {
-    dispatch(setStatusGame(false));
-  }, [dispatch]);
-
-  function updateArrayWordsForStatistics(isCorrect) {
-    const rerenderStats = arrayWordsWithStatistics;
-    rerenderStats.push({
+  const updateStats = useCallback((isCorrect) => {
+    setArrayWordsWithStatistics([...arrayWordsWithStatistics, {
       'word': word,
       'id': wordID,
       'audio': wordAudio,
       'transcription': wordTranscription,
       'translation': wordTranslation,
       'isCorrect': isCorrect,
-    });
-    setArrayWordsWithStatistics(rerenderStats);
-  }
+    }]);
+  }, [arrayWordsWithStatistics]);
 
-  function checkAnswer(wordActive, answerActive) {
+  const checkAnswer = useCallback((wordActive, answerActive) => {
     const correct = wordActive === answerActive;
-    updateArrayWordsForStatistics(correct);
+    updateStats(correct);
     setAnswer(correct);
     setBtnClicked(correct);
     setWordCounter(wordCounter - 1);
@@ -225,7 +220,7 @@ export default function Game() {
       setLivesCount(livesCount - 1);
       setNumWrongAnswers(numWrongAnswers + 1);
     }
-  }
+  }, [answer, btnClicked, wordCounter, scaleSize, numRightAnswers]);
 
   const refreshWordsOnClick = useCallback(() => {
     setTimeout(() => {
@@ -233,7 +228,7 @@ export default function Game() {
       setAnswer(false);
       setBtnClicked(false);
     }, 500);
-  }, []);
+  }, [gettingWords, answer, btnClicked]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -243,7 +238,7 @@ export default function Game() {
         setLivesCount(livesCount - 1);
         playSound(false);
         setPage(page + 1);
-        updateArrayWordsForStatistics(false);
+        updateStats(false);
       }
     }, 4650);
 
