@@ -38,7 +38,7 @@ const Dictionary = () => {
 
   const userWordsURL = useMemo(
     // eslint-disable-next-line max-len
-    () => `users/${userId}/aggregatedWords?group=0-20&wordsPerPage=100&filter=%7B%22userWord.optional.${dictionarySection}%22%3A%20true%7D`, [userId, dictionarySection],
+    () => `users/${userId}/aggregatedWords?wordsPerPage=10000&filter={"userWord.optional.${dictionarySection}":true}`, [userId, dictionarySection],
   );
 
   const action = useCallback(

@@ -20,10 +20,6 @@ const cardsHintsInfo = [
   },
   {
     title: 'Предложение с объяснением',
-    name: 'exampleSentence',
-  },
-  {
-    title: 'Предложение с примером',
     name: 'definition',
   },
   {
@@ -42,7 +38,6 @@ const cardsHintsInfo = [
 
 const cardsHintsNames = [
   'wordTranslate',
-  'exampleSentence',
   'definition',
   'sentenceTranslate',
   'transcription',
@@ -178,6 +173,7 @@ const Settings = () => {
               type="number"
               name="newCardsAmount"
               id="newCardsAmount"
+              min={1}
               value={formSettings.optional.newCardsAmount}
               onChange={handleChange}
             />
@@ -188,6 +184,7 @@ const Settings = () => {
               type="number"
               name="wordsPerDay"
               id="wordsPerDay"
+              min={1}
               value={formSettings.wordsPerDay}
               onChange={handleChange}
             />
@@ -229,9 +226,9 @@ const Settings = () => {
       </div>
       <div className={styles.CardsInteractions}>
         {interactionsInfo.map(({ title, name }) => (
-          <div className={styles.Interaction}>
+          <div className={styles.Interaction} key={name}>
             <h2>{title}</h2>
-            <label key={name} htmlFor={name} className={styles.Switch}>
+            <label htmlFor={name} className={styles.Switch}>
               <input
                 name={name}
                 id={name}
