@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from './ProgressBar.module.css';
-
-const classNames = require('classnames');
 
 const ProgressBar = ({ progressStatus }) => {
   const [progressClass, setProgressClass] = useState(null);
