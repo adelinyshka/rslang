@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ProgressBar.module.css';
 
+const classNames = require('classnames');
+
 const ProgressBar = ({ progressStatus }) => {
   const [progressClass, setProgressClass] = useState(null);
 
@@ -29,12 +31,16 @@ const ProgressBar = ({ progressStatus }) => {
   }, [progressStatus]);
 
   const progressBar = useMemo(() => (
-    new Array(5).fill(null).map((el, index) => (
-      <div
-        key={`progressPoint${index}`}
-        className={index < progressStatus ? progressClass : null}
-      />
-    ))
+    new Array(5).fill(null).map((el, index) => {
+      const barClassName = {};
+      barClassName[progressClass] = index < progressStatus;
+      return (
+        <div
+          key={`progressPoint${index}`}
+          className={classNames(barClassName)}
+        />
+      );
+    })
   ), [progressStatus, progressClass]);
 
   return (
@@ -45,7 +51,11 @@ const ProgressBar = ({ progressStatus }) => {
 };
 
 ProgressBar.propTypes = {
-  progressStatus: PropTypes.number.isRequired,
+  progressStatus: PropTypes.number,
+};
+
+ProgressBar.defaultProps = {
+  progressStatus: 0,
 };
 
 export default ProgressBar;
