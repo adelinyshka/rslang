@@ -4,12 +4,16 @@ import {
   BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { Spinner } from 'react-bootstrap';
+
 import Cards from './cards/components/Cards/Cards';
 import {
   isAuthenticatedSelector, refreshTokenSelector,
   userIdSelector, tokenSelector,
 } from './auth/redux/selectors';
 import { login } from './auth/redux';
+
+import { showSpinnerSelector } from './common/redux/selectors';
 
 import { setSettings } from './settings/redux';
 
@@ -128,6 +132,10 @@ createPrivateRoute.propTypes = {
 
 const App = () => {
   const dispatch = useDispatch();
+
+  // показывать ли спиннер
+  const showSpinner = useSelector(showSpinnerSelector);
+
   const token = useSelector(tokenSelector);
   // есть ли у нас данные о пользователе
   const isLogged = useSelector(isAuthenticatedSelector);
@@ -175,6 +183,15 @@ const App = () => {
         {publicRoutes.map(createPublicRoutes)}
         <Route>
           <Menu />
+          {showSpinner && (
+            <div className={styles.SpinnerBackdrop}>
+              <Spinner
+                className={styles.Spinner}
+                animation="border"
+                variant="primary"
+              />
+            </div>
+          )}
           <Switch>
             {privateRoutes.map((el) => createPrivateRoute(el, isLogged))}
           </Switch>
