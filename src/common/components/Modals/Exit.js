@@ -1,48 +1,58 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import StyleExit from './style.ModalExit';
+import { setStatusGame } from '../../../games/savannah/redux';
 
-const ModalExit = ({ setModalExit }) => (
-  <StyleExit>
-    <div className="pop-up">
-      <div className="top exit-bg">
-        <div className="icon">
-          <img
-            src="/assets/images/common/excl.svg"
-            alt="question in round"
-          />
+const ModalExit = ({ setModalExit }) => {
+  const dispatch = useDispatch();
+  const onExit = useCallback(() => {
+    dispatch(setStatusGame(false));
+  }, [dispatch]);
+
+  return (
+
+    <StyleExit>
+      <div className="pop-up">
+        <div className="top exit-bg">
+          <div className="icon">
+            <img
+              src="/assets/images/common/excl.svg"
+              alt="question in round"
+            />
+          </div>
+          <section className="content">
+            <p>Если вы выйдете во время игры, то прогресс не сохранится</p>
+          </section>
+
         </div>
-        <section className="content">
-          <p>Если вы выйдете во время игры, то прогресс не сохранится</p>
-        </section>
-
-      </div>
-      <div className="bottom">
-        <section className="btn-wrapper">
-          <button
-            type="button"
-            onClick={setModalExit}
-            className="cancel"
-          >
-            Отменить
-          </button>
-          <Link to="/games">
+        <div className="bottom">
+          <section className="btn-wrapper">
             <button
               type="button"
-              // onClick={exitGame}
-              className="exit"
+              onClick={setModalExit}
+              className="cancel"
             >
-              Выйти
+              Отменить
             </button>
-          </Link>
-        </section>
+            <Link to="../games">
+              <button
+                type="button"
+                onClick={onExit}
+                className="exit"
+              >
+                Выйти
+              </button>
+            </Link>
+          </section>
 
+        </div>
       </div>
-    </div>
 
-  </StyleExit>
-);
+    </StyleExit>
+  );
+};
 
 const Exit = () => {
   const [isExit, setIsExit] = useState(false);

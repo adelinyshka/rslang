@@ -2,10 +2,10 @@ import React, {
   useState, useCallback, useEffect, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import GameWrapper from './GameWrapper';
 import { getRandomNumber, shuffle } from './Helpers';
 import Lives from './Lives';
-// import { Rules, Exit } from './Modal';
 import SoundSwitcher from '../../../common/components/SoundSwitcher';
 import useAPI, { fetchJSON } from '../../../common/utils/index';
 import Results from './Results';
@@ -45,7 +45,6 @@ export default function Game() {
   const [group, setGroup] = useState(1);
   const [isExit, setIsExit] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [isRules, setIsRules] = useState(false);
   const [livesCount, setLivesCount] = useState(5);
   const [numRightAnswers, setNumRightAnswers] = useState(0);
   const [numWrongAnswers, setNumWrongAnswers] = useState(0);
@@ -262,17 +261,6 @@ export default function Game() {
         />
       )
         : false}
-      {/* {isExit ? ( */}
-      {/*  <Exit */}
-      {/*    onCancel={() => setIsExit(false)} */}
-      {/*    onExit={onExit} */}
-      {/*  /> */}
-      {/* ) : false} */}
-      {/* {isRules ? ( */}
-      {/*  <Rules */}
-      {/*    onRules={() => setIsRules(false)} */}
-      {/*  /> */}
-      {/* ) : false} */}
       <img
         className="tree-wave"
         src="/assets/images/savannah/tree_waved.svg"
@@ -287,9 +275,13 @@ export default function Game() {
       <Rules rules="Выберите перевод из 4 вариантов до того
                 как падающее слово достигнет кристалла"
       />
-      <div className="cross">
+
+      <div
+        className="cross"
+      >
         <Exit />
       </div>
+
       <Lives
         livesCount={livesCount}
         leftLifesHandler={gameOverHandler}

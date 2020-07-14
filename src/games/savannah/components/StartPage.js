@@ -15,6 +15,10 @@ const StartPage = () => {
     dispatch(setStatusGame(true));
   }, [dispatch]);
 
+  const onExit = useCallback(() => {
+    dispatch(setStatusGame(false));
+  }, [dispatch]);
+
   return (
     <StartPageWrapper>
       <Link to="../games">
