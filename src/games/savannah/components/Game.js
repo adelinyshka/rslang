@@ -149,6 +149,7 @@ export default function Game() {
   useEffect(() => {
     if (gettingWords && livesCount && wordCounter && wordsUseApi) {
       wordsUseApi.length = 10;
+
       const randomNumber = getRandomNumber();
       const newWordTranslation = wordsUseApi[randomNumber].wordTranslate;
 
