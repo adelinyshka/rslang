@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { userSelector } from '../../auth/redux/selectors';
+import { setShowSpinner } from '../redux';
 
 export const fetchJSON = async (endpoint, fetchOptions) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/${endpoint}`;
@@ -30,12 +31,14 @@ const useAPI = (endpoint, fetchOptions = {}, action, shouldFetch = true) => {
 
   useEffect(() => {
     if (shouldFetch) {
+      dispatch(setShowSpinner(true));
       fetchJSON(endpoint, finalOptions)
         .then((data) => {
           setResult(data);
           if (action) action(data);
         })
-        .catch((er) => setError(er));
+        .catch((er) => setError(er))
+        .finally(() => dispatch(setShowSpinner(false)));
     }
   }, [endpoint, finalOptions, action, dispatch, shouldFetch]);
 
