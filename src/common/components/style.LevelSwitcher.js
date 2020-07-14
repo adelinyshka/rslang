@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import style from 'styled-components';
 
-export default styled.div`
+export default style.div`
   display: flex;
   justify-content: center;
   align-items: center;
