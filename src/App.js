@@ -145,7 +145,7 @@ const App = () => {
 
   useEffect(() => {
     if (!isTokenValid) dispatch(logout());
-  });
+  }, [isTokenValid, dispatch]);
 
   useEffect(() => {
     // если пользователь залогинен и токен помер - обновляем токен
