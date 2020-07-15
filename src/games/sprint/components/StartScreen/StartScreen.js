@@ -45,14 +45,18 @@ const StartScreen = () => {
           <SwitcherLevel
             changeActiveLevel={changeActiveLevel}
           />
-          <p>Или выбери только слова из словаря</p>
-          <input
-            onChange={() => { dispatch(setLearnedWords(!learnedWords)); }}
-            className="LearnedWords"
-            type="checkbox"
-            value="1"
-            name="k"
-          />
+          <div className="mode_wrapper">
+            <p className="mode_description">Только из словаря:</p>
+            <label htmlFor="mode" className="CheckboxContainer">
+              <input
+                name="mode"
+                id="mode"
+                type="checkbox"
+                onChange={() => { dispatch(setLearnedWords(!learnedWords)); }}
+              />
+              <span className="Checkmark" />
+            </label>
+          </div>
         </div>
         <h1 className="title_h2">
       Спринт

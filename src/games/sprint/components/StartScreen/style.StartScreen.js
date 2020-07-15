@@ -105,8 +105,55 @@ export default styled.div`
   .wrapper-switcher {
     position: absolute;
     top: 60px;
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
+    .mode_wrapper{
+      display:flex;
+
+    .mode_description{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+    color: #000000;
+    font-family: 'Exo',sans-serif;
+    margin: 0;
+    }
+
+    #mode {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+
+    .Checkmark {
+      display: block;
+      height: 25px;
+      width: 25px;
+      margin: 10px 20px;
+      border-radius: 5px;
+      background-color: #e5e7fa;
+      border: 1px solid #ECEBED;
+      position: relative;
+    }
+
+    input:checked ~ .Checkmark:before {
+      content: '✓';
+      position: absolute;
+      top: -5%;
+      left: 18%;
+      color: #6979F8;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+  }
+  }
   img.decoration {
     position: absolute;
     height: 300px;
