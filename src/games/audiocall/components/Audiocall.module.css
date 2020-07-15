@@ -1,9 +1,36 @@
 .Startpage {
-  display: block;
-  padding: 0 35px 0 160px;
-  min-height: 100%;
   background-color: #f6f6f6;
+  font-family: 'Exo', sans-serif;
+  position: relative;
+  height: 100vh;
 }
+
+  @media (max-width: 768px) {
+    .Startpage {
+      height: calc(100vh - 50px);
+    }
+  }
+
+.center_alignment {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  padding-left: 100px;
+}
+
+  @media (max-width: 768px) {
+    .center_alignment {
+      padding-left: 0;
+    }
+  }
 
 .XImage:hover {
   cursor: pointer;
@@ -14,9 +41,6 @@
 }
 
 .Startpage h2 {
-  padding-top: 120px;
-  padding-bottom: 40px;
-  font-family: Exo;
   font-style: normal;
   font-weight: normal;
   font-size: 50px;
@@ -25,14 +49,34 @@
   color: #6979f8;
 }
 
+@media(max-width: 767px) {
+  .Startpage h2 {
+    padding-top: 50px;
+  }
+}
+
+
+
+
+
+
 .Startpage p {
-  font-family: Exo;
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
   line-height: 40px;
   text-align: center;
   color: #000000;
+  padding: 50px 0 30px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .Startpage p {
+    width: 90%;
+    line-height: 30px;
+  }
 }
 
 .Header {
@@ -46,38 +90,23 @@
   justify-content: flex-end;
 }
 
-.StartBtn {
+.start_btn {
+  background: #0AD1BD;
+  border: #0AD1BD;
+  color: white;
   width: 175px;
   height: 48px;
-  position: relative;
-  margin-top: 40px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  background-color: #0ad1bd;
-  color: white;
-  border: none;
-  border-radius: 7px;
-  font-family: Exo;
-  font-style: normal;
+  margin: 0 auto;
   font-weight: bold;
   font-size: 17px;
-  line-height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: ease-out 0.1s;
-}
-
-.StartBtn:hover {
-  width: 165px;
-}
-
-.StartBtn,
-.StartBtn:active,
-.StartBtn:focus {
-  cursor: pointer;
   outline: none;
 }
+.start_btn:hover,
+.start_btn:focus,
+.start_btn:active {
+   background: #08A999;
+   outline: none;
+ }
 
 .Game {
   height: 100vh;
@@ -388,9 +417,9 @@
   opacity: 0.8;
 }
 
-.LevelSwitcher {
-  padding-top: 150px;
-}
+/*.LevelSwitcher {*/
+/*  padding-top: 150px;*/
+/*}*/
 
 @media screen and (max-width: 1280px) {
   .Words {
@@ -423,10 +452,7 @@
   .Header {
     justify-content: center;
   }
-  .WomanImage {
-    padding-top: 30px;
-    transform: scale(0.75);
-  }
+
   .Footer {
     justify-content: center;
   }
@@ -446,5 +472,19 @@
   }
   .LevelSwitcher {
     padding-top: 40px;
+  }
+}
+
+.decoration {
+  position: absolute;
+  height: 250px;
+  width: 300px;
+  bottom: 16px;
+  right: 16px;
+}
+
+@media (max-width: 768px) {
+  .decoration {
+    display: none;
   }
 }
