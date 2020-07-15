@@ -1,10 +1,9 @@
 .Dictionary {
-  width: 80%;
+  width: calc(100% - 99px);
+  margin-left: 99px;
   height: 100%;
-  margin: 0 auto;
   text-align: center;
 }
-
 
 .Dictionary button {
   border-radius: 5px;
@@ -24,4 +23,11 @@
   background: linear-gradient(199.65deg, #BD7AE3 0%, #8461C9 100%);
   color: white  ;
   box-shadow: none  ;
+}
+
+@media (max-width: 768px) {
+  .Dictionary {
+    width: 100%;
+    margin: 0;
+  }
 }
