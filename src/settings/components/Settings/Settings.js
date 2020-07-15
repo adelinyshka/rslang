@@ -11,6 +11,8 @@ import settingsSelector from '../../redux/selectors';
 
 import { userIdSelector, tokenSelector } from '../../../auth/redux/selectors';
 
+import { setErrorInfo } from '../../../common/redux';
+
 import styles from './Settings.module.css';
 
 const cardsHintsInfo = [
@@ -138,7 +140,7 @@ const Settings = () => {
     if (checkedHints) {
       fetchJSON(endpoint, submitFetchOptions)
         .then(({ id, ...data }) => dispatch(setSettings(data)))
-        .catch((er) => console.log(er));
+        .catch(() => dispatch(setErrorInfo('Ошибка при изменении настроек')));
     }
   }, [dispatch, endpoint, submitFetchOptions, checkedHints]);
 
