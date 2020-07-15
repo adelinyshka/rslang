@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames';
-
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import StyleResults from './style.Statistics';
-
+import ResultsWrapper from './style.Statistics';
 import {
   resultsSelector,
 } from '../../redux/selectors';
@@ -15,11 +14,13 @@ const playAudio = (audio) => {
   pronounce.play();
 };
 
-const Results = ({ setModalResult, getNewWords }) => {
+const Results = () => {
   const results = useSelector(resultsSelector);
 
-  const countWords = useCallback((bool) => results.reduce((count, { correctAnswer }) => (correctAnswer === bool ? count + 1 : count),
-    0), [results]);
+  const countWords = useCallback((bool) => results.reduce(
+    (count, { correctAnswer }) => (correctAnswer === bool ? count + 1 : count),
+    0,
+  ), [results]);
 
   // const falseWords = useMemo(() => words.reduce((count, { word }) => {
   //   const learnWord = speechWords.find((element) => word === element);
@@ -27,7 +28,7 @@ const Results = ({ setModalResult, getNewWords }) => {
   // }, 0), [speechWords, words]);
 
   return (
-    <StyleResults>
+    <ResultsWrapper>
       <div className="wrapper-icons">
         <div className="left">
           <img src="/assets/images/sprint/good-results.svg" alt="" />
@@ -39,7 +40,7 @@ const Results = ({ setModalResult, getNewWords }) => {
 
         </div>
       </div>
-      <ul className="listWords">
+      <ul className="results-words">
         {
           results.map(({
             word,
@@ -50,7 +51,7 @@ const Results = ({ setModalResult, getNewWords }) => {
           }) => (
             <li
               key={word}
-              className={classNames({ correctAnswer })}
+              className={classNames({ 'learnedWord': correctAnswer })}
             >
               <div>
                 <img
@@ -68,23 +69,24 @@ const Results = ({ setModalResult, getNewWords }) => {
           ))
         }
       </ul>
-      {/* <div className="wrapper-btn ">
-        <button
-          type="button"
-          className="button__close-results"
-          onClick={() => setModalResult()}
-        >
-        Return
-        </button>
-        <button
-          type="button"
-          className="button__new-game"
-          onClick={() => getNewWords()}
-        >
-        New game
-        </button>
-      </div> */}
-    </StyleResults>
+      <div className="wrapper-btn ">
+        <Link to="../games">
+          <button
+            type="button"
+            className="btn-close"
+          >
+            К списку игр
+          </button>
+        </Link>
+        {/* <button */}
+        {/*  type="button" */}
+        {/*  className="button__new-game" */}
+        {/*  onClick={() => getNewWords()} */}
+        {/* > */}
+        {/* New game */}
+        {/* </button> */}
+      </div>
+    </ResultsWrapper>
   );
 };
 
