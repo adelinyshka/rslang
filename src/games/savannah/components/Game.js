@@ -276,7 +276,7 @@ export default function Game() {
       <div
         className="cross"
       >
-        <Exit onExit={onExit} isWhite />
+        <Exit onExit={onExit} noWhite={false} />
       </div>
 
       <Lives
