@@ -157,7 +157,7 @@ function Game() {
           <Exit noWhite={false} />
           <div className="UpperContainer">
             <div className="TaimerContainer">
-              <Timer initialTime={10000} timeOutHandler={onOverGame} />
+              <Timer initialTime={60} timeOutHandler={onOverGame} />
             </div>
 
             <div className="ScoreContainer">
@@ -257,7 +257,7 @@ function Game() {
   }
   return (
     <StyleGame>
-      <Timer initialTime={1} timeOutHandler={onStartGame} />
+      <Timer initialTime={5} timeOutHandler={onStartGame} />
     </StyleGame>
   );
 }
