@@ -59,7 +59,8 @@ export default function Game() {
   const [words, setWords] = useState([]);
 
   const userWordsURL = useMemo(
-    () => `words?page=${page}&group=${group}`, [page, group],
+    () => `words?page=${page}&group=${group}&wordsPerExampleSentenceLTE=99\`
+    + '&wordsPerPage=120'`, [group],
   );
 
   const action = useCallback((wordsFromApi) => setWords(wordsFromApi), []);
@@ -148,30 +149,57 @@ export default function Game() {
 
   useEffect(() => {
     if (gettingWords && livesCount && wordCounter && wordsUseApi) {
-      wordsUseApi.length = 10;
+      const randomNumberOne = getRandomNumber();
+      const randomNumberTwo = getRandomNumber();
 
-      const randomNumber = getRandomNumber();
-      const newWordTranslation = wordsUseApi[randomNumber].wordTranslate;
+      const searchItemID = words[randomNumberOne].id;
+      const wordInArrID = arrayWordsWithStatistics
+        .find((wordSearch) => wordSearch.id === searchItemID);
 
-      setWord(wordsUseApi[randomNumber].word);
-      setWordID(wordsUseApi[randomNumber].id);
-      setWordAudio(wordsUseApi[randomNumber].audio);
-      setWordTranscription(wordsUseApi[randomNumber].transcription);
-      setWordTranslation(newWordTranslation);
+      if (wordInArrID) {
+        const newWordTranslation = words[randomNumberTwo].wordTranslate;
 
-      const arrOfTranslations = [];
-      arrOfTranslations.push(newWordTranslation);
+        setWord(words[randomNumberTwo].word);
+        setWordID(words[randomNumberTwo].id);
+        setWordAudio(words[randomNumberTwo].audio);
+        setWordTranscription(words[randomNumberTwo].transcription);
+        setWordTranslation(newWordTranslation);
 
-      while (arrOfTranslations.length < 4) {
-        const translation = wordsUseApi[getRandomNumber()].wordTranslate;
-        if (!arrOfTranslations.includes(translation)) {
-          arrOfTranslations.push(translation);
+        const arrOfTranslations = [];
+        arrOfTranslations.push(newWordTranslation);
+
+        while (arrOfTranslations.length < 4) {
+          const translation = words[getRandomNumber()].wordTranslate;
+          if (!arrOfTranslations.includes(translation)) {
+            arrOfTranslations.push(translation);
+          }
         }
-      }
 
-      const shuffledTranslations = shuffle(arrOfTranslations);
-      setArrOfWords(shuffledTranslations);
-      setGettingWords(false);
+        const shuffledTranslations = shuffle(arrOfTranslations);
+        setArrOfWords(shuffledTranslations);
+        setGettingWords(false);
+      } else {
+        const newWordTranslation = words[randomNumberOne].wordTranslate;
+        setWord(words[randomNumberOne].word);
+        setWordID(words[randomNumberOne].id);
+        setWordAudio(words[randomNumberOne].audio);
+        setWordTranscription(words[randomNumberOne].transcription);
+        setWordTranslation(newWordTranslation);
+
+        const arrOfTranslations = [];
+        arrOfTranslations.push(newWordTranslation);
+
+        while (arrOfTranslations.length < 4) {
+          const translation = words[getRandomNumber()].wordTranslate;
+          if (!arrOfTranslations.includes(translation)) {
+            arrOfTranslations.push(translation);
+          }
+        }
+
+        const shuffledTranslations = shuffle(arrOfTranslations);
+        setArrOfWords(shuffledTranslations);
+        setGettingWords(false);
+      }
     }
 
     if (!wordCounter) {
@@ -180,7 +208,7 @@ export default function Game() {
     return () => {
       setGettingWords(false);
     };
-  }, [wordsUseApi, gettingWords, livesCount, wordCounter]);
+  }, [words, gettingWords, livesCount, wordCounter]);
 
   const playSound = useCallback((isAnswerRight) => {
     if (soundOn) {
@@ -212,7 +240,7 @@ export default function Game() {
     setBtnClicked(correct);
     setWordCounter(wordCounter - 1);
     playSound(correct);
-    setPage(page + 1);
+    // setPage(page + 1);
 
     if (correct) {
       setScaleSize(counterCrystalSize += 0.02);
@@ -238,7 +266,6 @@ export default function Game() {
         setAnswer(false);
         setLivesCount(livesCount - 1);
         playSound(false);
-        setPage(page + 1);
         updateStats(false);
       }
     }, 4650);
