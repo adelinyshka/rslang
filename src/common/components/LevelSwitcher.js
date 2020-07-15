@@ -12,7 +12,7 @@ levels = levels
 
 const SwitcherLevel = ({ changeActiveLevel }) => {
   const [activeLevel, setActiveLevel] = useState(1);
-
+  console.log(changeActiveLevel);
   const handlerOnClick = useCallback((level, index) => {
     setActiveLevel(level);
     changeActiveLevel(index);

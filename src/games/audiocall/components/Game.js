@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './Audiocall.module.css';
 import useApi, { fetchJSON } from '../../../common/utils';
 import Results from './Results';
@@ -36,7 +36,7 @@ const baseStatistic = {
   },
 };
 
-export default function Game({ callback }) {
+export default function Game({ callback, level }) {
   const userId = useSelector(userIdSelector);
   const token = useSelector(tokenSelector);
   const [arrayWordsWithStatistics, setArrayWordsWithStatistics] = useState([]);
@@ -44,7 +44,6 @@ export default function Game({ callback }) {
   const [numWrongAnswers, setNumWrongAnswers] = useState(0);
   const [sumOfWords, setSumOfWords] = useState(10);
 
-  const [activeLevel, setActiveLevel] = useState(0);
   const [IsGameOver, setGameOver] = useState(false);
   const [hint, setHint] = useState(true);
   const [warn, setWarn] = useState(true);
@@ -53,7 +52,7 @@ export default function Game({ callback }) {
   const [shouldSoundBePlayed, setShouldSoundBePlayed] = useState(true);
   const [isWordChosen, setIsWordChosen] = useState(false);
   const [endpointUrl, setEndpointUrl] = useState(
-    getEndpointUrl(activeLevel, 1),
+    getEndpointUrl(level, 1),
   );
   const [srcImage, setSrcImage] = useState('');
   const changeVisible = () => {
@@ -89,7 +88,6 @@ export default function Game({ callback }) {
 
   const gameOverHandler = useCallback(() => {
     setGameOver(true);
-    // setResultWord(null);
 
     const link = `users/${userId}/statistics`;
     const date = new Date(Date.now());
@@ -106,7 +104,6 @@ export default function Game({ callback }) {
     const promise = fetchJSON(link, getFetchOptions);
     promise
       .then(({ id, ...stats }) => {
-        console.log(stats);
         let gameStatistics = {};
         const optionals = stats.optional;
 
@@ -135,7 +132,6 @@ export default function Game({ callback }) {
             },
           },
         };
-        console.log(currentStatistics);
         return currentStatistics;
       })
       .then((currentStatistics) => {
@@ -199,7 +195,7 @@ export default function Game({ callback }) {
     if (sumOfWords === 0) {
       gameOverHandler();
     }
-  }, [IsGameOver, gameOverHandler]);
+  }, [IsGameOver, gameOverHandler, sumOfWords]);
 
   return (
 
@@ -284,11 +280,13 @@ export default function Game({ callback }) {
         <button
           onClick={ () => {
             if (isWordChosen) {
-              setEndpointUrl(getEndpointUrl(activeLevel, getRandomInt(30)));
-            } else {
+              setEndpointUrl(getEndpointUrl(level, getRandomInt(30)));
+            } else if (sumOfWords) {
               audioWrong.play();
               setIsWordChosen(true);
               setSumOfWords(sumOfWords - 1);
+              updateStats(false);
+              setNumWrongAnswers(numWrongAnswers + 1);
             }
             !sumOfWords ? setGameOver(true) : setGameOver(false);
           } }
@@ -332,4 +330,5 @@ export default function Game({ callback }) {
 
 Game.propTypes = {
   callback: PropTypes.func.isRequired,
+  level: PropTypes.number.isRequired,
 };
