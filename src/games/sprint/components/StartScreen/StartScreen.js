@@ -1,9 +1,7 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Button,
-} from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import StyleStartScreen from './style.StartScreen';
 
@@ -35,41 +33,50 @@ const StartScreen = () => {
 
   return (
     <StyleStartScreen>
-      <div className="GameNameContainer">
-        <h1 className="GameName">
-        Спринт
+      <Link to="../games">
+        <img
+          className="cross"
+          src="/assets/images/sprint/cross.svg"
+          alt="close"
+        />
+      </Link>
+      <div className="center_alignment">
+        <div className="wrapper-switcher">
+          <SwitcherLevel
+            changeActiveLevel={changeActiveLevel}
+          />
+          <p>Или выбери только слова из словаря</p>
+          <input
+            onChange={() => { dispatch(setLearnedWords(!learnedWords)); }}
+            className="LearnedWords"
+            type="checkbox"
+            value="1"
+            name="k"
+          />
+        </div>
+        <h1 className="title_h2">
+      Спринт
         </h1>
+
+        <div className="game_description">
+    Учит быстро переводить с английского на русский.
+    Для этой тренировки используются слова из вашего словаря и
+     случайные слова.
+        </div>
+        <Form>
+          <Button
+            className="start_btn"
+            onClick={onInitGame}
+          >
+        Start
+          </Button>
+        </Form>
       </div>
-      <div className="Text">
-        <p>
-      Учит быстро переводить с английского на ваш родной язык.
-          <br />
-      Для этой тренировки используются слова из вашего словаря и
-          <br />
-       случайные слова.
-        </p>
-      </div>
-      <SwitcherLevel
-        changeActiveLevel={changeActiveLevel}
+      <img
+        className="decoration"
+        src="/assets/images/sprint/sprint_startscreen.svg"
+        alt="running man"
       />
-      <input
-        onChange={() => { dispatch(setLearnedWords(!learnedWords)); }}
-        className="LearnedWords"
-        type="checkbox"
-        value="1"
-        name="k"
-      />
-      <Button
-        className="Start_btn"
-        variant="Outline-success"
-        onClick={onInitGame}
-      >
-        Старт
-      </Button>
-      <div className="ImgCantainer">
-        <img src="/assets/images/sprint/sprint_startscreen.svg" />
-        <div />
-      </div>
     </StyleStartScreen>
   );
 };

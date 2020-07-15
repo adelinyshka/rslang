@@ -6,13 +6,13 @@ import {
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import Exit from '../../../../common/components/Modals/Exit';
+import Rules from '../../../../common/components/Modals/Rules';
 
 import Timer from '../Timer/Timer';
 import useAPI from '../../../../common/utils';
 import { userIdSelector } from '../../../../auth/redux/selectors';
 
 import StyleGame from './style.Game';
-
 import {
   wordsSelector,
   startGameSelector,
@@ -24,7 +24,6 @@ import {
   soundStatusSelector,
   learnedWordsSelector,
 } from '../../redux/selectors';
-
 import {
   overGame,
   setResult,
@@ -179,10 +178,13 @@ function Game() {
     return (
       <StyleGame>
         <div className="Main">
+          <Rules
+            rules="Если указан верный перевод слова - нажимайте 'Верно'"
+          />
+          <Exit noWhite={false} />
           <div className="UpperContainer">
-
             <div className="TaimerContainer">
-              <Timer initialTime={50} timeOutHandler={onOverGame} />
+              <Timer initialTime={60} timeOutHandler={onOverGame} />
             </div>
 
             <div className="ScoreContainer">
@@ -213,18 +215,17 @@ function Game() {
                   <img
                     key={index}
                     src={`/assets/images/sprint/${type}_mark.svg`}
-                    alt=""
+                    alt="mark"
                   />
                 ))}
               </div>
 
               <div className="Targets">
-                <img src="/assets/images/sprint/hit_target.svg" alt="" />
+                <img src="/assets/images/sprint/hit_target.svg" alt="hint" />
                 {targets.map((type, index) => (
                   <img
                     key={index}
                     src={`/assets/images/sprint/${type}_target.svg`}
-                    alt=""
                   />
                 ))}
               </div>
@@ -270,9 +271,17 @@ function Game() {
                 />
               </div>
 
-              <div className="PrononseContainer">
-                <button className="Prononse" onClick={() => { prononse(count); }}>звук</button>
-              </div>
+              <button
+                className="Prononse"
+                onClick={() => { prononse(count); }}
+                type="button"
+              >
+                <img
+                  className="Prononse_img"
+                  src="/assets/images/sprint/sound.svg"
+                />
+              </button>
+
             </div>
           </div>
         </div>

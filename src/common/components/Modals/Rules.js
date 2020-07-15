@@ -66,4 +66,3 @@ Rules.propTypes = {
 };
 
 export default Rules;
-
