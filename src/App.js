@@ -30,6 +30,7 @@ import Statistics from './statistics/components/Statistics/Statistics';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
 import Settings from './settings/components/Settings/Settings';
 import GamesPage from './layout/components/GamesPage/GamesPage';
+import Audiocall from './games/audiocall/components/Audiocall';
 import Speakit from './games/speakit/components/Speakit';
 
 const publicRoutes = [
@@ -113,6 +114,11 @@ const privateRoutes = [
     title: 'Главная страница',
     path: '/main',
     component: <Main />,
+  },
+  {
+    title: 'Audiocall',
+    path: '/games/audiocall',
+    component: <Audiocall />,
   },
   {
     title: 'О команде',
