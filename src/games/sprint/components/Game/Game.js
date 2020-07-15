@@ -168,12 +168,6 @@ function Game() {
     () => dispatch(startGame()), [dispatch],
   );
 
-  // const handleKeyPress = (event) => {
-  //   if (event.key === 'Enter') {
-  //     console.log('enter press here! ');
-  //   }
-  // };
-
   if (gameStarted) {
     return (
       <StyleGame>
@@ -184,7 +178,7 @@ function Game() {
           <Exit noWhite={false} />
           <div className="UpperContainer">
             <div className="TaimerContainer">
-              <Timer initialTime={60} timeOutHandler={onOverGame} />
+              <Timer initialTime={9} timeOutHandler={onOverGame} />
             </div>
 
             <div className="ScoreContainer">

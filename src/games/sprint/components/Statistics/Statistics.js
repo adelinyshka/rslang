@@ -3,6 +3,11 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ResultsWrapper from './style.Statistics';
+import { fetchJSON } from '../../../../common/utils';
+import {
+  tokenSelector,
+  userIdSelector,
+} from '../../../../auth/redux/selectors';
 import {
   resultsSelector,
 } from '../../redux/selectors';
@@ -14,18 +19,103 @@ const playAudio = (audio) => {
   pronounce.play();
 };
 
+const baseStatistic = {
+  'learnedWords': 0,
+  'optional': {
+    'sprint': {
+    },
+  },
+};
+
 const Results = () => {
   const results = useSelector(resultsSelector);
+  const userID = useSelector(userIdSelector);
+  const token = useSelector(tokenSelector);
 
   const countWords = useCallback((bool) => results.reduce(
     (count, { correctAnswer }) => (correctAnswer === bool ? count + 1 : count),
     0,
   ), [results]);
 
-  // const falseWords = useMemo(() => words.reduce((count, { word }) => {
-  //   const learnWord = speechWords.find((element) => word === element);
-  //   return learnWord ? count : count + 1;
-  // }, 0), [speechWords, words]);
+  const Sendstatistic = useCallback(() => {
+    const link = `users/${userID}/statistics`;
+
+    const date = new Date(Date.now());
+
+    const dateString = date.toLocaleDateString('en-Us');
+
+    const getFetchOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const promise = fetchJSON(link, getFetchOptions);
+    promise
+      .then(({ id, ...stats }) => {
+        let gameStatistics = {};
+        const optionals = stats.optional;
+
+        if (stats.optional.sprint) {
+          gameStatistics = { ...stats.optional.sprint };
+        }
+
+        if (gameStatistics[dateString]) {
+          gameStatistics[dateString] = {
+            'timesPlayed': gameStatistics[dateString].timesPlayed + 1,
+            'result': gameStatistics[dateString].result + countWords(true),
+          };
+        } else {
+          gameStatistics[dateString] = {
+            'timesPlayed': 1,
+            'result': countWords(true),
+          };
+        }
+
+        const currentStatistics = {
+          ...stats,
+          optional: {
+            ...optionals,
+            sprint: {
+              ...gameStatistics,
+            },
+          },
+        };
+        console.log(currentStatistics);
+        return currentStatistics;
+      })
+      .then((currentStatistics) => {
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+        fetchJSON(link, sendOptions);
+      })
+      .catch(() => {
+        const currentStatistics = {
+          ...baseStatistic,
+        };
+
+        currentStatistics.optional.sprint[dateString] = {
+          'timesPlayed': 1,
+          'result': countWords(true),
+        };
+
+        const sendOptions = {
+          ...getFetchOptions,
+          method: 'PUT',
+          body: JSON.stringify(currentStatistics),
+        };
+
+        fetchJSON(link, sendOptions);
+      });
+  }, [countWords, token, userID]);
+
+  Sendstatistic();
 
   return (
     <ResultsWrapper>
@@ -78,13 +168,6 @@ const Results = () => {
             К списку игр
           </button>
         </Link>
-        {/* <button */}
-        {/*  type="button" */}
-        {/*  className="button__new-game" */}
-        {/*  onClick={() => getNewWords()} */}
-        {/* > */}
-        {/* New game */}
-        {/* </button> */}
       </div>
     </ResultsWrapper>
   );
