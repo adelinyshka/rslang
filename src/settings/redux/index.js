@@ -27,6 +27,10 @@ export const setSettings = (settings) => ({
 const settingsReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
   switch (type) {
+    case 'LOG_OUT':
+      return {
+        ...INITIAL_STATE,
+      };
     case 'SET_SETTINGS':
       return {
         ...state,

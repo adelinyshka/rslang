@@ -8,8 +8,6 @@ import { Spinner } from 'react-bootstrap';
 
 import Cards from './cards/components/Cards/Cards';
 
-import { setErrorInfo } from './common/redux';
-
 import {
   isAuthenticatedSelector, refreshTokenSelector,
   userIdSelector, tokenSelector, isTokenValidSelector,
@@ -184,7 +182,7 @@ const App = () => {
       },
     })
       .then(({ id, ...data }) => dispatch(setSettings(data)))
-      .catch(() => dispatch(setErrorInfo('Ошибка при сетевом запросе')));
+      .catch(() => {});
   }, [dispatch, token, userId]);
 
   return (
