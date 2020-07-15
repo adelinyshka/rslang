@@ -54,6 +54,8 @@ export default styled.div`
   .listWords {
     padding-top: 50px;
     width: 80%;
+    height: 80vh;
+    overflow: scroll;
     margin: 0 auto;
 
     @media (max-width: 768px) {

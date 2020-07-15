@@ -21,8 +21,6 @@ background-size: contain;
     max-width: 595px;
   }
 
-
-
   .TaimerContainer{
     display:flex;
     height:100px;

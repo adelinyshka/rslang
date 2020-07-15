@@ -55,3 +55,8 @@ export const soundStatusSelector = createSelector(
   sprintSelector,
   ({ soundStatus }) => soundStatus,
 );
+
+export const learnedWordsSelector = createSelector(
+  sprintSelector,
+  ({ learnedWords }) => learnedWords,
+);

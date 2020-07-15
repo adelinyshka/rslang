@@ -5,9 +5,11 @@ import {
   Button,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import Exit from '../../../../common/components/Modals/Exit';
 
 import Timer from '../Timer/Timer';
 import useAPI from '../../../../common/utils';
+import { userIdSelector } from '../../../../auth/redux/selectors';
 
 import StyleGame from './style.Game';
 
@@ -20,6 +22,7 @@ import {
   targetsSelector,
   rateSelector,
   soundStatusSelector,
+  learnedWordsSelector,
 } from '../../redux/selectors';
 
 import {
@@ -60,6 +63,8 @@ function Game() {
   const targets = useSelector(targetsSelector);
   const rate = useSelector(rateSelector);
   const soundStatus = useSelector(soundStatusSelector);
+  const learnedWordsStatus = useSelector(learnedWordsSelector);
+  const userID = useSelector(userIdSelector);
 
   const [count, setCount] = useState(0);
 
@@ -68,23 +73,24 @@ function Game() {
   );
 
   const userWordsURL = useMemo(
-    () => `words?page=0&group=${activeLevel}
-    &wordsPerExampleSentenceLTE=1000&wordsPerPage=300`, [activeLevel],
+    () => (learnedWordsStatus ? `users/${userID}/aggregatedWords?wordsPerPage=150&filter={"userWord.optional.deleted":false}` : `words?page=0&group=${activeLevel}
+    &wordsPerExampleSentenceLTE=1000&wordsPerPage=150`), [activeLevel, userID, learnedWordsStatus],
   );
 
   const action = useCallback(
     (data) => {
-      data.forEach((el) => {
+      const path = learnedWordsStatus ? data[0].paginatedResults : data;
+      path.forEach((el) => {
         el.falsyTranslate = el.wordTranslate;
       });
-      data.forEach((el) => {
+      path.forEach((el) => {
         el.falsyTranslate = getRandomInt(2)
-          ? data[getRandomInt(data.length - 1)].falsyTranslate
+          ? path[getRandomInt(path.length - 1)].falsyTranslate
           : el.falsyTranslate;
         el.correctFlag = (el.falsyTranslate === el.wordTranslate);
       });
-      dispatch(setWords(data));
-    }, [dispatch],
+      dispatch(setWords(path));
+    }, [dispatch, learnedWordsStatus],
   );
 
   useAPI(userWordsURL, fetchOptions, action);
@@ -145,6 +151,7 @@ function Game() {
     const pronounce = new Audio(`${audioPath}${words[n].audio}`);
     pronounce.play();
   }, [words]);
+
   const onAnswer = useCallback(
     (word, answer) => {
       word.correctAnswer = (word.correctFlag === answer);
@@ -162,6 +169,12 @@ function Game() {
     () => dispatch(startGame()), [dispatch],
   );
 
+  // const handleKeyPress = (event) => {
+  //   if (event.key === 'Enter') {
+  //     console.log('enter press here! ');
+  //   }
+  // };
+
   if (gameStarted) {
     return (
       <StyleGame>
@@ -169,7 +182,7 @@ function Game() {
           <div className="UpperContainer">
 
             <div className="TaimerContainer">
-              <Timer initialTime={900} timeOutHandler={onOverGame} />
+              <Timer initialTime={50} timeOutHandler={onOverGame} />
             </div>
 
             <div className="ScoreContainer">
@@ -177,18 +190,12 @@ function Game() {
             </div>
 
             <div className="Toolbar">
-              <img
-                className="Close"
-                src="/assets/images/sprint/cross.svg"
-                alt=""
-              />
+              <Exit />
               <label
-                htmlFor="#sound"
                 className="Notification_label"
               >
                 <input
-                  id="sound"
-                  onChange={() => dispatch(setSoundStatus(!soundStatus))}
+                  onChange={() => { dispatch(setSoundStatus(!soundStatus)); }}
                   className="Notification_input"
                   type="checkbox"
                   value="1"
@@ -233,6 +240,7 @@ function Game() {
                   onClick={() => {
                     setCount(count + 1);
                     onAnswer(words[count], false);
+                    if (count === words.length - 1) dispatch(onOverGame());
                   }}
                 >
                 Не верно
@@ -242,6 +250,7 @@ function Game() {
                   onClick={() => {
                     setCount(count + 1);
                     onAnswer(words[count], true);
+                    if (count === words.length - 1) dispatch(onOverGame());
                   }}
                 >
                 Верно

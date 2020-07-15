@@ -18,6 +18,11 @@ export const setSoundStatus = (statusBool) => ({
   soundStatus: statusBool,
 });
 
+export const setLearnedWords = (statusBool) => ({
+  type: 'LEARNED_WORDS',
+  learnedWords: statusBool,
+});
+
 export const setWords = (gettingWords) => ({
   type: 'SET_WORDS',
   words: gettingWords,
@@ -58,6 +63,7 @@ const INITIAL_STATE = {
   startGame: false,
   overGame: false,
   soundStatus: true,
+  learnedWords: false,
   score: 0,
   words: {},
   results: [],
@@ -79,6 +85,7 @@ const sprintReducer = (state = INITIAL_STATE, action) => {
     case 'SOUND_STATUS':
     case 'SET_RESULTS':
     case 'OVER_GAME':
+    case 'LEARNED_WORDS':
     case 'SET_WORDS':
     case 'SET_LEVEL':
     case 'SET_SCORE':

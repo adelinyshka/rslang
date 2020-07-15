@@ -11,16 +11,19 @@ import SwitcherLevel from '../../../../common/components/LevelSwitcher';
 
 import {
   levelSelector,
+  learnedWordsSelector,
 } from '../../redux/selectors';
 
 import {
   initGame,
   setLevel,
+  setLearnedWords,
 } from '../../redux/index';
 
 const StartScreen = () => {
   const dispatch = useDispatch();
   const activeLevel = useSelector(levelSelector);
+  const learnedWords = useSelector(learnedWordsSelector);
 
   const changeActiveLevel = useCallback((levelProps) => {
     if (activeLevel !== levelProps) {
@@ -48,6 +51,13 @@ const StartScreen = () => {
       </div>
       <SwitcherLevel
         changeActiveLevel={changeActiveLevel}
+      />
+      <input
+        onChange={() => { dispatch(setLearnedWords(!learnedWords)); }}
+        className="LearnedWords"
+        type="checkbox"
+        value="1"
+        name="k"
       />
       <Button
         className="Start_btn"
