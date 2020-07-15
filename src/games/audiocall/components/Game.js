@@ -11,6 +11,8 @@ import styles from './Audiocall.module.css';
 import useApi, { fetchJSON } from '../../../common/utils';
 import Results from './Results';
 import { tokenSelector, userIdSelector } from '../../../auth/redux/selectors';
+import Rules from '../../../common/components/Modals/Rules';
+import Exit from '../../../common/components/Modals/Exit';
 
 const fetchOptions = {
   method: 'GET',
@@ -89,7 +91,6 @@ export default function Game({ callback }) {
 
   const gameOverHandler = useCallback(() => {
     setGameOver(true);
-    // setResultWord(null);
 
     const link = `users/${userId}/statistics`;
     const date = new Date(Date.now());
@@ -215,38 +216,44 @@ export default function Game({ callback }) {
         )
         : false}
       <div className={styles.Header}>
-        <img
-          src="/assets/images/audiocall/Round Rec.png"
-          alt="hint"
-          onClick={() => changeStatus(false)}
-        />
-        <img
-          src="/assets/images/audiocall/xwhite.png"
-          alt="xwhite"
-          onClick={() => changeVisible(false)}
-        />
+        {/* <img */}
+        {/*  src="/assets/images/audiocall/Round Rec.svg" */}
+        {/*  alt="hint" */}
+        {/*  onClick={() => changeStatus(false)} */}
+        {/* /> */}
+        <div className={styles.cross}>
+          <Exit />
+        </div>
+        <div className={styles.question}>
+          <Rules rules="Выберите правильный ответ после проигранного аудио" />
+        </div>
+        {/* <img */}
+        {/*  src="/assets/images/audiocall/x.svg" */}
+        {/*  alt="xwhite" */}
+        {/*  onClick={() => changeVisible(false)} */}
+        {/* /> */}
       </div>
-      <div className={ hint ? styles.Hide : styles.Notification }>
-        <img
-          src="/assets/images/audiocall/notHint.png"
-          alt="hint"
-        />
-        <p>
-          Выберите правильный ответ после проигранного аудио
-        </p>
-        <button
-          onClick={() => changeStatus(true)}
-          className={styles.BtnNtfcation}
-          type="button"
-        >
-          Понятно
-        </button>
-      </div>
+      {/* <div className={ hint ? styles.Hide : styles.Notification }> */}
+      {/*  <img */}
+      {/*    src="/assets/images/audiocall/notHint.svg" */}
+      {/*    alt="hint" */}
+      {/*  /> */}
+      {/*  <p> */}
+      {/*    Выберите правильный ответ после проигранного аудио */}
+      {/*  </p> */}
+      {/*  <button */}
+      {/*    onClick={() => changeStatus(true)} */}
+      {/*    className={styles.BtnNtfcation} */}
+      {/*    type="button" */}
+      {/*  > */}
+      {/*    Понятно */}
+      {/*  </button> */}
+      {/* </div> */}
       <div className={styles.GamePanel}>
         <img
           onClick={() => playSound()}
           className={isWordChosen ? styles.HidePicture : styles.Volume}
-          src="/assets/images/audiocall/volume.png"
+          src="/assets/images/audiocall/volume.svg"
           alt="sound"
         />
         <img
@@ -258,7 +265,7 @@ export default function Game({ callback }) {
           <img
             onClick={() => playSound()}
             className={styles.Volume}
-            src="/assets/images/audiocall/volume.png"
+            src="/assets/images/audiocall/volume.svg"
             alt="sound"
           />
           <p>
@@ -301,7 +308,7 @@ export default function Game({ callback }) {
       <div className={ warn ? styles.ShadowHide : styles.Shadow }>
         <div className={styles.Warning}>
           <img
-            src="/assets/images/audiocall/attention.png"
+            src="/assets/images/audiocall/attention.svg"
             alt="attention"
           />
           <p>

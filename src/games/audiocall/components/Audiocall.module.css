@@ -183,9 +183,9 @@
   outline: none;
 }
 
-.GamePanel {
-  margin-top: 170px;
-}
+/*.GamePanel {*/
+/*  margin-top: 170px;*/
+/*}*/
 
 .GamePanel img {
   display: block;
@@ -487,4 +487,16 @@
   .decoration {
     display: none;
   }
+}
+
+.cross {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.question {
+  position: absolute;
+  top: 20px;
+  right: 70px;
 }
