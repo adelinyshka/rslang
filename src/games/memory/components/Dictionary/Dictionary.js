@@ -29,7 +29,7 @@ const Dictionary = ({
     () => `words?page=${page}&group=${level}`, [level],
   );
 
-  const action = useCallback((wordsFromApi) => setWords(wordsFromApi), []);
+  const action = useCallback((wordsFromApi) => setWords(wordsFromApi), [setWords]);
   const wordsUseApi = useAPI(userWordsURL, fetchOptions, action);
 
   useEffect(() => {
