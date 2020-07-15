@@ -9,22 +9,22 @@ export default Style.div`
   right: 0;
   bottom: 0;
 
-.pop-up {
-  z-index: 50;
-  width: 80%;
-  height: 485px;
-  top: 50%;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin-left: 50px;
-  font-family: 'Exo', sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 40px;
-  box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.03);
-  max-width: 745px;
+  .pop-up {
+    z-index: 50;
+    width: 80%;
+    height: 485px;
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 50px;
+    font-family: 'Exo', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 40px;
+    box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.03);
+    max-width: 745px;
   
   @media (max-width: 768px) {
     width: 80%;
@@ -74,7 +74,10 @@ export default Style.div`
     border-radius: 0 0 12px 12px;
     font-size: 24px;
     display: flex;
-
+    
+    @media (max-width: 520px) {
+      height: 100px;
+    }
   }
   
   .btn-wrapper {

@@ -1,39 +1,63 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { cardsArrSelector } from '../../redux/selectors';
-import { tokenSelector } from '../../../auth/redux/selectors';
-import { setCards } from '../../redux';
+/* eslint-disable max-len */
+import React, { useMemo, useCallback } from 'react';
+import { useDispatch, useSelector, batch } from 'react-redux';
+
+import { setCards, setCardsTotal } from '../../redux';
+import { cardsArrSelector, cardsModeSelector, gameEndedSelector } from '../../redux/selectors';
+import {
+  wordsPerDaySelector,
+  newCardsAmountSelector,
+} from '../../../settings/redux/selectors';
+import { userIdSelector } from '../../../auth/redux/selectors';
+
+import useAPI from '../../../common/utils';
+
+import Modal from '../Modal/Modal';
 import CardsCarousel from '../CardsCarousel/CardsCarousel';
 import Progress from '../Progress/Progress';
 import styles from './Cards.module.css';
 
-const getWords = async (token) => {
-  const rawResponse = await fetch(
-    'https://afternoon-falls-25894.herokuapp.com/words?group=1&page=1', {
-      method: 'GET',
-      withCredentials: true,
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json',
-      },
-    },
-  );
-  const content = await rawResponse.json();
-  return content;
-};
+const options = {};
 
 const Cards = () => {
   const dispatch = useDispatch();
-  const token = useSelector(tokenSelector);
+  const gameEnded = useSelector(gameEndedSelector);
   const cardsArr = useSelector(cardsArrSelector);
-  useEffect(() => {
-    if (cardsArr) return;
-    getWords(token)
-      .then((data) => dispatch(setCards(data)))
-      .catch((er) => console.log(er));
-  }, [token, dispatch, cardsArr]);
+  const cardsMode = useSelector(cardsModeSelector);
+  const wordsPerDay = useSelector(wordsPerDaySelector);
+  const newCardsAmount = useSelector(newCardsAmountSelector);
+  const userId = useSelector(userIdSelector);
 
-  if (!cardsArr || !cardsArr.length) {
+  const url = useMemo(() => {
+    let aggregatedUrl = `users/${userId}/aggregatedWords?`;
+    const date = new Date(Date.now());
+    const dateString = date.toLocaleDateString('en-US');
+    const userWordsQuery = `{"$and":[{"userWord.optional.nextDate":"${dateString}", "userWord.optional.learning":${true}}]}`;
+    switch (cardsMode) {
+      case 'new':
+        aggregatedUrl += `wordsPerPage=${newCardsAmount}&filter={"userWord":null}`;
+        break;
+      case 'repeat':
+        aggregatedUrl += `wordsPerPage=${wordsPerDay}&filter=${userWordsQuery}`;
+        break;
+      default:
+        aggregatedUrl += `wordsPerPage=${wordsPerDay}&filter={"$or":[${userWordsQuery},{"userWord":null}]}`;
+        break;
+    }
+    return newCardsAmount ? aggregatedUrl : null;
+  }, [userId, newCardsAmount, wordsPerDay, cardsMode]);
+
+  const action = useCallback((data) => {
+    batch(() => {
+      const cards = data[0].paginatedResults;
+      dispatch(setCards(cards));
+      dispatch(setCardsTotal(cards.length));
+    });
+  }, [dispatch]);
+
+  useAPI(url, options, action);
+
+  if ((!cardsArr || !cardsArr.length) && !gameEnded) {
     return (
       <div className={styles.bgColor}>
         <div className={styles.EmptyCards}>
@@ -46,8 +70,14 @@ const Cards = () => {
   return (
     <div className={styles.bgColor}>
       <div className={styles.Container}>
-        <CardsCarousel />
-        <Progress cardsArr={cardsArr} newCardsAmount={20} />
+        {gameEnded
+          ? <Modal />
+          : (
+            <>
+              <CardsCarousel />
+              <Progress />
+            </>
+          )}
       </div>
     </div>
   );

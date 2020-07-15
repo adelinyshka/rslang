@@ -2,13 +2,12 @@ import Style from 'styled-components';
 
 export default Style.div`
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  
+
   .pop-up {
     z-index: 50;
     width: 80%;
@@ -66,6 +65,11 @@ export default Style.div`
   
   .round {
   width: 20px;
+  cursor: pointer;
+  }
+
+  .pop-up a:hover {
+    text-decoration: none;
   }
   
   .bottom {
@@ -144,7 +148,7 @@ export default Style.div`
   }
  
   .stats {
-    background: #7DDFC3;
+    background: rgba(125, 223, 195, 0.6);
   }
   
   .congrats-text {
@@ -191,7 +195,7 @@ export default Style.div`
   }
   
   .text-green {
-    color: #fff;
+    color: #4CE364;
   }
   
   .text-dark-vio {

@@ -9,6 +9,8 @@ import { login } from '../redux';
 import loginUser from '../utils';
 import styles from './Auth.module.css';
 
+import { setErrorInfo } from '../../common/redux';
+
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -23,24 +25,32 @@ const Login = () => {
           email, token, userId, refreshToken,
         }));
       })
-      .catch((er) => console.log(er));
+      .catch(() => dispatch(setErrorInfo('Неверный логин или пароль')));
   }, [email, password, dispatch]);
 
   if (isLogged) return <Redirect to="/main" />;
 
   return (
     <div className={styles.Auth}>
+      <Link to="/">
+        <div className={styles.close}>
+          <img
+            src="/assets/images/common/x.svg"
+            alt="вернуться на промо"
+          />
+        </div>
+      </Link>
       <form onSubmit={submitHandler} className={styles.Form}>
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Электронная почта"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           className={styles.input}
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Пароль"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           className={styles.input}
@@ -48,7 +58,12 @@ const Login = () => {
         <button type="submit" className={styles.Button} id="button-create">
           Войти
         </button>
-        <Link className={styles.Form_link} to="/signup">Создать аккаунт</Link>
+        <Link
+          className={styles.Form_link}
+          to="/signup"
+        >
+          Зарегистрироваться
+        </Link>
       </form>
     </div>
   );

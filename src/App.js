@@ -4,17 +4,26 @@ import {
   BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { Spinner } from 'react-bootstrap';
+
 import Cards from './cards/components/Cards/Cards';
+
+import { setErrorInfo } from './common/redux';
+
 import {
   isAuthenticatedSelector, refreshTokenSelector,
-  userIdSelector, tokenSelector,
+  userIdSelector, tokenSelector, isTokenValidSelector,
 } from './auth/redux/selectors';
-import { login } from './auth/redux';
+
+import { login, logout } from './auth/redux';
+
+import { showSpinnerSelector } from './common/redux/selectors';
 
 import { setSettings } from './settings/redux';
 
 import { fetchJSON } from './common/utils';
 
+import Toast from './common/components/Toast/Toast';
 import Login from './auth/components/Login';
 import Signup from './auth/components/Signup';
 import Menu from './layout/components/Menu/Menu';
@@ -27,6 +36,7 @@ import Statistics from './statistics/components/Statistics/Statistics';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
 import Settings from './settings/components/Settings/Settings';
 import GamesPage from './layout/components/GamesPage/GamesPage';
+import Speakit from './games/speakit/components/Speakit';
 
 const publicRoutes = [
   {
@@ -81,6 +91,11 @@ const privateRoutes = [
     component: <GamesPage />,
   },
   {
+    title: 'Speakit',
+    path: '/games/speakit',
+    component: <Speakit />,
+  },
+  {
     title: 'Карточки',
     path: '/cards',
     component: <Cards />,
@@ -128,12 +143,21 @@ createPrivateRoute.propTypes = {
 
 const App = () => {
   const dispatch = useDispatch();
+
+  // показывать ли спиннер
+  const showSpinner = useSelector(showSpinnerSelector);
+
   const token = useSelector(tokenSelector);
   // есть ли у нас данные о пользователе
   const isLogged = useSelector(isAuthenticatedSelector);
-  // декодинг токена, сравнение его срока годности с датой
+  const isTokenValid = useSelector(isTokenValidSelector);
   const refreshToken = useSelector(refreshTokenSelector);
   const userId = useSelector(userIdSelector);
+
+  useEffect(() => {
+    if (!isTokenValid) dispatch(logout());
+  }, [isTokenValid, dispatch]);
+
   useEffect(() => {
     // если пользователь залогинен и токен помер - обновляем токен
     const intervalId = setInterval(() => {
@@ -149,7 +173,7 @@ const App = () => {
         const endpoint = `users/${userId}/tokens`;
         fetchJSON(endpoint, fetchOptions)
           .then((data) => dispatch(login(data)))
-          .catch((er) => console.log(er));
+          .catch(() => dispatch(logout()));
       }
     }, 600000);
     return () => clearInterval(intervalId);
@@ -166,15 +190,25 @@ const App = () => {
       },
     })
       .then(({ id, ...data }) => dispatch(setSettings(data)))
-      .catch((er) => console.log(er));
+      .catch(() => dispatch(setErrorInfo('Ошибка при сетевом запросе')));
   }, [dispatch, token, userId]);
 
   return (
     <Router>
+      <Toast />
       <Switch>
         {publicRoutes.map(createPublicRoutes)}
         <Route>
           <Menu />
+          {showSpinner && (
+            <div className={styles.SpinnerBackdrop}>
+              <Spinner
+                className={styles.Spinner}
+                animation="border"
+                variant="primary"
+              />
+            </div>
+          )}
           <Switch>
             {privateRoutes.map((el) => createPrivateRoute(el, isLogged))}
           </Switch>

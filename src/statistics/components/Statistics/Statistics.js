@@ -1,5 +1,14 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setStatistics } from '../../redux';
+import { cardsStatsSelector, todayCardsStats } from '../../redux/selectors';
+
+import { fetchJSON } from '../../../common/utils';
+
+import { tokenSelector, userIdSelector } from '../../../auth/redux/selectors';
 
 import DoughnutChart from '../Charts/DoughnutChart';
 import BarChart from '../Charts/BarChart';
@@ -9,20 +18,44 @@ import styles from './Statistics.module.css';
 
 const Statistics = () => {
   const [showGamesStat, setShowGamesStat] = useState(false);
+  const dispatch = useDispatch();
 
-  const passedCards = 54; // из api
-  const rightAnswers = 50; // из api
-  const newWords = 30; // из api
-  const longestStreak = 20; // из api
+  const {
+    passedCards, rightAnswers, newWords, longestStreak,
+  } = useSelector(todayCardsStats);
+  const cardsStats = useSelector(cardsStatsSelector);
+
+  const userId = useSelector(userIdSelector);
+  const token = useSelector(tokenSelector);
+  useEffect(() => {
+    const endpoint = `users/${userId}/statistics`;
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+      },
+    };
+    fetchJSON(endpoint, fetchOptions)
+      .then((data) => dispatch(setStatistics(data)))
+      .catch((err) => console.log(err));
+  }, [dispatch, token, userId]);
+
   const doughnutData = useMemo(
     () => [passedCards, rightAnswers, newWords, longestStreak],
     [passedCards, rightAnswers, newWords, longestStreak],
   );
-  // заглушка, из api (t - не магическое число, так надо по документации графиков)
+
   const barData = useMemo(
-    () => Array(20).fill(null).map((el, i) => (
-      { t: new Date(Date.UTC(2020, 7, i)), y: i * i }
-    )), [],
+    () => {
+      const data = [];
+      if (cardsStats) {
+        for (const [statKey, stat] of Object.entries(cardsStats)) {
+          data.push({ t: new Date(statKey), y: stat.passedCards });
+        }
+      }
+      return data;
+    }, [cardsStats],
   );
 
   const todayCardsInfo = useMemo(() => ([
@@ -33,7 +66,7 @@ const Statistics = () => {
     },
     {
       title: '% верных ответов',
-      value: rightAnswers,
+      value: Math.floor(rightAnswers * 100 / passedCards) || 0,
       color: '#784AC1',
     },
     {
