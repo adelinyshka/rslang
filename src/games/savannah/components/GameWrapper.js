@@ -72,6 +72,10 @@ const GameWrapper = styled.div`
       top: -8px;
     }
     
+    @media (max-width: 668px) {
+      top: 40px;
+    }
+    
     &:hover {
       cursor: pointer;
     }
@@ -91,6 +95,10 @@ const GameWrapper = styled.div`
       top: -8px;
     }
     
+    @media (max-width: 668px) {
+      top: 40px;
+    }
+    
     &:hover {
       cursor: pointer;
     }
@@ -105,6 +113,10 @@ const GameWrapper = styled.div`
     @media (max-width: 768px) {
       right: 13px;
       top: 5px;
+    }
+    
+    @media (max-width: 668px) {
+      top: 55px;
     }
     
     &:hover {
@@ -130,13 +142,13 @@ const GameWrapper = styled.div`
     }
   }
 
-  .animation {
-    animation: falling 5s infinite;
-  }
-
-  .no-animation {
-    animation: unset;
-  }
+  // .animation {
+  //   animation: falling 5s infinite;
+  // }
+  //
+  // .no-animation {
+  //   animation: unset;
+  // }
 
   .falling_word {
     font-size: 35px;

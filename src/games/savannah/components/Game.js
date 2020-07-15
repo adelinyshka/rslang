@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useEffect, useMemo,
+  useState, useCallback, useEffect, useMemo, createRef,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GameWrapper from './GameWrapper';
@@ -28,6 +28,7 @@ const baseStatistic = {
     },
   },
 };
+const page = 1;
 
 let counterCrystalSize = 0.7;
 const audioRight = new Audio('/assets/audio/right.mp3');
@@ -44,13 +45,11 @@ export default function Game() {
   const [arrOfWords, setArrOfWords] = useState([]);
   const [btnClicked, setBtnClicked] = useState(false);
   const [gettingWords, setGettingWords] = useState(true);
-  const [group, setGroup] = useState(1);
   const [isExit, setIsExit] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [livesCount, setLivesCount] = useState(5);
   const [numRightAnswers, setNumRightAnswers] = useState(0);
   const [numWrongAnswers, setNumWrongAnswers] = useState(0);
-  const [page, setPage] = useState(1);
   const [scaleSize, setScaleSize] = useState(counterCrystalSize);
   const [soundOn, setSoundOn] = useState(true);
   const [word, setWord] = useState('');
@@ -58,18 +57,31 @@ export default function Game() {
   const [wordID, setWordID] = useState('');
   const [wordAudio, setWordAudio] = useState('');
   const [wordTranscription, setWordTranscription] = useState('');
-  const [wordCounter, setWordCounter] = useState(29);
+  const [wordCounter, setWordCounter] = useState(30);
   const [words, setWords] = useState([]);
 
+  // const parent = document.getElementById('parent');
+  // // console.log(parent);
+  //
+  // const child = document.getElementById('child').getBoundingClientRect();
+  //
+  // // const test = parent.getBoundingClientRect();
+  // // console.log(test);
+  //
+  // console.log(child);
+  //
+  // const itemToAnime = React.useRef();
+
   const userWordsURL = useMemo(
-    () => `words?page=${page}&group=${activeLevel}&wordsPerExampleSentenceLTE=99\`
-    + '&wordsPerPage=120'`, [activeLevel],
+    () => `words?page=${page}
+    &group=${activeLevel}
+    &wordsPerExampleSentenceLTE=99\`
+    + '&wordsPerPage=120'`,
+    [activeLevel],
   );
 
-  console.log(
-    userWordsURL,
-  );
-  const action = useCallback((wordsFromApi) => setWords(wordsFromApi), []);
+  const action = useCallback((wordsFromApi) => setWords(wordsFromApi),
+    []);
   const wordsUseApi = useAPI(userWordsURL, fetchOptions, action);
 
   const gameOverHandler = useCallback(() => {
@@ -151,7 +163,8 @@ export default function Game() {
 
         fetchJSON(link, sendOptions);
       });
-  }, [numRightAnswers, token, userId]);
+  },
+  [numRightAnswers, token, userId]);
 
   useEffect(() => {
     if (gettingWords && livesCount && wordCounter && wordsUseApi) {
@@ -246,7 +259,6 @@ export default function Game() {
     setBtnClicked(correct);
     setWordCounter(wordCounter - 1);
     playSound(correct);
-    // setPage(page + 1);
 
     if (correct) {
       setScaleSize(counterCrystalSize += 0.02);
@@ -284,20 +296,14 @@ export default function Game() {
   const changeActiveLevel = useCallback((levelProps) => {
     if (activeLevel !== levelProps) {
       dispatch(setLevel(levelProps));
-      // setDictionary([]);
-      // setStartTime(60 - (activeLevel + 1) * 2);
-      // setPage(0);
     }
   }, [dispatch, activeLevel]);
-
   return (
-    <GameWrapper>
-      {/* <div className="level-switch"> */}
+    <GameWrapper id="parent">
       <SwitcherLevel
         changeActiveLevel={changeActiveLevel}
         currentLevel={activeLevel + 1}
       />
-      {/* </div> */}
       {isGameOver ? (
         <Results
           arrayWithStatistics={arrayWordsWithStatistics}
@@ -338,6 +344,7 @@ export default function Game() {
           : ''
       }
       <div
+        id="fallingWord"
         className={classNames('wrapper_falling',
           { 'animation': !btnClicked },
           { 'no-animation': btnClicked },
