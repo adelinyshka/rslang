@@ -1,4 +1,6 @@
 .Table {
+  width: 85%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   overflow: scroll;
@@ -50,4 +52,33 @@
   margin: 20px auto;
   width: 20%;
   border: 1px solid #c291df !important;
+}
+
+@media (max-width: 768px) {
+  .Table {
+    width: 100%;
+  }
+  
+  .Table > div {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin: 15px 0;
+    border-bottom: 2px solid #ECEBED;
+  }
+
+  .Table > div > div:nth-child(-n+4):not(:nth-child(1)) {
+    display:none;
+  }
+
+  .Table > div > div:nth-child(1) {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .Table > div > div {
+    width: auto ;
+  }
 }
