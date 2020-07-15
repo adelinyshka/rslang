@@ -1,0 +1,33 @@
+.Dictionary {
+  width: calc(100% - 99px);
+  margin-left: 99px;
+  height: 100%;
+  text-align: center;
+}
+
+.Dictionary button {
+  border-radius: 5px;
+  color:black;
+  border-radius: 5px !important;
+  background: white;
+  transition: background 0.5s ease-out;
+}
+
+.Dictionary button:hover {
+  background: #c291df;
+  color: white;
+}
+
+.Dictionary button:focus,
+.Dictionary button.Active {
+  background: linear-gradient(199.65deg, #BD7AE3 0%, #8461C9 100%);
+  color: white  ;
+  box-shadow: none  ;
+}
+
+@media (max-width: 768px) {
+  .Dictionary {
+    width: 100%;
+    margin: 0;
+  }
+}

@@ -1,0 +1,181 @@
+.Main {
+  background-color: #fafafa;
+}
+
+.Panel img {
+  display: block;
+  margin: 30px auto;
+}
+
+.Logo {
+  font-size: 50px;
+  font-weight: 400;
+  color: #6979F8;
+  padding-left: 30px;
+}
+
+.Main_content {
+  display: flex;
+  height: 100vh;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0 226px 0 326px;
+}
+
+.Panel {
+  width: 320px;
+  height: 492px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Panel h2 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 28px;
+  text-align: center;
+  font-family: 'Exo', sans-serif;
+}
+
+.Panel p {
+  font-family: 'Exo', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.24px;
+  padding: 0 40px;
+  outline: none;
+}
+
+.Btn {
+  width: 272px;
+  height: 48px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: #6979F8;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 17px;
+  line-height: 22px;
+  transition: ease-out 0.1s;
+}
+
+.Btn:hover {
+  width: 255px;
+}
+
+.Btn, .Btn:active, .Btn:focus {
+  cursor: pointer;
+  outline: none;
+}
+
+.P_games {
+  margin-block-start: 1.5em;
+  margin-block-end: 2em;
+}
+
+.Panel form {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Radio input {
+  transform: scale(1.5);
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 7px;
+}
+
+.Radio {
+  margin: 9% 0 0 0;
+}
+
+@media screen and (min-width:768px) and (max-width: 1220px) {
+  .Main_content {
+    padding: 0 0 0 100px;
+  }
+
+  .Panel {
+    width: 310px;
+  }
+
+  .Btn {
+    width: 263.5px;
+  }
+}
+
+
+@media screen and (max-width: 767px) {
+    .Main_content {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      align-self: center;
+      height: calc(100vh - 50px);
+      padding: 0;
+    }
+
+    .Panel {
+      padding: 10px;
+      margin: 10px;
+      width: 300px;
+      height: 220px;
+    }
+
+  .Panel:hover {
+    transform: scale(0.97);
+    cursor: pointer;
+    transition: ease-out 0.2s;
+  }
+
+  .Panel img {
+    width: 48px;
+    height: 72px;
+    margin: 5px auto;
+  }
+
+  .Btn {
+    display: none;
+  }
+
+  .Panel h2 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-bottom: 10px;
+  }
+
+  .P_games {
+    margin-block-start: 0.5em;
+  }
+
+  .Panel p {
+    padding: 0 10px;
+  }
+
+  .Panel form {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .Panel {
+    padding: 10px;
+    margin: 5px;
+    width: 300px;
+    height: 220px;
+  }
+}

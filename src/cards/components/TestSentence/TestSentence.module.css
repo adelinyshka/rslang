@@ -1,0 +1,33 @@
+.RightLetter {
+  color: rgba(0, 166, 17, 0.55);
+}
+
+.WrongLetter {
+  color: rgba(222, 40, 40, 0.69);
+}
+
+.WrongAnswer {
+  background-color: #D5F2EA;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.SubmitBtn {
+  background: #0AD1BD;
+  border: #0AD1BD;
+  margin-bottom: 10px;
+}
+
+.SubmitBtn:hover,
+.SubmitBtn:focus,
+.SubmitBtn:active {
+  transform: scale(1.1);
+  background: #0AD1BD;
+  border: #0AD1BD;
+  outline: none;
+  box-shadow: none;
+}
+
+.sentenceRight {
+  padding-bottom: 10px !important;
+}

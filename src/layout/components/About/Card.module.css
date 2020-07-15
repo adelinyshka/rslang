@@ -1,0 +1,48 @@
+.CardWrapper {
+  width: 360px;
+  height: 438px;
+  margin-right: 30px;
+  margin-bottom: 35px;
+  background: #F2F2F2;
+  box-shadow: 0px 15px 19px rgba(0, 0, 0, 0.24);
+  border-radius: 5px;
+}
+
+.image {
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+}
+
+.TextWrapper {
+  padding: 20px;
+}
+
+.Name {
+  display: flex;
+  align-items: center;
+}
+
+.NameDev {
+  display: inline;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.TextDev {
+  margin-top: 10px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.IconGit {
+  margin-right: 30px;
+  display: inline-block;
+}
+
+@media (max-width: 450px) {
+  .CardWrapper {
+    width: 300px;
+    margin-right: 0;
+  }
+}

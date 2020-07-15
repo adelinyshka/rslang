@@ -1,0 +1,46 @@
+.NavItem {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: auto;
+  margin: 0 0 10px 0;
+  outline: none;
+  padding: 0 0 0 10px;
+}
+
+.NavItem:hover .Description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  font-size: 14px;
+}
+
+.Description {
+  position: absolute;
+  top: -65px;
+  display: none;
+  flex-shrink: 0;
+  width: 103px;
+  height: 65px;
+  text-align: center;
+  background-color: #6979f8bf;
+  color: white;
+  mask: url('/assets/images/cards/descriptionMask.svg') top left / cover;
+}
+
+.Icon {
+  max-width: 40px;
+}
+
+@media (max-width: 767px) {
+  .Description {
+    top: -30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .NavItem:hover .Description {
+    display: none;
+  }
+}

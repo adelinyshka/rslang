@@ -1,0 +1,248 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Exo&display=swap'); */
+
+.NavList {
+  list-style-type: none;
+  padding        : 0;
+  margin         : 16px 0 0 0;
+  display        : flex;
+  flex-direction : column;
+  overflow       : hidden;
+}
+
+.MenuContainer {
+  z-index   : 400;
+  position  : fixed;
+  top       : 0;
+  left      : 0;
+  height    : 100%;
+  width     : 100%;
+  max-width : 99px;
+  transition: max-width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
+}
+
+.MenuContainer:hover {
+  width     : 100%;
+  max-width : 330px;
+  transition: max-width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
+}
+
+
+.Menu {
+  position  : absolute;
+  top       : 0;
+  left      : 0;
+  width     : 100%;
+  height    : 100%;
+  background: linear-gradient(187.85deg, #BD7AE3 0%, #8461C9 100%);
+  box-shadow: 7px 0px 64px rgba(0, 0, 0, 0.15);
+  overflow  : hidden;
+}
+
+.HeaderMenu {
+  display: flex;
+}
+
+.LogoBlue {
+  font-family: 'Exo', sans-serif;
+  font-style : normal;
+  font-weight: normal;
+  font-size  : 50px;
+  line-height: 22px;
+  color      : #6979F8;
+  margin     : 34px 0px 0 99px;
+}
+
+.Logo {
+  font-family: 'Exo', sans-serif;
+  font-size  : 50px;
+  margin     : 34px -97px 5px 20px;
+  display    : flex;
+  line-height: 22px;
+  color      : #FFF;
+  font-weight: normal;
+}
+
+.LogoWhite {
+  font-family: 'Exo', sans-serif;
+  font-size  : 50px;
+  line-height: 22px;
+  color      : #FFF;
+  margin     : 30px 0px 0 116px;
+}
+
+
+.Home {
+  display        : flex;
+  align-items    : center;
+  text-decoration: none !important;
+}
+
+.Home:hover,
+.Home:focus,
+.Home:active {
+  text-decoration: none !important;
+}
+
+.Home:hover {
+  text-decoration: none;
+}
+
+.BlackTheme {
+  display        : flex;
+  align-items    : center;
+  height         : 65px;
+  width          : 330px;
+  text-decoration: none;
+}
+
+.BlackThemeLabel {
+  padding-left: 35px;
+  font-Size   : 20px;
+  line-Height : 22px;
+  color       : #FFFFFF;
+}
+
+.BlackThemeInner {
+  display        : flex;
+  align-items    : center;
+  height         : 100%;
+  width          : 330px;
+  text-decoration: none;
+  margin-bottom  : 30px;
+}
+
+.BlackThemeIcon {
+  padding: 0px 0px 0px 32px;
+}
+
+.UserLoginInner {
+  display    : flex;
+  align-items: center;
+  height     : 65px;
+  width      : 330px;
+}
+
+.UserLoginIcon {
+  padding: 0px 0px 0px 32px;
+}
+
+.UserLoginIcon img {
+  height: 35px;
+  width : 35px;
+}
+
+.UserLoginLabel {
+  padding-left: 35px;
+  font-Size   : 20px;
+  line-Height : 22px;
+  color       : #B6BDFC;
+}
+
+.FlexContainer {
+  display        : flex;
+  flex-direction : column;
+  justify-content: space-between;
+  height         : 100%;
+}
+
+.ToggleThemeLabel input[type='checkbox'] {
+  display: none;
+}
+
+.ToggleThemeLabel input[type='checkbox']:checked~.Toggle {
+  background: #6979F8;
+  left      : 21px;
+  transition: .5s;
+}
+
+.ToggleThemeLabel input[type='checkbox']:checked~.Switch {
+  background: #9CA5D7;
+  transition: .5s;
+}
+
+.Switch {
+  display      : block;
+  width        : 40px;
+  height       : 19px;
+  background   : #939393;
+  border-radius: 20px;
+  position     : absolute;
+  top          : -5px;
+  transition   : .5s;
+}
+
+.Toggle {
+  height       : 20px;
+  width        : 20px;
+  border-radius: 50%;
+  background   : white;
+  position     : absolute;
+  top          : -6px;
+  left         : -1px;
+  box-shadow   : 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition   : .5s;
+}
+
+.Card {
+  display   : inline-block;
+  margin    : 3px 0px 3px 39px;
+  text-align: center;
+  position  : relative;
+}
+
+
+@media (max-width: 768px) {
+  .MenuContainer {
+    width    : 100%;
+    max-width: 0px;
+  }
+
+  .Active {
+    max-width : 330px;
+    transition: max-width 300ms cubic-bezier(.04, .95, .91, .9) 10ms;
+  }
+
+  .HeaderMenu {
+    display: none;
+  }
+
+  .LogoBlue {
+    display: none;
+  }
+
+  .Home {
+    display: none;
+  }
+
+  .NavList {
+    margin-top: 50px;
+  }
+
+  .UserLoginIcon img,
+  .BlackThemeImg {
+    height: 30px;
+    width : 30px;
+  }
+
+  .UserLoginInner,
+  .BlackTheme {
+    height: 8vh;
+  }
+
+  .BlackThemeIcon {
+    padding: 17px 0px 0px 32px;
+  }
+
+  .FlexContainer {
+    justify-content: flex-start;
+  }
+
+  .Card {
+    margin: 47px 0px -2px -87px;
+  }
+
+}
+
+.HideBlackThemeToggle {
+  display: none;
+}

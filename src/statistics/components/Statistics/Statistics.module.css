@@ -1,0 +1,95 @@
+.StatisticsContainer {
+  width: calc(100% - 99px);
+  margin-left: 99px;
+  padding: 0 5%;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  grid-template-areas: 
+            "today chart"
+            "today chart"
+            "games chart"
+            "long long "
+            "long long ";
+
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  background-color: #FAFAFA;
+}
+
+.StatisticsContainer > div {
+  border-radius: 20px;
+  min-width: 50%;
+}
+
+.Today, 
+.BarChart, 
+.Games {
+  background-color: #fff;
+  text-align: center;
+}
+
+.Today {
+  grid-area: today;
+}
+
+.TodayContainer p {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 5%;
+}
+
+.Marker {
+  display: inline-block;
+  width: 20px;
+  height: 10px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.BarChart {
+  width: 100%;
+  grid-area: long;
+  height: 100%;
+}
+
+.Games {
+  padding: 20px;
+  grid-area: games;
+  height: 100%;
+}
+
+.Games button {
+  margin: 20px;
+  padding: 10px;
+}
+
+.DoughnutChart {
+  grid-area: chart;
+  pointer-events: none;
+  height: 80%;
+
+}
+
+@media (max-width: 768px) {
+  .StatisticsContainer {
+    margin-top:50px;
+    width: 100%;
+    margin: 0;
+    grid-template-areas: 
+                    "chart chart"
+                    "today today"
+                    "games games"
+                    "long long ";
+  grid-template-rows: repeat(4, 1fr);
+
+  }
+  .DoughnutChart{
+    height: 100px;
+  }
+}

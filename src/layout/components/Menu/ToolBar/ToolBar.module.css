@@ -1,0 +1,110 @@
+.ToolbarContainer {
+  display: none;
+}
+
+.MobileLogo {
+  display: none;
+}
+
+.BurgerCheckbox {
+  display: none;
+}
+
+.Burger {
+  transform   : scale(0.65);
+  width       : 45px;
+  height      : 37px;
+  position    : relative;
+  overflow    : hidden;
+  margin-left : 20px;
+  margin-right: 20px;
+}
+
+.Burger label {
+  width     : 45px;
+  height    : 37px;
+  display   : block;
+  transition: all 0.35s;
+  cursor    : pointer;
+}
+
+.Bar {
+  width         : 100%;
+  height        : 4px;
+  display       : block;
+  position      : absolute;
+  left          : 0;
+  background    : #FFF;
+  border-radius : 5px;
+  transition    : all 0.35s;
+  pointer-events: none;
+}
+
+.Bar1 {
+  top: 1px;
+}
+
+.Bar2 {
+  top: 14px;
+}
+
+.Bar3 {
+  top: 29px;
+}
+
+.Burger3 input:checked~label {
+  transform: rotate(90deg);
+}
+
+.Burger3 input:checked~label .Bar1 {
+  top      : 18px;
+  transform: rotate(45deg);
+}
+
+.Burger3 input:checked~label .Bar2 {
+  left: 100%;
+}
+
+.Burger3 input:checked~label .Bar3 {
+  top      : 18px;
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+
+  .ToolbarContainer {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    flex-direction : row-reverse;
+    position       : sticky;
+    top            : 0;
+    height         : 50px;
+    width          : 100%;
+    background     : linear-gradient(187.85deg, #BD7AE3 0%, #8461C9 100%);
+    box-shadow     : 7px 0px 64px rgba(0, 0, 0, 0.15);
+    z-index        : 500;
+  }
+
+  .MobileLogo {
+    margin     : 0;
+    font-family: 'Exo', sans-serif;
+    display    : flex;
+    color      : #FFF;
+    font-weight: normal;
+    font-size  : 20px;
+    line-height: 22px;
+  }
+
+  .MobileHome {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    height         : 50px;
+    width          : 200px;
+    text-decoration: none;
+    position       : relative;
+    left           : 48px;
+  }
+
+}

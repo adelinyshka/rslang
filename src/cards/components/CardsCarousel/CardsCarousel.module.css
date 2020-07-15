@@ -1,0 +1,61 @@
+.Carousel {
+  min-height: 300px;
+}
+
+.Carousel > a {
+  width: auto;
+}
+
+.Carousel > div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.CarouselItemPrev {
+  margin: 0 auto;
+  height: 100%;
+}
+
+.CarouselItemNext {
+  margin: 0 auto;
+  height: 100%;
+}
+
+.LeftArrow {
+  background-image: url('/assets/images/cards/leftArrow.svg');
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 44px;
+  margin: 5px;
+}
+
+.RightArrow {
+  background-image: url('/assets/images/cards/rightArrow.svg');
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 44px;
+  margin: 5px;
+}
+
+@media (max-width: 767px) {
+  .Carousel {
+    margin-top: 30px;
+  }
+
+  .RightArrow,
+  .LeftArrow {
+    margin: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .Carousel {
+    margin-top: 5px;
+  }
+
+  .RightArrow,
+  .LeftArrow {
+    display: none;
+  }
+}

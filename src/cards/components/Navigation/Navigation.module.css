@@ -1,0 +1,13 @@
+.Navigation {
+  display: flex;
+  justify-content: flex-end;
+  width: 80%;
+  height: 50px;
+  overflow: visible;
+}
+
+@media (max-width: 767px) {
+  .Navigation {
+    justify-content: space-evenly;
+  }
+}
