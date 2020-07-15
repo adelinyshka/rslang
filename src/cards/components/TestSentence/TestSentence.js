@@ -3,10 +3,11 @@ import React, {
 } from 'react';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  setAnswered, setWasMistaken,
+  setAnswered, pushMistakenWord,
 } from '../../redux';
+import { autoSoundPlaySelector } from '../../../settings/redux/selectors';
 import styles from './TestSentence.module.css';
 
 const mistakesInWord = (wrongWord, word) => {
@@ -31,9 +32,10 @@ const mistakesInWord = (wrongWord, word) => {
 };
 
 const TestSentence = ({
-  testSentenceArr, word, playAudio,
+  testSentenceArr, word, playAudio, wordId,
 }) => {
   const dispatch = useDispatch();
+  const shouldPlaySound = useSelector(autoSoundPlaySelector);
   const [value, setValue] = useState('');
   const [mistake, setMistake] = useState();
   const wrongAnswer = useMemo(() => mistake && (
@@ -51,17 +53,21 @@ const TestSentence = ({
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
-    if (value.toLowerCase() === word) {
-      if (!mistake) dispatch(setWasMistaken(false));
-      playAudio();
+    if (value.toLowerCase() === word.toLowerCase()) {
+      if (mistake) {
+        const mistakenWord = {};
+        mistakenWord[wordId] = true;
+        dispatch(pushMistakenWord(mistakenWord));
+      }
+      if (shouldPlaySound) playAudio();
       setMistake();
       dispatch(setAnswered(true));
     } else {
-      dispatch(setWasMistaken(true));
       setMistake(value);
     }
     setValue('');
-  }, [playAudio, value, word, setMistake, dispatch, mistake]);
+  }, [playAudio, value, word, setMistake,
+    shouldPlaySound, dispatch, mistake, wordId]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -87,6 +93,7 @@ TestSentence.propTypes = {
   testSentenceArr: PropTypes.array.isRequired,
   word: PropTypes.string.isRequired,
   playAudio: PropTypes.func.isRequired,
+  wordId: PropTypes.string.isRequired,
 };
 
 export default TestSentence;

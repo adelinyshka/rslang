@@ -44,14 +44,14 @@ const ModalExit = ({ setModalExit, setReduxStatus }) => (
   </StyleExit>
 );
 
-const Exit = ({ onExit, isWhite = false }) => {
-  const [isExit, setIsExit] = useState(false);
+const iconCross = (white) => (
+  !white
+    ? '/assets/images/common/x_white.svg'
+    : '/assets/images/common/x.svg'
+);
 
-  const iconCross = (white) => (
-    white
-      ? '/assets/images/common/x_white.svg'
-      : '/assets/images/common/x.svg'
-  );
+const Exit = ({ onExit = (() => {}), noWhite }) => {
+  const [isExit, setIsExit] = useState(false);
 
   const onExitClickHandler = useCallback((exit) => {
     setIsExit(!exit);
@@ -69,7 +69,7 @@ const Exit = ({ onExit, isWhite = false }) => {
       ) : false}
       <img
         style={{ cursor: 'pointer' }}
-        src={iconCross(isWhite)}
+        src={iconCross(noWhite)}
         alt="cross"
       />
     </div>
@@ -82,8 +82,14 @@ ModalExit.propTypes = {
 };
 
 Exit.propTypes = {
-  onExit: PropTypes.func.isRequired,
-  isWhite: PropTypes.bool.isRequired,
+  onExit: PropTypes.func,
+  noWhite: PropTypes.bool,
+};
+
+Exit.defaultProps = {
+  onExit: PropTypes.func,
+  noWhite: PropTypes.bool,
 };
 
 export default Exit;
+

@@ -1,17 +1,12 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import styles from './Progress.module.css';
+import { cardsTotalSelector, passedCardsSelector } from '../../redux/selectors';
 
-const Progress = ({ cardsArr, newCardsAmount }) => {
-  const cardsLeft = useMemo(
-    () => (cardsArr ? cardsArr.length : newCardsAmount),
-    [cardsArr, newCardsAmount],
-  );
-  const passedCards = useMemo(
-    () => (newCardsAmount - cardsLeft),
-    [newCardsAmount, cardsLeft],
-  );
+const Progress = () => {
+  const cardsTotal = useSelector(cardsTotalSelector);
+  const passedCards = useSelector(passedCardsSelector);
   return (
     <div className={styles.Progress}>
       0
@@ -20,17 +15,12 @@ const Progress = ({ cardsArr, newCardsAmount }) => {
         variant="success"
         className={styles.ProgressBar}
         min={0}
-        max={newCardsAmount}
-        label={`${passedCards}/${newCardsAmount}`}
+        max={cardsTotal}
+        label={`${passedCards}/${cardsTotal}`}
       />
-      {newCardsAmount}
+      {cardsTotal}
     </div>
   );
-};
-
-Progress.propTypes = {
-  cardsArr: PropTypes.array.isRequired,
-  newCardsAmount: PropTypes.number.isRequired,
 };
 
 export default Progress;

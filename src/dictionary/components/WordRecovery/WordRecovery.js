@@ -14,7 +14,10 @@ import { userIdSelector } from '../../../auth/redux/selectors';
 
 import styles from './WordRecovery.module.css';
 
-const WordRecovery = ({ wordId, difficulty, onRecovery }) => {
+const date = new Date(Date.now());
+const nextDate = date.toLocaleDateString('en-US');
+
+const WordRecovery = ({ wordId, userWord, onRecovery }) => {
   const userId = useSelector(userIdSelector);
   const isAllRecovered = useSelector(isAllRecoveredSelector);
   const selectedWords = useSelector(selectedWordsSelector);
@@ -28,13 +31,16 @@ const WordRecovery = ({ wordId, difficulty, onRecovery }) => {
   const fetchOptions = useMemo(() => ({
     method: 'PUT',
     body: JSON.stringify({
-      'difficulty': difficulty,
+      ...userWord,
       'optional': {
+        ...userWord.optional,
         'deleted': false,
+        'difficult': false,
         'learning': true,
+        'nextDate': nextDate,
       },
     }),
-  }), [difficulty]);
+  }), [userWord]);
 
   // условие для отправки запроса
   const condition = useMemo(
@@ -69,7 +75,7 @@ const WordRecovery = ({ wordId, difficulty, onRecovery }) => {
 
 WordRecovery.propTypes = {
   wordId: PropTypes.string.isRequired,
-  difficulty: PropTypes.string.isRequired,
+  userWord: PropTypes.object.isRequired,
   onRecovery: PropTypes.func.isRequired,
 };
 
