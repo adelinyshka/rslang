@@ -45,3 +45,9 @@
   justify-content: center;
   margin: 0;
 }
+
+.ShowWordsButton {
+  margin: 20px auto;
+  width: 20%;
+  border: 1px solid #c291df !important;
+}

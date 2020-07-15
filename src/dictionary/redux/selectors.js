@@ -37,4 +37,9 @@ export const isEveryUnselectedSelector = createSelector(
   ({ selectedWords }) => Object.values(selectedWords).every((el) => !el),
 );
 
+export const wordsAmountSelector = createSelector(
+  dictionarySelector,
+  ({ wordsAmount }) => wordsAmount,
+);
+
 export default dictionarySelector;

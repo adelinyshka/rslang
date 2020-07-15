@@ -12,9 +12,12 @@ import styles from './TableItem.module.css';
 
 const TableItem = ({ wordInfo, section }) => {
   const {
-    _id, userWord, audio, word, wordTranslate,
+    userWord,
+    audio,
+    word,
+    wordTranslate,
+    _id: id,
   } = useMemo(() => wordInfo, [wordInfo]);
-  const progressStatus = useMemo(() => 5, []); // получаем из wordInfo
 
   const [marked, setMarked] = useState(false);
 
@@ -23,11 +26,11 @@ const TableItem = ({ wordInfo, section }) => {
   const content = useMemo(() => {
     switch (section) {
       case 'learning':
-        return <LearningSection progressStatus={progressStatus} />;
+        return <LearningSection userWord={userWord} />;
       default:
         return null;
     }
-  }, [progressStatus, section]);
+  }, [section, userWord]);
 
   const playAudio = useCallback(() => {
     new Audio('https://raw.githubusercontent.com/alekchaik/'
@@ -49,7 +52,7 @@ const TableItem = ({ wordInfo, section }) => {
   return (
     <div className={styles.TableItem}>
       <div className={styles.Word} onClick={handleCardClick}>
-        <Checkbox wordId={_id} />
+        <Checkbox wordId={id} />
         <div onClick={playAudio}>
           <img src="/assets/images/common/speakerOnIcon.svg" alt="play word" />
         </div>
@@ -62,8 +65,8 @@ const TableItem = ({ wordInfo, section }) => {
         section !== 'learning'
         && (
           <WordRecovery
-            wordId={_id}
-            difficulty={userWord.difficulty}
+            wordId={id}
+            userWord={userWord}
             onRecovery={setMarked}
           />
         )
@@ -73,8 +76,8 @@ const TableItem = ({ wordInfo, section }) => {
         section !== 'deleted'
         && (
           <WordRemoval
-            wordId={_id}
-            difficulty={userWord.difficulty}
+            wordId={id}
+            userWord={userWord}
             onRemoval={setMarked}
           />
         )
