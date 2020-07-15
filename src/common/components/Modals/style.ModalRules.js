@@ -8,10 +8,6 @@ export default Style.div`
   left: 0;
   right: 0;
   bottom: 0;
-  
-   @media (orientation: landscape) {
-      overflow: scroll;   
-    }
 
   .pop-up {
     z-index: 50;
@@ -35,14 +31,6 @@ export default Style.div`
     min-width: 300px;
     margin-left: 0;
     margin-top: 20px;
-    }
-
-  @media (orientation: landscape) {
-    width: 80%;
-    min-width: 300px;
-    margin-left: 0;
-    margin-top: 20px;
-    height: 320px;
     }
   }
   
