@@ -8,6 +8,8 @@ import IntervalInfo from './IntervalInfo/IntervalInfo';
 import PromoWrapper from './PromoWrapper';
 import Study from './Study/Study';
 import VideoBlock from './VideoBlock/VideoBlock';
+import Rules from '../../../common/components/Modals/Rules';
+import Exit from '../../../common/components/Modals/Exit';
 
 export default function Promo() {
   return (

@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 @font-face {
   font-family: 'Exo';
   src        : url('/public/assets/fonts/Exo/static/Exo-Regular.ttf');
   font-weight: normal;
 }
 
+=======
+>>>>>>> 39b22e47965e3fa189a0f3a0042ffc083ef1f7d6
 .Wrapper {
   display         : flex;
   flex-direction  : column;
