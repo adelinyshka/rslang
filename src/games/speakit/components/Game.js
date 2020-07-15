@@ -271,7 +271,7 @@ const Game = ({
           dispatch(setSpeechWords(trueSpeechWords));
           dispatch(setImage(linkImage));
         });
-        if (speechWords.length === 0) completeGame();
+        if (speechWords.length === 9) completeGame();
       } else {
         dispatch(setSpeechActiveWord(transcript));
         dispatch(setImage('/assets/images/speakit/base-game-image.png'));
