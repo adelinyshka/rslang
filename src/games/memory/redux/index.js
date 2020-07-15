@@ -19,7 +19,7 @@ export const setActiveWord = (activeWord) => ({
 });
 
 export const setTranslateActiveWord = (translateActiveWord) => ({
-  type: 'SET_TRANSLATE_ACTIVE_WORD',
+  type: 'SET_TRANSE_ACTIVE_WORD',
   translateActiveWord,
 });
 
