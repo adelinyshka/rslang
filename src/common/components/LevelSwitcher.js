@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -10,9 +10,15 @@ levels = levels
   .fill(' ')
   .map((el, index) => index + 1);
 
-const SwitcherLevel = ({ changeActiveLevel }) => {
+const SwitcherLevel = ({ changeActiveLevel, currentLevel }) => {
   const [activeLevel, setActiveLevel] = useState(1);
-  console.log(changeActiveLevel);
+
+  useEffect(() => {
+    if (currentLevel && currentLevel !== activeLevel) {
+      setActiveLevel(currentLevel);
+    }
+  }, [activeLevel, currentLevel]);
+
   const handlerOnClick = useCallback((level, index) => {
     setActiveLevel(level);
     changeActiveLevel(index);
@@ -43,6 +49,7 @@ const SwitcherLevel = ({ changeActiveLevel }) => {
 
 SwitcherLevel.propTypes = {
   changeActiveLevel: PropTypes.func.isRequired,
+  currentLevel: PropTypes.number.isRequired,
 };
 
 export default SwitcherLevel;

@@ -14,7 +14,7 @@
 }
 
 .TextWrapper {
-  padding: 30px;
+  padding: 20px;
 }
 
 .Name {
@@ -29,6 +29,7 @@
 }
 
 .TextDev {
+  margin-top: 10px;
   text-align: left;
   font-size: 16px;
   line-height: 26px;

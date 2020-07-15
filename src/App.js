@@ -29,6 +29,7 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
+import Memory from './games/memory/components/Memory/Memory';
 import Statistics from './statistics/components/Statistics/Statistics';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
 import Settings from './settings/components/Settings/Settings';
@@ -117,6 +118,16 @@ const privateRoutes = [
     title: 'Audiocall',
     path: '/games/audiocall',
     component: <Audiocall />,
+  },
+  {
+    title: 'О команде',
+    path: '/about',
+    component: <About />,
+  },
+  {
+    title: 'Мемори',
+    path: '/games/memory',
+    component: <Memory />,
   },
 ];
 

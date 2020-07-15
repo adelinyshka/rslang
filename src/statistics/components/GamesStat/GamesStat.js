@@ -41,9 +41,15 @@ const GamesStat = ({ show, onHide }) => {
         const timesPlayed = ['количество игр'];
         for (let j = 0; j < values.length; j++) {
           const keys = Object.keys(values[j]);
-          date.push(keys[i]);
-          res.push(values[j][keys[i]].result);
-          timesPlayed.push(values[j][keys[i]].timesPlayed);
+          if (keys[i] && values[j][keys[i]]) {
+            date.push(keys[i]);
+            res.push(values[j][keys[i]].result);
+            timesPlayed.push(values[j][keys[i]].timesPlayed);
+          } else {
+            date.push('');
+            res.push('');
+            timesPlayed.push('');
+          }
         }
         const jsxDate = date.map((el, index) => <td key={el + index}>{el}</td>);
         const jsxRes = res.map((el, index) => <td key={el + index}>{el}</td>);
