@@ -5,20 +5,14 @@ import {
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
-
 import Cards from './cards/components/Cards/Cards';
-
 import {
   isAuthenticatedSelector, refreshTokenSelector,
   userIdSelector, tokenSelector, isTokenValidSelector,
 } from './auth/redux/selectors';
-
 import { login, logout } from './auth/redux';
-
 import { showSpinnerSelector } from './common/redux/selectors';
-
 import { setSettings, reverseSettings } from './settings/redux';
-
 import { fetchJSON } from './common/utils';
 
 import Toast from './common/components/Toast/Toast';
@@ -29,6 +23,7 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
+import Savannah from './games/savannah/components/Savannah';
 import Memory from './games/memory/components/Memory/Memory';
 import Statistics from './statistics/components/Statistics/Statistics';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
@@ -87,6 +82,11 @@ const privateRoutes = [
     title: 'Игры',
     path: '/games',
     component: <GamesPage />,
+  },
+  {
+    title: 'Savannah',
+    path: '/games/savannah',
+    component: <Savannah />,
   },
   {
     title: 'Speakit',
