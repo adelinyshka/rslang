@@ -3,36 +3,72 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { isShowingAnswerSelector } from '../../redux/selectors';
-import { showAnswer } from '../../redux';
+import { showAnswer, setNavFetchOptions } from '../../redux';
+import {
+  ButtonsSelector,
+  interfaceHintsSelector,
+} from '../../../settings/redux/selectors';
+
 import NavItem from './NavItem';
 import styles from './Navigation.module.css';
 
 const Navigation = ({ isPreviousCard }) => {
   const dispatch = useDispatch();
   const isShowingAnswer = useSelector(isShowingAnswerSelector);
+  const shouldDisplayHints = useSelector(interfaceHintsSelector);
+
+  const {
+    deleteBtn,
+    difficultBtn,
+    showAnswerBtn,
+  } = useSelector(ButtonsSelector);
+
   const itemsInfo = useMemo(() => [
     {
       alt: 'Удалить',
       icon: 'deleteIcon.svg',
-      clicked: () => {},
+      display: deleteBtn,
+      clicked: () => dispatch(setNavFetchOptions({
+        deleted: true,
+        learning: false,
+        difficult: false,
+      })),
     },
+
     {
       alt: 'Добавить в сложные',
       icon: 'addToDifficultIcon.svg',
-      clicked: () => {},
+      display: difficultBtn,
+      clicked: () => dispatch(setNavFetchOptions({
+        deleted: false,
+        difficult: true,
+      })),
     },
+
     {
       alt: 'Показать перевод',
       icon: 'translationIcon.svg',
+      display: showAnswerBtn,
       clicked: () => (
         isPreviousCard ? null : dispatch(showAnswer(!isShowingAnswer))
       ),
     },
-  ], [dispatch, isPreviousCard, isShowingAnswer]);
+  ], [deleteBtn, difficultBtn, dispatch,
+    isPreviousCard, isShowingAnswer, showAnswerBtn]);
 
-  const navItems = useMemo(() => itemsInfo.map(({ alt, icon, clicked }) => (
-    <NavItem alt={alt} icon={icon} clicked={clicked} key={alt} />
-  )), [itemsInfo]);
+  const navItems = useMemo(() => itemsInfo.map(({
+    alt, icon, clicked, display,
+  }) => (
+    display && (
+      <NavItem
+        alt={alt}
+        icon={icon}
+        clicked={clicked}
+        key={alt}
+        hintsDisplay={shouldDisplayHints}
+      />
+    )
+  )), [itemsInfo, shouldDisplayHints]);
 
   return (
     <div className={styles.Navigation}>

@@ -1,29 +1,75 @@
 import { createSelector } from 'reselect';
 
-const cardsSelector = (state) => state.cards;
+export const cardsSelector = (state) => state.cards;
 
-const isShowingAnswerSelector = createSelector(
+export const isShowingAnswerSelector = createSelector(
   cardsSelector,
   ({ isShowingAnswer }) => isShowingAnswer,
 );
-const cardsArrSelector = createSelector(
+
+export const cardsArrSelector = createSelector(
   cardsSelector,
   ({ cardsArr }) => cardsArr,
 );
-const lastCardSelector = createSelector(
+
+export const lastCardSelector = createSelector(
   cardsSelector,
   ({ previousCard }) => previousCard,
 );
-const wasAnsweredSelector = createSelector(
+
+export const wasAnsweredSelector = createSelector(
   cardsSelector,
   ({ wasAnswered }) => wasAnswered,
 );
-const wasMistakenSelector = createSelector(
+
+export const wasMistakenSelector = createSelector(
   cardsSelector,
   ({ wasMistaken }) => wasMistaken,
 );
 
-export {
-  isShowingAnswerSelector, cardsArrSelector, lastCardSelector,
-  wasAnsweredSelector, wasMistakenSelector,
-};
+export const cardsModeSelector = createSelector(
+  cardsSelector,
+  ({ cardsMode }) => cardsMode,
+);
+
+export const rightAnswersSelector = createSelector(
+  cardsSelector,
+  (
+    { mistakenWords, passedCards },
+  ) => passedCards - Object.keys(mistakenWords).length,
+);
+
+export const mistakenWordsSelector = createSelector(
+  cardsSelector,
+  ({ mistakenWords }) => mistakenWords,
+);
+
+export const cardsTotalSelector = createSelector(
+  cardsSelector,
+  ({ cardsTotal }) => cardsTotal,
+);
+
+export const passedCardsSelector = createSelector(
+  cardsSelector,
+  ({ passedCards }) => passedCards,
+);
+
+export const gameEndedSelector = createSelector(
+  cardsSelector,
+  ({ gameEnded }) => gameEnded,
+);
+
+export const newWordsSelector = createSelector(
+  cardsSelector,
+  ({ newWords }) => newWords,
+);
+
+export const longestStreakSelector = createSelector(
+  cardsSelector,
+  ({ longestStreak }) => longestStreak,
+);
+
+export const navFetchOptionsSelector = createSelector(
+  cardsSelector,
+  ({ navFetchOptions }) => navFetchOptions,
+);
