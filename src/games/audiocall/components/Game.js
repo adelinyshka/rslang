@@ -222,7 +222,7 @@ export default function Game({ callback }) {
         {/*  onClick={() => changeStatus(false)} */}
         {/* /> */}
         <div className={styles.cross}>
-          <Exit />
+          <Exit noWhite={false} />
         </div>
         <div className={styles.question}>
           <Rules rules="Выберите правильный ответ после проигранного аудио" />

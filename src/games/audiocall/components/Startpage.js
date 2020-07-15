@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import styles from './Audiocall.module.css';
 import Exit from '../../../common/components/Modals/Exit';
+
 import LevelSwitcher from '../../../common/components/LevelSwitcher';
 
 export default function Startpage({ callback }) {
   return (
     <div className={styles.Startpage}>
       <div className={styles.Header}>
-        <Exit />
+        <div className={styles.close}>
+          <Link to="../games">
+            <Exit />
+          </Link>
+        </div>
       </div>
       {/* <div className={styles.LevelSwitcher}> */}
       {/* <LevelSwitcher /> */}
