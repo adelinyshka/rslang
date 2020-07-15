@@ -29,6 +29,7 @@ import About from './layout/components/About/About';
 import styles from './App.module.css';
 import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
+import Memory from './games/memory/components/Memory/Memory';
 import Sprint from './games/sprint/Sprint';
 import Statistics from './statistics/components/Statistics/Statistics';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
@@ -114,10 +115,21 @@ const privateRoutes = [
     component: <Main />,
   },
   {
-    title: 'Спринт',
+    title: 'О команде',
+    path: '/about',
+    component: <About />,
+  },
+  {
+    title: 'Мемори',
+    path: '/games/memory',
+    component: <Memory />,
+  },
+  {
+    title: 'Sprint',
     path: '/games/sprint',
     component: <Sprint />,
   },
+
 ];
 
 function createPrivateRoute({ title, path, component }, isLogged) {

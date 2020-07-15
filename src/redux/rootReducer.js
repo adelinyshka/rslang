@@ -3,7 +3,7 @@ import authReducer from '../auth/redux';
 import dictionaryReducer from '../dictionary/redux';
 import settingsReducer from '../settings/redux';
 import audiocallReducer from '../games/audiocall/redux';
-import customReducer from '../games/custom/redux';
+import memoryReducer from '../games/memory/redux';
 import puzzleReducer from '../games/puzzle/redux';
 import savannahReducer from '../games/savannah/redux';
 import speakitReducer from '../games/speakit/redux';
@@ -17,7 +17,7 @@ export default combineReducers({
   dictionary: dictionaryReducer,
   settings: settingsReducer,
   audiocall: audiocallReducer,
-  custom: customReducer,
+  memory: memoryReducer,
   puzzle: puzzleReducer,
   savannah: savannahReducer,
   speakit: speakitReducer,

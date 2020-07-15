@@ -12,6 +12,9 @@ export default styled.div`
   background-size: contain;
   overflow: hidden;
 
+
+
+
   img.question,img.cross {
     position: absolute;
     top: 20px;
@@ -179,6 +182,7 @@ export default styled.div`
     margin-left: 100px;
     position: relative;
 
+
     @media(max-width: 768px) {
       margin-left: 0px;
     }
@@ -300,7 +304,7 @@ export default styled.div`
   .Arrows {
     height:30px;
     width:100%;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 

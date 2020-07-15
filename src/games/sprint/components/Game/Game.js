@@ -121,7 +121,7 @@ function Game() {
 
   const changeMark = useCallback(
     (bool) => {
-      activeMarks = marks;
+      activeMarks = [...marks];
       if (bool && marksCombo < 3) {
         activeMarks[marksCombo] = 'hit';
         dispatch(incCombo());
@@ -183,7 +183,7 @@ function Game() {
           <Exit onExit={onExit} noWhite={false} />
           <div className="UpperContainer">
             <div className="TaimerContainer">
-              <Timer initialTime={9} timeOutHandler={onOverGame} />
+              <Timer initialTime={60} timeOutHandler={onOverGame} />
             </div>
 
             <div className="ScoreContainer">
