@@ -10,6 +10,11 @@ const StartPageWrapper = styled.div`
     height: calc(100vh - 50px);
   }
   
+  .level-switch {
+  position: absolute;
+  z-index: 50;
+  }
+  
   img.cross {
     position: absolute;
     z-index: 2;

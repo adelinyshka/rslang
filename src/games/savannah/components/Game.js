@@ -8,10 +8,12 @@ import Lives from './Lives';
 import SoundSwitcher from '../../../common/components/SoundSwitcher';
 import useAPI, { fetchJSON } from '../../../common/utils/index';
 import Results from './Results';
-import { setStatusGame } from '../redux';
+import { setStatusGame, setLevel } from '../redux';
 import Rules from '../../../common/components/Modals/Rules';
 import Exit from '../../../common/components/Modals/Exit';
 import { tokenSelector, userIdSelector } from '../../../auth/redux/selectors';
+import SwitcherLevel from '../../../common/components/LevelSwitcher';
+import { levelSelector } from '../redux/selectors';
 
 const classNames = require('classnames');
 
@@ -32,6 +34,7 @@ const audioRight = new Audio('/assets/audio/right.mp3');
 const audioWrong = new Audio('/assets/audio/wrong.mp3');
 
 export default function Game() {
+  const activeLevel = useSelector(levelSelector);
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
   const token = useSelector(tokenSelector);
@@ -59,10 +62,13 @@ export default function Game() {
   const [words, setWords] = useState([]);
 
   const userWordsURL = useMemo(
-    () => `words?page=${page}&group=${group}&wordsPerExampleSentenceLTE=99\`
-    + '&wordsPerPage=120'`, [group],
+    () => `words?page=${page}&group=${activeLevel}&wordsPerExampleSentenceLTE=99\`
+    + '&wordsPerPage=120'`, [activeLevel],
   );
 
+  console.log(
+    userWordsURL,
+  );
   const action = useCallback((wordsFromApi) => setWords(wordsFromApi), []);
   const wordsUseApi = useAPI(userWordsURL, fetchOptions, action);
 
@@ -275,8 +281,23 @@ export default function Game() {
     };
   }, [livesCount, answer, btnClicked]);
 
+  const changeActiveLevel = useCallback((levelProps) => {
+    if (activeLevel !== levelProps) {
+      dispatch(setLevel(levelProps));
+      // setDictionary([]);
+      // setStartTime(60 - (activeLevel + 1) * 2);
+      // setPage(0);
+    }
+  }, [dispatch, activeLevel]);
+
   return (
     <GameWrapper>
+      {/* <div className="level-switch"> */}
+      <SwitcherLevel
+        changeActiveLevel={changeActiveLevel}
+        currentLevel={activeLevel + 1}
+      />
+      {/* </div> */}
       {isGameOver ? (
         <Results
           arrayWithStatistics={arrayWordsWithStatistics}
