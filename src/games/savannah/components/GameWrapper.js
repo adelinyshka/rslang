@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const GameWrapper = styled.div`
-  font-family: 'Exo',sans-serif;
-  font-size: 25px;
   height: 100vh;
   margin-left: 50px;
   position: relative;
@@ -16,7 +14,6 @@ const GameWrapper = styled.div`
       margin-left: 0;
       overflow: hidden;
     }
-   
   
   .tree-wave,
   .tree-tall {
@@ -55,7 +52,6 @@ const GameWrapper = styled.div`
       right: -14px;
       }
   }
- 
   
   img.sound {
     position: absolute;
@@ -159,6 +155,7 @@ const GameWrapper = styled.div`
   0% {
     top: 10%;
   }
+  
   100% {
     top: 60%;
   }
@@ -172,6 +169,8 @@ const GameWrapper = styled.div`
     width: 80%;
     margin: 0 auto;
     flex-wrap: wrap;
+    font-family: 'Exo',sans-serif;
+    font-size: 25px;
     
     @media(max-width: 786px) {
       top: 25%;
@@ -246,7 +245,7 @@ const GameWrapper = styled.div`
       50% {
         filter: brightness(0.9);
       }
-  }
+    }
   
 `;
 

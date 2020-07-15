@@ -15,12 +15,17 @@ export default style.div`
   }
 
   .p {
-    margin-left: 10px;
+    margin: 0px 0px 0px 10px;
+    font: normal 'Exo',sans-serif;
+    font-size: 16px;
+    line-height: 13px;
+    color: #6979F8;
   }
 
   .ul {
     display: flex;
     padding-inline-start: 10px;
+    margin: 10px 0px 10px 0;
   }
 
   .li {
@@ -30,7 +35,7 @@ export default style.div`
     list-style: none;
     margin-right: 10px;
     background: #6979f8;
-    width: 30px;
+    width: 29px;
     height: 30px;
     border-radius: 100px;
     border: 3px solid white;
@@ -38,6 +43,14 @@ export default style.div`
     :hover {
       cursor: pointer;
       background: #4FC8AB;
+    }
+    p {
+      margin:0;
+      font: normal 'Exo',sans-serif;
+      font-size: 12px;
+      line-height: 14px;
+      color: #ffffff;
+
     }
   }
 

@@ -58,7 +58,7 @@ const ResultsWrapper = styled.div`
   }
   
   .results-words {
-    padding-top: 110px;
+    padding-top: 52px;
     padding-bottom: 100px;
     width: 80%;
     padding-left: 100px;

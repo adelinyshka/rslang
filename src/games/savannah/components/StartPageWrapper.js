@@ -36,39 +36,73 @@ const StartPageWrapper = styled.div`
   h2.title_h2 {
     font-style: normal;
     font-weight: normal;
-    font-size: 50px;
+    font-size: 70px;
     line-height: 22px;
     text-align: center;
     color: #6979f8;
-  
-  @media(max-width: 767px) {
-    padding-top: 50px;
+    
+    @media (max-width: 1680px) {
+    font-size: 60px;
+    line-height: 60px;
     }
+    
+  @media (max-width: 1280px) {
+    font-size: 50px;
+    line-height: 50px;
+    }  
+    
+    @media (max-width: 768px) {
+      font-size: 40px;
+      line-height: 40px;
+          padding-top: 50px;
+    }  
+  
   }
   
   .game_description {
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
-    line-height: 40px;
+    font-size: 40px;
+    line-height: 60px;
     text-align: center;
     color: #000000;
     padding: 50px 0 30px;
     width: 60%;
     margin: 0 auto;
     
+    @media (max-width: 1680px) {
+    font-size: 35px;
+    line-height: 60px;
+    }
+    
+  @media (max-width: 1370px) {
+    font-size: 20px;
+    line-height: 40px;
+    }  
+    
     @media (max-width: 768px) {
       width: 90%;
-      line-height: 30px;
+      font-size: 20px;
+      line-height: 40px;
     }
   }
   
   img.decoration {
     position: absolute;
-    height: 300px;
-    weight: 300px;
+    height: 700px;
+    width: 700px;
     bottom: 16px;
     right: 16px;
+    
+   @media (max-width: 1680px) {
+    height: 450px;
+    width: 450px;
+    }    
+    
+  @media (max-width: 1370px) {
+    height: 300px;
+    width: 300px;
+    }  
     
   @media (max-width: 768px) {
     display: none;

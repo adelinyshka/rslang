@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useEffect, useMemo, useRef,
+  useState, useCallback, useEffect, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GameWrapper from './GameWrapper';
@@ -59,25 +59,6 @@ export default function Game() {
   const [wordTranscription, setWordTranscription] = useState('');
   const [wordCounter, setWordCounter] = useState(30);
   const [words, setWords] = useState([]);
-
-  // const parent = document.getElementById('parent');
-  // console.log(parent.getBoundingClientRect());
-
-  // const child = document.getElementById('child').getBoundingClientRect();
-
-  // const test = parent.getBoundingClientRect();
-  // console.log(test);
-
-  // console.log(child);
-
-  const itemToAnime = useRef();
-
-  const parentToAnime = useRef();
-
-  useEffect(() => {
-    const testItem = itemToAnime.current.getBoundingClientRect();
-    console.log(testItem);
-  }, [itemToAnime]);
 
   const userWordsURL = useMemo(
     () => `words?page=${page}
@@ -306,7 +287,7 @@ export default function Game() {
     }
   }, [dispatch, activeLevel]);
   return (
-    <GameWrapper ref={parentToAnime}>
+    <GameWrapper>
       <SwitcherLevel
         changeActiveLevel={changeActiveLevel}
         currentLevel={activeLevel + 1}
@@ -351,8 +332,6 @@ export default function Game() {
           : ''
       }
       <div
-        id="fallingWord"
-        ref={itemToAnime}
         className={classNames('wrapper_falling',
           { 'animation': !btnClicked },
           { 'no-animation': btnClicked },
