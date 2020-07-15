@@ -60,18 +60,6 @@ export default function Game() {
   const [wordCounter, setWordCounter] = useState(30);
   const [words, setWords] = useState([]);
 
-  // const parent = document.getElementById('parent');
-  // // console.log(parent);
-  //
-  // const child = document.getElementById('child').getBoundingClientRect();
-  //
-  // // const test = parent.getBoundingClientRect();
-  // // console.log(test);
-  //
-  // console.log(child);
-  //
-  // const itemToAnime = React.useRef();
-
   const userWordsURL = useMemo(
     () => `words?page=${page}
     &group=${activeLevel}
