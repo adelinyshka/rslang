@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import StyleExit from './style.ModalExit';
 
-const ModalExit = ({ setModalExit }) => (
+const ModalExit = ({ setModalExit, setReduxStatus }) => (
   <StyleExit>
     <div className="pop-up">
       <div className="top exit-bg">
@@ -27,10 +27,10 @@ const ModalExit = ({ setModalExit }) => (
           >
             Отменить
           </button>
-          <Link to="/games">
+          <Link to="../games">
             <button
               type="button"
-              // onClick={exitGame}
+              onClick={setReduxStatus}
               className="exit"
             >
               Выйти
@@ -44,7 +44,13 @@ const ModalExit = ({ setModalExit }) => (
   </StyleExit>
 );
 
-const Exit = () => {
+const iconCross = (white) => (
+  !white
+    ? '/assets/images/common/x_white.svg'
+    : '/assets/images/common/x.svg'
+);
+
+const Exit = ({ onExit = (() => {}), noWhite }) => {
   const [isExit, setIsExit] = useState(false);
 
   const onExitClickHandler = useCallback((exit) => {
@@ -58,11 +64,12 @@ const Exit = () => {
       {isExit ? (
         <ModalExit
           setModalExit={() => setIsExit(false)}
+          setReduxStatus={onExit}
         />
       ) : false}
       <img
         style={{ cursor: 'pointer' }}
-        src="/assets/images/common/x.svg"
+        src={iconCross(noWhite)}
         alt="cross"
       />
     </div>
@@ -71,7 +78,17 @@ const Exit = () => {
 
 ModalExit.propTypes = {
   setModalExit: PropTypes.func.isRequired,
+  setReduxStatus: PropTypes.func.isRequired,
+};
+
+Exit.propTypes = {
+  onExit: PropTypes.func,
+  noWhite: PropTypes.bool,
+};
+
+Exit.defaultProps = {
+  onExit: PropTypes.func,
+  noWhite: PropTypes.bool,
 };
 
 export default Exit;
-
