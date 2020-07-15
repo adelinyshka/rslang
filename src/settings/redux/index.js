@@ -24,10 +24,14 @@ export const setSettings = (settings) => ({
   ...settings,
 });
 
+export const reverseSettings = () => ({
+  type: 'REVERSE_SETTINGS',
+});
+
 const settingsReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
   switch (type) {
-    case 'LOG_OUT':
+    case 'REVERSE_SETTINGS':
       return {
         ...INITIAL_STATE,
       };

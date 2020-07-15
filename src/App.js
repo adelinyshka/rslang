@@ -17,7 +17,7 @@ import { login, logout } from './auth/redux';
 
 import { showSpinnerSelector } from './common/redux/selectors';
 
-import { setSettings } from './settings/redux';
+import { setSettings, reverseSettings } from './settings/redux';
 
 import { fetchJSON } from './common/utils';
 
@@ -182,7 +182,7 @@ const App = () => {
       },
     })
       .then(({ id, ...data }) => dispatch(setSettings(data)))
-      .catch(() => {});
+      .catch(() => dispatch(reverseSettings()));
   }, [dispatch, token, userId]);
 
   return (
