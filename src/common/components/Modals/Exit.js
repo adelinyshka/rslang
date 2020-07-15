@@ -68,6 +68,7 @@ const Exit = ({ onExit = (() => {}), noWhite }) => {
         />
       ) : false}
       <img
+        className="cross"
         style={{ cursor: 'pointer' }}
         src={iconCross(noWhite)}
         alt="cross"

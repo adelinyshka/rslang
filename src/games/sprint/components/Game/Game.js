@@ -5,12 +5,9 @@ import {
   Button,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-
 import Timer from '../Timer/Timer';
 import useAPI from '../../../../common/utils';
-
 import StyleGame from './style.Game';
-
 import {
   resultsSelector,
   wordsSelector,
@@ -22,7 +19,6 @@ import {
   targetsSelector,
   rateSelector,
 } from '../../redux/selectors';
-
 import {
   overGame,
   setResult,
@@ -33,6 +29,8 @@ import {
   setRate,
   setScore,
 } from '../../redux';
+import Rules from '../../../../common/components/Modals/Rules';
+import Exit from '../../../../common/components/Modals/Exit';
 
 const gameResult = [];
 
@@ -153,8 +151,11 @@ function Game() {
     return (
       <StyleGame>
         <div className="Main">
+          <Rules
+            rules="Если указан верный перевод слова - нажимайте 'Верно'"
+          />
+          <Exit noWhite={false} />
           <div className="UpperContainer">
-
             <div className="TaimerContainer">
               <Timer initialTime={10000} timeOutHandler={onOverGame} />
             </div>
@@ -164,9 +165,15 @@ function Game() {
             </div>
 
             <div className="Toolbar">
-              <img className="Close" src="/assets/images/sprint/bell_on.svg" />
+              {/* <img className="Close" src="/assets/images/sprint/bell_on.svg" /> */}
               <label className="Notification_label">
-                <input onChange={() => console.log('it works')} className="Notification_input" type="checkbox" value="1" name="k" />
+                <input
+                  onChange={() => console.log('it works')}
+                  className="Notification_input"
+                  type="checkbox"
+                  value="1"
+                  name="k"
+                />
                 <span />
               </label>
             </div>
@@ -175,12 +182,23 @@ function Game() {
             <div className="BlockWord">
 
               <div className="Marks">
-                {marks.map((type, index) => <img key={index} src={`/assets/images/sprint/${type}_mark.svg`} />)}
+                {marks.map((type, index) => (
+                  <img
+                    key={index}
+                    src={`/assets/images/sprint/${type}_mark.svg`}
+                    alt="mark"
+                  />
+                ))}
               </div>
 
               <div className="Targets">
-                <img src="/assets/images/sprint/hit_target.svg" />
-                {targets.map((type, index) => <img key={index} src={`/assets/images/sprint/${type}_target.svg`} />)}
+                <img src="/assets/images/sprint/hit_target.svg" alt="hint" />
+                {targets.map((type, index) => (
+                  <img
+                    key={index}
+                    src={`/assets/images/sprint/${type}_target.svg`}
+                  />
+                ))}
               </div>
 
               <div className="Words">
@@ -189,17 +207,46 @@ function Game() {
               </div>
 
               <div className="Buttons">
-                <Button className="Btn False" onClick={() => { setCount(count + 1); onAnswer(words[count], false); }}>Не верно</Button>
-                <Button className="Btn True" onClick={() => { setCount(count + 1); onAnswer(words[count], true); }}>Верно</Button>
+                <Button
+                  className="Btn False"
+                  onClick={() => {
+                    setCount(count + 1);
+                    onAnswer(words[count], false);
+                  }}
+                >
+                  Не верно
+                </Button>
+                <Button
+                  className="Btn True"
+                  onClick={() => {
+                    setCount(count + 1);
+                    onAnswer(words[count], true);
+                  }}
+                >
+                  Верно
+                </Button>
               </div>
 
               <div className="Arrows">
-                <img className="Left" src="/assets/images/sprint/left_arrow.svg" />
-                <img className="Right" src="/assets/images/sprint/right_arrow.svg" />
+                <img
+                  className="Left"
+                  src="/assets/images/sprint/left_arrow.svg"
+                />
+                <img
+                  className="Right"
+                  src="/assets/images/sprint/right_arrow.svg"
+                />
               </div>
 
-              <button className="Prononse" onClick={() => { prononse(count); }}>
-                <img className="Prononse_img" src="/assets/images/sprint/sound.svg" />
+              <button
+                className="Prononse"
+                onClick={() => { prononse(count); }}
+                type="button"
+              >
+                <img
+                  className="Prononse_img"
+                  src="/assets/images/sprint/sound.svg"
+                />
               </button>
 
             </div>
@@ -208,7 +255,11 @@ function Game() {
       </StyleGame>
     );
   }
-  return (<StyleGame><Timer initialTime={1} timeOutHandler={onStartGame} /></StyleGame>);
+  return (
+    <StyleGame>
+      <Timer initialTime={1} timeOutHandler={onStartGame} />
+    </StyleGame>
+  );
 }
 
 export default Game;

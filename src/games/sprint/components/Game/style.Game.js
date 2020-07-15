@@ -10,6 +10,32 @@ export default styled.div`
   background: #003906 url('/assets/images/sprint/bg.svg') no-repeat;
   background-position: 50% 100%;
   background-size: contain;
+  overflow: hidden;
+  
+  img.question,img.cross {
+    position: absolute;
+    top: 20px;
+    
+    @media (max-width: 768px) {
+    top: 10px;
+    }
+  }
+  
+  img.question {
+    right: 70px;
+    
+    @media (max-width: 768px) {
+      top: 10px;
+      }
+    }
+    
+  img.cross {
+    right: 20px;
+    
+    @media (max-width: 768px) {
+      top: 10px;
+      }
+    }
 
   .UpperContainer{
     width:100%;
@@ -87,8 +113,14 @@ export default styled.div`
       width: 35px;
       height: 35px;
       display: block;
-      position: relative;
+      position: absolute;
       margin:0;
+      top: 20px;
+      right: 130px;
+      
+      @media (max-width: 768px) {
+        top: 10px;
+      }
 
       .Notification_input {
         display:none;
@@ -122,6 +154,7 @@ export default styled.div`
     justify-content:center;
     flex-direction: column;
     align-items: center;
+      position: relative;
   }
 
   .BlockWordContainer{
