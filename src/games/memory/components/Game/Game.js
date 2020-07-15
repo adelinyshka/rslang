@@ -10,6 +10,10 @@ import { setLevel } from '../../redux/index';
 import { levelSelector } from '../../redux/selectors';
 import Dictionary from '../Dictionary/Dictionary';
 
+import {
+  setStatusGame,
+} from '../../redux/index';
+
 function Game() {
   const dispatch = useDispatch();
   const activeLevel = useSelector(levelSelector);
@@ -96,6 +100,10 @@ function Game() {
     }, 500);
   }, []);
 
+  const onExit = useCallback(() => {
+    dispatch(setStatusGame(false));
+  }, [dispatch]);
+
   const cardHandler = useCallback((cardId, word, setWord) => {
     if (correctAnswers.indexOf(cardId) === -1) {
       setWord(cardId);
@@ -123,6 +131,7 @@ function Game() {
             {isExit ? (
               <Exit
                 onCansel={() => setIsCansel(false)}
+                onExit={() => onExit}
               />
             ) : false}
             <div
@@ -181,7 +190,7 @@ function Game() {
                 : (
                   <div className={style.CardBlock}>
                     <div className={style.cardEng}>
-                      { dictionary
+                      {dictionary
                         ? englishWords.map(({ word, id }, index) => (
                           <Card
                             key={id}
@@ -198,7 +207,7 @@ function Game() {
                     </div>
 
                     <div className={style.cardRus}>
-                      { dictionary
+                      {dictionary
                         ? russianWords.map(({ wordTranslate, id }, index) => (
                           <Card
                             key={index}

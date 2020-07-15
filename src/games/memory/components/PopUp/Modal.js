@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import PopUp from './PopUp';
-import useAPI from '../../../../common/utils';
+// import useAPI from '../../../../common/utils';
 import style from './Modal.module.css';
 
 import StyleGameOver from './style.GameOver';
@@ -38,7 +38,7 @@ const Exit = ({ onCancel, onExit }) => (
       content={(
         <div>
           <p>
-          Если вы выйдете во время игры,
+            Если вы выйдете во время игры,
             <br />
           то прогресс не сохранится
           </p>
@@ -73,7 +73,7 @@ function GameOver({
   const [isStatisticsSend, setIsStatisticsSend] = useState(false);
   return (
     <div>
-      { isStatisticsSend ? (
+      {isStatisticsSend ? (
         <StyleGameOver>
           <ul className="listWords">
             {
@@ -82,17 +82,17 @@ function GameOver({
                 transcription,
                 wordTranslate,
               }, index) => (
-                <li
-                  key={index}
-                  className="learnedWord"
-                >
-                  <div>
-                    <p>{`${word}`}</p>
-                    <p>{`${transcription}`}</p>
-                    <p>{`${wordTranslate}`}</p>
-                  </div>
-                </li>
-              ))
+                  <li
+                    key={index}
+                    className="learnedWord"
+                  >
+                    <div>
+                      <p>{`${word}`}</p>
+                      <p>{`${transcription}`}</p>
+                      <p>{`${wordTranslate}`}</p>
+                    </div>
+                  </li>
+                ))
             }
             {
               statistics.incorrect.map(({
@@ -100,16 +100,16 @@ function GameOver({
                 transcription,
                 wordTranslate,
               }, index) => (
-                <li
-                  key={index}
-                >
-                  <div>
-                    <p>{`${word}`}</p>
-                    <p>{`${transcription}`}</p>
-                    <p>{`${wordTranslate}`}</p>
-                  </div>
-                </li>
-              ))
+                  <li
+                    key={index}
+                  >
+                    <div>
+                      <p>{`${word}`}</p>
+                      <p>{`${transcription}`}</p>
+                      <p>{`${wordTranslate}`}</p>
+                    </div>
+                  </li>
+                ))
             }
           </ul>
           <div className="wrapper-btn ">
@@ -118,7 +118,7 @@ function GameOver({
                 className={style.btnExit}
                 type="button"
               >
-              Попробовать ещё!
+                Попробовать ещё!
               </button>
             </Link>
           </div>
@@ -148,8 +148,8 @@ Rules.propTypes = {
 };
 
 Rules.defaultProps = {
-  onCancel: () => {},
-  onRules: () => {},
+  onCancel: () => { },
+  onRules: () => { },
 };
 
 Exit.propTypes = {
@@ -158,8 +158,8 @@ Exit.propTypes = {
 };
 
 Exit.defaultProps = {
-  onCancel: () => {},
-  onExit: () => {},
+  onCancel: () => { },
+  onExit: () => { },
 };
 
 export { Rules, Exit, GameOver };
