@@ -9,6 +9,8 @@ import { login } from '../redux';
 import loginUser from '../utils';
 import styles from './Auth.module.css';
 
+import { setErrorInfo } from '../../common/redux';
+
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -23,7 +25,7 @@ const Login = () => {
           email, token, userId, refreshToken,
         }));
       })
-      .catch((er) => console.log(er));
+      .catch(() => dispatch(setErrorInfo('Неверный логин или пароль')));
   }, [email, password, dispatch]);
 
   if (isLogged) return <Redirect to="/main" />;
@@ -56,7 +58,12 @@ const Login = () => {
         <button type="submit" className={styles.Button} id="button-create">
           Войти
         </button>
-        <Link className={styles.Form_link} to="/signup">Зарегистрироваться</Link>
+        <Link
+          className={styles.Form_link}
+          to="/signup"
+        >
+          Зарегистрироваться
+        </Link>
       </form>
     </div>
   );

@@ -9,6 +9,8 @@ import { login } from '../redux';
 import loginUser from '../utils';
 import styles from './Auth.module.css';
 
+import { setErrorInfo } from '../../common/redux';
+
 const createUser = async (user) => {
   const url = 'https://afternoon-falls-25894.herokuapp.com/users';
   const rawResponse = await fetch(url, {
@@ -42,7 +44,7 @@ const Signup = () => {
       .then(({ userId, token }) => {
         dispatch(login({ email, token, userId }));
       })
-      .catch((er) => console.log(er));
+      .catch(() => dispatch(setErrorInfo('Ошибка при создании пользователя')));
   }, [email, password, dispatch]);
 
   if (isLogged) return <Redirect to="/main" />;

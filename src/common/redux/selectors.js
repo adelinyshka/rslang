@@ -7,4 +7,9 @@ export const showSpinnerSelector = createSelector(
   ({ showSpinner }) => showSpinner,
 );
 
+export const errorInfoSelector = createSelector(
+  commonSelector,
+  ({ errorInfo }) => errorInfo,
+);
+
 export default commonSelector;

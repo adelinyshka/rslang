@@ -72,7 +72,13 @@
 .Home {
   display        : flex;
   align-items    : center;
-  text-decoration: none;
+  text-decoration: none!important;
+}
+
+.Home:hover,
+.Home:focus,
+.Home:active {
+  text-decoration: none!important;
 }
 
 .BlackTheme {
