@@ -12,7 +12,7 @@ import { setErrorInfo } from './common/redux';
 
 import {
   isAuthenticatedSelector, refreshTokenSelector,
-  userIdSelector, tokenSelector,
+  userIdSelector, tokenSelector, isTokenValidSelector,
 } from './auth/redux/selectors';
 
 import { login, logout } from './auth/redux';
@@ -144,9 +144,14 @@ const App = () => {
   const token = useSelector(tokenSelector);
   // есть ли у нас данные о пользователе
   const isLogged = useSelector(isAuthenticatedSelector);
-  // декодинг токена, сравнение его срока годности с датой
+  const isTokenValid = useSelector(isTokenValidSelector);
   const refreshToken = useSelector(refreshTokenSelector);
   const userId = useSelector(userIdSelector);
+
+  useEffect(() => {
+    if (!isTokenValid) dispatch(logout());
+  }, [isTokenValid, dispatch]);
+
   useEffect(() => {
     // если пользователь залогинен и токен помер - обновляем токен
     const intervalId = setInterval(() => {
