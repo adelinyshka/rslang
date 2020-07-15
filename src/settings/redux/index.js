@@ -24,9 +24,17 @@ export const setSettings = (settings) => ({
   ...settings,
 });
 
+export const reverseSettings = () => ({
+  type: 'REVERSE_SETTINGS',
+});
+
 const settingsReducer = (state = INITIAL_STATE, action) => {
   const { type, ...payload } = action;
   switch (type) {
+    case 'REVERSE_SETTINGS':
+      return {
+        ...INITIAL_STATE,
+      };
     case 'SET_SETTINGS':
       return {
         ...state,

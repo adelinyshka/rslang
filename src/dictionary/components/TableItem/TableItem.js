@@ -56,8 +56,10 @@ const TableItem = ({ wordInfo, section }) => {
         <div onClick={playAudio}>
           <img src="/assets/images/common/speakerOnIcon.svg" alt="play word" />
         </div>
-        <div>{word}</div>
-        <div>{wordTranslate}</div>
+        <div className={styles.WordInfo}>
+          <div>{word}</div>
+          <div>{wordTranslate}</div>
+        </div>
       </div>
       {content}
 
@@ -92,7 +94,6 @@ const TableItem = ({ wordInfo, section }) => {
         />
       )}
     </div>
-
   );
 };
 

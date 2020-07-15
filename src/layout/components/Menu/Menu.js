@@ -39,7 +39,6 @@ function Menu() {
                     <div className={classes.UserLoginLabel}>{email}</div>
                   </div>
                 </li>
-                <NavItem title="Профиль" icon="settings.svg" link="/profile" />
                 <NavItem title="Настройки" icon="filter.svg" link="/settings" />
                 <NavItem title="Мини игры" icon="london.svg" link="/games" />
                 <NavItem title="Карточки" icon="action.svg" link="/cards" />
