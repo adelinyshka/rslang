@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import style from './Card.module.css';
 
 function Card({
-  photo, name, github, description, bgColor,
+  photo, name, github, description, bgColor, role
 }) {
   return (
     <div className={style.CardWrapper} style={{ backgroundColor: bgColor }}>
@@ -21,14 +21,14 @@ function Card({
             rel="noopener noreferrer"
           >
             <img
-              src="./assets/Team/iconGit.svg"
+              src="./assets/images/Team/iconGit.svg"
               alt="iconGit"
             />
           </a>
           <div className={style.NameDev}>
             {name}
             <br />
-            разработчик
+            {role}
           </div>
         </div>
         <p className={style.TextDev}>
@@ -45,6 +45,7 @@ Card.propTypes = {
   github: PropTypes.string,
   description: PropTypes.string,
   bgColor: PropTypes.string,
+  role: PropTypes.string,
 };
 
 Card.defaultProps = {
@@ -53,6 +54,7 @@ Card.defaultProps = {
   github: '',
   description: '',
   bgColor: '',
+  role: '',
 };
 
 export default Card;
