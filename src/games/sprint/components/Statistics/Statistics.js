@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+
 import ResultsWrapper from './style.Statistics';
 import { fetchJSON } from '../../../../common/utils';
 import {
@@ -11,6 +12,9 @@ import {
 import {
   resultsSelector,
 } from '../../redux/selectors';
+import {
+  setDefault,
+} from '../../redux';
 
 const playAudio = (audio) => {
   const audioPath = 'https://raw.githubusercontent.com/'
@@ -31,6 +35,7 @@ const Results = () => {
   const results = useSelector(resultsSelector);
   const userID = useSelector(userIdSelector);
   const token = useSelector(tokenSelector);
+  const dispatch = useDispatch();
 
   const countWords = useCallback((bool) => results.reduce(
     (count, { correctAnswer }) => (correctAnswer === bool ? count + 1 : count),
@@ -117,6 +122,10 @@ const Results = () => {
 
   Sendstatistic();
 
+  const onExit = useCallback(() => {
+    dispatch(setDefault());
+  }, [dispatch]);
+
   return (
     <ResultsWrapper>
       <div className="wrapper-icons">
@@ -160,7 +169,7 @@ const Results = () => {
         }
       </ul>
       <div className="wrapper-btn ">
-        <Link to="../games">
+        <Link to="../games" onClick={onExit}>
           <button
             type="button"
             className="btn-close"

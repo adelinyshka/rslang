@@ -34,6 +34,7 @@ import {
   setRate,
   setScore,
   setSoundStatus,
+  setDefault,
 } from '../../redux';
 
 const gameResult = [];
@@ -168,6 +169,10 @@ function Game() {
     () => dispatch(startGame()), [dispatch],
   );
 
+  const onExit = useCallback(() => {
+    dispatch(setDefault());
+  }, [dispatch]);
+
   if (gameStarted) {
     return (
       <StyleGame>
@@ -175,7 +180,7 @@ function Game() {
           <Rules
             rules="Если указан верный перевод слова - нажимайте 'Верно'"
           />
-          <Exit noWhite={false} />
+          <Exit onExit={onExit} noWhite={false} />
           <div className="UpperContainer">
             <div className="TaimerContainer">
               <Timer initialTime={9} timeOutHandler={onOverGame} />
@@ -184,9 +189,7 @@ function Game() {
             <div className="ScoreContainer">
               <p className="Score">{score}</p>
             </div>
-
             <div className="Toolbar">
-              <Exit />
               <label
                 className="Notification_label"
               >

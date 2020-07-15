@@ -1,3 +1,18 @@
+const INITIAL_STATE = {
+  initGame: false,
+  startGame: false,
+  overGame: false,
+  soundStatus: true,
+  learnedWords: false,
+  score: 0,
+  words: {},
+  results: [],
+  level: 0,
+  marks: ['empty', 'empty', 'empty'],
+  targets: ['empty', 'empty', 'empty'],
+  rate: 1,
+};
+
 export const initGame = () => ({
   type: 'INIT_GAME',
   initGame: true,
@@ -58,20 +73,9 @@ export const setRate = (num) => ({
   rate: num,
 });
 
-const INITIAL_STATE = {
-  initGame: false,
-  startGame: false,
-  overGame: false,
-  soundStatus: true,
-  learnedWords: false,
-  score: 0,
-  words: {},
-  results: [],
-  level: 0,
-  marks: ['empty', 'empty', 'empty'],
-  targets: ['empty', 'empty', 'empty'],
-  rate: 1,
-};
+export const setDefault = () => ({
+  type: 'SET_DEFAULT',
+});
 
 const sprintReducer = (state = INITIAL_STATE, action) => {
   const {
@@ -80,6 +84,8 @@ const sprintReducer = (state = INITIAL_STATE, action) => {
   } = action;
 
   switch (type) {
+    case 'SET_DEFAULT':
+      return { ...INITIAL_STATE };
     case 'INIT_GAME':
     case 'START_GAME':
     case 'SOUND_STATUS':
@@ -96,6 +102,7 @@ const sprintReducer = (state = INITIAL_STATE, action) => {
         ...state,
         ...payload,
       };
+
     default:
       return state;
   }

@@ -16,6 +16,7 @@ import {
   initGame,
   setLevel,
   setLearnedWords,
+  setDefault,
 } from '../../redux/index';
 
 const StartScreen = () => {
@@ -31,9 +32,13 @@ const StartScreen = () => {
 
   const onInitGame = useCallback(() => dispatch(initGame()), [dispatch]);
 
+  const onExit = useCallback(() => {
+    dispatch(setDefault());
+  }, [dispatch]);
+
   return (
     <StyleStartScreen>
-      <Link to="../games">
+      <Link to="../games" onClick={onExit}>
         <img
           className="cross"
           src="/assets/images/sprint/cross.svg"
