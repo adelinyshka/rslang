@@ -45,7 +45,6 @@ export default function Game() {
   const [arrOfWords, setArrOfWords] = useState([]);
   const [btnClicked, setBtnClicked] = useState(false);
   const [gettingWords, setGettingWords] = useState(true);
-  const [isExit, setIsExit] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [livesCount, setLivesCount] = useState(5);
   const [numRightAnswers, setNumRightAnswers] = useState(0);
@@ -122,7 +121,6 @@ export default function Game() {
             },
           },
         };
-        console.log(currentStatistics);
         return currentStatistics;
       })
       .then((currentStatistics) => {
@@ -155,7 +153,8 @@ export default function Game() {
   [numRightAnswers, token, userId]);
 
   useEffect(() => {
-    if (gettingWords && livesCount && wordCounter && wordsUseApi) {
+    if (gettingWords && livesCount
+       && wordCounter && wordsUseApi && words.length) {
       const randomNumberOne = getRandomNumber();
       const randomNumberTwo = getRandomNumber();
 
@@ -215,7 +214,8 @@ export default function Game() {
     return () => {
       setGettingWords(false);
     };
-  }, [words, gettingWords, livesCount, wordCounter]);
+  }, [words, gettingWords, livesCount, wordCounter,
+    wordsUseApi, arrayWordsWithStatistics, gameOverHandler]);
 
   const playSound = useCallback((isAnswerRight) => {
     if (soundOn) {
@@ -226,7 +226,6 @@ export default function Game() {
 
   const onExit = useCallback(() => {
     dispatch(setStatusGame(false));
-    setIsExit(false);
   }, [dispatch]);
 
   const updateStats = useCallback((isCorrect) => {
@@ -238,7 +237,8 @@ export default function Game() {
       'translation': wordTranslation,
       'isCorrect': isCorrect,
     }]);
-  }, [arrayWordsWithStatistics]);
+  }, [arrayWordsWithStatistics, word, wordAudio,
+    wordID, wordTranscription, wordTranslation]);
 
   const checkAnswer = useCallback((wordActive, answerActive) => {
     const correct = wordActive === answerActive;
@@ -255,7 +255,8 @@ export default function Game() {
       setLivesCount(livesCount - 1);
       setNumWrongAnswers(numWrongAnswers + 1);
     }
-  }, [answer, btnClicked, wordCounter, scaleSize, numRightAnswers]);
+  }, [updateStats, wordCounter, playSound,
+    numRightAnswers, livesCount, numWrongAnswers]);
 
   const refreshWordsOnClick = useCallback(() => {
     setTimeout(() => {
@@ -263,7 +264,7 @@ export default function Game() {
       setAnswer(false);
       setBtnClicked(false);
     }, 500);
-  }, [gettingWords, answer, btnClicked]);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -279,7 +280,7 @@ export default function Game() {
     return () => {
       clearTimeout(timer);
     };
-  }, [livesCount, answer, btnClicked]);
+  }, [livesCount, answer, btnClicked, playSound, updateStats]);
 
   const changeActiveLevel = useCallback((levelProps) => {
     if (activeLevel !== levelProps) {
