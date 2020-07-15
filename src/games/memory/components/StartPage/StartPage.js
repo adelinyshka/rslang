@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import style from './StartPage.module.css';
+import { Button, Form } from 'react-bootstrap';
+import StartPageWrapper from './StartPageWrapper';
 
 import {
   setStatusGame,
@@ -15,26 +16,32 @@ const StartPage = () => {
   }, [dispatch]);
 
   return (
-    <div className={style.Wrapper}>
+    <StartPageWrapper>
       <Link to="../games">
+
         <img
-          src="../assets/images/memory/cross.svg"
+          className="cross"
+          src="/assets/images/memory/cross.svg"
           alt="cross"
         />
       </Link>
-      <h1>
-          Мемори
-      </h1>
-      <p>Соберите все пары слов, за отведенное время.</p>
-      <p>Игра помогает улучшить запоминание слов.</p>
-      <button
-        type="button"
-        onClick={onStart}
-        className={style.Button}
-      >
-          Start
-      </button>
-    </div>
+      <div className="center_alignment">
+        <h2 className="title_h2">Мемори</h2>
+        <div className="game_description">
+          Соберите все пары слов, за отведенное время.
+          Игра помогает улучшить запоминание слов.
+        </div>
+        <Form>
+          <Button
+            className="start_btn"
+            onClick={onStart}
+          >
+            Start
+          </Button>
+
+        </Form>
+      </div>
+    </StartPageWrapper>
   );
 };
 export default StartPage;
