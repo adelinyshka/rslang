@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Exo&display=swap'); */
 
 .NavList {
   list-style-type: none;
@@ -44,6 +44,8 @@
 
 .LogoBlue {
   font-family: 'Exo', sans-serif;
+  font-style : normal;
+  font-weight: normal;
   font-size  : 50px;
   line-height: 22px;
   color      : #6979F8;
@@ -72,13 +74,17 @@
 .Home {
   display        : flex;
   align-items    : center;
-  text-decoration: none!important;
+  text-decoration: none !important;
 }
 
 .Home:hover,
 .Home:focus,
 .Home:active {
-  text-decoration: none!important;
+  text-decoration: none !important;
+}
+
+.Home:hover {
+  text-decoration: none;
 }
 
 .BlackTheme {

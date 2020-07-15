@@ -25,6 +25,7 @@ import Promo from './layout/components/Promo/Promo';
 import Main from './layout/components/Main/Main';
 import Savannah from './games/savannah/components/Savannah';
 import Memory from './games/memory/components/Memory/Memory';
+import Sprint from './games/sprint/Sprint';
 import Statistics from './statistics/components/Statistics/Statistics';
 import Dictionary from './dictionary/components/Dictionary/Dictionary';
 import Settings from './settings/components/Settings/Settings';
@@ -123,6 +124,12 @@ const privateRoutes = [
     path: '/games/memory',
     component: <Memory />,
   },
+  {
+    title: 'Sprint',
+    path: '/games/sprint',
+    component: <Sprint />,
+  },
+
 ];
 
 function createPrivateRoute({ title, path, component }, isLogged) {
