@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   words: {},
   results: [],
   level: 0,
+  marksCombo: 0,
   marks: ['empty', 'empty', 'empty'],
   targets: ['empty', 'empty', 'empty'],
   rate: 1,
@@ -43,9 +44,9 @@ export const setWords = (gettingWords) => ({
   words: gettingWords,
 });
 
-export const setResult = (gettingResults) => ({
-  type: 'SET_RESULTS',
-  results: gettingResults,
+export const pushResult = (result) => ({
+  type: 'PUSH_RESULT',
+  result,
 });
 
 export const setLevel = (level) => ({
@@ -63,6 +64,14 @@ export const setMarks = (num) => ({
   marks: num,
 });
 
+export const resetCombo = () => ({
+  type: 'RESET_COMBO',
+});
+
+export const incCombo = () => ({
+  type: 'INC_COMBO',
+});
+
 export const setTargets = (num) => ({
   type: 'SET_TARGETS',
   targets: num,
@@ -77,6 +86,22 @@ export const setDefault = () => ({
   type: 'SET_DEFAULT',
 });
 
+export const addMark = () => ({
+  type: 'ADD_MARK',
+});
+
+export const resetMarks = () => ({
+  type: 'RESET_MARK',
+});
+
+export const addTarget = () => ({
+  type: 'ADD_TARGET',
+});
+
+export const resetTargets = () => ({
+  type: 'RESET_TARGET',
+});
+
 const sprintReducer = (state = INITIAL_STATE, action) => {
   const {
     type,
@@ -84,8 +109,36 @@ const sprintReducer = (state = INITIAL_STATE, action) => {
   } = action;
 
   switch (type) {
+    case 'PUSH_RESULT':
+      return {
+        ...state,
+        results: [
+          ...state.results,
+          payload.result,
+        ],
+      };
     case 'SET_DEFAULT':
       return { ...INITIAL_STATE };
+    case 'INC_COMBO':
+      return {
+        ...state,
+        marksCombo: state.marksCombo + 1,
+      };
+    case 'RESET_COMBO':
+      return {
+        ...state,
+        marksCombo: 0,
+      };
+    // case 'ADD_MARK':
+    //   return {
+    //     ...state,
+    //     marks: [...state.marks],
+    //   };
+    // case 'RESET_MARKS':
+    //   return {
+    //     ...state,
+    //     marks: ['empty', 'empty', 'empty'],
+    //   };
     case 'INIT_GAME':
     case 'START_GAME':
     case 'SOUND_STATUS':

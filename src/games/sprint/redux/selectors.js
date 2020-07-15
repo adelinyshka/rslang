@@ -60,3 +60,8 @@ export const learnedWordsSelector = createSelector(
   sprintSelector,
   ({ learnedWords }) => learnedWords,
 );
+
+export const marksComboSelector = createSelector(
+  sprintSelector,
+  ({ marksCombo }) => marksCombo,
+);

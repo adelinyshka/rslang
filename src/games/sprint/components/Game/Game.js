@@ -23,21 +23,22 @@ import {
   rateSelector,
   soundStatusSelector,
   learnedWordsSelector,
+  marksComboSelector,
 } from '../../redux/selectors';
 import {
   overGame,
-  setResult,
+  pushResult,
+  setMarks,
   setWords,
   startGame,
-  setMarks,
   setTargets,
   setRate,
   setScore,
   setSoundStatus,
   setDefault,
+  resetCombo,
+  incCombo,
 } from '../../redux';
-
-const gameResult = [];
 
 const audioPath = 'https://raw.githubusercontent.com/'
   + 'alekchaik/rslang-data/master/';
@@ -46,10 +47,9 @@ const fetchOptions = {
   method: 'GET',
 };
 
-let marksCombo = 0;
 let targetsCombo = 0;
-let activeMarks;
-let activeTargets;
+let activeMarks = ['empty', 'empty', 'empty'];
+let activeTargets = ['empty', 'empty', 'empty'];
 
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
@@ -65,6 +65,7 @@ function Game() {
   const soundStatus = useSelector(soundStatusSelector);
   const learnedWordsStatus = useSelector(learnedWordsSelector);
   const userID = useSelector(userIdSelector);
+  const marksCombo = useSelector(marksComboSelector);
 
   const [count, setCount] = useState(0);
 
@@ -123,18 +124,18 @@ function Game() {
       activeMarks = marks;
       if (bool && marksCombo < 3) {
         activeMarks[marksCombo] = 'hit';
-        marksCombo += 1;
+        dispatch(incCombo());
       } else if (bool && marksCombo >= 3) {
         activeMarks = ['empty', 'empty', 'empty'];
-        marksCombo = 0;
+        dispatch(resetCombo());
         changeTargets(true);
       } else {
-        marksCombo = 0;
+        dispatch(resetCombo());
         activeMarks = ['empty', 'empty', 'empty'];
         changeTargets(false);
       }
       dispatch(setMarks([...activeMarks]));
-    }, [marks, dispatch, changeTargets],
+    }, [marks, dispatch, changeTargets, marksCombo],
   );
 
   const audioRight = useCallback(() => {
@@ -160,8 +161,7 @@ function Game() {
       }
       changeMark(word.correctAnswer);
       changeScore(word.correctAnswer);
-      gameResult.push(word);
-      dispatch(setResult(gameResult));
+      dispatch(pushResult(word));
     }, [dispatch, changeMark, changeScore, soundStatus, audioRight, audioWrong],
   );
 
