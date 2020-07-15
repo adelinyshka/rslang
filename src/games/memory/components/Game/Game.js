@@ -4,7 +4,6 @@ import SwitcherLevel from '../../../../common/components/LevelSwitcher';
 import Card from '../Card/Card';
 import Timer from '../Timer/Timer';
 import Lives from '../Lives/Lives';
-// import { Rules, Exit, GameOver } from '../PopUp/Modal';
 import { GameOver } from '../PopUp/Modal';
 import style from './Game.module.css';
 import { setLevel } from '../../redux/index';
@@ -30,9 +29,7 @@ function Game() {
   const [livesCount, setLivesCount] = useState(5);
   const [countCorrectAnswers, setCountCorrectAnswers] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [isRules, setIsRules] = useState(false);
   const [isExit, setIsExit] = useState(false);
-  const [isCansel, setIsCansel] = useState(false);
   const [page, setPage] = useState(0);
   const [startTime, setStartTime] = useState(60);
   const [initialTime, setInitialTime] = useState(startTime);
@@ -132,25 +129,20 @@ function Game() {
             <div className={style.info}>
               <p>Поверните устройство горизонтально</p>
             </div>
+
             <div
               className={style.cross}
             >
-              <Exit onExit={onExit} />
+              <Exit onExit={onExit} noWhite />
             </div>
-            {isRules ? (
-              <Rules
-                onRules={() => setIsRules(false)}
-              />
-            ) : false}
+
             <div
-              onClick={() => setIsRules(true)}
+              className={style.question}
             >
-              <img
-                src="../assets/images/memory/rules.svg"
-                alt="rules"
-                className={style.rules}
+              <Rules rules="Кликайте по словам, чтобы совместить слово и его перевод"
               />
             </div>
+
             <div className={style.Level}>
               <SwitcherLevel
                 changeActiveLevel={changeActiveLevel}

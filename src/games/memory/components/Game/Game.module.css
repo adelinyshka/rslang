@@ -16,24 +16,38 @@
   right: 30px;
 }
   
-  @media (max-width: 768px) {
-   .cross{
-    right: 13px;
-    top: 5px;
+@media (max-width: 768px) {
+  .cross{
+  right: 13px;
+  top: 5px;
+  }
+}
+
+@media (max-height: 574px) {
+  .cross{
+  display: none;
   }
 }
   
-  .cross:hover {
-    cursor: pointer;
-  }
-.rules {
-  position: absolute;
-  top: 20px;
-  right: 80px;
+.cross:hover {
+  cursor: pointer;
 }
 
-.cross:hover, 
-.rules:hover {
+.question {
+  position: absolute;
+  z-index: 2;
+  top: 20px;
+  right: 70px;
+}
+    
+@media (max-width: 768px) {
+  .question {
+  right: 45px;
+  top: -8px;
+  }
+}
+
+.question:hover {
   cursor: pointer;
 }
 
@@ -44,7 +58,6 @@
 
 .Lives {
   width: 100%;
-  /* margin: 20px; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,7 +69,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: cornsilk; */
   margin-bottom: 50px;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./lesBack.jpg');
 }
@@ -72,7 +84,6 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  /* position: absolute; */
 }
 
 .info {

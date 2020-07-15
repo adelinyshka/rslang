@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import useAPI from '../../../../common/utils';
-import style from './Dictionary.module.css';
 
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
@@ -40,7 +39,6 @@ const Dictionary = ({
       setDictionary(wordsUseApi);
       setEnglishWords(shuffle(wordsUseApi));
       setRussianWords(shuffle(wordsUseApi));
-      // setWords(wordsUseApi);
     }
     return () => {
       setGetNewWords(false);
@@ -53,16 +51,7 @@ const Dictionary = ({
     setDictionary]);
 
   return (
-    <div className={style.lds_roller}>
-      <div />
-      <div />
-      <div />
-      <div />
-      <div />
-      <div />
-      <div />
-      <div />
-    </div>
+    <div></div>
   );
 };
 
@@ -77,9 +66,9 @@ Dictionary.propTypes = {
 Dictionary.defaultProps = {
   level: 0,
   page: 0,
-  setDictionary: () => {},
-  setRussianWords: () => {},
-  setEnglishWords: () => {},
+  setDictionary: () => { },
+  setRussianWords: () => { },
+  setEnglishWords: () => { },
 };
 
 export default Dictionary;
