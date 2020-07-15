@@ -1,27 +1,25 @@
 import styled from 'styled-components';
 
 export default styled.div`
-height: 100vh;
-width: 100%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-background: #003906 url('/assets/images/sprint/bg.svg') no-repeat;
-background-position: 50% 100%;
-background-size: contain;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #003906 url('/assets/images/sprint/bg.svg') no-repeat;
+  background-position: 50% 100%;
+  background-size: contain;
 
-.UpperContainer{
-  width:100%;
-  display:flex;
-  justify-content: space-between;
+  .UpperContainer{
+    width:100%;
+    display:flex;
+    justify-content: space-between;
 
-  @media(max-width: 768px) {
-    width: 98%;
-    max-width: 595px;
-  }
-
-
+    @media(max-width: 768px) {
+      width: 98%;
+      max-width: 595px;
+    }
 
   .TaimerContainer{
     display:flex;
@@ -31,18 +29,17 @@ background-size: contain;
     left: 228px;
     top: 80px;
     margin-top: 3px;
-
-
+    
     @media(max-width: 1274px) {
-      left: 228px;
-      top: 12px;
-    }
+        left: 228px;
+        top: 12px;
+      }
 
     @media(max-width: 768px) {
       margin-left: 0px;
       position: static;
     }
-}
+  }
 
   .ScoreContainer{
     display:flex;
@@ -52,9 +49,10 @@ background-size: contain;
     margin-left: 100px;
 
     @media(max-width: 768px) {
-    margin-left: 0px;}
+      margin-left: 0px;
+    }
 
-    .Score{
+    .Score {
       font-family: 'Exo', sans-serif;
       font-style: normal;
       font-weight: normal;
@@ -62,10 +60,10 @@ background-size: contain;
       line-height: 40px;
       text-align: center;
       color: #FFF;
+      }
     }
-}
 
-  .Toolbar{
+  .Toolbar {
     display:flex;
     height:100px;
     width:100px;
@@ -77,21 +75,22 @@ background-size: contain;
       align-items: flex-end;
     }
 
-    .Close{
+    .Close {
       display:flex;
 
       @media(max-width: 768px) {
-      display:none;
+        display:none;
       }
     }
-    .Notification_label{
+    
+    .Notification_label {
       width: 35px;
       height: 35px;
       display: block;
       position: relative;
       margin:0;
 
-      .Notification_input{
+      .Notification_input {
         display:none;
       }
 
@@ -116,39 +115,40 @@ background-size: contain;
   }
 }
 
-.Main{
-  height:100vh;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  flex-direction: column;
-  align-items: center;
-}
-
-.BlockWordContainer{
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.BlockWord{
-  display:flex;
-  justify-content:center;
-  align-items: start;
-  flex-direction: column;
-  width: 98%;
-  height: 75%;
-  max-width: 595px;
-  max-height: 972px;
-  background: rgba(10, 217, 198, 0.15);
-  mix-blend-mode: normal;
-  border-radius: 6px;
-  margin-left: 100px;
-
-  @media(max-width: 768px) {
-    margin-left: 0px;
+  .Main{
+    height:100vh;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    flex-direction: column;
+    align-items: center;
   }
+
+  .BlockWordContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .BlockWord{
+    display:flex;
+    justify-content:center;
+    align-items: start;
+    flex-direction: column;
+    width: 98%;
+    height: 75%;
+    max-width: 595px;
+    max-height: 972px;
+    background: rgba(10, 217, 198, 0.15);
+    mix-blend-mode: normal;
+    border-radius: 6px;
+    margin-left: 100px;
+    position: relative;
+  
+    @media(max-width: 768px) {
+      margin-left: 0px;
+    }
 
   .Marks{
     height:100px;
@@ -158,7 +158,7 @@ background-size: contain;
     justify-content: center;
 
     img{
-      height:35px;
+      height:35px; 
       width:35px;
     }
 
@@ -218,7 +218,7 @@ background-size: contain;
     }
   }
 
-  .Buttons{
+  .Buttons {
     height:100px;
     width:100%;
     display: flex;
@@ -235,30 +235,36 @@ background-size: contain;
       width: 178px;
       height: 48px;
       margin: 26px 0 7px 0;
+      
+      &:hover,
+      &:focus,
+      &:active {
+        background: #08A999;
+        border: #08A999;
+       }
     }
 
-    .Btn:hover,
-    .Btn:focus,
-    .Btn:active {
-      background: #08A999;
-      border: #08A999;
-    }
-
-    .True{
+    .True {
       background-color: #0AD1BD;
       margin-left: 45px;
 
       @media(max-width: 768px) {
         margin-left: 0px;
+      }
     }
-    }
-    .False{
+    
+    .False {
       background-color: #E10050;
+      
+      &:hover,
+      &:focus,
+      &:active {
+       background-color: #C10045;
+      }
     }
-
   }
 
-  .Arrows{
+  .Arrows {
     height:30px;
     width:100%;
     display: flex;
@@ -272,16 +278,24 @@ background-size: contain;
     .Right{
       margin-left:186px;
     }
-
   }
-
-  .PrononseContainer{
+   
+  .Prononse {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     height:30px;
-    width:100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: transparent;
+    border: transparent;
+    outline: none;
+    cursor: pointer;
+    
+    &:hover,
+    &:focus,
+    &:active {
+     outline: none;
+    }
+   }
+   
   }
-
-}
 `;

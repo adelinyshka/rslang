@@ -156,7 +156,7 @@ function Game() {
           <div className="UpperContainer">
 
             <div className="TaimerContainer">
-              <Timer initialTime={5} timeOutHandler={onOverGame} />
+              <Timer initialTime={10000} timeOutHandler={onOverGame} />
             </div>
 
             <div className="ScoreContainer">
@@ -198,16 +198,17 @@ function Game() {
                 <img className="Right" src="/assets/images/sprint/right_arrow.svg" />
               </div>
 
-              <div className="PrononseContainer">
-                <button className="Prononse" onClick={() => { prononse(count); }}>звук</button>
-              </div>
+              <button className="Prononse" onClick={() => { prononse(count); }}>
+                <img className="Prononse_img" src="/assets/images/sprint/sound.svg" />
+              </button>
+
             </div>
           </div>
         </div>
       </StyleGame>
     );
   }
-  return (<StyleGame><Timer initialTime={5} timeOutHandler={onStartGame} /></StyleGame>);
+  return (<StyleGame><Timer initialTime={1} timeOutHandler={onStartGame} /></StyleGame>);
 }
 
 export default Game;
