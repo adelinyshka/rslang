@@ -17,9 +17,6 @@ export default function Startpage({ callback, changeActiveLevel }) {
           </Link>
         </div>
       </div>
-      <div className={styles.LevelSwitcher}>
-        <LevelSwitcher changeActiveLevel={changeActiveLevel} />
-      </div>
       <div className={styles.center_alignment}>
         <h2>
           Аудиовызов
@@ -30,12 +27,15 @@ export default function Startpage({ callback, changeActiveLevel }) {
         <Form>
           <Button
             className={styles.start_btn}
-            onClick={ () => callback(true) }
+            onClick={() => callback(true)}
             type="button"
           >
             Start
           </Button>
         </Form>
+        <div className={styles.LevelSwitcher}>
+          <LevelSwitcher changeActiveLevel={changeActiveLevel} />
+        </div>
       </div>
       <img
         className={styles.decoration}

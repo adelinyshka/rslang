@@ -1,36 +1,36 @@
 .Startpage {
   background-color: #f6f6f6;
-  font-family: 'Exo', sans-serif;
-  position: relative;
-  height: 100vh;
+  font-family     : 'Exo', sans-serif;
+  position        : relative;
+  height          : 100vh;
 }
 
-  @media (max-width: 768px) {
-    .Startpage {
-      height: calc(100vh - 50px);
-    }
+@media (max-width: 768px) {
+  .Startpage {
+    height: calc(100vh - 50px);
   }
+}
 
 .center_alignment {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
+  width          : 100%;
+  height         : 100%;
+  position       : fixed;
+  top            : 0;
+  left           : 0;
+  overflow       : auto;
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  align-content  : center;
   justify-content: center;
-  padding-left: 100px;
+  padding-left   : 100px;
 }
 
-  @media (max-width: 768px) {
-    .center_alignment {
-      padding-left: 0;
-    }
+@media (max-width: 768px) {
+  .center_alignment {
+    padding-left: 0;
   }
+}
 
 .XImage:hover {
   cursor: pointer;
@@ -41,12 +41,12 @@
 }
 
 .Startpage h2 {
-  font-style: normal;
+  font-style : normal;
   font-weight: normal;
-  font-size: 50px;
+  font-size  : 50px;
   line-height: 22px;
-  text-align: center;
-  color: #6979f8;
+  text-align : center;
+  color      : #6979f8;
 }
 
 @media(max-width: 767px) {
@@ -61,55 +61,55 @@
 
 
 .Startpage p {
-  font-style: normal;
+  font-style : normal;
   font-weight: normal;
-  font-size: 20px;
+  font-size  : 20px;
   line-height: 40px;
-  text-align: center;
-  color: #000000;
-  padding: 50px 0 30px;
-  width: 60%;
-  margin: 0 auto;
+  text-align : center;
+  color      : #000000;
+  width      : 60%;
+  margin     : 0 auto;
 }
 
 @media (max-width: 768px) {
   .Startpage p {
-    width: 90%;
+    width      : 90%;
     line-height: 30px;
   }
 }
 
 .Header {
-  display: flex;
+  display        : flex;
   justify-content: flex-end;
-  padding-top: 35px;
+  padding-top    : 35px;
 }
 
 .Footer {
-  display: flex;
+  display        : flex;
   justify-content: flex-end;
 }
 
 .start_btn {
-  background: #0AD1BD;
-  border: #0AD1BD;
-  color: white;
-  width: 175px;
-  height: 48px;
-  margin: 0 auto;
+  background : #0AD1BD;
+  border     : #0AD1BD;
+  color      : white;
+  width      : 175px;
+  height     : 48px;
+  margin     : 0 auto;
   font-weight: bold;
-  font-size: 17px;
-  outline: none;
+  font-size  : 17px;
+  outline    : none;
 }
+
 .start_btn:hover,
 .start_btn:focus,
 .start_btn:active {
-   background: #08A999;
-   outline: none;
- }
+  background: #08A999;
+  outline   : none;
+}
 
 .Game {
-  height: 100vh;
+  height    : 100vh;
   background: linear-gradient(180deg, #7d5db0 0, #b06d9a 72%, #c584a4);
 }
 
@@ -126,18 +126,18 @@
 }
 
 .Notification {
-  display: block;
-  width: 300px;
-  height: 208px;
-  text-align: center;
-  padding-top: 20px;
+  display         : block;
+  width           : 300px;
+  height          : 208px;
+  text-align      : center;
+  padding-top     : 20px;
   background-color: #eedff2;
-  border-radius: 12px;
-  position: absolute;
-  right: 20px;
-  top: 85px;
-  transition: ease-out 0.3s;
-  background: linear-gradient(180deg, #FDAFBB 70%, #eedff2 30%);
+  border-radius   : 12px;
+  position        : absolute;
+  right           : 20px;
+  top             : 85px;
+  transition      : ease-out 0.3s;
+  background      : linear-gradient(180deg, #FDAFBB 70%, #eedff2 30%);
 }
 
 .Hide {
@@ -146,40 +146,40 @@
 
 .Notification img {
   display: block;
-  margin: -30px auto;
+  margin : -30px auto;
   padding: 0;
-  width: 100px;
-  height: 100px;
+  width  : 100px;
+  height : 100px;
 }
 
 .BtnNtfcation {
-  width: 175px;
-  height: 48px;
-  background: #6979f8;
-  border-radius: 6px;
-  border: none;
-  font-family: Exo;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 17px;
-  line-height: 22px;
-  display: flex;
-  align-items: center;
+  width          : 175px;
+  height         : 48px;
+  background     : #6979f8;
+  border-radius  : 6px;
+  border         : none;
+  font-family    : Exo;
+  font-style     : normal;
+  font-weight    : normal;
+  font-size      : 17px;
+  line-height    : 22px;
+  display        : flex;
+  align-items    : center;
   justify-content: center;
-  color: white;
-  margin: 45px auto;
+  color          : white;
+  margin         : 45px auto;
 }
 
 .BtnNtfcation:hover {
   background-color: #6979f8;
-  opacity: 0.7;
-  transition: ease-out 0.1s;
+  opacity         : 0.7;
+  transition      : ease-out 0.1s;
 }
 
 .BtnNtfcation,
 .BtnNtfcation:active,
 .BtnNtfcation:focus {
-  cursor: pointer;
+  cursor : pointer;
   outline: none;
 }
 
@@ -194,20 +194,20 @@
 }
 
 .GamePanel img {
-  display: block;
-  margin: 0 auto;
-  width: 181px;
-  height: 167px;
+  display      : block;
+  margin       : 0 auto;
+  width        : 181px;
+  height       : 167px;
   border-radius: 6px;
 }
 
 .Volume:hover {
   border-radius: 50%;
-  cursor: pointer;
+  cursor       : pointer;
 }
 
 .Volume:active {
-  background-color:rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .HidePicture {
@@ -215,9 +215,9 @@
 }
 
 .Answer {
-  display: flex;
+  display        : flex;
   justify-content: center;
-  margin: 15px 0;
+  margin         : 15px 0;
 }
 
 .AnswerHide {
@@ -225,13 +225,13 @@
 }
 
 .AnswerHide img {
-  width: 46px;
+  width : 46px;
   height: 46px;
   margin: 0;
 }
 
 .Answer img {
-  width: 46px;
+  width : 46px;
   height: 46px;
   margin: 0;
 }
@@ -241,39 +241,39 @@
 }
 
 .Answer p {
-  margin: 12px 40px;
+  margin     : 12px 40px;
   font-family: Exo;
-  font-style: normal;
+  font-style : normal;
   font-weight: bold;
-  font-size: 40px;
+  font-size  : 40px;
   line-height: 22px;
-  color: white;
+  color      : white;
 }
 
 .Words {
-  display: flex;
+  display        : flex;
   justify-content: center;
-  margin-top: 50px;
-  padding: 0px 90px 0 130px;
-  margin-bottom: 80px;
+  margin-top     : 50px;
+  padding        : 0px 90px 0 130px;
+  margin-bottom  : 80px;
 }
 
 .Words p {
-  max-width: 320px;
-  margin: 0 20px;
-  padding: 10px 10px;
+  max-width  : 320px;
+  margin     : 0 20px;
+  padding    : 10px 10px;
   font-family: Exo;
-  font-style: normal;
+  font-style : normal;
   font-weight: normal;
-  font-size: 30px;
+  font-size  : 30px;
   line-height: 30px;
-  color: white;
+  color      : white;
 }
 
 .Words p:hover {
-  cursor: pointer;
+  cursor          : pointer;
   background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 7px;
+  border-radius   : 7px;
 }
 
 .Words p.WrongWords {
@@ -285,25 +285,25 @@
 }
 
 .AnswerBtn {
-  width: 175px;
-  height: 48px;
-  position: relative;
-  margin-top: 40px;
-  left: 50%;
-  transform: translate(-50%, 0);
+  width           : 175px;
+  height          : 48px;
+  position        : relative;
+  margin-top      : 40px;
+  left            : 50%;
+  transform       : translate(-50%, 0);
   background-color: rgba(255, 255, 255, 0);
-  color: white;
-  border: 2px solid white;
-  border-radius: 7px;
-  /* font-family: Exo; */
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: ease-out 0.1s;
+  color           : white;
+  border          : 2px solid white;
+  border-radius   : 7px;
+  /* font-family  : Exo; */
+  font-style      : normal;
+  font-weight     : bold;
+  font-size       : 20px;
+  line-height     : 22px;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  transition      : ease-out 0.1s;
 }
 
 .AnswerBtn:hover {
@@ -313,21 +313,21 @@
 .AnswerBtn,
 .AnswerBtn:active,
 .AnswerBtn:focus {
-  cursor: pointer;
+  cursor : pointer;
   outline: none;
 }
 
 .Shadow {
-  display: flex;
-  position: fixed;
+  display        : flex;
+  position       : fixed;
   justify-content: center;
-  align-items: center;
-  z-index: 5;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background: #0008;
+  align-items    : center;
+  z-index        : 5;
+  width          : 100vw;
+  height         : 100vh;
+  top            : 0;
+  left           : 0;
+  background     : #0008;
 }
 
 .ShadowHide {
@@ -335,57 +335,57 @@
 }
 
 .Warning {
-  width: 700px;
-  height: 430px;
-  padding: 10px 10px;
-  background: linear-gradient(180deg, #FDAFBB 75%, #ffffff 25%);
-  border: 2px solid #d6564f;
+  width        : 700px;
+  height       : 430px;
+  padding      : 10px 10px;
+  background   : linear-gradient(180deg, #FDAFBB 75%, #ffffff 25%);
+  border       : 2px solid #d6564f;
   border-radius: 5px;
-  text-align: left;
-  word-break: break-all;
+  text-align   : left;
+  word-break   : break-all;
 }
 
 .Warning img {
   display: block;
-  margin: auto;
-  width: 150px;
-  height: 150px;
+  margin : auto;
+  width  : 150px;
+  height : 150px;
 }
 
 .Warning p {
-  display: block;
-  margin: auto;
-  width: 310px;
-  height: 80px;
+  display    : block;
+  margin     : auto;
+  width      : 310px;
+  height     : 80px;
   font-family: Roboto;
-  font-style: normal;
+  font-style : normal;
   font-weight: normal;
-  font-size: 20px;
+  font-size  : 20px;
   line-height: 40px;
-  text-align: center;
-  color: #000000;
+  text-align : center;
+  color      : #000000;
 }
 
 .Butns {
-  display: flex;
-  width: 375px;
+  display        : flex;
+  width          : 375px;
   justify-content: space-between;
-  margin: 109px auto;
+  margin         : 109px auto;
 }
 
 .Exit {
-  background: #6979f8;
-  width: 175px;
-  height: 48px;
+  background   : #6979f8;
+  width        : 175px;
+  height       : 48px;
   border-radius: 6px;
-  color: white;
-  border: none;
-  outline: none;
-  font-family: Exo;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 17px;
-  line-height: 22px;
+  color        : white;
+  border       : none;
+  outline      : none;
+  font-family  : Exo;
+  font-style   : normal;
+  font-weight  : normal;
+  font-size    : 17px;
+  line-height  : 22px;
 }
 
 .Exit,
@@ -394,48 +394,51 @@
 .Cancel,
 .Cancel:active,
 .Cancel:focus {
-  cursor: pointer;
+  cursor : pointer;
   outline: none;
 }
 
 .Cancel:hover {
-  opacity: 1;
+  opacity   : 1;
   transition: ease-out 0.1s;
 }
 
 .Exit:hover {
-  opacity: 0.7;
+  opacity   : 0.7;
   transition: ease-out 0.1s;
 }
 
 .Cancel {
-  width: 175px;
-  height: 48px;
+  width           : 175px;
+  height          : 48px;
   background-color: rgba(255, 255, 255, 0);
-  color: #6979F8;
-  border: 2px solid #6979F8;
-  border-radius: 7px;
-  font-family: Exo;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 17px;
-  line-height: 22px;
-  opacity: 0.8;
+  color           : #6979F8;
+  border          : 2px solid #6979F8;
+  border-radius   : 7px;
+  font-family     : Exo;
+  font-style      : normal;
+  font-weight     : bold;
+  font-size       : 17px;
+  line-height     : 22px;
+  opacity         : 0.8;
 }
 
 .LevelSwitcher {
+  position   : absolute;
+  top        : 60px;
   padding-top: 150px;
 }
 
 @media screen and (max-width: 1280px) {
   .Words {
-    display: block;
-    text-align: center;
-    width: 300px;
-    margin: 0 auto;
-    padding: 0;
+    display     : block;
+    text-align  : center;
+    width       : 300px;
+    margin      : 0 auto;
+    padding     : 0;
     padding-left: 30px;
   }
+
   .Words p {
     text-align: left;
   }
@@ -445,16 +448,20 @@
   .Game {
     height: 100%;
   }
+
   .Startpage {
-    height: 100%;
+    height : 100%;
     padding: 0 35px 0 35px;
   }
+
   .Startpage h2 {
     padding: 30px 0;
   }
+
   .Startpage p {
     line-height: 1.5rem;
   }
+
   .Header {
     justify-content: center;
   }
@@ -462,22 +469,27 @@
   .Footer {
     justify-content: center;
   }
+
   .Header {
     display: none;
   }
+
   .GamePanel {
-    padding-top: 50px;
+    padding-top   : 50px;
     padding-bottom: 50px;
-    margin: 0;
+    margin        : 0;
   }
+
   .GamePanel img {
-    width: 100px;
+    width : 100px;
     height: 100px;
   }
+
   .Answer img {
-    width: 46px;
+    width : 46px;
     height: 46px;
   }
+
   .LevelSwitcher {
     padding-top: 40px;
   }
@@ -485,16 +497,16 @@
 
 .decoration {
   position: absolute;
-  height: 400px;
-  width: 400px;
-  bottom: 16px;
-  right: 16px;
+  height  : 400px;
+  width   : 400px;
+  bottom  : 16px;
+  right   : 16px;
 }
 
 @media (max-width: 1280px) {
   .decoration {
     height: 250px;
-    width: 300px;
+    width : 300px;
   }
 }
 
@@ -506,26 +518,26 @@
 
 .cross {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top     : 20px;
+  right   : 20px;
 }
 
 .question {
   position: absolute;
-  top: 20px;
-  right: 70px;
+  top     : 20px;
+  right   : 70px;
 }
 
 .close {
   position: absolute;
-  z-index: 20;
-  top: 20px;
-  right: 20px;
+  z-index : 20;
+  top     : 20px;
+  right   : 20px;
 }
 
 @media (max-width: 520px) {
-  .close{
-    top: 10px;
+  .close {
+    top  : 10px;
     right: 10px;
   }
 }
