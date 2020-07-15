@@ -1,9 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Button,
-} from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import StyleStartScreen from './style.StartScreen';
 
@@ -32,34 +30,41 @@ const StartScreen = () => {
 
   return (
     <StyleStartScreen>
-      <div className="GameNameContainer">
-        <h1 className="GameName">
+      <Link to="../games">
+        <img
+          className="cross"
+          src="/assets/images/sprint/cross.svg"
+          alt="close"
+        />
+        <div className="wrapper-switcher" />
+        <SwitcherLevel
+          changeActiveLevel={changeActiveLevel}
+        />
+      </Link>
+      <div className="center_alignment">
+        <h1 className="title_h2">
         Спринт
         </h1>
-      </div>
-      <div className="Text">
-        <p>
-      Учит быстро переводить с английского на ваш родной язык.
-          <br />
+
+        <div className="game_description">
+      Учит быстро переводить с английского на русский.
       Для этой тренировки используются слова из вашего словаря и
-          <br />
        случайные слова.
-        </p>
+        </div>
+        <Form>
+          <Button
+            className="start_btn"
+            onClick={onInitGame}
+          >
+          Start
+          </Button>
+        </Form>
       </div>
-      <SwitcherLevel
-        changeActiveLevel={changeActiveLevel}
+      <img
+        className="decoration"
+        src="/assets/images/sprint/sprint_startscreen.svg"
+        alt="running man"
       />
-      <Button
-        className="Start_btn"
-        variant="Outline-success"
-        onClick={onInitGame}
-      >
-        Start
-      </Button>
-      <div className="ImgCantainer">
-        <img src="/assets/images/sprint/sprint_startscreen.svg" />
-        <div />
-      </div>
     </StyleStartScreen>
   );
 };
