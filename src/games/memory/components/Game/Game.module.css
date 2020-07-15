@@ -11,10 +11,21 @@
 
 .cross {
   position: absolute;
+  z-index: 2;
   top: 20px;
   right: 30px;
 }
-
+  
+  @media (max-width: 768px) {
+   .cross{
+    right: 13px;
+    top: 5px;
+  }
+}
+  
+  .cross:hover {
+    cursor: pointer;
+  }
 .rules {
   position: absolute;
   top: 20px;

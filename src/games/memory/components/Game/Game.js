@@ -4,11 +4,14 @@ import SwitcherLevel from '../../../../common/components/LevelSwitcher';
 import Card from '../Card/Card';
 import Timer from '../Timer/Timer';
 import Lives from '../Lives/Lives';
-import { Rules, Exit, GameOver } from '../PopUp/Modal';
+// import { Rules, Exit, GameOver } from '../PopUp/Modal';
+import { GameOver } from '../PopUp/Modal';
 import style from './Game.module.css';
 import { setLevel } from '../../redux/index';
 import { levelSelector } from '../../redux/selectors';
 import Dictionary from '../Dictionary/Dictionary';
+import Rules from '../../../../common/components/Modals/Rules';
+import Exit from '../../../../common/components/Modals/Exit';
 
 import {
   setStatusGame,
@@ -102,6 +105,7 @@ function Game() {
 
   const onExit = useCallback(() => {
     dispatch(setStatusGame(false));
+    setIsExit(false);
   }, [dispatch]);
 
   const cardHandler = useCallback((cardId, word, setWord) => {
@@ -128,20 +132,10 @@ function Game() {
             <div className={style.info}>
               <p>Поверните устройство горизонтально</p>
             </div>
-            {isExit ? (
-              <Exit
-                onCansel={() => setIsCansel(false)}
-                onExit={() => onExit}
-              />
-            ) : false}
             <div
-              onClick={() => setIsExit(true)}
+              className={style.cross}
             >
-              <img
-                src="../assets/images/memory/cross.svg"
-                alt="cross"
-                className={style.cross}
-              />
+              <Exit onExit={onExit} />
             </div>
             {isRules ? (
               <Rules
