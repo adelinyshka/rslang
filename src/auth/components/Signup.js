@@ -9,6 +9,8 @@ import { login } from '../redux';
 import loginUser from '../utils';
 import styles from './Auth.module.css';
 
+import { setErrorInfo } from '../../common/redux';
+
 const createUser = async (user) => {
   const url = 'https://afternoon-falls-25894.herokuapp.com/users';
   const rawResponse = await fetch(url, {
@@ -42,17 +44,25 @@ const Signup = () => {
       .then(({ userId, token }) => {
         dispatch(login({ email, token, userId }));
       })
-      .catch((er) => console.log(er));
+      .catch(() => dispatch(setErrorInfo('Ошибка при создании пользователя')));
   }, [email, password, dispatch]);
 
   if (isLogged) return <Redirect to="/main" />;
 
   return (
     <div className={styles.Auth}>
+      <Link to="/">
+        <div className={styles.close}>
+          <img
+            src="/assets/images/common/x.svg"
+            alt="вернуться на промо"
+          />
+        </div>
+      </Link>
       <form onSubmit={submitHandler} className={styles.Form}>
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Имя"
           value={name}
           pattern="[A-Za-z]{1,}"
           onChange={(event) => setName(event.target.value)}
@@ -60,14 +70,14 @@ const Signup = () => {
         />
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Электронная почта"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Пароль"
           value={password}
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[+\-_@$!%*?&#.,;:[\]{}])(?=.*[A-Z]).{8,}"
           onChange={(event) => setPassword(event.target.value)}

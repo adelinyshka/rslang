@@ -1,8 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styles from './Main.module.css';
 import Panel from './Panel';
+import { setCardsMode } from '../../../cards/redux';
 
 export default function Main() {
+  const dispatch = useDispatch();
   const values = [
     { value: 'new', label: 'Новые', defaultChecked: true },
     { value: 'repeat', label: 'Повтор' },
@@ -16,7 +19,7 @@ export default function Main() {
           alt="games"
           header="Мини игры"
           description="6 увлекательных мини игр для тренировки слов"
-          actionName="ИГРАТЬ"
+          actionName="Играть"
         />
         <Panel
           img="./assets/images/Camera.png"
@@ -24,7 +27,7 @@ export default function Main() {
           header="Карточки"
           description="Благодаря методике интервального повторения вы
             быстро пополните свой словарный запас"
-          actionName="УЧИТЬ"
+          actionName="Учить"
         >
           <form>
             {
@@ -35,6 +38,7 @@ export default function Main() {
                     name="gameMode"
                     value={value}
                     defaultChecked={defaultChecked}
+                    onClick={() => dispatch(setCardsMode(value))}
                   />
                   {label}
                 </div>
