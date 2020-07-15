@@ -1,7 +1,7 @@
 .Startpage {
   display: block;
   padding: 0 35px 0 160px;
-  height: 100vh;
+  min-height: 100%;
   background-color: #f6f6f6;
 }
 
@@ -398,6 +398,7 @@
     text-align: center;
     width: 300px;
     margin: 0 auto;
+    padding: 0;
     padding-left: 30px;
   }
   .Words p {
@@ -405,8 +406,12 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
+  .Game {
+    height: 94.9vh;
+  }
   .Startpage {
+    height: 94.9vh;
     padding: 0 35px 0 35px;
   }
   .Startpage h2 {

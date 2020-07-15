@@ -290,7 +290,7 @@ export default function Game({ callback }) {
               setIsWordChosen(true);
               setSumOfWords(sumOfWords - 1);
             }
-            !sumOfWords ? setGameOver(true) : console.log(sumOfWords);
+            !sumOfWords ? setGameOver(true) : setGameOver(false);
           } }
           className={styles.AnswerBtn}
           type="button"
